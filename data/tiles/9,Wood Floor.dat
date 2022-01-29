@@ -1,0 +1,23 @@
+{
+  "TileID": 9,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Poplar Floor",
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 46,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 46,
+  "Mirror": 0,
+  "GlyphCharacter": ".",
+  "IsVisible": true,
+  "IsDirty": true
+}

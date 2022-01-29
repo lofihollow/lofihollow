@@ -1,0 +1,43 @@
+{
+  "TileID": 45,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Hickory Tree",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 243,
+  "Dec": {
+	"Glyph": 242,
+	"R": 0,
+	"G": 127,
+	"B": 0
+  },
+  "SkillableTile": {
+    "HarvestableName": "Hickory Tree",
+    "DepletedName": "Hickory Stump",
+	"HarvestTool": 3,
+	"RequiredSkill": "Woodcutting",
+	"RequiredLevel": 50,
+	"ItemGiven": 12,
+	"DepletedItem": 12,
+	"RestoreTime": "Day",
+	"ExpOnHarvest": 150,
+	"ExpOnDeplete": 160,
+	"HarvestMessage": "You get a hickory log.",
+	"DepleteMessage": "You chop down the hickory tree."
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

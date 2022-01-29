@@ -1,0 +1,367 @@
+﻿MINIMUM SHIPPABLE REQUIREMENTS
+- (DONE) Combat and levelling system implemented
+- (DONE) Inventory implemented
+- (SKIP FOR NOW) NPCs schedules
+- (DONE) NPC dialogue system (gifts, chitchat, missions)
+- (DONE) NPC shops 
+- (DONE) Save/Load game
+- (DONE) Main menu
+- Finish the main town
+- Double check all accessible overworld maps to make sure they're filled out properly
+- (DONE) Farming gameplay
+- Add all the crops
+- Add some fish
+- Finish NPC dialogues
+- (DONE) Construction
+
+
+(DONE) Monsters / Combat [First Sweep]
+(DONE) Multiplayer
+(DONE) Overworld combat
+(DONE) NPC Dialogue, Gifting, and Shops
+(DONE) Menu
+(DONE) UI
+(DONE) Saving/Loading
+(DONE) Construction
+(DONE) Mining
+(DONE) Crafting System
+
+Demo Mode: Play as much as you want, but only up to level 5 in any skill.
+
+Content Needs
+- Fishing: All Spring, All Summer, All Fall, All Winter, All Holiday, 9 All season, 10 trash items
+- Farming: Remaining crops at 25 and below, come up with crops above 25.
+- Mining: At least a few more ore tiers
+- Construction: Walls/Floor/Door in each tier of wood, Stone wall/floor, 
+- NPC Dialogue
+- Cooking: Recipes to cook food
+- Smithing: Recipes for armor, weapons, and tools at each tier.
+- Monsters: Add a variety of monsters for at least the first 20-30 combat levels
+- Missions: All the missions for Chapter 1
+
+
+Let players restrict access to containers
+Multiplayer Loading Screen: Connected, Received Host Farm, Received NPCs, Received entity data
+Make sure produce items have accurate-enough sprites
+
+
+Make attacking slower so monsters don't eviscerate the player instantly
+
+Ways to earn money at the start
+- Adventurers Guild kill quests
+- Couriers guild deliveries
+- Job minigames
+
+Kaalista's Monster Pens
+- (DONE) Three slots that can hold a monster each
+- Put monsters in there via finding eggs as drops from monsters
+- Have to take care of them by giving them food (specify what their diet is, player has to provide that kind of food)
+- When fully grown they provide drops the monster normally has, directly sold for a lump sump, or slaughtered and butchered
+
+
+Day/Night System
+- Overworld is lit during the day
+- Shade and restrict FOV while in darkness
+- Add light sources
+
+Item Qualities
+- Value is for a quality of 10, divide by 10 and multiply by quality for actual value (only on things with a quality)
+- Let shops specify what quality of each item they sell
+
+
+Cooking
+- Flexible Ingredient tags: Fruit, Vegetable, Egg, Cooked Meat, Cooked Fish, Raw Meat, Raw Fish, Water, Oil, Flour
+- Cooking Tool Tags: Frying, Rolling, Cutting, Mixing, Grinding
+- Seasonings: Salt, Soy Sauce, Miso, Sugar, Cinnamon, 
+- (DONE) Every ingredient must have a quality level associated with it, from 1 to 10
+- (DONE) Finished dishes use the average of all the ingredients to determine final quality 
+- (DONE) Value of food is at Quality 10, divide by 10 and multiply by quality level to get price
+
+- Cooking Minigames
+- - Each recipe specifies which minigame you do. 
+- - If you succeed at the minigame your skill cap is increased by 1, if you fail it's reduced by 2. Skip the minigame for a 1 tier penalty
+- - Chopping: Alternate pressing two keys in a rhythm to chop as fast as possible
+- - Frying: Cube of meat that you can flip between spots on a grid, have to fry all sides equally without burning any or flipping it off the side
+- - - Meat comes in different sizes, you can choose when to add it but you have to get all the pieces cooked, and all pieces move at once
+- - - Thin meat like bacon that only has two sides
+- - 
+
+
+Effects System
+- Effect Delivery Structure: Name, ID, Duration in (Game) Minutes, List of all effects
+- Effect Structure: Name, UI icon, UI RGB, Stat affected, modifier, 
+
+
+
+Skills still needing implementing:
+- Alchemy: Minigame that involves mixing/altering potions to reach specific values, then fire the potion to get a finished product
+- Ranged
+- Magic
+- Construction: Furniture crafting recipes
+- Crafting (the actual crafting skill): Turn cotton, flax, wool into cloth. Other misc crafting stuff
+- Farming: Farming-related crafting recipes
+- Tinkering: A crafting skill focused on technologial creations
+
+Flexible tile properties
+
+
+Monster Corpses
+- Corpse data: Name, Blood type, Blood quantity, Hide type, Hide amount, Meat amount, Misc Materials, Butcher Exp
+- Material Structure: Name, ID (category), SubID (creature ID), RGBA values
+- Misc materials: Horn, Teeth, Hair
+- Butchering skill: Level + 1 as percent of each material received, level by butchering
+
+
+Farm Animals
+- Tools
+- - Brush: Improves relationship
+- - Feed: Feeds animals
+- - Shears: Shear wool off sheep
+- - Add a butchering quality to knives, can be used to butcher any killed monster
+- Chickens - Lay eggs
+- Cows
+- Sheep - Can be sheared for wool
+- Pigs
+
+
+Fishing 
+- Upgraded fishing rods should be more stress resistant or reel in fish faster
+- Make fishing rod lose durability when the line breaks, only let you fish if it has durability left 
+- Fill out the fishopedia with at least 1 unique fish per combination of zone, season, and time 
+- Zones: River, Beach, Lake
+- Seasons: Spring, Summer, Fall, Winter, Holiday
+- Times: Morning (before 11am), Day (11am - 5pm), Evening (5pm - 9pm), Night (9pm - 2am)
+- Level brackets: 1, 10, 20, 30, 40, 50, 60, 70, 80, 90
+- Total number of fish needed: 3 zones x 5 seasons x 4 times x 10 levels = 600. Also add 10 extra fish that show up everywhere
+- Have a visible Fish-o-pedia in-game that fills out with information on fish you've actually caught.
+- - Include a minimum caught weight, maximum caught weight, their value when sold, location info, and level requirement
+- Let other players in multiplayer see your lure when you cast it
+ 
+
+Quests / Story Missions?
+- (DONE) Make sure quests can require things
+- (DONE) Make a quest log that shows all known/active/completed missions
+- (DONE) Track constructions as a mission requirement
+- (DONE) Track acquired items for mission requirements
+- Make sure missions you can't start don't show up in the list (or show up as question marks)
+- Track monsters killed as a possible mission requirement
+ 
+
+
+The Sound Effect-ening
+- Door open/close
+- Combat swipes
+- Fishing
+- - Cast
+- - Reel in
+- Watering Can
+- Harvesting crops
+- Till ground
+- Mining
+- - Break block
+
+Mod Support
+- Implement the steam workshop
+- In-game mod making tools
+- WIP Sandbox to make changes or upload to workshop
+- Browse workshop mods in-game
+
+Farming
+- Seeds: only plantable in the correct season and only if you have a high enough farming level
+- - Spring Crops: (DONE)
+- - Summer Crops: Onion (1), Corn (R) (15),
+- - Fall Crops: Sweet Potato (5), Bell Pepper (10)
+- - Winter Crops: Broccoli (1), Lettuce (5), Kale (10), Snow peas (15), Broad Beans (r) (20),
+- - Year Round: Flavoroot (1), Cotton (20), Sugar cane (40), 
+		Healroot (50), Bamboo (60), Soybean (70), Tea leaves (90)
+
+NPCs
+- Noonbreeze NPCs
+- - Cinnamon (Town Hall Cashier)
+- - Tom (Owns the bar) (Placed)
+- - Jasper (General Store Owner) (Placed)
+- - Jet (Blacksmith) (Placed, Greetings, ChitChat)
+- - Emerald (Apothecary) (Placed)
+- - Rose (Apothecary)
+- - Cobalt (Scholar, frequents the library)
+- - Zephyr (Tailor) (Placed)
+- - Sapphire (Bakery / Cafe) (Placed)
+- - William (Butcher) (Placed)
+- - Willow (Clinic)
+- - Ash (Innkeeper) (Placed)
+- - Anemone (Inn housekeeping) (Placed, Greetings)
+- - Slate (Cemetary groundskeeper)
+- - Paprika (Sapphire's kid) (Placed)
+- - Saffron (Farm Supply) (Placed, Shop)
+- - Indigo (Inventor)
+- - Cedar (Mayor)
+- Courier's Guild
+- - Algae (Guild leader)
+- - Poppy (Guild worker)
+- - Tak Deeb (Courier)
+- - Vanilla (Guild worker)
+- Adventurer's Guild
+- - Cinnabar (Leader) (Placed)
+- - Kelp (Merchant) (Placed)
+- - Nickel (Worker) (Placed)
+- - Anise (becomes Cypress after missions) (Adventurer) (Placed)
+- Merchant's Guild
+- - - Sterling (Leader)
+- - - Jasmine (Treasurer)
+- - - Iris (Local Trade)
+- - - Morganite (Regional Trade)
+- - - Cedar (Merchant)
+- - - Rose (Merchant)
+- - - Coral (Worker) 
+- Phoebe (Pet / summon shop owner)
+
+NPC names are themed based on where they're from
+- Noonbreeze: Flowers (Jasmine, Indigo, Poppy, Rose)
+- Ocean region: Sealife (Kelp, Coral, Anemone)
+- Forest region: Trees (Oak, Ash, Willow, Cedar)
+- City region: Minerals  (Sapphire, Flint, Jasper, etc)
+- Desert region: Spices (Paprika, Saffron, Anise, Vanilla, Cinnamon, Caraway)
+
+
+
+Map 
+- Primary small town
+- - Adventurer's Guild (Gives kill tasks?)
+- - Apothecary (Sells potions and potion ingredients)
+- - General Store (Sells general goods - seeds, food)
+- - Inn (Allows the player to pay some gold for a room, must pay cost each night)
+- - Cemetary (Graves that act like signs)
+- - Library (Bookcases act like signs?)
+- - Clinic (Pay for healing) 
+- - Cafe / Bakery
+- - Butcher (Buys meat from the player, sells common meats)
+- - Clothier (Sells cloth and clothing items)
+
+
+====================
+FUTURE UPDATE TARGETS
+
+
+Dumb Ideas that could be fun/funny:
+- Jump button that moves you up a level and hovers you there for a second)
+- - Build up velocity by running before a jump to move tiles while you're in the air, up to 4 tiles of velocity
+- - Maybe as a reward for a dungeon? You get spring shoes and can then jump, spring shoes required to enter/complete the next dungeon
+- Small chance for an NPC named "the devil" to appear on top of a chopped hickory tree, secret mission to beat him at a rhythm game when you speak to him
+- Camera mechanic: When held in hand and clicked, capture area around cursor. Output to a photo item
+- A space area with simulated atmos
+
+Arcade games / Computer? / Console
+- Games run using lua scripts via interpreter
+- Arcade machines have one built-in game they play
+- Consoles (and handhelds?) have carts you can swap out to play different games
+- Computers have disks you can switch and also an OS wrapped with other functions
+- Default font file for games is the normal LH tilesheet, but individual games can opt into using a custom tilesheet
+- Computer Apps
+- - Games with online matchmaking? Chess, shogi, etc. Maybe ranked and unranked
+- - GameDev Studio: All the tools for making games (script editor, tile editor, map editor) in one spot. Save to computers disk drive or upload to steam workshop
+- - IRC: Connect to a public IRC channel or similar to chat with other people playing the game
+- - VR/Cyberspace thing: Connect to an actual server hosted by me, able to walk around in a virtual space talking to other people also connected
+- - "Web Browser": Navigate between fake webpages and domains.
+- - - MyHollow: Let people make their own profile page and export to the workshop
+- - - MyHollow: Browse all pages that are currently on the workshop
+- - - Mail Order shops: Pay for items using banked currency, receive them in the mail
+
+
+Mining Expansion
+- Tools that are useable in the Mines
+- - Grapple Hook (shoot at ceiling, swing across gaps)
+- - Bow (Fire arrows at enemies, or attach a rope to a spot)
+- Create the possibility of premade structures in the mines?
+- Hazards in the mine?
+- - Monsters
+- - Lava
+- - Water
+- - Falling Boulders - Fall if nothing is below them
+- Fluid Physics
+- - Liquid moves to the lowest point 
+- - Fractional liquid portions in a tile, set the air tile glyph to the liquid portion
+
+
+
+Shop Mode
+- A shop that you can buy in town
+- Pedestals on which you can place and price items
+- Extra item stats required: Value, Condition
+- Friendly NPCs will be willing to pay more, unfriendly NPCs pay less
+- Each NPC has a chance to buy items they would like as gifts
+- Giving a good deal on an item increases NPC relations, bad deal decreases relations
+
+
+Minigames
+- Card-based Minigames
+- - Solitaire
+- - Blackjack
+- - Poker
+- Casino Games
+- - Roulette
+- - Slot machine
+- - Pachinko?
+- Multiplayer Boardgames
+- - Chess
+- - Checkers
+- - Mancala
+- - Four In A Row
+- - Yacht Dice
+- - Gomoku
+- - Shogi
+- Job Minigames
+- - Bartending (at Tom's Bar)
+
+
+
+Achievements
+- Each time you fill the requirements for an achievement, put the milliseconds since day start in the log
+- Kill Feed Achievements
+- - Meticulous: Get z-a in order backwards, spelling the alphabet in the feed
+- - METICULOUS: Get Z-A (capitals) in order backwards, spelling the alphabet in the feed
+- - Obsessive and Compulsive: Get Z-A and then z-a, spelling the alphabet in lower case on the top line of the feed and in caps on the bottom
+- - Maturity: Spell boobs in the kill feed
+- - Funny Business: Spell "lol" in the kill feed
+- - Funnier Business: Spell "lmao" in the kill feed
+- - Funniest Business: Spell "lmfao" in the kill feed
+- Map Clear Achievements (10, 20, 50, 100 maps in a single day)
+- 99 in each skill
+- 99 in all skills
+- Max out relationship with 1, 5, 10, 20 NPCs
+- Get to -100 relationship with 1, 5, 10, 20 NPCs
+- Max relationship with a shop vendor
+- -100 relationship with a shop vendor
+
+Conducts? - Keep a record of how many years/months/days you've gone without breaking the conduct
+- Vegan
+- Vegetarian
+- Pacifist (Never level up a combat stat)
+
+
+
+Bespoke Dungeons?
+- Unique puzzle mechanic for each dungeon
+- Boss fight at the end?
+- Tower dungeon
+- Lake dungeon
+- Tree-top forest
+- Dungeon underneath Noonbreeze
+
+
+
+
+City
+- At least 9x9
+- Lots of flavor buildings - Restaurants, shops, etc
+- Rentable apartment - have to pay a certain amount each month
+- Minigame jobs to earn money
+
+
+Magic
+- Spell Programming?
+
+Cultivation
+- Also ability programming, but you can tie it to melee/ranged attacks
+- Trained via a meditation minigame with huge rewards every 10 levels.
+- Meditation minigame gives a base of 1 exp per cycle, increased in areas dense with spiritual energy
+- Skill is named "Meditation" until level 10, then changes to be named Cultivation after that

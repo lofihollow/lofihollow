@@ -1,0 +1,26 @@
+{
+  "Name": "Fish Fillet",
+  "FinishedID": "lh:Fish Fillet",
+  "FinishedQty": 1,
+  "Skill": "Cooking",
+  "RequiredLevel": 1,
+  "ExpGranted": 10,
+  "HasQuality": true,
+  "WeightBasedOutput": true,
+  "SpecificMaterials": [ ],
+  "GenericMaterials": [ 
+    {
+      "Property": "Raw Fish",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [
+    {
+      "Property": "Cutting",
+      "Tier": 1
+    }
+  ]
+}

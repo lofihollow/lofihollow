@@ -1,0 +1,29 @@
+{
+  "TileID": 75,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Well",
+  "ForegroundR": 127,
+  "ForegroundG": 127,
+  "ForegroundB": 127,
+  "TileGlyph": 285,
+  "Dec": {
+	"Glyph": 286,
+	"R": 0,
+	"G": 94,
+	"B": 184
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 205,
+  "Mirror": 0,
+  "GlyphCharacter": "Í",
+  "IsVisible": true,
+  "IsDirty": true
+}

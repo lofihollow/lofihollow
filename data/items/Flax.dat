@@ -1,0 +1,16 @@
+{
+  "Name": "Flax",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Has many uses.",
+  "Description": "",
+  "AverageValue": 50,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 253,
+  "ForegroundG": 200,
+  "ForegroundB": 21,
+  "ItemGlyph": 296
+}

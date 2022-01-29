@@ -1,0 +1,23 @@
+{
+  "TileID": 27,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Sign",
+  "ForegroundR": 155,
+  "ForegroundG": 103,
+  "ForegroundB": 60,
+  "TileGlyph": 8,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 8,
+  "Mirror": 0,
+  "GlyphCharacter": "\b",
+  "IsVisible": true,
+  "IsDirty": true
+}

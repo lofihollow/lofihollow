@@ -1,0 +1,23 @@
+{
+  "TileID": 30,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Down Stairs",
+  "ForegroundR": 255,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "TileGlyph": 60,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4294967295
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 60,
+  "Mirror": 0,
+  "GlyphCharacter": "<",
+  "IsVisible": true,
+  "IsDirty": true
+}

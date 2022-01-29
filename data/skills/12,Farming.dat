@@ -1,0 +1,12 @@
+{
+  "SkillID": 12,
+  "Name": "Farming",
+  "Level": 1,
+  "Experience": 0, 
+  "Uses": [
+	"1,20,Plant Potatoes in Spring",
+	"5,23,Plant Turnips in Spring",
+	"10,24,Plant Cabbages in Spring",
+	"15,25,Plant Cauliflower in Spring"
+  ]
+}

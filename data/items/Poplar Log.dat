@@ -1,0 +1,32 @@
+{
+  "Name": "Poplar Log",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "A poplar log",
+  "Description": "",
+  "AverageValue": 5,
+  "Weight": 1.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph":330,
+  "Craft": [
+	{
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": true
+    },
+	{
+      "Property": "Wood",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "TileID": 65,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Copper Ore",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 243,
+  "Dec": {
+	"Glyph": 242,
+	"R": 0,
+	"G": 127,
+	"B": 0
+  },
+  "SkillableTile": {
+    "HarvestableName": "Copper Ore",
+    "DepletedName": "Rock",
+	"HarvestTool": 2,
+	"RequiredSkill": "Mining",
+	"RequiredLevel": 0,
+	"ItemGiven": 17,
+	"DepletedItem": 17,
+	"RestoreTime": "Day",
+	"ExpOnHarvest": 25,
+	"ExpOnDeplete": 30,
+	"HarvestMessage": "You get a poplar log.",
+	"DepleteMessage": "You chop down the poplar tree."
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

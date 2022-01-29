@@ -1,0 +1,23 @@
+{
+  "Name": "Flour",
+  "FinishedID": "lh:Flour",
+  "FinishedQty": 1,
+  "Skill": "Cooking",
+  "RequiredLevel": 1,
+  "ExpGranted": 10,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Wheat",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [
+    {
+      "Property": "Grinding",
+      "Tier": 1
+    }
+  ]
+}

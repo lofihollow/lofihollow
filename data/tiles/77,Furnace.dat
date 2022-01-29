@@ -1,0 +1,30 @@
+{
+  "TileID": 77,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Furnace",
+  "MiscString": "Skill,Smithing,Furnace,1",
+  "ForegroundR": 57,
+  "ForegroundG": 57,
+  "ForegroundB": 57,
+  "TileGlyph": 279,
+  "Dec": {
+	"Glyph": 280,
+	"R": 255,
+	"G": 255,
+	"B": 255
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 205,
+  "Mirror": 0,
+  "GlyphCharacter": "Í",
+  "IsVisible": true,
+  "IsDirty": true
+}

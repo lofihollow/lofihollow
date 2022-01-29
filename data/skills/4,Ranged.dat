@@ -1,0 +1,18 @@
+{
+  "SkillID": 4,
+  "Name": "Ranged",
+  "Level": 1,
+  "Experience": 0, 
+  "Uses": [
+	"1,0,Poplar Bow",
+	"10,0,Cedar Bow",
+	"20,0,Birch Bow",
+	"30,0,Teak Bow",
+	"40,0,Maple Bow",
+	"50,0,Hickory Bow",
+	"60,0,Mahogany Bow",
+	"70,0,Cherry Bow",
+	"80,0,Ebony Bow",
+	"90,0,Enchanted Bow"
+  ]
+}

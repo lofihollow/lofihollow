@@ -1,0 +1,25 @@
+{
+  "Name": "Poplar Plank",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A poplar plank",
+  "Description": "",
+  "AverageValue": 2,
+  "Weight": 1.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 331,
+  "Craft": [
+	{
+      "Property": "Plank",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ]
+}

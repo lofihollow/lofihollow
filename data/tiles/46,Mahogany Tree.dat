@@ -1,0 +1,43 @@
+{
+  "TileID": 46,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Mahogany Tree",
+  "ForegroundR": 80,
+  "ForegroundG": 36,
+  "ForegroundB": 3,
+  "TileGlyph": 243,
+  "Dec": {
+	"Glyph": 242,
+	"R": 0,
+	"G": 127,
+	"B": 0
+  },
+  "SkillableTile": {
+    "HarvestableName": "Mahogany Tree",
+    "DepletedName": "Mahogany Stump",
+	"HarvestTool": 3,
+	"RequiredSkill": "Woodcutting",
+	"RequiredLevel": 60,
+	"ItemGiven": 13,
+	"DepletedItem": 13,
+	"RestoreTime": "Month",
+	"ExpOnHarvest": 200,
+	"ExpOnDeplete": 2000,
+	"HarvestMessage": "You get a mahogany log.",
+	"DepleteMessage": "You chop down the mahogany tree."
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

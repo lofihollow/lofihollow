@@ -1,0 +1,16 @@
+{
+  "Name": "Coffee Bean",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 30,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 296
+}

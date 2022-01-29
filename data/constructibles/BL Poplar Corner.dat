@@ -1,0 +1,25 @@
+{ 
+  "Name": "Poplar Corner",
+  "Materials": "10x Poplar Planks, 40x Copper Nails",
+  "Glyph": 200,
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "Dec": null,
+  "RequiredLevel": 1,
+  "ExpGranted": 20,
+  "BlocksMove": true,
+  "BlocksLOS": true,
+  "MaterialsNeeded": [
+    {
+      "Name": "Poplar Plank",
+      "SubID": 0,
+      "ItemQuantity": 10
+    },
+	{
+      "Name": "Copper Nails",
+      "SubID": 0,
+      "ItemQuantity": 40
+    }
+  ]
+}

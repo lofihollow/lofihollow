@@ -1,0 +1,16 @@
+{
+  "Name": "Blueberry",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 60,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 0,
+  "ForegroundG": 0,
+  "ForegroundB": 127,
+  "ItemGlyph": 296
+}

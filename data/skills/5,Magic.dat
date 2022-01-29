@@ -1,0 +1,9 @@
+{
+  "SkillID": 5,
+  "Name": "Magic",
+  "Level": 1,
+  "Experience": 0, 
+  "Uses": [
+	"1,0,Spells"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "TileID": 26,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": true,
+  "Name": "Tall Grass",
+  "ForegroundR": 0,
+  "ForegroundG": 127,
+  "ForegroundB": 0,
+  "TileGlyph": 42,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 42,
+  "Mirror": 0,
+  "GlyphCharacter": "*",
+  "IsVisible": true,
+  "IsDirty": true
+}

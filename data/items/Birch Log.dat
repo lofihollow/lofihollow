@@ -1,0 +1,32 @@
+{
+  "Name": "Birch Log",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "A birch log",
+  "Description": "",
+  "AverageValue": 20,
+  "Weight": 1.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 240,
+  "ForegroundG": 240,
+  "ForegroundB": 240,
+  "ItemGlyph":330,
+  "Craft": [
+	{
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": true
+    },
+	{
+      "Property": "Wood",
+      "Tier": 20,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": false
+    }
+  ]
+}

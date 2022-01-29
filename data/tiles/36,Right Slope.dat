@@ -1,0 +1,23 @@
+{
+  "TileID": 36,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Right Slope",
+  "ForegroundR": 200,
+  "ForegroundG": 200,
+  "ForegroundB": 200,
+  "TileGlyph": 12,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4291348680
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 12,
+  "Mirror": 0,
+  "GlyphCharacter": "\f",
+  "IsVisible": true,
+  "IsDirty": true
+}

@@ -1,0 +1,23 @@
+{
+  "Name": "Bread",
+  "FinishedID": "lh:Bread",
+  "FinishedQty": 1,
+  "Skill": "Cooking",
+  "RequiredLevel": 1,
+  "ExpGranted": 10,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Dough",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": false
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [
+    {
+      "Property": "Oven",
+      "Tier": 1
+    }
+  ]
+}

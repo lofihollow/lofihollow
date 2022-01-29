@@ -1,0 +1,43 @@
+{
+  "TileID": 49,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Enchanted Tree",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 243,
+  "SkillableTile": {
+    "HarvestableName": "Enchanted Tree",
+    "DepletedName": "Enchanted Stump",
+	"HarvestTool": 3,
+	"RequiredSkill": "Woodcutting",
+	"RequiredLevel": 90,
+	"ItemGiven": 16,
+	"DepletedItem": 16,
+	"RestoreTime": "Year",
+	"ExpOnHarvest": 1000,
+	"ExpOnDeplete": 10000,
+	"HarvestMessage": "You get an enchanted log.",
+	"DepleteMessage": "You chop down the enchanted tree."
+  },
+  "Dec": {
+	"Glyph": 242,
+	"R": 0,
+	"G": 202,
+	"B": 177
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

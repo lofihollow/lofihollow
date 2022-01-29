@@ -1,0 +1,30 @@
+{
+  "Name": "Bed",
+  "Materials": "6x Poplar Planks, 24x Bronze Nails, 2x Cloth",
+  "Glyph": 13,
+  "ForegroundR": 171,
+  "ForegroundG": 35,
+  "ForegroundB": 40,
+  "Dec": {
+	"Glyph": 14,
+	"R": 255,
+	"G": 255,
+	"B": 255
+  },
+  "RequiredLevel": 5,
+  "ExpGranted": 30,
+  "BlocksMove": false,
+  "BlocksLOS": false,
+  "MaterialsNeeded": [
+    {
+      "Name": "Poplar Plank",
+      "SubID": 0,
+      "ItemQuantity": 6
+    },
+	{
+      "Name": "Copper Nails",
+      "SubID": 0,
+      "ItemQuantity": 24
+    }
+  ]
+}

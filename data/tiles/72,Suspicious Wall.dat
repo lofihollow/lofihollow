@@ -1,0 +1,23 @@
+{
+  "TileID": 72,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Suspicious Wall",
+  "ForegroundR": 155,
+  "ForegroundG": 103,
+  "ForegroundB": 60,
+  "TileGlyph": 186,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 205,
+  "Mirror": 0,
+  "GlyphCharacter": "Í",
+  "IsVisible": true,
+  "IsDirty": true
+}

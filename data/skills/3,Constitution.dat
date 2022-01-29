@@ -1,0 +1,9 @@
+{
+  "SkillID": 3,
+  "Name": "Constitution",
+  "Level": 10,
+  "Experience": 0, 
+  "Uses": [
+	"1,0,Levels grant more Hit Points!"
+  ]
+}

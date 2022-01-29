@@ -1,0 +1,23 @@
+{
+  "TileID": 24,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Sand",
+  "ForegroundR": 165,
+  "ForegroundG": 127,
+  "ForegroundB": 0,
+  "TileGlyph": 61,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222757
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 61,
+  "Mirror": 0,
+  "GlyphCharacter": "=",
+  "IsVisible": true,
+  "IsDirty": true
+}

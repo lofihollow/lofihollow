@@ -1,0 +1,153 @@
+{
+  "Visible": false,
+  "CurrentStage": 0,
+  "Name": "Shipwrecked",
+  "Package": "lh",
+  "Chapter": 1,
+  "Stages": [
+    {
+      "CurrentDialogue": 0,
+      "Dialogue": {
+        "0": {
+          "Text": "Hey there! Don't think I've seen you around before.",
+          "Responses": [
+            {
+              "Text": "Where am I?",
+              "LeadsToDialogue": 1,
+              "GoToStage": -1
+            }
+          ]
+        },
+        "1": {
+          "Text": "This is our humble town of Noonbreeze. How'd you come to be here without knowing that?",
+          "Responses": [
+            {
+              "Text": "Ship capsized in a storm.",
+              "LeadsToDialogue": 2,
+              "GoToStage": -1
+            },
+            {
+              "Text": "None of your business.",
+              "LeadsToDialogue": 3,
+              "GoToStage": -1
+            }
+          ]
+        },
+		"2": {
+          "Text": "You were sailing in that storm? It was bad even here in town, you're lucky to be alive!",
+          "Responses": [
+            {
+              "Text": "Is there somewhere I can stay here?",
+              "LeadsToDialogue": 4,
+              "GoToStage": -1
+            }
+          ]
+        },
+		"3": {
+          "Text": "Fair enough, we've all got our secrets.",
+          "Responses": [
+            {
+              "Text": "Is there somewhere I can stay here?",
+              "LeadsToDialogue": 4,
+              "GoToStage": -1
+            }
+          ]
+        },
+		"4": {
+          "Text": "Your best bet would probably be the inn on the north side of town.|   Look for the big stone building with the courtyard, the inn is|   in the back corner.||Talk to Ash about a room.",
+          "Responses": [
+            {
+              "Text": "Got it, thanks!",
+              "LeadsToDialogue": 0,
+              "GoToStage": 1,
+			  "EndsDialogue": true
+            }
+          ]
+        }
+      },
+      "SkillLevelRequirements": {},
+      "MissionRequirements": {},
+      "RelationshipRequirements": {},
+      "NPC": "Any",
+      "Summary": "Find and talk to a local to get information."
+    },
+	{
+      "CurrentDialogue": 0,
+      "Dialogue": {
+        "0": {
+          "Text": "Welcome to my inn! Rooms are 30 coppers a night, 20 for first time guests!",
+          "Responses": [
+			{
+              "Text": "Okay. [-20 copper]",
+              "LeadsToDialogue": 3,
+              "GoToStage": 2,
+			  "EndsDialogue": true,
+			  "ItemGiven": "lh:Inn Key",
+			  "CurrencyRequirements": {
+			    "Copper": 20
+			  }
+			},
+			{
+              "Text": "How about a free room for a friend? [Relationship 50]",
+              "LeadsToDialogue": 2,
+              "GoToStage": -1,
+			  "EndsDialogue": false,
+			  "RelationshipRequirements": {
+			    "Ash": 50
+			  }
+			},
+            {
+              "Text": "I don't have 20 coppers.",
+              "LeadsToDialogue": 1,
+              "GoToStage": -1,
+            },
+			{
+              "Text": "Okay, I'll be back with 20 coppers.",
+              "LeadsToDialogue": 0,
+              "GoToStage": -1,
+			  "EndsDialogue": true
+            }
+          ]
+        },
+		"1": {
+          "Text": "Listen, I've got a business to run|| If I knew you better maybe I could make an exception, but right now|you're just a stranger looking for a free room.",
+          "Responses": [
+			{
+              "Text": "Okay.",
+              "LeadsToDialogue": 0,
+              "GoToStage": -1,
+			  "EndsDialogue": true
+			},
+            {
+              "Text": "Fine, here's the money. [-20 copper]",
+              "LeadsToDialogue": 0,
+              "GoToStage": 2,
+			  "EndsDialogue": true,
+			  "ItemGiven": "lh:Inn Key",
+			  "CurrencyRequirements": {
+			    "Copper": 20
+			  }
+            }
+          ]
+        },
+		"2": {
+          "Text": "For you, @, of course! Just don't tell anyone I've got a |soft spot, I still need to make money somehow!||Here's a key for one of the rooms upstairs.",
+          "Responses": [
+			{
+              "Text": "Thanks!",
+              "LeadsToDialogue": 0,
+              "GoToStage": 2,
+			  "EndsDialogue": true,
+			  "ItemGiven": "lh:Inn Key"
+			}
+          ]
+        }
+	  },
+      "SkillLevelRequirements": {},
+      "MissionRequirements": {},
+      "RelationshipRequirements": {},
+      "NPC": "Ash",
+      "Summary": "Go find the Inn and speak to Ash."
+    }
+  ]
+}

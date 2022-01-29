@@ -1,0 +1,23 @@
+{
+  "TileID": 12,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Bridge",
+  "ForegroundR": 150,
+  "ForegroundG": 150,
+  "ForegroundB": 150,
+  "TileGlyph": 240,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4288059030
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 240,
+  "Mirror": 0,
+  "GlyphCharacter": "ð",
+  "IsVisible": true,
+  "IsDirty": true
+}

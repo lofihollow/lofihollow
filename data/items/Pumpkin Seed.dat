@@ -1,0 +1,66 @@
+{
+  "Name": "Pumpkin Seed",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Grows pumpkins (20)",
+  "Description": "",
+  "AverageValue": 5,
+  "Weight": 0,
+  "ItemCategory": 9,
+  "EquipSlot": -1,
+  "ForegroundR": 255,
+  "ForegroundG": 215,
+  "ForegroundB": 0,
+  "ItemGlyph": 290,
+  "Plant":  {
+    "GrowthSeason": "Fall",
+	"ProduceName": "Pumpkin",
+	"ProduceValue": 120,
+	"ProduceWeight": 0.1,
+	"ProducePerHarvestMin": 1,
+	"ProducePerHarvestMax": 1,
+	"ProduceIsSeed": false,
+	"HarvestRevert": -1,
+	"RequiredLevel": 20,
+	"ExpOnHarvest": 80,
+	"ExpPerExtra": 5,
+	"Stages": [
+		{
+			"DaysToNext": 0,
+			"ColorR": 110,
+			"ColorG": 66,
+			"ColorB": 33,
+			"Glyph": 291
+		},
+		{
+			"DaysToNext": 3,
+			"ColorR": 0,
+			"ColorG": 127,
+			"ColorB": 0,
+			"Glyph": 300
+		},
+		{
+			"DaysToNext": 4,
+			"ColorR": 0,
+			"ColorG": 127,
+			"ColorB": 0,
+			"Glyph": 301
+		},
+		{
+			"DaysToNext": 0,
+			"HarvestItem": "lh:Pumpkin",
+			"ColorR": 255,
+			"ColorG": 215,
+			"ColorB": 0,
+			"Glyph": 302,
+			"Dec": { 
+				"Glyph": 307,
+				"R": 0,
+				"G": 127,
+				"B": 0 
+			}
+		}
+	]
+  }
+}

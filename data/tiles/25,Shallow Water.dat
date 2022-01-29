@@ -1,0 +1,23 @@
+{
+  "TileID": 25,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": true,
+  "Name": "Shallow Water",
+  "ForegroundR": 38,
+  "ForegroundG": 102,
+  "ForegroundB": 145,
+  "TileGlyph": 247,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4287718950
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 247,
+  "Mirror": 0,
+  "GlyphCharacter": "÷",
+  "IsVisible": true,
+  "IsDirty": true
+}

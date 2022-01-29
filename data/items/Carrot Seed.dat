@@ -1,0 +1,63 @@
+{
+  "Name": "Carrot Seed",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Grows carrots (0)",
+  "Description": "",
+  "AverageValue": 5,
+  "Weight": 0,
+  "ItemCategory": 9,
+  "EquipSlot": -1,
+  "ForegroundR": 255,
+  "ForegroundG": 215,
+  "ForegroundB": 0,
+  "ItemGlyph": 290,
+  "Plant":  {
+    "GrowthSeason": "Fall",
+	"ProducePerHarvestMin": 1,
+	"ProducePerHarvestMax": 3,
+	"ProduceIsSeed": false,
+	"HarvestRevert": -1,
+	"RequiredLevel": 0,
+	"ExpOnHarvest": 20,
+	"ExpPerExtra": 5,
+	"Stages": [
+		{
+			"DaysToNext": 0,
+			"ColorR": 110,
+			"ColorG": 66,
+			"ColorB": 33,
+			"Glyph": 291
+		},
+		{
+			"DaysToNext": 3,
+			"ColorR": 0,
+			"ColorG": 127,
+			"ColorB": 0,
+			"Glyph": 292
+		},
+		{
+			"DaysToNext": 2,
+			"ColorR": 0,
+			"ColorG": 127,
+			"ColorB": 0,
+			"Glyph": 293
+		},
+		{
+			"DaysToNext": 0,
+			"HarvestItem": "lh:Carrot",
+			"ColorR": 0,
+			"ColorG": 127,
+			"ColorB": 0,
+			"Glyph": 294,
+			"Dec": { 
+				"Glyph": 295,
+				"R": 255,
+				"G": 215,
+				"B": 0 
+			}
+		}
+	]
+  }
+}

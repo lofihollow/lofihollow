@@ -1,0 +1,39 @@
+{
+  "Name": "Poplar Door",
+  "Materials": "2x Poplar Planks, 8x Copper Nails",
+  "SpecialProps": "door",
+  "Glyph": 24,
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "Dec": null,
+  "RequiredLevel": 5,
+  "ExpGranted": 40,
+  "BlocksMove": true,
+  "BlocksLOS": true,
+  "Lock": {
+	"AlwaysLocked": false,
+	"Owner": "",
+	"RelationshipUnlock": 0,
+	"MissionUnlock": -1,
+	"UnlockTime": 0,
+	"LockTime": 9999,
+	"ClosedGlyph": 24,
+	"OpenedGlyph": 23,
+	"Closed": true,
+	"OpenBlocksMove": false,
+	"ClosedBlocksLOS": true
+  },
+  "MaterialsNeeded": [
+    {
+      "Name": "Poplar Plank",
+      "SubID": 0,
+      "ItemQuantity": 2
+    },
+	{
+      "Name": "Copper Nails",
+      "SubID": 0,
+      "ItemQuantity": 8
+    }
+  ]
+}

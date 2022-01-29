@@ -1,0 +1,43 @@
+{
+  "TileID": 47,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Cherry Blossom Tree",
+  "ForegroundR": 140,
+  "ForegroundG": 96,
+  "ForegroundB": 63,
+  "TileGlyph": 243,
+  "SkillableTile": {
+    "HarvestableName": "Cherry Blossom Tree",
+    "DepletedName": "Cherry Blossom Stump",
+	"HarvestTool": 3,
+	"RequiredSkill": "Woodcutting",
+	"RequiredLevel": 70,
+	"ItemGiven": 14,
+	"DepletedItem": 14,
+	"RestoreTime": "Month",
+	"ExpOnHarvest": 300,
+	"ExpOnDeplete": 3000,
+	"HarvestMessage": "You get a cherry blossom log.",
+	"DepleteMessage": "You chop down the cherry blossom tree."
+  },
+  "Dec": {
+	"Glyph": 242,
+	"R": 255,
+	"G": 105,
+	"B": 180
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

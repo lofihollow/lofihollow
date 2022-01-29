@@ -1,0 +1,23 @@
+{
+  "TileID": 23,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Yellow Wall",
+  "ForegroundR": 245,
+  "ForegroundG": 222,
+  "ForegroundB": 179,
+  "TileGlyph": 241,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4289978101
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 241,
+  "Mirror": 0,
+  "GlyphCharacter": "ñ",
+  "IsVisible": true,
+  "IsDirty": true
+}

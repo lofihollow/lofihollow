@@ -1,0 +1,34 @@
+{
+  "TileID": 7,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Door",
+  "ForegroundR": 155,
+  "ForegroundG": 103,
+  "ForegroundB": 60,
+  "TileGlyph": 24,
+  "Lock": {
+	"AlwaysLocked": false,
+	"Owner": "",
+	"RelationshipUnlock": 0,
+	"MissionUnlock": -1,
+	"UnlockTime": 0,
+	"LockTime": 9999,
+	"ClosedGlyph": 24,
+	"OpenedGlyph": 23,
+	"Closed": true
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 24,
+  "Mirror": 0,
+  "GlyphCharacter": "+",
+  "IsVisible": true,
+  "IsDirty": true
+}

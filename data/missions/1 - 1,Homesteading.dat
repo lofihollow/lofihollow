@@ -1,0 +1,44 @@
+{
+  "Visible": false,
+  "CurrentStage": 0,
+  "Name": "Homesteading",
+  "Package": "lh",
+  "Chapter": 1,
+  "Stages": [
+    {
+      "CurrentDialogue": 0,
+      "Dialogue": { },
+      "CollectItemFullName": "lh:Farm Permit",
+      "NPC": "None",
+      "Summary": "Buy the farm permit from the Town Hall."
+    },
+	{
+	  "CounterType": "Construction",
+	  "CounterName": "Wall",
+	  "CounterNeeded": 10,
+      "CurrentDialogue": 0,
+      "Dialogue": { },
+      "NPC": "None",
+      "Summary": "Rebuild the walls of the farm house."
+    },
+	{
+	  "CounterType": "Construction",
+	  "CounterName": "Door",
+	  "CounterNeeded": 1,
+      "CurrentDialogue": 0,
+      "Dialogue": { },
+      "NPC": "None",
+      "Summary": "Build a door for your new home."
+    },
+	{
+	  "CounterType": "Construction",
+	  "CounterName": "Bed",
+	  "CounterNeeded": 1,
+	  "CollectItemFullName": "lh:Flatpack Bed",
+      "CurrentDialogue": 0, 
+      "Dialogue": { },
+      "NPC": "None",
+      "Summary": "Buy or build a bed for your home."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "TileID": 11,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Water",
+  "ForegroundR": 10,
+  "ForegroundG": 72,
+  "ForegroundB": 115,
+  "TileGlyph": 247,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4285745162
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 247,
+  "Mirror": 0,
+  "GlyphCharacter": "÷",
+  "IsVisible": true,
+  "IsDirty": true
+}

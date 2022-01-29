@@ -1,0 +1,35 @@
+{
+  "Name": "Iron Ingot",
+  "FinishedID": "lh:Iron Ingot",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 10,
+  "ExpGranted": 20,
+  "SpecificMaterials": [
+    {
+      "Name": "Iron Chunk",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": false
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": true
+    }
+  ],
+  "RequiredTools": [
+    {
+      "Property": "Furnace",
+      "Tier": 1
+    },
+    {
+      "Property": "Hammer",
+      "Tier": 1
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "Name": "Hickory Log",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "A hickory log",
+  "Description": "",
+  "AverageValue": 200,
+  "Weight": 1.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph":330,
+  "Craft": [
+	{
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": true
+    },
+	{
+      "Property": "Wood",
+      "Tier": 50,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": false
+    }
+  ]
+}

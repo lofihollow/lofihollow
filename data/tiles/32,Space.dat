@@ -1,0 +1,23 @@
+{
+  "TileID": 32,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Space",
+  "ForegroundR": 30,
+  "ForegroundG": 144,
+  "ForegroundB": 255,
+  "TileGlyph": 61,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4294938654
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 61,
+  "Mirror": 0,
+  "GlyphCharacter": "=",
+  "IsVisible": true,
+  "IsDirty": true
+}

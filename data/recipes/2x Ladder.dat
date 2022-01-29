@@ -1,0 +1,31 @@
+{
+  "Name": "Ladder",
+  "FinishedID": "lh:Ladder",
+  "FinishedQty": 2,
+  "Skill": "Crafting",
+  "RequiredLevel": 1,
+  "ExpGranted": 10,
+  "SpecificMaterials": [ ],
+  "GenericMaterials": [
+    {
+      "Property": "Plank",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    },
+	{
+      "Property": "Nail",
+      "Tier": 1,
+      "Quantity": 4,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [
+    {
+      "Property": "Hammer",
+      "Tier": 1
+    }
+  ]
+}

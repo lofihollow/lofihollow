@@ -1,0 +1,9 @@
+{
+  "SkillID": 1,
+  "Name": "Strength",
+  "Level": 1,
+  "Experience": 0, 
+  "Uses": [
+	"1,0,Melee damage goes up with levels!"
+  ]
+}

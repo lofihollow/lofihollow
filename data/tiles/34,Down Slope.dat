@@ -1,0 +1,23 @@
+{
+  "TileID": 34,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Down Slope",
+  "ForegroundR": 200,
+  "ForegroundG": 200,
+  "ForegroundB": 200,
+  "TileGlyph": 10,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4291348680
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 10,
+  "Mirror": 0,
+  "GlyphCharacter": "\n",
+  "IsVisible": true,
+  "IsDirty": true
+}

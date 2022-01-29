@@ -1,0 +1,9 @@
+{
+  "SkillID": 8,
+  "Name": "Smithing",
+  "Level": 1,
+  "Experience": 0,
+  "Uses": [
+	"1,0,Smithing"
+  ]
+}

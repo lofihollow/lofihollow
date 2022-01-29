@@ -1,0 +1,23 @@
+{
+  "TileID": 22,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Green Wall",
+  "ForegroundR": 10,
+  "ForegroundG": 100,
+  "ForegroundB": 80,
+  "TileGlyph": 241,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4283458570
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 241,
+  "Mirror": 0,
+  "GlyphCharacter": "ñ",
+  "IsVisible": true,
+  "IsDirty": true
+}

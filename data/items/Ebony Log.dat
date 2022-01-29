@@ -1,0 +1,32 @@
+{
+  "Name": "Ebony Log",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "An ebony log",
+  "Description": "",
+  "AverageValue": 2000,
+  "Weight": 1.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 140,
+  "ForegroundG": 96,
+  "ForegroundB": 63,
+  "ItemGlyph":330,
+  "Craft": [
+	{
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": true
+    },
+	{
+      "Property": "Wood",
+      "Tier": 80,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": false
+    }
+  ]
+}

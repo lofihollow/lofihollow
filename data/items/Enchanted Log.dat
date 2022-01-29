@@ -1,0 +1,32 @@
+{
+  "Name": "Enchanted Log",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "An enchanted log",
+  "Description": "",
+  "AverageValue": 5000,
+  "Weight": 1.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 0,
+  "ForegroundG": 202,
+  "ForegroundB": 177,
+  "ItemGlyph":330,
+  "Craft": [
+	{
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": true
+    },
+	{
+      "Property": "Wood",
+      "Tier": 90,
+      "Quantity": 1,
+      "Stacks": false,
+	  "CountsAsMultiple": false
+    }
+  ]
+}

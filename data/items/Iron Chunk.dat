@@ -1,0 +1,16 @@
+{
+  "Name": "Iron Chunk",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "A chunk of iron",
+  "Description": "",
+  "AverageValue": 10,
+  "Weight": 1.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 203,
+  "ForegroundG": 205,
+  "ForegroundB": 205,
+  "ItemGlyph":321
+}

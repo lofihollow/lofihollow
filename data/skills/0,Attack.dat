@@ -1,0 +1,18 @@
+{
+  "SkillID": 0,
+  "Name": "Attack",
+  "Level": 1,
+  "Experience": 0, 
+  "Uses": [
+	"1,0,Bronze Weapons",
+	"10,0,Bronze Weapons",
+	"20,0,Bronze Weapons",
+	"30,0,Bronze Weapons",
+	"40,0,Bronze Weapons",
+	"50,0,Bronze Weapons",
+	"60,0,Bronze Weapons",
+	"70,0,Bronze Weapons",
+	"80,0,Bronze Weapons",
+	"90,0,Bronze Weapons"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "MonsterID": 1,
+  "CurrentHP": 10,
+  "MaxHP": 10,
+  "SizeMod": 0, 
+  "MonConstitution": 10,
+  "MonAttack": 2,
+  "MonStrength": 2,
+  "MonDefense": 2,
+  "MonMagic": 0,
+  "MonRanged": 0,
+  "Inventory": null,
+  "Equipment": null,
+  "DropTable": [ ],
+  "Templates": [],
+  "MapPos": {
+    "X": 0,
+    "Y": 0,
+    "Z": 0
+  },
+  "ForegroundR": 200,
+  "ForegroundG": 200,
+  "ForegroundB": 255,
+  "ActorGlyph": 114,
+  "Effect": null,
+  "Appearance": {
+    "Decorators": [],
+    "Foreground": {
+      "_packedValue": 4294953160
+    },
+    "Background": {
+      "_packedValue": 0
+    },
+    "Glyph": 114,
+    "Mirror": 0,
+    "IsVisible": true
+  },
+  "Children": [],
+  "ChildrenLocked": true,
+  "Components": [],
+  "Position": {
+    "X": 0,
+    "Y": 0
+  },
+  "Name": "Rat",
+  "ZIndex": 0,
+  "IsVisible": true,
+  "IsEnabled": true,
+  "FocusedMode": 0,
+  "IsExclusiveMouse": false,
+  "UseKeyboard": true,
+  "UseMouse": true
+}

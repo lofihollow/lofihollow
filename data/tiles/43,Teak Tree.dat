@@ -1,0 +1,43 @@
+{
+  "TileID": 43,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Teak Tree",
+  "ForegroundR": 180,
+  "ForegroundG": 136,
+  "ForegroundB": 103,
+  "TileGlyph": 244,
+  "Dec": {
+	"Glyph": 245,
+	"R": 0,
+	"G": 167,
+	"B": 0
+  },
+  "SkillableTile": {
+    "HarvestableName": "Teak Tree",
+    "DepletedName": "Teak Stump",
+	"HarvestTool": 3,
+	"RequiredSkill": "Woodcutting",
+	"RequiredLevel": 30,
+	"ItemGiven": 10,
+	"DepletedItem": 10,
+	"RestoreTime": "Day",
+	"ExpOnHarvest": 80,
+	"ExpOnDeplete": 90,
+	"HarvestMessage": "You get a teak log.",
+	"DepleteMessage": "You chop down the teak tree."
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

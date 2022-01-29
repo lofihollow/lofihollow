@@ -1,0 +1,26 @@
+{
+  "Name": "Dough",
+  "FinishedID": "lh:Dough",
+  "FinishedQty": 1,
+  "Skill": "Cooking",
+  "RequiredLevel": 1,
+  "ExpGranted": 10,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Flour",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ 
+    {
+      "Property": "Water",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": true
+    }
+  ],
+  "RequiredTools": [ ]
+}

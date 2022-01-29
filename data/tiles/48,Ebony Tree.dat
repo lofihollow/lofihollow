@@ -1,0 +1,43 @@
+{
+  "TileID": 48,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Ebony Tree",
+  "ForegroundR": 30,
+  "ForegroundG": 30,
+  "ForegroundB": 30,
+  "TileGlyph": 243,
+  "SkillableTile": {
+    "HarvestableName": "Ebony Tree",
+    "DepletedName": "Ebony Stump",
+	"HarvestTool": 3,
+	"RequiredSkill": "Woodcutting",
+	"RequiredLevel": 80,
+	"ItemGiven": 15,
+	"DepletedItem": 15,
+	"RestoreTime": "Month",
+	"ExpOnHarvest": 400,
+	"ExpOnDeplete": 4000,
+	"HarvestMessage": "You get an ebony log.",
+	"DepleteMessage": "You chop down the ebony tree."
+  },
+  "Dec": {
+	"Glyph": 242,
+	"R": 0,
+	"G": 127,
+	"B": 0
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

@@ -1,0 +1,15 @@
+{
+  "MineTileID": 3,
+  "Name": "Grass",
+  "Spawns": false,
+  "BlocksMove": true,
+  "BlocksLOS": true,
+  "TileGlyph": 320,
+  "ForeR": 0,
+  "ForeG": 127,
+  "ForeB": 0,
+  "Dec": null,
+  "OutputID": "Dirt Clump",
+  "RequiredTier": 1,
+  "TileHP": 3
+}

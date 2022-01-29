@@ -1,0 +1,23 @@
+{
+  "TileID": 10,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Gravel",
+  "ForegroundR": 100,
+  "ForegroundG": 100,
+  "ForegroundB": 100,
+  "TileGlyph": 61,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4284769380
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 61,
+  "Mirror": 0,
+  "GlyphCharacter": "=",
+  "IsVisible": true,
+  "IsDirty": true
+}

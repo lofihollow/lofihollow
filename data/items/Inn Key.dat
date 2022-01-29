@@ -1,0 +1,16 @@
+{
+  "Name": "Inn Key",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "A simple brass key",
+  "Description": "",
+  "AverageValue": 20,
+  "Weight": 1,
+  "ItemCategory": 14,
+  "EquipSlot": -1,
+  "ForegroundR": 181,
+  "ForegroundG": 166,
+  "ForegroundB": 66,
+  "ItemGlyph": 281
+}

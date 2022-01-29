@@ -1,0 +1,9 @@
+{
+  "SkillID": 10,
+  "Name": "Cooking",
+  "Level": 1,
+  "Experience": 0, 
+  "Uses": [
+	"1,0,Cooking"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "Name": "Large Backpack",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Expands Inventory",
+  "Description": "",
+  "AverageValue": 1000,
+  "Weight": 0.5,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph":336
+}

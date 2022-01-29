@@ -1,0 +1,16 @@
+{
+  "Name": "Iron Ingot",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "An iron ingot",
+  "Description": "",
+  "AverageValue": 20,
+  "Weight": 0.5,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 203,
+  "ForegroundG": 205,
+  "ForegroundB": 205,
+  "ItemGlyph":326
+}

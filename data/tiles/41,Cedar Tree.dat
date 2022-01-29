@@ -1,0 +1,43 @@
+{
+  "TileID": 41,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Cedar Tree",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 244,
+  "Dec": {
+	"Glyph": 245,
+	"R": 0,
+	"G": 127,
+	"B": 0
+  },
+  "SkillableTile": {
+    "HarvestableName": "Cedar Tree",
+    "DepletedName": "Cedar Stump",
+	"HarvestTool": 3,
+	"RequiredSkill": "Woodcutting",
+	"RequiredLevel": 10,
+	"ItemGiven": 8,
+	"DepletedItem": 8,
+	"RestoreTime": "Day",
+	"ExpOnHarvest": 40,
+	"ExpOnDeplete": 45,
+	"HarvestMessage": "You get a cedar log.",
+	"DepleteMessage": "You chop down the cedar tree."
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

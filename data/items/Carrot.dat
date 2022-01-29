@@ -1,0 +1,16 @@
+{
+  "Name": "Carrot",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 10,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 255,
+  "ForegroundG": 215,
+  "ForegroundB": 0,
+  "ItemGlyph": 296
+}

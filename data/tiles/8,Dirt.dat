@@ -1,0 +1,24 @@
+{
+  "TileID": 8,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Dirt",
+  "ForegroundR": 152,
+  "ForegroundG": 118,
+  "ForegroundB": 84,
+  "TileGlyph": 44,
+  "Plant": null,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 44,
+  "Mirror": 0,
+  "GlyphCharacter": ",",
+  "IsVisible": true,
+  "IsDirty": true
+}

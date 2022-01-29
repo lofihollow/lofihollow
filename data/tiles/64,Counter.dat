@@ -1,0 +1,23 @@
+{
+  "TileID": 64,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Counter",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 275,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 267,
+  "Mirror": 0,
+  "GlyphCharacter": "Ú",
+  "IsVisible": true,
+  "IsDirty": true
+}

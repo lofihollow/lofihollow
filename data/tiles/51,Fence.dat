@@ -1,0 +1,23 @@
+{
+  "TileID": 51,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Fence",
+  "ForegroundR": 155,
+  "ForegroundG": 103,
+  "ForegroundB": 60,
+  "TileGlyph": 264,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 264,
+  "Mirror": 0,
+  "GlyphCharacter": "À",
+  "IsVisible": true,
+  "IsDirty": true
+}

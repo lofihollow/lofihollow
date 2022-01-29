@@ -1,0 +1,16 @@
+{
+  "Name": "Cabbage",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 40,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 0,
+  "ForegroundG": 127,
+  "ForegroundB": 0,
+  "ItemGlyph": 296
+}

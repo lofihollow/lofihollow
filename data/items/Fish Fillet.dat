@@ -1,0 +1,16 @@
+{
+  "Name": "Fish Fillet",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 2,
+  "Weight": 0.5,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 255,
+  "ForegroundG": 165,
+  "ForegroundB": 0,
+  "ItemGlyph": 47
+}

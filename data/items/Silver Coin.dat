@@ -1,0 +1,16 @@
+{
+  "Name": "Silver Coin",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "",
+  "Description": "Can be exchanged for goods and services.",
+  "AverageValue": 10,
+  "Weight": 0,
+  "ItemCategory": 13,
+  "EquipSlot": -1,
+  "ForegroundR": 192,
+  "ForegroundG": 192,
+  "ForegroundB": 192,
+  "ItemGlyph": 1
+}

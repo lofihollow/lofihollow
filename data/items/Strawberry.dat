@@ -1,0 +1,16 @@
+{
+  "Name": "Strawberry",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 60,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 127,
+  "ForegroundG": 0,
+  "ForegroundB": 0,
+  "ItemGlyph": 296
+}

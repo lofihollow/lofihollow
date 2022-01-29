@@ -1,0 +1,16 @@
+{
+  "Name": "Copper Coin",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "",
+  "Description": "Can be exchanged for goods and services.",
+  "AverageValue": 1,
+  "Weight": 0,
+  "ItemCategory": 13,
+  "EquipSlot": -1,
+  "ForegroundR": 184,
+  "ForegroundG": 115,
+  "ForegroundB": 51,
+  "ItemGlyph": 1
+}

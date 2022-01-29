@@ -1,0 +1,22 @@
+{
+  "Name": "Turnip",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 20,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 255,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "ItemGlyph": 298,
+  "Dec": {
+    "Glyph": 299,
+    "R": 234,
+    "G": 10,
+    "B": 142 
+  }
+}

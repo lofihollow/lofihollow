@@ -1,0 +1,15 @@
+{
+  "Name": "(EMPTY)", 
+  "Package": "lh",
+  "ItemQuantity": 0,
+  "IsStackable": false,
+  "Description": " ",
+  "AverageValue": 0,
+  "Weight": 0.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 0,
+  "ForegroundG": 0,
+  "ForegroundB": 0,
+  "ItemGlyph": 32
+}

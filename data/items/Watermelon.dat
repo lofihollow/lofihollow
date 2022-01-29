@@ -1,0 +1,16 @@
+{
+  "Name": "Watermelon",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 50,
+  "Weight": 1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 255,
+  "ForegroundG": 215,
+  "ForegroundB": 0,
+  "ItemGlyph": 296
+}

@@ -1,0 +1,23 @@
+{
+  "TileID": 55,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Tombstone",
+  "ForegroundR": 150,
+  "ForegroundG": 150,
+  "ForegroundB": 150,
+  "TileGlyph": 268,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 267,
+  "Mirror": 0,
+  "GlyphCharacter": "Ú",
+  "IsVisible": true,
+  "IsDirty": true
+}

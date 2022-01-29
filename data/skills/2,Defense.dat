@@ -1,0 +1,18 @@
+{
+  "SkillID": 2,
+  "Name": "Defense",
+  "Level": 1,
+  "Experience": 0, 
+  "Uses": [
+	"1,0,Bronze Armor",
+	"10,0,Bronze Armor",
+	"20,0,Bronze Armor",
+	"30,0,Bronze Armor",
+	"40,0,Bronze Armor",
+	"50,0,Bronze Armor",
+	"60,0,Bronze Armor",
+	"70,0,Bronze Armor",
+	"80,0,Bronze Armor",
+	"90,0,Bronze Armor",
+  ]
+}

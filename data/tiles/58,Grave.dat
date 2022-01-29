@@ -1,0 +1,22 @@
+{
+  "TileID": 58,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Grave",
+  "ForegroundR": 101,
+  "ForegroundG": 67,
+  "ForegroundB": 33,
+  "TileGlyph": 270,
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 267,
+  "Mirror": 0,
+  "GlyphCharacter": "Ú",
+  "IsVisible": true,
+  "IsDirty": true
+}

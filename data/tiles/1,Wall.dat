@@ -1,0 +1,23 @@
+{
+  "TileID": 1,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Poplar Wall",
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 186,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 186,
+  "Mirror": 0,
+  "GlyphCharacter": "º",
+  "IsVisible": true,
+  "IsDirty": true
+}

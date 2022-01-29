@@ -1,0 +1,23 @@
+{
+  "TileID": 31,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Empty",
+  "ForegroundR": 255,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "TileGlyph": 0,
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4294967295
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 0,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0000",
+  "IsVisible": true,
+  "IsDirty": true
+}

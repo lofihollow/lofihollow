@@ -1,0 +1,18 @@
+{
+  "SkillID": 6,
+  "Name": "Woodcutting",
+  "Level": 1,
+  "Experience": 0,
+  "Uses": [
+	"1,Chop Poplar Trees",
+	"10,Chop Cedar Trees",
+	"20,Chop Birch Trees",
+	"30,Chop Teak Trees",
+	"40,Chop Maple Trees",
+	"50,Chop Hickory Trees",
+	"60,Chop Mahogany Trees",
+	"70,Chop Cherry Blossom Trees",
+	"80,Chop Ebony Trees",
+	"90,Chop Enchanted Trees"
+  ]
+}

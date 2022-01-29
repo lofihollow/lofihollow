@@ -1,0 +1,23 @@
+{
+  "Name": "Mortar and Pestle",
+  "Package": "lh",
+  "SubID": 1,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A metal nail",
+  "Description": "",
+  "AverageValue": 2,
+  "Weight": 1.0,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 100,
+  "ForegroundG": 100,
+  "ForegroundB": 100,
+  "ItemGlyph": 333,
+  "Tool": [
+	{
+      "Property": "Grinding",
+      "Tier": 1
+    }
+  ]
+}

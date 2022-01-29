@@ -1,0 +1,29 @@
+{
+  "TileID": 50,
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Bookshelf",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 256,
+  "Dec": {
+	"Glyph": 257,
+	"R": 255,
+	"G": 255,
+	"B": 255
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4280820651
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 13,
+  "Mirror": 0,
+  "GlyphCharacter": "\r",
+  "IsVisible": true,
+  "IsDirty": true
+}

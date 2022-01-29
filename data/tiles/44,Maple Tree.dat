@@ -1,0 +1,43 @@
+{
+  "TileID": 44,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "SpawnsMonsters": false,
+  "Name": "Maple Tree",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 243,
+  "Dec": {
+	"Glyph": 242,
+	"R": 199,
+	"G": 61,
+	"B": 61
+  },
+  "SkillableTile": {
+    "HarvestableName": "Maple Tree",
+    "DepletedName": "Maple Stump",
+	"HarvestTool": 3,
+	"RequiredSkill": "Woodcutting",
+	"RequiredLevel": 40,
+	"ItemGiven": 11,
+	"DepletedItem": 11,
+	"RestoreTime": "Day",
+	"ExpOnHarvest": 110,
+	"ExpOnDeplete": 120,
+	"HarvestMessage": "You get a maple log.",
+	"DepleteMessage": "You chop down the maple tree."
+  },
+  "Decorators": [],
+  "Foreground": {
+    "_packedValue": 4278222592
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 243,
+  "Mirror": 0,
+  "GlyphCharacter": "\u0243",
+  "IsVisible": true,
+  "IsDirty": true
+}

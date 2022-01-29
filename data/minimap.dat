@@ -1,0 +1,3202 @@
+{
+  "(1,3,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,1,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,1,0)": {
+    "name": "Noonbreeze",
+    "ch": "",
+    "fg": {
+      "_packedValue": 4284769380
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,1,0)": {
+    "name": "Road",
+    "ch": "_",
+    "fg": {
+      "_packedValue": 4288059060
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,1,0)": {
+    "name": "Road",
+    "ch": "_",
+    "fg": {
+      "_packedValue": 4288059060
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,1,0)": {
+    "name": "Road",
+    "ch": "_",
+    "fg": {
+      "_packedValue": 4288059060
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,1,0)": {
+    "name": "Forest Road",
+    "ch": "_",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,1,0)": {
+    "name": "Forest Road",
+    "ch": "_",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,1,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,0,0)": {
+    "name": "Noonbreeze Cemetary",
+    "ch": "",
+    "fg": {
+      "_packedValue": 4284769380
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,1,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,0,0)": {
+    "name": "Abandoned Farm",
+    "ch": "f",
+    "fg": {
+      "_packedValue": 4280369774
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,1,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,1,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,0,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,0,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,0,0)": {
+    "name": "Lake Path",
+    "ch": "_",
+    "fg": {
+      "_packedValue": 4288059060
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,0,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,0,0)": {
+    "name": "Town",
+    "ch": "",
+    "fg": {
+      "_packedValue": 4284769380
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,0,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,0,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,0,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,1,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,1,0)": {
+    "name": "Noonbreeze",
+    "ch": "",
+    "fg": {
+      "_packedValue": 4284769380
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,-1,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,-1,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,0,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,0,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,0,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,2,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,3,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,3,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,3,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,2,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,2,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,2,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,2,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,2,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,2,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,2,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,3,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,3,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,3,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,3,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,3,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,4,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,4,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,4,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,4,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,4,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,4,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,4,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,4,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,7,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,7,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,7,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,7,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,7,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,6,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,6,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,6,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,6,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,6,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,6,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,5,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,5,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,5,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,5,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,5,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,5,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,5,0)": {
+    "name": "Forest",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,6,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,6,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,6,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,6,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,7,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,7,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,7,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,7,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,8,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,9,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,10,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,10,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,10,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,10,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,10,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,10,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,10,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,10,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,10,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,10,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,10,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,10,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,10,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,10,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,9,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,8,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,8,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,9,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,9,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,9,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,9,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,9,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,9,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,9,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,9,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,9,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,9,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,9,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,9,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,9,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,8,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,8,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,8,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,8,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,8,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,8,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,8,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,8,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,8,0)": {
+    "name": "Dense Forest",
+    "ch": "\u0005",
+    "fg": {
+      "_packedValue": 4278213120
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,8,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,8,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,8,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,0,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(8,-1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,-1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,-1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,-1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,-1,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,-1,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,-1,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,-1,0)": {
+    "name": "Town",
+    "ch": "",
+    "fg": {
+      "_packedValue": 4284769380
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,-1,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,-1,0)": {
+    "name": "Lake",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4292246528
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,-1,0)": {
+    "name": "Laked",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4292246528
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,-1,0)": {
+    "name": "Lake",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4292246528
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,-1,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,-1,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,0,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,0,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,0,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,0,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,-1,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,-2,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,-3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,-4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,-5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,-4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,-3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,-2,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,-1,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,-2,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,-2,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,-2,0)": {
+    "name": "Lake",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4292246528
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,-2,0)": {
+    "name": "Lake",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4292246528
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,-2,0)": {
+    "name": "Lake",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4292246528
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,-2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,-2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,-2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,-2,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,-2,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,-2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,-2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,-2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,-2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,-2,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,-3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,-3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,-4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(7,-5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,-5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,-4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,-4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,-5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,-3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,-3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,-4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,-5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,-5,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,-4,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,-3,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,-3,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,-4,0)": {
+    "name": "Beach",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222757
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,-5,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,-5,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,-4,0)": {
+    "name": "Edge of the Desert",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,-3,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,-3,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,-4,0)": {
+    "name": "Edge of the Desert",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,-5,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,-5,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,-4,0)": {
+    "name": "Edge of the Desert",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,-3,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,-3,0)": {
+    "name": "Field",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,-4,0)": {
+    "name": "Edge of the Desert",
+    "ch": ",",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,-5,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,-5,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,-4,0)": {
+    "name": "Edge of the Desert",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,-3,0)": {
+    "name": "Lake",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4292246528
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,-3,0)": {
+    "name": "Lake",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4292246528
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,-4,0)": {
+    "name": "Edge of the Desert",
+    "ch": "\u0006",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,-5,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,-5,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,-4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,-3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,-3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,-4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,-5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,-5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,-4,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,-3,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,-5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,-6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,-6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,-7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-8,-8,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,-8,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,-7,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,-6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,-6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,-7,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,-7,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-6,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-5,-6,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,-6,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,-7,0)": {
+    "name": "Desert",
+    "ch": "",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-4,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,-7,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-3,-6,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,-6,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,-7,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-2,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,-7,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-1,-6,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,-6,0)": {
+    "name": "Desert",
+    "ch": "",
+    "fg": {
+      "_packedValue": 4278222592
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,-6,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,-7,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(0,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(1,-7,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,-7,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,-6,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,-6,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,-6,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,-6,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,-6,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,-7,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(6,-8,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,-8,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(5,-7,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,-7,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(4,-8,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(2,-8,0)": {
+    "name": "Desert",
+    "ch": "=",
+    "fg": {
+      "_packedValue": 4280472050
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(3,-7,0)": {
+    "name": "Ocean",
+    "ch": "~",
+    "fg": {
+      "_packedValue": 4290272768
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-7,8,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,5,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  },
+  "(-9,6,0)": {
+    "name": "Mountain",
+    "ch": "\u001e",
+    "fg": {
+      "_packedValue": 4286545791
+    },
+    "bg": {
+      "_packedValue": 4278190080
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Name": "Dough",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Needs baking",
+  "Description": "",
+  "AverageValue": 2,
+  "Weight": 0.1,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 44,
+  "ItemGlyph": 296
+}

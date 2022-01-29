@@ -1,0 +1,16 @@
+{
+  "Name": "Bread",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "A loaf of bread",
+  "Description": "",
+  "AverageValue": 5,
+  "Weight": 0.5,
+  "ItemCategory": 11,
+  "EquipSlot": -1,
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph":326
+}

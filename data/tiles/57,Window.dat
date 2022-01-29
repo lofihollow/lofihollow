@@ -1,0 +1,22 @@
+{
+  "TileID": 57,
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "SpawnsMonsters": false,
+  "Name": "Window",
+  "ForegroundR": 0,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "TileGlyph": 270,
+  "Foreground": {
+    "_packedValue": 4282148763
+  },
+  "Background": {
+    "_packedValue": 4278190080
+  },
+  "Glyph": 267,
+  "Mirror": 0,
+  "GlyphCharacter": "Ú",
+  "IsVisible": true,
+  "IsDirty": true
+}

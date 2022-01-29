@@ -1,0 +1,16 @@
+{
+  "Name": "Cranberry",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 60,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 166,
+  "ForegroundG": 10,
+  "ForegroundB": 61,
+  "ItemGlyph": 296
+}

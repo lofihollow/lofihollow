@@ -1,0 +1,16 @@
+{
+  "Name": "Grapes",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Used in cooking.",
+  "Description": "",
+  "AverageValue": 20,
+  "Weight": 0.1,
+  "ItemCategory": 10,
+  "EquipSlot": -1,
+  "ForegroundR": 106,
+  "ForegroundG": 13,
+  "ForegroundB": 173,
+  "ItemGlyph": 296
+}
