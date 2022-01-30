@@ -343,7 +343,7 @@ namespace LofiHollow.Managers {
 								} else {
 									GameLoop.UIManager.Minigames.MineManager.MountainMine.Levels.Add(mineLevel, sentMine);
 								}
-								GameLoop.UIManager.Minigames.ToggleMinigame();
+								GameLoop.UIManager.Minigames.ToggleMinigame("Mining");
 								GameLoop.UIManager.Minigames.MineManager.MiningFOV = new GoRogue.FOV(GameLoop.UIManager.Minigames.MineManager.MountainMine.Levels[GameLoop.World.Player.MineDepth].MapFOV);
 							} else if (mineName == "Lake") {
 								if (GameLoop.UIManager.Minigames.MineManager.LakeMine.Levels.ContainsKey(mineLevel)) {
@@ -351,7 +351,7 @@ namespace LofiHollow.Managers {
 								} else {
 									GameLoop.UIManager.Minigames.MineManager.LakeMine.Levels.Add(mineLevel, sentMine);
 								}
-								GameLoop.UIManager.Minigames.ToggleMinigame();
+								GameLoop.UIManager.Minigames.ToggleMinigame("Mining");
 								GameLoop.UIManager.Minigames.MineManager.MiningFOV = new GoRogue.FOV(GameLoop.UIManager.Minigames.MineManager.LakeMine.Levels[GameLoop.World.Player.MineDepth].MapFOV);
 							}
 						}

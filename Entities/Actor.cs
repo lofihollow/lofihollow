@@ -425,10 +425,9 @@ namespace LofiHollow.Entities {
                                     GameLoop.UIManager.Crafting.SetupCrafting(split[1], split[2], Int32.Parse(split[3]));
                                 else
                                     GameLoop.UIManager.Crafting.SetupCrafting(split[1], "None", 1);
-                            } else if (split[0] == "Monster Pen") {
-                                GameLoop.UIManager.Minigames.CurrentGame = "Monster Pen";
+                            } else if (split[0] == "Monster Pen") { 
                                 GameLoop.UIManager.Minigames.MonsterPenManager.Setup(Int32.Parse(split[1]));
-                                GameLoop.UIManager.Minigames.ToggleMinigame();
+                                GameLoop.UIManager.Minigames.ToggleMinigame("Monster Pen");
                             }
                         }
 

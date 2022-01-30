@@ -9,7 +9,7 @@
   "ForeG": 101,
   "ForeB": 101,
   "Dec": null,
-  "OutputID": "Stone Chunk",
+  "OutputID": "lh:Stone Chunk",
   "RequiredTier": 1,
   "TileHP": 3
 }

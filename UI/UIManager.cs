@@ -169,13 +169,12 @@ namespace LofiHollow.UI {
                         if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Down Stairs") {
                             CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, -1));
                             Map.UpdateVision();
-                        } else if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Mine Entrance") {
-                            Minigames.CurrentGame = "Mining";
+                        } else if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Mine Entrance") { 
                             selectedMenu = "Minigame";
                             GameLoop.World.Player.MineEnteredAt = GameLoop.World.Player.Position;
                             Minigames.MineManager.MiningSetup(GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).MiscString);
                             if (GameLoop.SingleOrHosting())
-                                Minigames.ToggleMinigame();
+                                Minigames.ToggleMinigame("Mining");
                             else
                                 AddMsg("Receiving mine data from host, please wait.");
                         } else if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Bed") {
@@ -195,20 +194,24 @@ namespace LofiHollow.UI {
 
                     if ((GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || (GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift))) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemQuestion)) {
                         Help.ToggleHelp("Hotkeys");
+                        GameLoop.SoundManager.PlaySound("openGuide");
                     }
 
 
 
                     if (GameHost.Instance.Keyboard.IsKeyReleased(Key.I)) {
-                        Inventory.Toggle(); 
+                        Inventory.Toggle();
+                        GameLoop.SoundManager.PlaySound("openGuide");
                     }
 
                     if (GameHost.Instance.Keyboard.IsKeyReleased(Key.K)) {
                         Skills.Toggle();
+                        GameLoop.SoundManager.PlaySound("openGuide");
                     }
 
                     if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Q)) {
                         MissionLog.Toggle();
+                        GameLoop.SoundManager.PlaySound("openGuide");
                     }
 
                     if (GameHost.Instance.Keyboard.IsKeyReleased(Key.G)) {
@@ -224,16 +227,13 @@ namespace LofiHollow.UI {
                     World.SaveMapToFile(GameLoop.World.maps[GameLoop.World.Player.MapPos], GameLoop.World.Player.MapPos);
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F2)) {
-                    AddMsg(GameLoop.World.Player.MapPos.ToString() + " | " + GameLoop.World.Player.Position.X + "," + GameLoop.World.Player.Position.Y);
-                }
-
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F3)) {
-                    GameLoop.World.SavePlayer();
-                }
+                if (GameHost.Instance.Keyboard.IsKeyDown(Key.F2)) {
+                    Minigames.ToggleMinigame("Bartending");
+                } 
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F1)) {
                     Help.ToggleHelp("Guide");
+                    GameLoop.SoundManager.PlaySound("openGuide");
                 }
                 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F5)) {

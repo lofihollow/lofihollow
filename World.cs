@@ -15,7 +15,7 @@ using LofiHollow.Missions;
 
 namespace LofiHollow {
     public class World { 
-        public Dictionary<int, TileBase> tileLibrary = new();
+        public Dictionary<string, TileBase> tileLibrary = new();
         public Dictionary<int, MineTile> mineTileLibrary = new();
         public Dictionary<string, Item> itemLibrary = new();
         public Dictionary<int, Monster> monsterLibrary = new();
@@ -189,16 +189,16 @@ namespace LofiHollow {
 
                     TileBase tile = JsonConvert.DeserializeObject<TileBase>(json);
 
-                    tileLibrary.Add(tile.TileID, tile);
+                    tileLibrary.Add(tile.FullName(), tile);
                 }
             }
-            /*
-            string path = "./data/tiles/" + tile.TileID + "," + tile.Name + ".dat";
 
+            /*
+            string path = "./data/tiles/" + tile.Name + ".dat";
             using StreamWriter output = new StreamWriter(path);
             string jsonString = JsonConvert.SerializeObject(tile, Formatting.Indented);
             output.WriteLine(jsonString);
-            output.Close();
+            output.Close(); 
             */
         }
 
@@ -404,21 +404,21 @@ namespace LofiHollow {
 
                     if (pos.Z < 0) {
                         for (int i = 0; i < newMap.Tiles.Length; i++) {
-                            newMap.Tiles[i] = new(31);
+                            newMap.Tiles[i] = new("lh:Empty");
                         }
 
                         if (Player.MapPos.Z > pos.Z) {
-                            newMap.Tiles[Player.Position.ToIndex(GameLoop.MapWidth)] = new(29);
+                            newMap.Tiles[Player.Position.ToIndex(GameLoop.MapWidth)] = new("lh:Up Stairs");
                         }
                     }
 
                     if (pos.Z > 0) {
                         for (int i = 0; i < newMap.Tiles.Length; i++) {
-                            newMap.Tiles[i] = new(32);
+                            newMap.Tiles[i] = new("lh:Space");
                         }
 
                         if (Player.MapPos.Z < pos.Z) {
-                            newMap.Tiles[Player.Position.ToIndex(GameLoop.MapWidth)] = new(30);
+                            newMap.Tiles[Player.Position.ToIndex(GameLoop.MapWidth)] = new("lh:Down Stairs");
                         }
                     }
 

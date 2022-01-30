@@ -1,0 +1,19 @@
+{
+  "Name": "Empty",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 255,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "TileGlyph": 0,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

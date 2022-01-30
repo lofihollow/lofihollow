@@ -1,0 +1,19 @@
+{
+  "Name": "Space",
+  "Package": "lh",
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 30,
+  "ForegroundG": 144,
+  "ForegroundB": 255,
+  "TileGlyph": 61,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

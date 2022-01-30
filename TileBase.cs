@@ -9,16 +9,13 @@ namespace LofiHollow {
     [JsonObject(MemberSerialization.OptIn)]
     public class TileBase : ColoredGlyph {
         [JsonProperty]
-        public int TileID = 0;
+        public string Name = "Grass";
+        [JsonProperty]
+        public string Package = "lh";
         [JsonProperty]
         public bool IsBlockingMove = false;
         [JsonProperty]
-        public bool IsBlockingLOS = false;
-        [JsonProperty]
-        public bool SpawnsMonsters = false;
-
-        [JsonProperty]
-        public string Name = "Grass";
+        public bool IsBlockingLOS = false; 
 
         [JsonProperty]
         public string MiscString = "";
@@ -32,6 +29,16 @@ namespace LofiHollow {
         [JsonProperty]
         public int TileGlyph = 0;
 
+
+        [JsonProperty]
+        public double LightBlocked = 0.0;
+        [JsonProperty]
+        public bool ExposedToSky = false;
+        [JsonProperty]
+        public Light EmitsLight;
+
+
+        public int CurrentLight = 0;
 
         [JsonProperty]
         public Decorator Dec;
@@ -67,8 +74,7 @@ namespace LofiHollow {
             IsBlockingMove = other.IsBlockingMove;
             IsBlockingLOS = other.IsBlockingLOS;
             Name = other.Name;
-            TileID = other.TileID;
-            SpawnsMonsters = other.SpawnsMonsters;
+            Package = other.Package; 
 
             ForegroundR = other.ForegroundR;
             ForegroundG = other.ForegroundG;
@@ -83,18 +89,21 @@ namespace LofiHollow {
             Plant = other.Plant;
             Container = other.Container;
 
+            LightBlocked = other.LightBlocked;
+            ExposedToSky = other.ExposedToSky;
+            EmitsLight = other.EmitsLight;
+
             Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
             Glyph = TileGlyph;
         } 
 
-        public TileBase(int index) {
-            if (GameLoop.World.tileLibrary.ContainsKey(index)) {
-                TileBase other = GameLoop.World.tileLibrary[index];
+        public TileBase(string name) {
+            if (GameLoop.World.tileLibrary.ContainsKey(name)) {
+                TileBase other = GameLoop.World.tileLibrary[name];
                 IsBlockingMove = other.IsBlockingMove;
                 IsBlockingLOS = other.IsBlockingLOS;
                 Name = other.Name;
-                TileID = other.TileID;
-                SpawnsMonsters = other.SpawnsMonsters;
+                Package = other.Package; 
 
                 ForegroundR = other.ForegroundR;
                 ForegroundG = other.ForegroundG;
@@ -108,6 +117,10 @@ namespace LofiHollow {
                 Lock = other.Lock;
                 Plant = other.Plant;
                 Container = other.Container;
+
+                LightBlocked = other.LightBlocked;
+                ExposedToSky = other.ExposedToSky;
+                EmitsLight = other.EmitsLight;
 
                 Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
                 Glyph = TileGlyph;
@@ -144,6 +157,15 @@ namespace LofiHollow {
             Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
             Glyph = TileGlyph;
         }
+
+        public string FullName() {
+            return Package + ":" + Name;
+        }
+
+        public void SetLight(double light) {
+            CurrentLight = (int) (light * 255);
+        }
+
 
         public void Shade() {
             Foreground = new Color(ForegroundR, ForegroundG, ForegroundB, 150);

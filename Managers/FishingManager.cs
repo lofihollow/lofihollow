@@ -121,11 +121,10 @@ namespace LofiHollow.Managers {
                 }
             }
 
-            HookedFish = validFish[GameLoop.rand.Next(validFish.Count)];
-            GameLoop.UIManager.Minigames.CurrentGame = "Fishing";
+            HookedFish = validFish[GameLoop.rand.Next(validFish.Count)]; 
             FishDistance = 30;
             LineStress = 0;
-            GameLoop.UIManager.Minigames.ToggleMinigame();
+            GameLoop.UIManager.Minigames.ToggleMinigame("Fishing");
         }
 
         public void FinishFishing(bool success) {
@@ -139,7 +138,7 @@ namespace LofiHollow.Managers {
                 Color fore = new(HookedFish.colR, HookedFish.colG, HookedFish.colB, HookedFish.colA);
 
                 CommandManager.AddItemToInv(GameLoop.World.Player, caughtFish);
-                GameLoop.UIManager.Minigames.ToggleMinigame();
+                GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 ColoredString caught = new("You caught a ", Color.Cyan, Color.Black);
                 caught += new ColoredString(HookedFish.Name, fore, Color.Black);
                 caught += new ColoredString(" !", Color.Cyan, Color.Black);
@@ -147,7 +146,7 @@ namespace LofiHollow.Managers {
                 GameLoop.UIManager.AddMsg(caught);
                 GameLoop.World.Player.Skills["Fishing"].GrantExp(HookedFish.GrantedExp);
             } else {
-                GameLoop.UIManager.Minigames.ToggleMinigame();
+                GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 if (LineStress >= 100) {
                     GameLoop.UIManager.AddMsg(new ColoredString("The line snapped!", Color.Red, Color.Black));
                 } else {

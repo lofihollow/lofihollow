@@ -1,0 +1,19 @@
+{
+  "Name": "Yellow Wall",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "MiscString": "",
+  "ForegroundR": 245,
+  "ForegroundG": 222,
+  "ForegroundB": 179,
+  "TileGlyph": 241,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

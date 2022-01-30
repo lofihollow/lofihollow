@@ -1,0 +1,19 @@
+{
+  "Name": "Right Slope",
+  "Package": "lh",
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 200,
+  "ForegroundG": 200,
+  "ForegroundB": 200,
+  "TileGlyph": 12,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

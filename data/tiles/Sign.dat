@@ -1,0 +1,19 @@
+{
+  "Name": "Sign",
+  "Package": "lh",
+  "IsBlockingMove": false,
+  "IsBlockingLOS": true,
+  "MiscString": "",
+  "ForegroundR": 155,
+  "ForegroundG": 103,
+  "ForegroundB": 60,
+  "TileGlyph": 8,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

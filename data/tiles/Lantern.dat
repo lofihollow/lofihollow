@@ -1,0 +1,22 @@
+{
+  "Name": "Lantern",
+  "Package": "lh",
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 66,
+  "ForegroundG": 66,
+  "ForegroundB": 66,
+  "TileGlyph": 339,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": {
+    "Intensity": 2.0,
+    "Radius": 10
+  },
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

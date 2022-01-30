@@ -130,18 +130,6 @@ namespace LofiHollow.UI {
             }
 
 
-            if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F6)) {
-                for (int i = 0; i < GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles.Length; i++) {
-                    TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i];
-                    if (tile.Name == "Dirt") {
-                        tile.ForegroundR = 152;
-                        tile.ForegroundG = 118;
-                        tile.ForegroundB = 84;
-                        tile.UpdateAppearance();
-                    }
-                }
-            }
-
             Point mapPos = new MouseScreenObjectState(GameLoop.UIManager.Map.MapConsole, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Mouse.LeftButtonDown) {
                 if (GameLoop.World.Player.Inventory[hotbarSelect].Name == "(EMPTY)") { 
@@ -158,7 +146,7 @@ namespace LofiHollow.UI {
 
                                 tile.Plant.Harvest(GameLoop.World.Player);
                                 if (tile.Plant.CurrentStage == -1) {
-                                    TileBase tilled = new(8);
+                                    TileBase tilled = new("lh:Dirt");
                                     tilled.Name = "Tilled Dirt";
                                     tilled.TileGlyph = 34;
                                     tilled.UpdateAppearance(); 
@@ -310,6 +298,8 @@ namespace LofiHollow.UI {
 
                                                         MissionManager.Increment("Construction", con.Name, 1);
 
+                                                        GameLoop.SoundManager.PlaySound("hammer");
+
                                                         GameLoop.World.Player.ExpendStamina(1);
 
                                                         GameLoop.UIManager.Map.UpdateVision();
@@ -332,14 +322,14 @@ namespace LofiHollow.UI {
                                             GameLoop.UIManager.AddMsg("You need " + GameLoop.World.constructibles[GameLoop.UIManager.Construction.SelectedConstructible].RequiredLevel + " Construction to build that.");
                                         }
                                     } else {
-                                        if (tile.Name.ToLower().Contains("floor") || tile.Name.ToLower().Contains("grass") || tile.TileID == 8) {
+                                        if (tile.Name.ToLower().Contains("floor") || tile.Name.ToLower().Contains("grass") || tile.Name == "Dirt") {
                                             GameLoop.UIManager.AddMsg("Right click to select something to build first.");
                                         } else {
                                             if (!tile.DeconstructFlag) {
                                                 GameLoop.UIManager.AddMsg("Click again to deconstruct the " + tile.Name + ".");
                                                 GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos).DeconstructFlag = true;
                                             } else {
-                                                GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[mapPos.X + (mapPos.Y * GameLoop.MapWidth)] = new TileBase(0);
+                                                GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[mapPos.X + (mapPos.Y * GameLoop.MapWidth)] = new TileBase("lh:Grass");
                                                 GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[mapPos.X + (mapPos.Y * GameLoop.MapWidth)].UpdateAppearance();
                                                 GameLoop.UIManager.Map.UpdateVision();
 
@@ -369,10 +359,7 @@ namespace LofiHollow.UI {
                                 if (!GameLoop.World.maps.ContainsKey(new Point3D(-1, 0, 0)))
                                     GameLoop.World.LoadMapAt(new Point3D(-1, 0, 0));
 
-                                GameLoop.World.maps[new Point3D(-1, 0, 0)].MonsterWeights.Clear();
-                                GameLoop.World.maps[new Point3D(-1, 0, 0)].MaximumMonsters = 0;
-                                GameLoop.World.maps[new Point3D(-1, 0, 0)].MinimumMonsters = 0;
-                                GameLoop.World.maps[new Point3D(-1, 0, 0)].MinimapTile.name = "Your Farm";
+                                GameLoop.SoundManager.PlaySound("successJingle");
 
                                 GameLoop.SendMessageIfNeeded(new string[] { "usedPermit", "farm" }, false, false);
                             } else {
@@ -388,11 +375,10 @@ namespace LofiHollow.UI {
 
                                     if (!GameLoop.World.maps.ContainsKey(new Point3D(-1, 0, 0)))
                                         GameLoop.World.LoadMapAt(new Point3D(-1, 0, 0));
-
-                                    GameLoop.World.maps[new Point3D(-1, 0, 0)].MonsterWeights.Clear();
-                                    GameLoop.World.maps[new Point3D(-1, 0, 0)].MaximumMonsters = 0;
-                                    GameLoop.World.maps[new Point3D(-1, 0, 0)].MinimumMonsters = 0;
+                                     
                                     GameLoop.World.maps[new Point3D(-1, 0, 0)].MinimapTile.name = "Your Farm";
+
+                                    GameLoop.SoundManager.PlaySound("successJingle");
 
                                     GameLoop.SendMessageIfNeeded(new string[] { "usedPermit", "farm" }, false, false); 
                                     CommandManager.RemoveOneItem(GameLoop.World.Player, hotbarSelect);
@@ -416,6 +402,8 @@ namespace LofiHollow.UI {
                     for (int i = 0; i < previous.Count; i++) {
                         GameLoop.World.Player.Inventory[i] = previous[i];
                     }
+                    GameLoop.SoundManager.PlaySound("successJingle");
+                    GameLoop.UIManager.AddMsg("Your backpack can now hold 18 items!");
                 }
 
                 if (GameLoop.World.Player.Inventory[hotbarSelect].Name == "Large Backpack") { // Used Medium Backpack
@@ -430,6 +418,8 @@ namespace LofiHollow.UI {
                     for (int i = 0; i < previous.Count; i++) {
                         GameLoop.World.Player.Inventory[i] = previous[i];
                     }
+                    GameLoop.SoundManager.PlaySound("successJingle");
+                    GameLoop.UIManager.AddMsg("Your backpack can now hold 27 items!");
                 }
             }
 
@@ -453,6 +443,7 @@ namespace LofiHollow.UI {
                                         GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos).TileGlyph = 34;
                                         GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos).UpdateAppearance();
                                         GameLoop.World.Player.ExpendStamina(1);
+                                        GameLoop.SoundManager.PlaySound("till");
 
                                         string json = JsonConvert.SerializeObject(GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos), Formatting.Indented);
                                         GameLoop.SendMessageIfNeeded(new string[] { "updateTile", mapPos.X.ToString(), mapPos.Y.ToString(), GameLoop.World.Player.MapPos.ToString(), json }, false, false);
@@ -467,8 +458,9 @@ namespace LofiHollow.UI {
                         if (distance < 5) {
                             if (mapPos.X >= 0 && mapPos.X <= GameLoop.MapWidth && mapPos.Y >= 0 && mapPos.Y <= GameLoop.MapHeight) {
                                 TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos);
-                                if (tile.Name == "Well" || tile.Name.ToLower().Contains("water")) {
+                                if (tile.Name == "Well" || tile.Name.ToLower().Contains("water") && GameLoop.World.Player.Inventory[hotbarSelect].Durability != GameLoop.World.Player.Inventory[hotbarSelect].MaxDurability) {
                                     GameLoop.World.Player.Inventory[hotbarSelect].Durability = GameLoop.World.Player.Inventory[hotbarSelect].MaxDurability;
+                                    GameLoop.SoundManager.PlaySound("water");
                                 } else {
                                     if (tile.Plant != null) {
                                         if (!tile.Plant.WateredToday && GameLoop.World.Player.Inventory[hotbarSelect].Durability > 0) {
@@ -478,6 +470,7 @@ namespace LofiHollow.UI {
                                             tile.UpdateAppearance();
                                             GameLoop.UIManager.Map.MapConsole.SetCellAppearance(mapPos.X, mapPos.Y, tile);
                                             GameLoop.World.Player.ExpendStamina(1);
+                                            GameLoop.SoundManager.PlaySound("water");
                                         }
                                         string json = JsonConvert.SerializeObject(tile, Formatting.Indented);
                                         GameLoop.SendMessageIfNeeded(new string[] { "updateTile", mapPos.X.ToString(), mapPos.Y.ToString(), GameLoop.World.Player.MapPos.ToString(), json }, false, false);
@@ -501,7 +494,7 @@ namespace LofiHollow.UI {
                                                 tile.UpdateAppearance();
                                                 GameLoop.UIManager.Map.MapConsole.SetEffect(mapPos.X, mapPos.Y, new CustomBlink(168, Color.Blue));
                                                 CommandManager.RemoveOneItem(GameLoop.World.Player, hotbarSelect);
-
+                                                GameLoop.SoundManager.PlaySound("plantSeed");
                                                 string json = JsonConvert.SerializeObject(tile, Formatting.Indented);
                                                 GameLoop.SendMessageIfNeeded(new string[] { "updateTile", mapPos.X.ToString(), mapPos.Y.ToString(), GameLoop.World.Player.MapPos.ToString(), json }, false, false);
                                             } else {
@@ -616,10 +609,10 @@ namespace LofiHollow.UI {
                     else
                         monIndex = 0;
                 } else if (sidebarMouse.Y == 26) {
-                    if (tileIndex < GameLoop.World.tileLibrary.Count)
-                        tileIndex++;
+                    if (tileIndex > 0)
+                        tileIndex--;
                     else
-                        tileIndex = 0;
+                        tileIndex = GameLoop.World.tileLibrary.Count - 1;
                 } else if (sidebarMouse.Y == 11) {
                     thisMap.ch++;
                 } else if (sidebarMouse.Y == 38) {
@@ -653,10 +646,10 @@ namespace LofiHollow.UI {
                     else
                         monIndex = GameLoop.World.monsterLibrary.Count;
                 } else if (sidebarMouse.Y == 26) {
-                    if (tileIndex > 0)
-                        tileIndex--;
+                    if (tileIndex < GameLoop.World.tileLibrary.Count)
+                        tileIndex++;
                     else
-                        tileIndex = GameLoop.World.tileLibrary.Count;
+                        tileIndex = 0;
                 } else if (sidebarMouse.Y == 11) {
                     if (thisMap.ch > 0)
                         thisMap.ch--;
@@ -709,16 +702,13 @@ namespace LofiHollow.UI {
             Point mousePos = GameHost.Instance.Mouse.ScreenPosition.PixelLocationToSurface(12, 12) - new Point(1, 1);
             if (mousePos.X < 72 && mousePos.Y < 41 && mousePos.X >= 0 && mousePos.Y >= 0) {
                 if (GameHost.Instance.Mouse.LeftButtonDown) {
-                    if (GameLoop.World.tileLibrary.ContainsKey(tileIndex)) {
-                        TileBase tile = new(tileIndex);
-                        tile.TileID = tileIndex;
+                        TileBase tile = new(GameLoop.World.tileLibrary.ElementAt(tileIndex).Key);
                         if (mousePos.ToIndex(GameLoop.MapWidth) < GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles.Length) { 
                             GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[mousePos.ToIndex(GameLoop.MapWidth)] = tile;
-
+                        GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[GameLoop.World.Player.MapPos]);
                             string json = JsonConvert.SerializeObject(tile, Formatting.Indented);
                             GameLoop.SendMessageIfNeeded(new string[] { "updateTile", mousePos.X.ToString(), mousePos.Y.ToString(), GameLoop.World.Player.MapPos.ToString(), json }, false, false);
-                        }
-                    }
+                        } 
                 }
 
                 if (GameHost.Instance.Mouse.RightClicked) {
@@ -853,14 +843,12 @@ namespace LofiHollow.UI {
 
 
                 SidebarConsole.Print(0, 26, "Tile Index: " + tileIndex);
+                 
+                TileBase PlacingTile = GameLoop.World.tileLibrary[GameLoop.World.tileLibrary.ElementAt(tileIndex).Key];
 
-                if (GameLoop.World.tileLibrary.ContainsKey(tileIndex)) {
-                    TileBase tile = GameLoop.World.tileLibrary[tileIndex];
-
-                    SidebarConsole.Print(0, 27, "Tile Name: " + tile.Name);
-                    SidebarConsole.Print(0, 28, "Tile Appearance: ");
-                    SidebarConsole.Print(17, 28, tile.AsColoredGlyph());
-                }
+                SidebarConsole.Print(0, 27, "Tile Name: " + PlacingTile.Name);
+                SidebarConsole.Print(0, 28, "Tile Appearance: ");
+                SidebarConsole.Print(17, 28, PlacingTile.AsColoredGlyph()); 
 
                 if (tileSelected != new Point(-1, -1)) {
                     TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(tileSelected);

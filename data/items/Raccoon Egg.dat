@@ -1,0 +1,31 @@
+{
+  "Name": "Raccoon Egg",
+  "Package": "lh",
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Do raccoons lay eggs?",
+  "Description": "",
+  "AverageValue": 5,
+  "Weight": 0.1,
+  "ItemCategory": -1,
+  "EquipSlot": -1,
+  "ForegroundR": 255,
+  "ForegroundG": 245,
+  "ForegroundB": 196,
+  "ItemGlyph":338,
+  "MonsterEgg": {
+    "HatchesInto": {
+	  "Name": "Raccoon",
+	  "Species": "Raccoon",
+      "Glyph": 114,
+      "ForeR": 110,
+      "ForeG": 66,
+      "ForeB": 33,
+      "Health": 100,
+      "HungerSpeed": 20,
+      "HappinessDecay": 5,
+      "Eats": "Anything"
+    },
+    "DaysToHatch": 4
+  }
+}

@@ -38,7 +38,9 @@ namespace LofiHollow.Managers {
         public int GetCurrentTime() {
             int total = Minutes + (Hours * 60);
 
-            if (!AM)
+            if (!AM && Hours != 12 || (AM && Hours == 12) || (AM && Hours == 1) || (AM && Hours == 2))
+                total += (12 * 60);
+            if ((AM && Hours == 1) || (AM && Hours == 2))
                 total += (12 * 60);
 
             return total;
@@ -75,7 +77,7 @@ namespace LofiHollow.Managers {
                 kv.Value.CurrentHP = kv.Value.MaxHP;
                 kv.Value.CurrentStamina = kv.Value.MaxStamina;
                 kv.Value.Sleeping = false;
-            }
+            } 
 
             GameLoop.World.SavePlayer();
         }
@@ -87,8 +89,10 @@ namespace LofiHollow.Managers {
                 Hours++;
                 Minutes = 0;
 
-                if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Bed") {
-                    GameLoop.UIManager.AddMsg(new ColoredString("Press " + ((char) 12) + " while standing on a bed to sleep.", Color.Yellow, Color.Black));
+                if (GameLoop.World.Player.MineLocation == "None") {
+                    if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Bed") {
+                        GameLoop.UIManager.AddMsg(new ColoredString("Press " + ((char)12) + " while standing on a bed to sleep.", Color.Yellow, Color.Black));
+                    }
                 }
 
                 if (Hours == 12) {
@@ -187,6 +191,9 @@ namespace LofiHollow.Managers {
             GameLoop.UIManager.Minigames.MineManager.LakeMine = new("Lake");
                
             GameLoop.UIManager.Map.LoadMap(GameLoop.World.Player.MapPos);
+
+
+            GameLoop.UIManager.Minigames.MonsterPenManager.DailyUpdate();
         }
     }
 }

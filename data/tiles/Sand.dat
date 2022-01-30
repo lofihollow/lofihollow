@@ -1,0 +1,19 @@
+{
+  "Name": "Sand",
+  "Package": "lh",
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 165,
+  "ForegroundG": 127,
+  "ForegroundB": 0,
+  "TileGlyph": 61,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

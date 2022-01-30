@@ -1,0 +1,19 @@
+{
+  "Name": "Tree",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "MiscString": "",
+  "ForegroundR": 0,
+  "ForegroundG": 127,
+  "ForegroundB": 0,
+  "TileGlyph": 6,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

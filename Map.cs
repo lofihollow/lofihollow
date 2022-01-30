@@ -34,6 +34,7 @@ namespace LofiHollow {
         public static GoRogue.IDGenerator IDGenerator = new();
 
         public GoRogue.MapViews.LambdaMapView<bool> MapFOV;
+        public GoRogue.MapViews.LambdaMapView<double> LightRes;
 
 
         public Map(int width, int height) {
@@ -50,6 +51,14 @@ namespace LofiHollow {
             var MapView = new GoRogue.MapViews.LambdaMapView<bool>(width, height, pos => IsTileWalkable(new Point(pos.X, pos.Y)));
             MapFOV = new GoRogue.MapViews.LambdaMapView<bool>(GameLoop.MapWidth, GameLoop.MapHeight, pos => BlockingLOS(new Point(pos.X, pos.Y)));
             MapPath = new GoRogue.Pathing.FastAStar(MapView, GoRogue.Distance.CHEBYSHEV);
+
+            LightRes = new GoRogue.MapViews.LambdaMapView<double>(GameLoop.MapWidth, GameLoop.MapHeight, pos => GetLightRes(new Point(pos.X, pos.Y)));
+        }
+
+        public double GetLightRes(Point location) {
+            if (location.X < 0 || location.Y < 0 || location.X >= Width || location.Y >= Height)
+                return 0;
+            return Tiles[location.Y * Width + location.X].LightBlocked;
         }
          
         public bool IsTileWalkable(Point location) { 
@@ -83,9 +92,12 @@ namespace LofiHollow {
                 }
 
                 Tiles[location.Y * Width + location.X].Lock.Closed = !Tiles[location.Y * Width + location.X].Lock.Closed;
-                String serialized = JsonConvert.SerializeObject(Tiles[location.Y * Width + location.X], Formatting.Indented);
+                Tiles[location.Y * Width + location.X].LightBlocked = Tiles[location.Y * Width + location.X].IsBlockingLOS ? 1 : 0;
+                string serialized = JsonConvert.SerializeObject(Tiles[location.Y * Width + location.X], Formatting.Indented);
                 GameLoop.SendMessageIfNeeded(new string[] { "updateTile", location.X.ToString(), location.Y.ToString(), mapPos.ToString(), serialized}, false, false);
-                  
+
+                GameLoop.SoundManager.PlaySound("door");
+
                 return;
             }
 

@@ -80,9 +80,13 @@ namespace LofiHollow {
 
         [JsonProperty]
         public MonsterPenFood MonsterFood;
+        [JsonProperty]
+        public Egg MonsterEgg;
 
         [JsonProperty]
         public Decorator Dec;
+
+
 
         [JsonProperty]
         public List<ToolData> Tool = null;
@@ -136,6 +140,7 @@ namespace LofiHollow {
                 Tool = temp.Tool;
                 Craft = temp.Craft;
                 MonsterFood = temp.MonsterFood;
+                MonsterEgg = temp.MonsterEgg;
 
                 if (name == "lh:(EMPTY)")
                     ItemQuantity = 0;
@@ -170,6 +175,7 @@ namespace LofiHollow {
             Tool = temp.Tool;
             Craft = temp.Craft;
             MonsterFood = temp.MonsterFood;
+            MonsterEgg = temp.MonsterEgg;
 
             Stats = temp.Stats;
             Heal = temp.Heal;

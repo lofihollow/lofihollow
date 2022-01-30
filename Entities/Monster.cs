@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LofiHollow.Managers;
+using LofiHollow.Minigames;
 using Newtonsoft.Json;
 using SadRogue.Primitives;
 
@@ -37,6 +38,11 @@ namespace LofiHollow.Entities {
 
         [JsonProperty]
         public bool AlwaysAggro = false;
+
+        [JsonProperty]
+        public bool CanDropEgg = false;
+        [JsonProperty]
+        public Egg EggData;
 
 
         [JsonConstructor]
@@ -78,6 +84,8 @@ namespace LofiHollow.Entities {
                 MonDefense = temp.MonDefense;
                 MonMagic = temp.MonMagic;
                 MonRanged = temp.MonRanged;
+
+                EggData = temp.EggData;
 
                 UniqueID = Guid.NewGuid().ToString("N");
             }

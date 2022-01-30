@@ -1,0 +1,19 @@
+{
+  "Name": "Water",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 10,
+  "ForegroundG": 72,
+  "ForegroundB": 115,
+  "TileGlyph": 247,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

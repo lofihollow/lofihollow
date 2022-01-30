@@ -211,11 +211,10 @@ namespace LofiHollow.Managers {
 
             if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemComma)) {
                 if (GameLoop.World.Player.Position / 12 == new Point(35, 4) || GameLoop.World.Player.Position / 12 == new Point(34, 4) || GameLoop.World.Player.Position / 12 == new Point(36, 4)) {
-                    GameLoop.UIManager.selectedMenu = "None";
-                    GameLoop.UIManager.Minigames.CurrentGame = "None";
+                    GameLoop.UIManager.selectedMenu = "None"; 
                     GameLoop.World.Player.UsePixelPositioning = false;
                     GameLoop.World.Player.Position = GameLoop.World.Player.MineEnteredAt;
-                    GameLoop.UIManager.Minigames.ToggleMinigame();
+                    GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 }
             }
 

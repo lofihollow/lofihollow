@@ -4,6 +4,7 @@ using Console = SadConsole.Console;
 using SadRogue.Primitives;
 using Microsoft.Xna.Framework.Graphics;
 
+
 using LofiHollow.UI;
 using LofiHollow.Managers;
 using LofiHollow.Entities;
@@ -23,7 +24,7 @@ namespace LofiHollow {
         public static CommandManager CommandManager;
         public static SteamManager SteamManager;
         public static NetworkManager NetworkManager;
-        public static MissionManager MissionManager;
+        public static SoundManager SoundManager;
 
 
         public static Random rand;
@@ -38,8 +39,10 @@ namespace LofiHollow {
             GameHost.Instance.FrameUpdate += Update;
             
             // Start the game.
-            SadConsole.Game.Instance.Run(); 
-            SadConsole.Game.Instance.Dispose(); 
+            SadConsole.Game.Instance.Run();
+
+            SadConsole.Game.Instance.Dispose();
+            
         } 
 
         private static void Update(object sender, GameHost e) {
@@ -85,6 +88,9 @@ namespace LofiHollow {
                 UpdatedMaps.Clear(); 
             }
 
+            if (SoundManager != null)
+                SoundManager.UpdateSounds();
+
             SteamManager.RunCallbacks();
 
         }
@@ -98,6 +104,7 @@ namespace LofiHollow {
             
             CommandManager = new CommandManager(); 
             SteamManager = new SteamManager();
+            SoundManager = new SoundManager();
 
             //  World.LoadExistingMaps();
             World.LoadMapAt(new Point3D(1, 3, 0));

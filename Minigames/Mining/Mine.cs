@@ -156,6 +156,9 @@ namespace LofiHollow.Minigames.Mining {
                                 player.Skills["Mining"].GrantExp(Levels[player.MineDepth].GetTile(breakPos).GrantedExp);
                                 Levels[player.MineDepth].TileToAir(breakPos);
                             }
+                            GameLoop.SoundManager.PlaySound("mineBreak");
+                        } else {
+                            GameLoop.SoundManager.PlaySound("mineHit");
                         }
 
                         string json = JsonConvert.SerializeObject(Levels[player.MineDepth].GetTile(breakPos), Formatting.Indented);

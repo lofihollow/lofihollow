@@ -1,0 +1,19 @@
+{
+  "Name": "Wall",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "MiscString": "",
+  "ForegroundR": 155,
+  "ForegroundG": 103,
+  "ForegroundB": 60,
+  "TileGlyph": 181,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

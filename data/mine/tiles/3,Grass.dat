@@ -9,7 +9,7 @@
   "ForeG": 127,
   "ForeB": 0,
   "Dec": null,
-  "OutputID": "Dirt Clump",
+  "OutputID": "lh:Dirt Clump",
   "RequiredTier": 1,
   "TileHP": 3
 }

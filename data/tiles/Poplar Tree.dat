@@ -1,0 +1,38 @@
+{
+  "Name": "Poplar Tree",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "MiscString": "",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 243,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": {
+    "Glyph": 242,
+    "R": 0,
+    "G": 127,
+    "B": 0,
+    "A": 255
+  },
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": {
+    "HarvestableName": "Poplar Tree",
+    "DepletedName": "Poplar Stump",
+    "HarvestTool": 3,
+    "RequiredSkill": "Woodcutting",
+    "RequiredLevel": 0,
+    "ItemGiven": "7",
+    "DepletedItem": "7",
+    "RestoreTime": "Day",
+    "ExpOnHarvest": 25,
+    "ExpOnDeplete": 30,
+    "HarvestMessage": "You get a poplar log.",
+    "DepleteMessage": "You chop down the poplar tree."
+  }
+}

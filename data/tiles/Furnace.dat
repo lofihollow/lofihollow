@@ -1,0 +1,25 @@
+{
+  "Name": "Furnace",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "MiscString": "Skill,Smithing,Furnace,1",
+  "ForegroundR": 57,
+  "ForegroundG": 57,
+  "ForegroundB": 57,
+  "TileGlyph": 279,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": {
+    "Glyph": 280,
+    "R": 255,
+    "G": 255,
+    "B": 255,
+    "A": 255
+  },
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

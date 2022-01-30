@@ -1,0 +1,19 @@
+{
+  "Name": "Poplar Floor",
+  "Package": "lh",
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 46,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

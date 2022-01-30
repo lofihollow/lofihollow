@@ -1,6 +1,7 @@
 ﻿using LofiHollow.Entities;
 using LofiHollow.Managers;
-using LofiHollow.Minigames.Mining;
+using LofiHollow.Minigames.Jobs; 
+
 using SadConsole;
 using SadConsole.Input;
 using SadConsole.UI;
@@ -17,6 +18,7 @@ namespace LofiHollow.UI {
         public MineManager MineManager;
         public FishingManager FishingManager;
         public MonsterPenManager MonsterPenManager;
+        public Bartending Bartending;
 
         public UI_Minigame(int width, int height, string title) {
             MinigameWindow = new(width, height);
@@ -40,6 +42,7 @@ namespace LofiHollow.UI {
             MineManager = new();
             FishingManager = new();
             MonsterPenManager = new();
+            Bartending = new();
         }
 
 
@@ -55,8 +58,12 @@ namespace LofiHollow.UI {
             }
 
             if (CurrentGame == "Monster Pen") {
-                MonsterPenManager.Render();
-            } 
+                MonsterPenManager.Draw();
+            }
+
+            if (CurrentGame == "Bartending") {
+                Bartending.Draw();
+            }
         }
 
         public void MinigameInput() {
@@ -71,16 +78,23 @@ namespace LofiHollow.UI {
             if (CurrentGame == "Monster Pen") {
                 MonsterPenManager.Input();
             }
+
+            if (CurrentGame == "Bartending") {
+                Bartending.Input();
+            }
         } 
-        public void ToggleMinigame() {
+        public void ToggleMinigame(string which) {
             if (MinigameWindow.IsVisible) {
                 GameLoop.UIManager.selectedMenu = "None";
                 MinigameWindow.IsVisible = false;
                 GameLoop.UIManager.Map.MapConsole.IsFocused = true;
+                MinigameConsole.Children.Clear();
             } else {
                 GameLoop.UIManager.selectedMenu = "Minigame";
                 MinigameWindow.IsVisible = true;
                 MinigameWindow.IsFocused = true;
+                CurrentGame = which;
+                
 
                 if (CurrentGame == "Mining" || CurrentGame == "Monster Pen") {
                     MinigameWindow.Position = new Point(0, 0);

@@ -1,0 +1,19 @@
+{
+  "Name": "Grave",
+  "Package": "lh",
+  "IsBlockingMove": false,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 101,
+  "ForegroundG": 67,
+  "ForegroundB": 33,
+  "TileGlyph": 270,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

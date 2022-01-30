@@ -186,9 +186,8 @@ namespace LofiHollow.Entities {
                     GameLoop.UIManager.AddMsg(new ColoredString("As it fades, you find yourself in the Cemetary.", Color.Yellow, Color.Black));
 
                     if (GameLoop.UIManager.selectedMenu == "Minigame") {
-                        GameLoop.UIManager.Minigames.ToggleMinigame();
-                        GameLoop.UIManager.selectedMenu = "None";
-                        GameLoop.UIManager.Minigames.CurrentGame = "None";
+                        GameLoop.UIManager.Minigames.ToggleMinigame("None");
+                        GameLoop.UIManager.selectedMenu = "None"; 
                     }
                 }
 

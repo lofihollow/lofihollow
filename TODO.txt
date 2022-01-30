@@ -54,15 +54,25 @@ Ways to earn money at the start
 
 Kaalista's Monster Pens
 - (DONE) Three slots that can hold a monster each
-- Put monsters in there via finding eggs as drops from monsters
+- (DONE) Put monsters in there via finding eggs as drops from monsters
+- Make sure monsters can actually drop eggs
 - Have to take care of them by giving them food (specify what their diet is, player has to provide that kind of food)
 - When fully grown they provide drops the monster normally has, directly sold for a lump sump, or slaughtered and butchered
+- Collect items from the pens
+- Feed monster in pen using current hotbar item
+- Perform checks for deaths if needed
+- When the monster dies, leave behind a corpse in the pen
+- Monster breeding if two pens are filled and one is empty?
+- Minigames you can play with the monsters?
+- Have to clean up the pen regularly
 
 
 Day/Night System
-- Overworld is lit during the day
+- (DONE) Overworld is lit during the day
 - Shade and restrict FOV while in darkness
-- Add light sources
+- (DONE) Add light sources 
+- If tiles are exposed to the sky, use normal minimums. Otherwise let darkness go all the way to fully obscured
+
 
 Item Qualities
 - Value is for a quality of 10, divide by 10 and multiply by quality for actual value (only on things with a quality)
@@ -84,7 +94,9 @@ Cooking
 - - Frying: Cube of meat that you can flip between spots on a grid, have to fry all sides equally without burning any or flipping it off the side
 - - - Meat comes in different sizes, you can choose when to add it but you have to get all the pieces cooked, and all pieces move at once
 - - - Thin meat like bacon that only has two sides
-- - 
+- - Rolling: Rolling pin moves back and forth across the screen, player pressed a button to decide which side to apply pressure
+- - - Have to get all of it to the desired thickness
+- - - Rolling pin gets faster as time runs out
 
 
 Effects System
@@ -114,9 +126,10 @@ Monster Corpses
 
 Farm Animals
 - Tools
-- - Brush: Improves relationship
+- - Brush: Improves relationship (Brushing minigame)
 - - Feed: Feeds animals
 - - Shears: Shear wool off sheep
+- - Sponge: Clean animal (Cleaning minigame?)
 - - Add a butchering quality to knives, can be used to butcher any killed monster
 - Chickens - Lay eggs
 - Cows
@@ -136,6 +149,7 @@ Fishing
 - Have a visible Fish-o-pedia in-game that fills out with information on fish you've actually caught.
 - - Include a minimum caught weight, maximum caught weight, their value when sold, location info, and level requirement
 - Let other players in multiplayer see your lure when you cast it
+- Do a little effect in multiplayer when you/another play catches something
  
 
 Quests / Story Missions?
@@ -149,16 +163,17 @@ Quests / Story Missions?
 
 
 The Sound Effect-ening
-- Door open/close
+- (DONE) Door open/close
 - Combat swipes
 - Fishing
 - - Cast
 - - Reel in
-- Watering Can
+- (DONE) Watering Can
 - Harvesting crops
-- Till ground
-- Mining
-- - Break block
+- (DONE) Till ground
+- (DONE) Mining
+- - (DONE) Break block
+- (DONE) Minigames: generic success / fail sounds
 
 Mod Support
 - Implement the steam workshop
@@ -241,6 +256,10 @@ Map
 ====================
 FUTURE UPDATE TARGETS
 
+Minigame Leaderboards
+- Global
+- Locally connected
+
 
 Dumb Ideas that could be fun/funny:
 - Jump button that moves you up a level and hovers you there for a second)
@@ -310,7 +329,9 @@ Minigames
 - - Gomoku
 - - Shogi
 - Job Minigames
-- - Bartending (at Tom's Bar)
+- - (DONE) Bartending (at Tom's Bar)
+- Prop Hunt
+- Trouble in Terrorist Town?
 
 
 
