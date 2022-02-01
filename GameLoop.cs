@@ -57,12 +57,14 @@ namespace LofiHollow {
                     }
                 }
 
+                SoundManager.PickMusic();
+
                 List<Point3D> UpdatedMaps = new();
 
                 if (World.maps[World.Player.MapPos].Entities.Count > 0) {
                     var entities = World.maps[World.Player.MapPos].Entities.Items.ToList();
                     foreach (Entity ent in entities) {
-                        if (ent is Monster mon) {
+                        if (ent is MonsterWrapper mon) {
                             mon.Update();
                         }
                     } 
@@ -75,7 +77,7 @@ namespace LofiHollow {
                         if (World.maps.ContainsKey(kv.Value.MapPos)) {
                             if (World.maps[kv.Value.MapPos].Entities.Count > 0) {
                                 foreach (Entity ent in World.maps[kv.Value.MapPos].Entities.Items) {
-                                    if (ent is Monster mon) {
+                                    if (ent is MonsterWrapper mon) {
                                         mon.Update();
                                     }
                                 }

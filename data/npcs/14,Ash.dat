@@ -15,18 +15,7 @@
     "Birthday": { },
 	"Default": {
       "Nodes": [
-        {
-          "DayMinutes": 540,
-          "MapPos": {
-			"X": 1,
-			"Y": 0,
-			"Z": 0
-		  },
-          "Position": {
-            "X": 12,
-            "Y": 34
-          }
-        }
+		  "540;1;0;0;12;34"
       ],
       "NextNodeTime": 0,
       "CurrentNode": 0

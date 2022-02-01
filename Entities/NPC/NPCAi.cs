@@ -43,68 +43,99 @@ namespace LofiHollow.Entities.NPC {
         public void SetSchedule(string season, string weather) {
             if (season == "Spring") {
                 if (weather == "Sunny") {
-                    Current = SpringNormal;
+                    if (SpringNormal != null && SpringNormal.Nodes.Count > 0)
+                        Current = new(SpringNormal);
                 } else {
-                    Current = SpringRain;
+                    if (SpringRain != null && SpringRain.Nodes.Count > 0)
+                        Current = new(SpringRain);
                 } 
-            }
-
-            if (season == "Summer") {
+            } if (season == "Summer") {
                 if (weather == "Sunny") {
-                    Current = SummerNormal;
+                    if (SummerNormal != null && SummerNormal.Nodes.Count > 0)
+                        Current = new(SummerNormal);
                 } else {
-                    Current = SummerRain;
+                    if (SummerRain != null && SummerRain.Nodes.Count > 0)
+                        Current = new(SummerRain);
                 }
             }
 
             if (season == "Fall") {
                 if (weather == "Sunny") {
-                    Current = FallNormal;
+                    if (FallNormal != null && FallNormal.Nodes.Count > 0)
+                        Current = new(FallNormal);
                 } else {
-                    Current = FallRain;
+                    if (FallRain != null && FallRain.Nodes.Count > 0)
+                        Current = new(FallRain);
                 }
             }
 
             if (season == "Winter") {
                 if (weather == "Sunny") {
-                    Current = WinterNormal;
+                    if (WinterNormal != null && WinterNormal.Nodes.Count > 0)
+                        Current = new(WinterNormal);
                 } else {
-                    Current = WinterSnow;
+                    if (WinterSnow != null && WinterSnow.Nodes.Count > 0)
+                        Current = new(WinterSnow);
                 }
             }
 
-            if (season == "Holiday") { Current = Holiday; }
-            if (season == "Birthday") { Current = Birthday; }
-
-            if (Current.Nodes == null) {
-                Current = Default;
+            if (season == "Holiday") { 
+                if (Holiday != null && Holiday.Nodes.Count > 0)
+                    Current = new(Holiday); 
+            }
+            if (season == "Birthday") { 
+                if (Birthday != null && Birthday.Nodes.Count > 0)
+                    Current = new(Birthday); 
             }
 
-            Current.CurrentNode = 0;
-            Current.NextNodeTime = Current.Nodes.Count > 1 ? Current.Nodes[1].DayMinutes : Current.Nodes[0].DayMinutes;
+            if (Current == null) { Current = new(Default); }
+
+            if (Current.Nodes != null) {
+                Current.CurrentNode = 0;
+                int CurrentTime = Int32.Parse(Current.Nodes[0].Split(";")[0]);
+                int NextTime = Int32.Parse(Current.Nodes[0].Split(";")[0]);
+
+                if (Current.Nodes.Count > 1) {
+                    string[] NextNode = Current.Nodes[1].Split(";");
+                    NextTime = Int32.Parse(NextNode[0]);
+                }
+
+                Current.NextNodeTime = Current.Nodes.Count > 1 ? NextTime : CurrentTime;
+            }
         }
 
 
 
         public void UpdateNode(int CurrentTime) {
-            if (CurrentTime > Current.NextNodeTime - 10) {
-                if (Current.CurrentNode+1 < Current.Nodes.Count) {
-                    Current.CurrentNode++;
-                    if (Current.CurrentNode + 1 < Current.Nodes.Count)
-                        Current.NextNodeTime = Current.Nodes[Current.CurrentNode + 1].DayMinutes;
+            if (Current.Nodes != null) {
+                if (CurrentTime > Current.NextNodeTime - 10) {
+                    if (Current.CurrentNode + 1 < Current.Nodes.Count) {
+                        Current.CurrentNode++;
+                        if (Current.CurrentNode + 1 < Current.Nodes.Count)
+                            Current.NextNodeTime = Int32.Parse(Current.Nodes[Current.CurrentNode + 1].Split(";")[0]);
+                    }
                 }
-            }
 
-            if (CurrentTime == -1) {
-                Current.CurrentNode = 0;
-                Current.NextNodeTime = Current.Nodes[Current.CurrentNode + 1].DayMinutes;
+                if (CurrentTime == -1) {
+                    Current.CurrentNode = 0;
+                    Current.NextNodeTime = Int32.Parse(Current.Nodes[Current.CurrentNode + 1].Split(";")[0]);
+                }
             }
         }
 
         public void MoveTowardsNode(int CurrentTime, NPC npc) { 
             UpdateNode(CurrentTime);
-            Point3D destination = Current.Nodes[Current.CurrentNode].MapPos;
-            Point pos = Current.Nodes[Current.CurrentNode].Position;
+
+            string[] FullNode = Current.Nodes[Current.CurrentNode].Split(";");
+            int mX = Int32.Parse(FullNode[1]);
+            int mY = Int32.Parse(FullNode[2]);
+            int mZ = Int32.Parse(FullNode[3]);
+
+            int pX = Int32.Parse(FullNode[4]);
+            int pY = Int32.Parse(FullNode[5]);
+
+            Point3D destination = new(mX, mY, mZ);
+            Point pos = new(pX, pY);
             bool recentlyMovedMaps = false;
 
             if (npc.MapPos == destination && npc.Position == pos)
@@ -114,14 +145,14 @@ namespace LofiHollow.Entities.NPC {
             int edgeY = 0;
 
             if (CurrentTime > Current.NextNodeTime + 30) { // If they're more than 30 minutes late and the player is out of sight, teleport to their node
-                if (GameLoop.World.Player.MapPos != npc.MapPos && GameLoop.World.Player.MapPos != Current.Nodes[Current.CurrentNode].MapPos) {
-                    npc.Position = Current.Nodes[Current.CurrentNode].Position;
-                    npc.MapPos = Current.Nodes[Current.CurrentNode].MapPos;
+                if (GameLoop.World.Player.MapPos != npc.MapPos && GameLoop.World.Player.MapPos != destination) {
+                    npc.Position = pos;
+                    npc.MapPos = destination;
                 }
             } 
 
-            if (npc.MapPos == Current.Nodes[Current.CurrentNode].MapPos) { // Node they're meant to go to is on the same map
-                if (npc.Position == Current.Nodes[Current.CurrentNode].Position) { // They're already there, no need to go further.
+            if (npc.MapPos == destination) { // Node they're meant to go to is on the same map
+                if (npc.Position == pos) { // They're already there, no need to go further.
                     CurrentPath = null;
                     pathPos = 0;
                     return;

@@ -7,6 +7,7 @@ using Discord;
 using LofiHollow.Entities;
 using LofiHollow.Entities.NPC;
 using LofiHollow.Minigames.Mining;
+using LofiHollow.EntityData;
 using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
@@ -121,7 +122,7 @@ namespace LofiHollow.Managers {
 
 							foreach (Entity ent in GameLoop.World.maps[requestPos].Entities.Items) {
 								string entityMsg = "";
-								if (ent is Monster monEntity) {
+								if (ent is MonsterWrapper monEntity) {
 									entityMsg = "spawnMonster;" + JsonConvert.SerializeObject(monEntity, Formatting.Indented);
 								}
 
@@ -254,9 +255,16 @@ namespace LofiHollow.Managers {
                         }
 
 						break;
-					case "spawnMonster":
-						Monster spawnMonster = JsonConvert.DeserializeObject<Monster>(splitMsg[1]);
-						CommandManager.SpawnMonster(spawnMonster);
+					case "spawnMonster": 
+						string monsterID = splitMsg[1];
+						int monSpawnMapX = Int32.Parse(splitMsg[2]);
+						int monSpawnMapY = Int32.Parse(splitMsg[3]);
+						int monSpawnMapZ = Int32.Parse(splitMsg[4]);
+
+						int monSpawnPosX = Int32.Parse(splitMsg[5]);
+						int monSpawnPosY = Int32.Parse(splitMsg[6]);
+						 
+						CommandManager.SpawnMonster(monsterID, new Point3D(monSpawnMapX, monSpawnMapY, monSpawnMapZ), new Point(monSpawnPosX, monSpawnPosY));
 						break;
 					case "disconnectedPlayer":
 						long disconnectID = long.Parse(splitMsg[1]);

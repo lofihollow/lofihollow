@@ -46,7 +46,7 @@ namespace LofiHollow.Managers {
             return total;
         }
 
-        public string MinutesToTime(int minutes) {
+        public static string MinutesToTime(int minutes) {
             return (minutes / 60) + ":" + (minutes % 60);
         }
 

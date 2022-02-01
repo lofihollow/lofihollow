@@ -44,26 +44,6 @@ namespace LofiHollow.Entities {
 
 
         [JsonProperty]
-        public int CopperCoins = 0;
-        [JsonProperty]
-        public int SilverCoins = 0;
-        [JsonProperty]
-        public int GoldCoins = 0;
-        [JsonProperty]
-        public int JadeCoins = 0;
-
-        [JsonProperty]
-        public Item[] Inventory;
-        [JsonProperty]
-        public Item[] Equipment;
-
-
-        [JsonProperty]
-        public List<ItemDrop> DropTable = new();
-
-        
-
-        [JsonProperty]
         public Dictionary<string, Skill> Skills = new();
 
 
@@ -148,7 +128,7 @@ namespace LofiHollow.Entities {
                 ScreenAppearance.Position = Position;
         }
 
-        protected Actor(Color foreground, int glyph, bool initInventory = false) : base(foreground, Color.Transparent, glyph) {
+        protected Actor(Color foreground, int glyph) : base(foreground, Color.Transparent, glyph) {
             Appearance.Foreground = foreground; 
             Appearance.Glyph = glyph;
             Appearance.Background = new Color(0, 0, 0, 50);
@@ -159,21 +139,6 @@ namespace LofiHollow.Entities {
 
             MaxStamina = 100;
             CurrentStamina = MaxStamina;
-            
-             
-
-            Equipment = new Item[10];
-            for (int i = 0; i < Equipment.Length; i++) {
-                Equipment[i] = new Item("lh:(EMPTY)");
-            }
-
-            if (initInventory) {
-                Inventory = new Item[9];
-
-                for (int i = 0; i < Inventory.Length; i++) {
-                    Inventory[i] = new Item("lh:(EMPTY)");
-                }
-            }
         }
 
         public ColoredString GetAppearance() {
@@ -181,10 +146,10 @@ namespace LofiHollow.Entities {
         }
 
         public void CalculateCombatLevel() {
-            if (this is Monster mon) { 
-                int combatStat = Math.Max(mon.MonAttack + mon.MonStrength, Math.Max(2 * mon.MonMagic, 2 * mon.MonRanged));
+            if (this is MonsterWrapper mon) { 
+                int combatStat = Math.Max(mon.monster.MonAttack + mon.monster.MonStrength, Math.Max(2 * mon.monster.MonMagic, 2 * mon.monster.MonRanged));
 
-                CombatLevel = (int) Math.Floor((double) (((13 / 10) * combatStat) + mon.MonDefense + mon.MonConstitution) / 4);
+                CombatLevel = (int) Math.Floor((double) (((13 / 10) * combatStat) + mon.monster.MonDefense + mon.monster.MonConstitution) / 4);
             } else {
                 int Attack = Skills["Attack"].Level;
                 int Strength = Skills["Strength"].Level;
@@ -204,8 +169,8 @@ namespace LofiHollow.Entities {
                 MaxHP = Skills["Constitution"].Level;
                 CurrentHP = MaxHP;
             } else {
-                var mon = (Monster)this;
-                MaxHP = mon.MonConstitution;
+                var mon = (MonsterWrapper)this;
+                MaxHP = mon.monster.MonConstitution;
                 CurrentHP = MaxHP;
             }
         }
@@ -216,8 +181,8 @@ namespace LofiHollow.Entities {
                 if (this is Player)
                     effectiveAttackLevel = Skills["Attack"].Level;
                 else {
-                    var mon = (Monster)this;
-                    effectiveAttackLevel = mon.MonAttack;
+                    var mon = (MonsterWrapper)this;
+                    effectiveAttackLevel = mon.monster.MonAttack;
                 }
 
                 if (CombatMode == "Attack")
@@ -234,18 +199,20 @@ namespace LofiHollow.Entities {
         public int AttackRoll(string type) {
             int StyleBonus = 0;
 
-            for (int i = 0; i < Equipment.Length; i++) {
-                if (Equipment[i].Stats != null) {
-                    if (type == "Slash")
-                        StyleBonus += Equipment[i].Stats.SlashBonus;
-                    if (type == "Stab")
-                        StyleBonus += Equipment[i].Stats.StabBonus;
-                    if (type == "Crush")
-                        StyleBonus += Equipment[i].Stats.CrushBonus;
-                    if (type == "Range")
-                        StyleBonus += Equipment[i].Stats.RangeBonus;
-                    if (type == "Magic")
-                        StyleBonus += Equipment[i].Stats.MagicBonus;
+            if (this is Player play) {
+                for (int i = 0; i < play.Equipment.Length; i++) {
+                    if (play.Equipment[i].Stats != null) {
+                        if (type == "Slash")
+                            StyleBonus += play.Equipment[i].Stats.SlashBonus;
+                        if (type == "Stab")
+                            StyleBonus += play.Equipment[i].Stats.StabBonus;
+                        if (type == "Crush")
+                            StyleBonus += play.Equipment[i].Stats.CrushBonus;
+                        if (type == "Range")
+                            StyleBonus += play.Equipment[i].Stats.RangeBonus;
+                        if (type == "Magic")
+                            StyleBonus += play.Equipment[i].Stats.MagicBonus;
+                    }
                 }
             }
 
@@ -259,8 +226,8 @@ namespace LofiHollow.Entities {
                 if (this is Player)
                     effectiveDefenseLevel = Skills["Defense"].Level;
                 else {
-                    var mon = (Monster)this;
-                    effectiveDefenseLevel = mon.MonDefense;
+                    var mon = (MonsterWrapper)this;
+                    effectiveDefenseLevel = mon.monster.MonDefense;
                 }
 
                 if (CombatMode == "Defense")
@@ -274,26 +241,28 @@ namespace LofiHollow.Entities {
 
             int TotalDefenseBonus = 0;
 
-            for (int i = 0; i < Equipment.Length; i++) {
-                if (Equipment[i].Stats != null) {
-                    if (damageType == "Slash")
-                        TotalDefenseBonus += Equipment[i].Stats.ArmorVsSlash;
-                    if (damageType == "Stab")
-                        TotalDefenseBonus += Equipment[i].Stats.ArmorVsStab;
-                    if (damageType == "Crush")
-                        TotalDefenseBonus += Equipment[i].Stats.ArmorVsCrush;
-                    if (damageType == "Range")
-                        TotalDefenseBonus += Equipment[i].Stats.ArmorVsRange;
-                    if (damageType == "Magic")
-                        TotalDefenseBonus += Equipment[i].Stats.ArmorVsMagic;
+            if (this is Player play) {
+                for (int i = 0; i < play.Equipment.Length; i++) {
+                    if (play.Equipment[i].Stats != null) {
+                        if (damageType == "Slash")
+                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsSlash;
+                        if (damageType == "Stab")
+                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsStab;
+                        if (damageType == "Crush")
+                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsCrush;
+                        if (damageType == "Range")
+                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsRange;
+                        if (damageType == "Magic")
+                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsMagic;
+                    }
                 }
             }
 
             if (this is Player) {
                 return effectiveDefenseLevel * (TotalDefenseBonus + 64);
             } else {
-                var mon = (Monster)this;
-                return (mon.MonDefense + 9) * (TotalDefenseBonus + 64);
+                var mon = (MonsterWrapper)this;
+                return (mon.monster.MonDefense + 9) * (TotalDefenseBonus + 64);
             }
         }
 
@@ -305,8 +274,8 @@ namespace LofiHollow.Entities {
                 if (this is Player)
                     effectiveStrength = Skills["Strength"].Level;
                 else {
-                    var mon = (Monster)this;
-                    effectiveStrength = mon.MonStrength;
+                    var mon = (MonsterWrapper)this;
+                    effectiveStrength = mon.monster.MonStrength;
                 }
 
                 if (CombatMode == "Strength")
@@ -319,18 +288,20 @@ namespace LofiHollow.Entities {
 
             int TotalStrengthBonus = 0;
 
-            for (int i = 0; i < Equipment.Length; i++) {
-                if (Equipment[i].Stats != null) {
-                    if (damageType == "Slash")
-                        TotalStrengthBonus += Equipment[i].Stats.StrengthBonus;
-                    if (damageType == "Stab")
-                        TotalStrengthBonus += Equipment[i].Stats.StrengthBonus;
-                    if (damageType == "Crush")
-                        TotalStrengthBonus += Equipment[i].Stats.StrengthBonus;
-                    if (damageType == "Range")
-                        TotalStrengthBonus += Equipment[i].Stats.RangeBonus;
-                    if (damageType == "Magic")
-                        TotalStrengthBonus += Equipment[i].Stats.MagicBonus;
+            if (this is Player play) {
+                for (int i = 0; i < play.Equipment.Length; i++) {
+                    if (play.Equipment[i].Stats != null) {
+                        if (damageType == "Slash")
+                            TotalStrengthBonus += play.Equipment[i].Stats.StrengthBonus;
+                        if (damageType == "Stab")
+                            TotalStrengthBonus += play.Equipment[i].Stats.StrengthBonus;
+                        if (damageType == "Crush")
+                            TotalStrengthBonus += play.Equipment[i].Stats.StrengthBonus;
+                        if (damageType == "Range")
+                            TotalStrengthBonus += play.Equipment[i].Stats.RangeBonus;
+                        if (damageType == "Magic")
+                            TotalStrengthBonus += play.Equipment[i].Stats.MagicBonus;
+                    }
                 }
             }
 
@@ -344,31 +315,22 @@ namespace LofiHollow.Entities {
         }
 
         public string GetDamageType() {
-            if (Equipment[0].Stats != null) {
-                string[] types = Equipment[0].Stats.DamageType.Split(",");
+            if (this is Player play) {
+                if (play.Equipment[0].Stats != null) {
+                    string[] types = play.Equipment[0].Stats.DamageType.Split(",");
 
-                if (CombatMode == "Attack")
-                    return types[0];
-                if (CombatMode == "Strength")
-                    return types[1];
-                if (CombatMode == "Defense")
-                    return types[2];
-                if (CombatMode == "Balanced")
-                    return types[3];
+                    if (CombatMode == "Attack")
+                        return types[0];
+                    if (CombatMode == "Strength")
+                        return types[1];
+                    if (CombatMode == "Defense")
+                        return types[2];
+                    if (CombatMode == "Balanced")
+                        return types[3];
+                }
             }
 
             return "Crush";
-        }
-
-
-
-        public bool HasInventorySlotOpen(string stackID = "") {
-            for (int i = 0; i < Inventory.Length; i++) {
-                if (Inventory[i].Name == "(EMPTY)" || (Inventory[i].Name == stackID && stackID != "")) {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public int TakeDamage(int damage) {
@@ -407,8 +369,8 @@ namespace LofiHollow.Entities {
                 }
 
 
-                if (GameLoop.World.maps[MapPos].GetEntityAt<Monster>(newPosition) != null) {
-                    Monster monster = GameLoop.World.maps[MapPos].GetEntityAt<Monster>(newPosition);
+                if (GameLoop.World.maps[MapPos].GetEntityAt<MonsterWrapper>(newPosition) != null) {
+                    MonsterWrapper monster = GameLoop.World.maps[MapPos].GetEntityAt<MonsterWrapper>(newPosition);
 
                     CommandManager.Attack(this, monster, true);
                     return false;
@@ -416,7 +378,7 @@ namespace LofiHollow.Entities {
 
 
                 // Interact with skilling tiles
-                if (ID == GameLoop.World.Player.ID) {
+                if (this is Player play) {
                     if (newPosition.X < GameLoop.MapWidth && newPosition.X >= 0 && newPosition.Y < GameLoop.MapHeight && newPosition.Y >= 0) {
                         if (map.GetTile(newPosition).MiscString != "" && map.GetTile(newPosition).MiscString.Split(",").Length > 1) {
                             string[] split = map.GetTile(newPosition).MiscString.Split(",");
@@ -436,16 +398,16 @@ namespace LofiHollow.Entities {
                             if (map.GetTile(newPosition).Name == tile.HarvestableName) {
                                 if (Skills.ContainsKey(tile.RequiredSkill)) {
                                     if (Skills[tile.RequiredSkill].Level >= tile.RequiredLevel) {
-                                        if (Equipment[0].ItemCategory == tile.HarvestTool || Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCategory == tile.HarvestTool) {
-                                            if (HasInventorySlotOpen()) {
-                                                CommandManager.AddItemToInv(this, new Item(tile.ItemGiven));
+                                        if (play.Equipment[0].ItemCategory == tile.HarvestTool || play.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCategory == tile.HarvestTool) {
+                                            if (play.HasInventorySlotOpen()) {
+                                                CommandManager.AddItemToInv(play, new Item(tile.ItemGiven));
                                                 GameLoop.UIManager.AddMsg(tile.HarvestMessage);
                                                 ExpendStamina(1);
 
                                                 int choppedChance = GameLoop.rand.Next(100) + 1;
 
                                                 if (choppedChance < 33) {
-                                                    CommandManager.AddItemToInv(this, new Item(tile.DepletedItem));
+                                                    CommandManager.AddItemToInv(play, new Item(tile.DepletedItem));
                                                     map.GetTile(newPosition).Name = tile.DepletedName;
                                                     GameLoop.UIManager.AddMsg(tile.DepleteMessage);
                                                     Skills[tile.RequiredSkill].Experience += tile.ExpOnDeplete;
@@ -666,35 +628,6 @@ namespace LofiHollow.Entities {
 
             return true;
         } 
-        
-
-        public void SpawnDrops() {
-            for (int i = 0; i < DropTable.Count; i++) {
-                ItemDrop drop = DropTable[i];
-
-                int roll = GameLoop.rand.Next(drop.DropChance);
-
-                if (roll == 0) {
-                    ItemWrapper item = new(drop.Name);
-
-                    if (item.item.IsStackable) {
-                        item.item.ItemQuantity = GameLoop.rand.Next(drop.DropQuantity) + 1;
-                        item.Position = Position;
-                        item.MapPos = MapPos;
-                        CommandManager.SpawnItem(item);
-                    } else {
-                        int qty = GameLoop.rand.Next(drop.DropQuantity) + 1;
-
-                        for (int j = 0; j < qty; j++) {
-                            ItemWrapper itemNonStack = new(drop.Name);
-                            itemNonStack.Position = Position;
-                            itemNonStack.MapPos = MapPos;
-                            CommandManager.SpawnItem(itemNonStack);
-                        }
-                    }
-                }
-            } 
-        } 
 
         public void Death(bool drops = true) {
             GameLoop.World.maps[MapPos].Remove(this);
@@ -704,8 +637,8 @@ namespace LofiHollow.Entities {
                 GameLoop.UIManager.AddMsg(this.Name + " died.");
             } 
 
-            if (drops)
-                SpawnDrops();
+            if (drops && this is MonsterWrapper wrap)
+                wrap.SpawnDrops();
 
             GameLoop.World.maps[MapPos].SpawnedMonsters--;
 

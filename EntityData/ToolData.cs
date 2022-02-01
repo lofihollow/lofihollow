@@ -22,7 +22,7 @@ namespace LofiHollow.EntityData {
             Tier = tier;
         }
 
-        public bool ActorHasTool(Actor act) {
+        public bool ActorHasTool(Player act) {
             if (GameLoop.UIManager.Crafting.StationTool != "None" && GameLoop.UIManager.Crafting.StationTool == Property && GameLoop.UIManager.Crafting.StationTier >= Tier)
                 return true;
 

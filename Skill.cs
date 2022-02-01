@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 
 namespace LofiHollow {
     [JsonObject(MemberSerialization.OptIn)] 
-    public class Skill {
-        [JsonProperty]
-        public int SkillID = -1;
+    public class Skill { 
         [JsonProperty]
         public string Name = "";
         [JsonProperty]
@@ -19,10 +17,7 @@ namespace LofiHollow {
         [JsonProperty]
         public int Experience = 0;
         [JsonProperty]
-        public int TotalExp = 0;
-
-        [JsonProperty]
-        public List<string> Uses = new();
+        public int TotalExp = 0; 
 
         public int ExpToLevel() {
             double exp = 0.25 * Math.Floor(Level - 1.0 + 300.0 * (Math.Pow(2.0, (Level - 1.0) / 7.0)));
@@ -53,7 +48,6 @@ namespace LofiHollow {
 
 
         public Skill(Skill other) {
-            SkillID = other.SkillID;
             Name = other.Name;
             Level = other.Level;
             Experience = other.Experience;

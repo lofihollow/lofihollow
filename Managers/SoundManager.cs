@@ -8,11 +8,15 @@ using IrrKlang;
 
 namespace LofiHollow.Managers {
     public class SoundManager {
-        public ISoundEngine engine = new(); 
+        public ISoundEngine engine = new();
+        public ISoundEngine Music = new();
+
         public Dictionary<string, ISound> PlayingSounds = new();
+        public string CurrentSong = "None";
 
         public SoundManager() {
             engine.SoundVolume = 0.05f;
+            Music.SoundVolume = 0.03f;
         }
 
 
@@ -35,6 +39,31 @@ namespace LofiHollow.Managers {
             foreach (KeyValuePair<string, ISound> kv in PlayingSounds) {
                 if (kv.Value.Finished)
                     PlayingSounds.Remove(kv.Key);
+            }
+        }
+
+
+        public void PickMusic() {
+            string NewSong = CurrentSong;
+
+            if (GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible) {
+                NewSong = "Title Theme";
+            } else if (GameLoop.World.Player.MineLocation != "None") {
+                NewSong = "Mine Theme";
+            } else if (GameLoop.UIManager.Minigames.CurrentGame != "None") {
+                NewSong = "Minigame Theme";
+            } else if (GameLoop.UIManager.DialogueWindow.dialogueOption == "Shop") {
+                NewSong = "Shop Theme";
+            } else if (GameLoop.World.Player.Clock.GetCurrentTime() > 1110) {
+                NewSong = "Noonbreeze Night Theme";
+            } else {
+                NewSong = "Noonbreeze Day Theme";
+            }
+
+            if (NewSong != CurrentSong) {
+                Music.StopAllSounds();
+                Music.Play2D("./sounds/" + NewSong + ".ogg", true);
+                CurrentSong = NewSong;
             }
         }
     }

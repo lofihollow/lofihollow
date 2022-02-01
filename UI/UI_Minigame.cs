@@ -86,6 +86,7 @@ namespace LofiHollow.UI {
         public void ToggleMinigame(string which) {
             if (MinigameWindow.IsVisible) {
                 GameLoop.UIManager.selectedMenu = "None";
+                CurrentGame = "None";
                 MinigameWindow.IsVisible = false;
                 GameLoop.UIManager.Map.MapConsole.IsFocused = true;
                 MinigameConsole.Children.Clear();

@@ -34,6 +34,14 @@ namespace LofiHollow.Entities.NPC {
 
             int price = item.AverageValue;
 
+            if (item.Quality != 0) {
+                if (item.Quality < 11) {
+                    price = item.AverageValue * item.Quality;
+                } else {
+                    price = item.AverageValue * 20;
+                } 
+            }
+
             
             float priceMultBase = 1.5f;
 

@@ -64,7 +64,7 @@ namespace LofiHollow {
         public bool IsTileWalkable(Point location) { 
             if (location.X < 0 || location.Y < 0 || location.X >= Width || location.Y >= Height)
                 return false;
-            if (GetEntityAt<Monster>(location) != null)
+            if (GetEntityAt<MonsterWrapper>(location) != null)
                 return false;
             return !Tiles[location.Y * Width + location.X].IsBlockingMove;
         }
@@ -168,45 +168,6 @@ namespace LofiHollow {
             int count3 = 0;
 
             SpawnedMonsters = monsterAmount;
-
-            for (int i = 0; i < monsterAmount; i++) {
-                if (MonsterWeights.Count > 0) {
-                    int randomInWeight = GameLoop.rand.Next(weight);
-                    int weightCount = 0;
-                    int randomID = 0;
-
-                   
-                    for (int j = 0; j < MonsterWeights.Count; j++) {
-                        if (randomInWeight <= weightCount + MonsterWeights.ElementAt(j).Value) {
-                            randomID = MonsterWeights.ElementAt(j).Key;
-                            if (randomID == 1)
-                                count1++;
-                            else if (randomID == 2)
-                                count2++;
-                            else if (randomID == 3)
-                                count3++;
-                            break;
-                        } else {
-                            weightCount += MonsterWeights.ElementAt(j).Value;
-                        }
-                    }
-
-                    Monster monster = new(randomID);
-                    monster.CalculateCombatLevel();
-                    monster.UpdateHP();
-
-                    monster.Position = new Point(GameLoop.rand.Next(Width), GameLoop.rand.Next(Height));
-                    
-                    while (!IsTileWalkable(monster.Position) || GetEntityAt<Monster>(monster.Position) != null) {
-                        monster.Position = new Point(GameLoop.rand.Next(Width), GameLoop.rand.Next(Height));
-                    }
-
-                    monster.MapPos = MapPos;
-
-                    CommandManager.SpawnMonster(monster);
-                   // GameLoop.CommandManager.SendMonster(monster);
-                }
-            } 
         } 
     }
 }

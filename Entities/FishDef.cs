@@ -17,15 +17,11 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public string Season = "";
         [JsonProperty]
-        public int EarliestTime = 0;
+        public int EarliestTime = 360;
         [JsonProperty]
-        public int LatestTime = 0;
+        public int LatestTime = 360;
         [JsonProperty]
         public string CatchLocation = "";
-        [JsonProperty]
-        public double Weight = 0;
-        [JsonProperty]
-        public int AverageValue = 2;
 
         [JsonProperty]
         public int MaxQuality = 1; 
@@ -54,9 +50,9 @@ namespace LofiHollow.Entities {
         public int glyph = 0;
 
         [JsonProperty]
-        public Item RawFish;
+        public string FishItemID = "";
         [JsonProperty]
-        public string FilletName;
+        public string FilletID = "";
 
         public ColoredString GetAppearance() {
             return new ColoredString(((char) glyph).ToString(), new Color(colR, colG, colB), Color.Black);

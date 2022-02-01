@@ -33,7 +33,7 @@ namespace LofiHollow.EntityData {
 
 
 
-        public int ActorHasComponent(Actor act, int CraftAmount, int MinQuality) {
+        public int ActorHasComponent(Player act, int CraftAmount, int MinQuality) {
             int heldQty = 0;
             int heldTotal = 0;
             int Quality = 0;

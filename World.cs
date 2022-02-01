@@ -18,9 +18,9 @@ namespace LofiHollow {
         public Dictionary<string, TileBase> tileLibrary = new();
         public Dictionary<int, MineTile> mineTileLibrary = new();
         public Dictionary<string, Item> itemLibrary = new();
-        public Dictionary<int, Monster> monsterLibrary = new();
+        public Dictionary<string, Monster> monsterLibrary = new();
         public Dictionary<Point3D, Map> maps = new();
-        public Dictionary<int, Skill> skillLibrary = new();
+        public Dictionary<string, Skill> skillLibrary = new();
         public Dictionary<int, NPC> npcLibrary = new();
         public Dictionary<string, FishDef> fishLibrary = new();
         public Dictionary<int, Constructible> constructibles = new();
@@ -92,10 +92,6 @@ namespace LofiHollow {
                     FishDef fish = JsonConvert.DeserializeObject<FishDef>(json);
 
                     fishLibrary.Add(fish.PackageID + ":" + fish.Name, fish);
-
-                    if (fish.RawFish != null) {
-                        itemLibrary.Add(fish.RawFish.FullName(), fish.RawFish);
-                    }
                 }
             } 
         }
@@ -209,7 +205,6 @@ namespace LofiHollow {
 
                 foreach (string fileName in tileFiles) {
                     string json = File.ReadAllText(fileName);
-
                     NPC npc = JsonConvert.DeserializeObject<NPC>(json);
 
                     npcLibrary.Add(npc.npcID, npc);
@@ -227,7 +222,7 @@ namespace LofiHollow {
 
                     Skill skill = JsonConvert.DeserializeObject<Skill>(json);
 
-                    skillLibrary.Add(skill.SkillID, skill);
+                    skillLibrary.Add(skill.Name, skill);
                 }
             } 
         }
@@ -242,7 +237,7 @@ namespace LofiHollow {
 
                     Monster monster = JsonConvert.DeserializeObject<Monster>(json);
 
-                    monsterLibrary.Add(monster.MonsterID, monster);
+                    monsterLibrary.Add(monster.Package + ":" + monster.Name, monster);
                 }
             }
         }
@@ -385,6 +380,12 @@ namespace LofiHollow {
                 LoadPlayerFarm();
             }
 
+            foreach (KeyValuePair<string, Skill> kv in skillLibrary) {
+                Skill skill = new(kv.Value);
+                if (!Player.Skills.ContainsKey(skill.Name))
+                    Player.Skills.Add(skill.Name, skill);
+            }
+
             foreach (KeyValuePair<string, Mission> kv in missionLibrary) {
                 if (!Player.MissionLog.ContainsKey(kv.Key))
                     Player.MissionLog.Add(kv.Key, kv.Value);
@@ -454,8 +455,8 @@ namespace LofiHollow {
 
             Player.Skills = new Dictionary<string, Skill>();
             
-            for (int i = 0; i < skillLibrary.Count; i++) {
-                Skill skill = new(skillLibrary[i]);
+            foreach (KeyValuePair<string, Skill> kv in skillLibrary) {
+                Skill skill = new(kv.Value);
                 Player.Skills.Add(skill.Name, skill);
             } 
 

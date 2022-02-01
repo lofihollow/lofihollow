@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LofiHollow.EntityData;
 using Key = SadConsole.Input.Keys;
 
 namespace LofiHollow.UI {
@@ -106,11 +107,11 @@ namespace LofiHollow.UI {
 
                 for (int j = 0; j < GameLoop.World.Player.Inventory.Length; j++) {
                     if (con.MaterialsNeeded[i].Name.Contains("Nails")) {
-                        if (GameLoop.World.Player.Inventory[j].Name.Contains("Nails") && GameLoop.World.Player.Inventory[j].SubID >= con.MaterialsNeeded[i].SubID) {
+                        if (GameLoop.World.Player.Inventory[j].Name.Contains("Nails")) {
                             quantity += GameLoop.World.Player.Inventory[j].ItemQuantity;
                         }
                     } else {
-                        if (GameLoop.World.Player.Inventory[j].Name == con.MaterialsNeeded[i].Name && GameLoop.World.Player.Inventory[j].SubID == con.MaterialsNeeded[i].SubID) {
+                        if (GameLoop.World.Player.Inventory[j].Name == con.MaterialsNeeded[i].Name) {
                             quantity += GameLoop.World.Player.Inventory[j].ItemQuantity;
                         }
                     }

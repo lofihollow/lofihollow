@@ -250,32 +250,28 @@ namespace LofiHollow.UI {
                                                                 if (needed > 0) {
                                                                     if (con.MaterialsNeeded[i].Name.Contains("Nails")) {
                                                                         if (GameLoop.World.Player.Inventory[j].Name == con.MaterialsNeeded[i].Name) {
-                                                                            if (GameLoop.World.Player.Inventory[j].SubID >= con.MaterialsNeeded[i].SubID) {
-                                                                                if (GameLoop.World.Player.Inventory[j].ItemQuantity > con.MaterialsNeeded[i].ItemQuantity) {
-                                                                                    GameLoop.World.Player.Inventory[j].ItemQuantity -= con.MaterialsNeeded[i].ItemQuantity;
-                                                                                    needed -= con.MaterialsNeeded[i].ItemQuantity;
-                                                                                } else if (GameLoop.World.Player.Inventory[j].ItemQuantity == con.MaterialsNeeded[i].ItemQuantity) {
-                                                                                    GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
-                                                                                    needed = 0;
-                                                                                } else {
-                                                                                    needed -= GameLoop.World.Player.Inventory[j].ItemQuantity;
-                                                                                    GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
-                                                                                }
+                                                                            if (GameLoop.World.Player.Inventory[j].ItemQuantity > con.MaterialsNeeded[i].ItemQuantity) {
+                                                                                GameLoop.World.Player.Inventory[j].ItemQuantity -= con.MaterialsNeeded[i].ItemQuantity;
+                                                                                needed -= con.MaterialsNeeded[i].ItemQuantity;
+                                                                            } else if (GameLoop.World.Player.Inventory[j].ItemQuantity == con.MaterialsNeeded[i].ItemQuantity) {
+                                                                                GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
+                                                                                needed = 0;
+                                                                            } else {
+                                                                                needed -= GameLoop.World.Player.Inventory[j].ItemQuantity;
+                                                                                GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
                                                                             }
                                                                         }
                                                                     } else {
                                                                         if (GameLoop.World.Player.Inventory[j].Name == con.MaterialsNeeded[i].Name) {
-                                                                            if (GameLoop.World.Player.Inventory[j].SubID == con.MaterialsNeeded[i].SubID) {
-                                                                                if (GameLoop.World.Player.Inventory[j].ItemQuantity > con.MaterialsNeeded[i].ItemQuantity) {
-                                                                                    GameLoop.World.Player.Inventory[j].ItemQuantity -= con.MaterialsNeeded[i].ItemQuantity;
-                                                                                    needed -= con.MaterialsNeeded[i].ItemQuantity;
-                                                                                } else if (GameLoop.World.Player.Inventory[j].ItemQuantity == con.MaterialsNeeded[i].ItemQuantity) {
-                                                                                    GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
-                                                                                    needed = 0;
-                                                                                } else {
-                                                                                    needed -= GameLoop.World.Player.Inventory[j].ItemQuantity;
-                                                                                    GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
-                                                                                }
+                                                                            if (GameLoop.World.Player.Inventory[j].ItemQuantity > con.MaterialsNeeded[i].ItemQuantity) {
+                                                                                GameLoop.World.Player.Inventory[j].ItemQuantity -= con.MaterialsNeeded[i].ItemQuantity;
+                                                                                needed -= con.MaterialsNeeded[i].ItemQuantity;
+                                                                            } else if (GameLoop.World.Player.Inventory[j].ItemQuantity == con.MaterialsNeeded[i].ItemQuantity) {
+                                                                                GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
+                                                                                needed = 0;
+                                                                            } else {
+                                                                                needed -= GameLoop.World.Player.Inventory[j].ItemQuantity;
+                                                                                GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
                                                                             }
                                                                         }
                                                                     }
@@ -819,29 +815,6 @@ namespace LofiHollow.UI {
                 SidebarConsole.Print(14, 16, "+");
                  
                 
-                SidebarConsole.Print(0, 17, "Min Monsters: - " + GameLoop.World.maps[GameLoop.World.Player.MapPos].MinimumMonsters.ToString().Align(HorizontalAlignment.Center, 3) + " +");
-                SidebarConsole.Print(0, 18, "Max Monsters: - " + GameLoop.World.maps[GameLoop.World.Player.MapPos].MaximumMonsters.ToString().Align(HorizontalAlignment.Center, 3) + " +");
-
-                SidebarConsole.Print(0, 19, "Monster ID: " + monIndex + "(" + (GameLoop.World.monsterLibrary.ContainsKey(monIndex) ? GameLoop.World.monsterLibrary[monIndex].Name : "None") + ")");
-                if (GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights.ContainsKey(monIndex)) {
-                    SidebarConsole.Print(0, 20, "Weight: -" + GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights[monIndex].ToString().Align(HorizontalAlignment.Center, 5) + "+");
-                } else {
-                    SidebarConsole.Print(0, 20, "Not on this map [Add]");
-                }
-
-                int weight = 0;
-
-                if (GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights.Count > 1) {
-                    foreach (KeyValuePair<int, int> kv in GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights) {
-                        weight += kv.Value;
-                    }
-                } else if (GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights.Count == 1) {
-                    weight = GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights.ElementAt(0).Value;
-                }
-
-                SidebarConsole.Print(0, 21, "Total Map Weight: " + weight);
-
-
                 SidebarConsole.Print(0, 26, "Tile Index: " + tileIndex);
                  
                 TileBase PlacingTile = GameLoop.World.tileLibrary[GameLoop.World.tileLibrary.ElementAt(tileIndex).Key];
@@ -860,8 +833,8 @@ namespace LofiHollow.UI {
                         SidebarConsole.Print(0, 38, "Rel Unlock: " + tile.Lock.RelationshipUnlock);
                         SidebarConsole.Print(0, 39, "Mission Unlock: " + tile.Lock.MissionUnlock);
                         SidebarConsole.Print(0, 40, "Always Locked: " + tile.Lock.AlwaysLocked);
-                        SidebarConsole.Print(0, 41, "Unlocks at: " + GameLoop.World.Player.Clock.MinutesToTime(tile.Lock.UnlockTime));
-                        SidebarConsole.Print(0, 42, "Locks at: " + GameLoop.World.Player.Clock.MinutesToTime(tile.Lock.LockTime));
+                        SidebarConsole.Print(0, 41, "Unlocks at: " + TimeManager.MinutesToTime(tile.Lock.UnlockTime));
+                        SidebarConsole.Print(0, 42, "Locks at: " + TimeManager.MinutesToTime(tile.Lock.LockTime));
                         SidebarConsole.Print(0, 43, "Key Name: " + tile.Lock.UnlockKeyName);
                     }
                 }
@@ -923,7 +896,7 @@ namespace LofiHollow.UI {
                             
                             if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mouseOverMap).Container == null) {
                                 SidebarConsole.Print(0, y++, "Monsters");
-                                List<Monster> MonstersOnTile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetAllEntities<Monster>(mouseOverMap);
+                                List<MonsterWrapper> MonstersOnTile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetAllEntities<MonsterWrapper>(mouseOverMap);
 
                                 if (MonstersOnTile != null && MonstersOnTile.Count > 0) {
                                     for (int i = 0; i < MonstersOnTile.Count; i++) {

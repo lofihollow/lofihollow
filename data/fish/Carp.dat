@@ -1,0 +1,20 @@
+{
+	"Name": "Carp",
+	"PackageID": "lh",
+	"Season": "Any",
+	"EarliestTime": 0,
+	"LatestTime": 1440,
+	"CatchLocation": "Any", 
+	"RequiredLevel": 1,
+	"MaxQuality": 3,
+	"GrantedExp": 20,
+	"Strength": 5,
+	"FightChance": 20,
+	"FightLength": 5,
+	"colR": 253,
+	"colG": 253,
+	"colB": 150,
+	"glyph": 284,
+	"FishItemID": "lh:Raw Fish",
+	"FilletID": "lh:Fish Fillet"
+}

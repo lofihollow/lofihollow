@@ -52,7 +52,7 @@ namespace LofiHollow.UI {
                 GameLoop.NetworkManager.discord.RunCallbacks();
 
             if (clientAndConnected) {
-                if (selectedMenu == "MainMenu" || selectedMenu == "CharCreation" || selectedMenu == "LoadFile" || selectedMenu == "ConnectOrHost") {
+                if (MainMenu.MainMenuWindow.IsVisible) {
                     MainMenu.RenderMainMenu();
                     MainMenu.CaptureMainMenuClicks();
                 } else {
@@ -229,7 +229,11 @@ namespace LofiHollow.UI {
 
                 if (GameHost.Instance.Keyboard.IsKeyDown(Key.F2)) {
                     Minigames.ToggleMinigame("Bartending");
-                } 
+                }
+
+                if (GameHost.Instance.Keyboard.IsKeyDown(Key.F3)) {
+                    GameLoop.World.Player.Clock.AM = false;
+                }
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F1)) {
                     Help.ToggleHelp("Guide");

@@ -1,9 +1,0 @@
-{
-  "SkillID": 9,
-  "Name": "Fishing",
-  "Level": 1,
-  "Experience": 0,
-  "Uses": [
-	"1,0,Fishing"
-  ]
-}

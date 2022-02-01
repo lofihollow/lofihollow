@@ -2,24 +2,20 @@
 
 namespace LofiHollow.Managers {
     public class SteamManager {
-        public bool SteamInitialized;
 
         public SteamManager() { 
-            SteamInitialized = SteamAPI.Init();
+            try {
+                SteamClient.Init(832430);
+            } catch (System.Exception e) {
+
+            }
         }
 
 
 
         public void RunCallbacks() {
-            if (!SteamInitialized)
-                return;
-
-            SteamAPI.RunCallbacks();
-        }
-
-
-        public void Workshop() {
-            SteamUGC.AddItemToFavorites(AppId_t.Invalid, PublishedFileId_t.Invalid); 
+            if (SteamClient.IsValid)
+                SteamClient.RunCallbacks();
         }
 
     }

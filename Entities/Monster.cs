@@ -4,13 +4,16 @@ using System.Linq;
 using LofiHollow.Managers;
 using LofiHollow.Minigames;
 using Newtonsoft.Json;
+using SadConsole;
 using SadRogue.Primitives;
 
 namespace LofiHollow.Entities {
     [JsonObject(MemberSerialization.OptIn)]
-    public class Monster : Actor {
+    public class Monster {
         [JsonProperty]
-        public int MonsterID = -1;
+        public string Name = "";
+        [JsonProperty]
+        public string Package = "";
 
         [JsonProperty]
         public string UniqueID;
@@ -31,7 +34,11 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public string CombatType = "";
         [JsonProperty]
+        public string DamageType = "Crush";
+        [JsonProperty]
         public string SpecificWeakness = "";
+        [JsonProperty]
+        public string SpawnLocation = "";
 
         [JsonProperty]
         public int Confidence = 0;
@@ -44,128 +51,65 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public Egg EggData;
 
+        [JsonProperty]
+        public List<string> DropTable = new();
+
+        [JsonProperty]
+        public int ForegroundR = 0;
+        [JsonProperty]
+        public int ForegroundG = 0;
+        [JsonProperty]
+        public int ForegroundB = 0;
+        [JsonProperty]
+        public int ForegroundA = 0;
+        [JsonProperty]
+        public int ActorGlyph = 0;
+
 
         [JsonConstructor]
-        public Monster() : base(Color.White, 'e') { 
+        public Monster() { 
         }
 
-        public GoRogue.FOV FOV;
-        public GoRogue.Pathing.Path CurrentPath;
-        public bool UpdatePath = true;
-        public int pathPos = 0;
-        public int trackingLength = 5;
-
-
-        public Monster(Color foreground, int glyph, int ID, string name) : base(foreground, glyph) {
-            MonsterID = ID;
-            Name = name;
-        }
-
-        public Monster(int ID) : base(Color.Black, 32) {
-            if (GameLoop.World.monsterLibrary != null && GameLoop.World.monsterLibrary.ContainsKey(ID)) {
-                Monster temp = GameLoop.World.monsterLibrary[ID];
-
-                Name = temp.Name;
-
-
-                ForegroundR = temp.ForegroundR;
-                ForegroundG = temp.ForegroundG;
-                ForegroundB = temp.ForegroundB;
-                ActorGlyph = temp.ActorGlyph;
-
-                Appearance.Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
-                Appearance.Glyph = ActorGlyph;
-
-                MonsterID = temp.MonsterID;
-
-                MonConstitution = temp.MonConstitution;
-                MonAttack = temp.MonAttack;
-                MonStrength = temp.MonStrength;
-                MonDefense = temp.MonDefense;
-                MonMagic = temp.MonMagic;
-                MonRanged = temp.MonRanged;
-
-                EggData = temp.EggData;
-
-                UniqueID = Guid.NewGuid().ToString("N");
+        public Monster(string name) {
+            if (GameLoop.World.monsterLibrary != null && GameLoop.World.monsterLibrary.ContainsKey(name)) {
+                Monster temp = GameLoop.World.monsterLibrary[name];
+                SetAll(temp);
             }
         }
 
+        public ColoredString GetAppearance() {
+            return new ColoredString(((char)ActorGlyph).ToString(), new Color(ForegroundR, ForegroundG, ForegroundB, ForegroundA), Color.Black);
+        }
 
+        public void SetAll(Monster temp) { 
+            UniqueID = Guid.NewGuid().ToString("N");
 
-        public void Update() {
-            Point oldPos = new(Position.X, Position.Y);
+            Name = temp.Name;
+            Package = temp.Package;
 
-            int distanceToNearest = 99;
-            Point targetPoint = new(-1, -1);
-            Actor defender = null;
+            MonConstitution = temp.MonConstitution;
+            MonAttack = temp.MonAttack;
+            MonStrength = temp.MonStrength;
+            MonDefense = temp.MonDefense;
+            MonMagic = temp.MonMagic;
+            MonRanged = temp.MonRanged;
 
-            if (GameLoop.World.Player.MapPos == MapPos) {
-                if (GameLoop.World.Player.CombatLevel < CombatLevel + Confidence || AlwaysAggro) {
-                    defender = GameLoop.World.Player;
-                    targetPoint = new Point(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y);
-                    distanceToNearest = GameLoop.World.maps[MapPos].MapPath.ShortestPath(new GoRogue.Coord(Position.X, Position.Y), new GoRogue.Coord(targetPoint.X, targetPoint.Y)).Length;
-                }
-            }
+            CombatType = temp.CombatType;
+            SpecificWeakness = temp.SpecificWeakness;
+            DamageType = temp.DamageType;
+            SpawnLocation = temp.SpawnLocation;
 
-            foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
-                if (kv.Value.MapPos == MapPos) {
-                    kv.Value.CalculateCombatLevel();
-                    if (kv.Value.CombatLevel < CombatLevel + Confidence || AlwaysAggro) {
-                        GoRogue.Coord otherPos = new(kv.Value.Position.X, kv.Value.Position.Y);
-                        int newDist = GameLoop.World.maps[MapPos].MapPath.ShortestPath(new GoRogue.Coord(Position.X, Position.Y), otherPos).Length;
-                        if (newDist < distanceToNearest) {
-                            defender = kv.Value;
-                            targetPoint = new Point(kv.Value.Position.X, kv.Value.Position.Y);
-                            distanceToNearest = newDist;
-                        }
-                    }
-                }
-            }
+            CanDropEgg = temp.CanDropEgg;
+            EggData = temp.EggData;
 
-            if (distanceToNearest < 25 && distanceToNearest > 1) { 
-                if (CurrentPath == null) {
-                    CurrentPath = GameLoop.World.maps[MapPos].MapPath.ShortestPath(new GoRogue.Coord(Position.X, Position.Y), new GoRogue.Coord(targetPoint.X, targetPoint.Y));
-                    pathPos = 0;
-                }
+            ForegroundR = temp.ForegroundR;
+            ForegroundG = temp.ForegroundG;
+            ForegroundB = temp.ForegroundB;
+            ActorGlyph = temp.ActorGlyph;
+        }
 
-                if (CurrentPath != null && targetPoint != new Point(-1, -1)) {
-                    if (TimeLastActed + (120) > SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                        return;
-                    }
-                    TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-
-
-                    if (CurrentPath.Length > pathPos) {
-                        GoRogue.Coord nextStep = CurrentPath.GetStep(pathPos);
-
-                        if (MoveTo(new Point(nextStep.X, nextStep.Y), MapPos))
-                            pathPos++;
-                    }
-
-                    Point currEnd = new(CurrentPath.End.X, CurrentPath.End.Y);
-
-                    if (targetPoint != currEnd) {
-                        CurrentPath = GameLoop.World.maps[MapPos].MapPath.ShortestPath(new GoRogue.Coord(Position.X, Position.Y), new GoRogue.Coord(targetPoint.X, targetPoint.Y));
-                        pathPos = 0;
-                    }
-                }
-
-                if (oldPos != Position) {
-                    GameLoop.SendMessageIfNeeded(new string[] { "moveMonster", UniqueID, Position.X.ToString(), Position.Y.ToString(), MapPos.ToString() }, true, false);
-                }
-            } else if (distanceToNearest == 1) { // Already adjacent, make an attack
-                if (defender != null) {
-                    if (TimeLastActed + (120) > SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                        return;
-                    }
-                    TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-
-                    CommandManager.Attack(this, defender, true);
-                }
-            }
-
-            UpdatePosition();
-        } 
+        public string FullName() {
+            return Package + ":" + Name;
+        }
     }
 }

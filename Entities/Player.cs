@@ -19,6 +19,11 @@ namespace LofiHollow.Entities {
 
 
         [JsonProperty]
+        public Item[] Inventory;
+        [JsonProperty]
+        public Item[] Equipment;
+
+        [JsonProperty]
         public bool OwnsFarm = false;
 
         public List<Point3D> VisitedMaps = new();
@@ -46,14 +51,43 @@ namespace LofiHollow.Entities {
         public bool Sleeping = false;
 
         [JsonProperty]
+        public int CopperCoins = 0;
+        [JsonProperty]
+        public int SilverCoins = 0;
+        [JsonProperty]
+        public int GoldCoins = 0;
+        [JsonProperty]
+        public int JadeCoins = 0;
+
+        [JsonProperty]
         public int LivesRemaining = -1;
         [JsonProperty]
         public int DropsOnDeath = -1; // -1: Nothing, 0: Gold, 1: Items and Gold
 
-        public Player(Color foreground) : base(foreground, '@', true) {
+        public Player(Color foreground) : base(foreground, '@') {
             ActorGlyph = '@';
+             
+            Equipment = new Item[10];
+            for (int i = 0; i < Equipment.Length; i++) {
+                Equipment[i] = new Item("lh:(EMPTY)");
+            }
+
+            Inventory = new Item[9];
+
+            for (int i = 0; i < Inventory.Length; i++) {
+                Inventory[i] = new Item("lh:(EMPTY)");
+            }
         }
-         
+
+        public bool HasInventorySlotOpen(string stackID = "") {
+            for (int i = 0; i < Inventory.Length; i++) {
+                if (Inventory[i].Name == "(EMPTY)" || (Inventory[i].Name == stackID && stackID != "")) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         public void PlayerDied() {
             if (MapPos == GameLoop.World.Player.MapPos && this != GameLoop.World.Player) {

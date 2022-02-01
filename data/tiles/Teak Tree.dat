@@ -8,7 +8,7 @@
   "ForegroundG": 136,
   "ForegroundB": 103,
   "TileGlyph": 244,
-  "LightBlocked": 0.0,
+  "LightBlocked": 1.0,
   "ExposedToSky": false,
   "EmitsLight": null,
   "Dec": {

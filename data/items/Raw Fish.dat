@@ -1,0 +1,25 @@
+{
+	"Name": "Raw Fish",
+	"ItemID": "lh",
+	"ItemQuantity": 1,
+	"IsStackable": true,
+	"ShortDesc": "Needs cleaning.",
+	"Description": "",
+	"AverageValue": 4,
+	"Weight": 2,
+	"ItemCategory": -1,
+	"EquipSlot": -1,
+	"ForegroundR": 253,
+	"ForegroundG": 253,
+	"ForegroundB": 150,
+	"ItemGlyph": 284,
+	"Craft": [
+		{
+			"Property": "Raw Fish",
+			"Tier": 1,
+			"Quantity": 1,
+			"Stacks": true,
+			"CountsAsMultiple": false
+		}
+	]
+}

@@ -25,6 +25,9 @@
 (DONE) Construction
 (DONE) Mining
 (DONE) Crafting System
+ 
+Switch multiplayer over to Steam
+
 
 Demo Mode: Play as much as you want, but only up to level 5 in any skill.
 
@@ -48,16 +51,22 @@ Make sure produce items have accurate-enough sprites
 Make attacking slower so monsters don't eviscerate the player instantly
 
 Ways to earn money at the start
-- Adventurers Guild kill quests
+- Adventurers Guild (job board with random assorted quests - kill, collect items)
 - Couriers guild deliveries
 - Job minigames
+- - (DONE) Bartending
+- - Cafe?
+- - Apothecary?
+- - General store (store mode?)
+- - Clothier (tailoring?)
+- - Library (sort books, or catch falling books maybe?)
 
 Kaalista's Monster Pens
 - (DONE) Three slots that can hold a monster each
 - (DONE) Put monsters in there via finding eggs as drops from monsters
 - Make sure monsters can actually drop eggs
 - Have to take care of them by giving them food (specify what their diet is, player has to provide that kind of food)
-- When fully grown they provide drops the monster normally has, directly sold for a lump sump, or slaughtered and butchered
+- When fully grown they provide drops the monster normally has, directly sold for a lump sum, or slaughtered and butchered
 - Collect items from the pens
 - Feed monster in pen using current hotbar item
 - Perform checks for deaths if needed
@@ -73,19 +82,10 @@ Day/Night System
 - (DONE) Add light sources 
 - If tiles are exposed to the sky, use normal minimums. Otherwise let darkness go all the way to fully obscured
 
-
-Item Qualities
-- Value is for a quality of 10, divide by 10 and multiply by quality for actual value (only on things with a quality)
-- Let shops specify what quality of each item they sell
-
-
 Cooking
 - Flexible Ingredient tags: Fruit, Vegetable, Egg, Cooked Meat, Cooked Fish, Raw Meat, Raw Fish, Water, Oil, Flour
 - Cooking Tool Tags: Frying, Rolling, Cutting, Mixing, Grinding
-- Seasonings: Salt, Soy Sauce, Miso, Sugar, Cinnamon, 
-- (DONE) Every ingredient must have a quality level associated with it, from 1 to 10
-- (DONE) Finished dishes use the average of all the ingredients to determine final quality 
-- (DONE) Value of food is at Quality 10, divide by 10 and multiply by quality level to get price
+- Seasonings: Salt, Soy Sauce, Miso, Sugar, Cinnamon
 
 - Cooking Minigames
 - - Each recipe specifies which minigame you do. 
@@ -178,8 +178,29 @@ The Sound Effect-ening
 Mod Support
 - Implement the steam workshop
 - In-game mod making tools
+- - (DONE) Display list of installed mods
+- - Button to switch to workshop view
+- - (DONE) Button to make a new mod
+- - - (DONE) Mod Object holds all the data a mod adds
+- - - (DONE) Constructibles
+- - - (DONE) Crafting Recipes
+- - - (DONE) Skills
+- - - (DONE) Fish
+- - - Items
+- - - (DONE) Monsters
+- - - NPCs 
+- - - Missions  
+- - Separate editor maybe?
+- - - Maps
+- - - Tiles
 - WIP Sandbox to make changes or upload to workshop
 - Browse workshop mods in-game
+
+Magic
+- Have effects that add certain rune requirements to the spell
+- A grid that you place effect tiles on to run logic for how the spell operates
+- Magic level determines how many tiles you can have on the grid, and also what tiles are available
+
 
 Farming
 - Seeds: only plantable in the correct season and only if you have a high enough farming level

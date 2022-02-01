@@ -22,7 +22,7 @@ namespace LofiHollow.Minigames.Mining {
             Levels.Add(0, zero);
         }
 
-        public void DropItem(Actor actor, int slot, int depth) {
+        public void DropItem(Player actor, int slot, int depth) {
             if (actor.Inventory.Length > slot && actor.Inventory[slot].Name != "(EMPTY)") { 
                     ItemWrapper wrap = new(actor.Inventory[slot]);
                     wrap.Position = actor.Position / 12;

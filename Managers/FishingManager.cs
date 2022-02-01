@@ -110,8 +110,8 @@ namespace LofiHollow.Managers {
             List<FishDef> validFish = new();
 
             foreach (KeyValuePair<string, FishDef> kv in GameLoop.World.fishLibrary) {
-                if (kv.Value.CatchLocation == Area || kv.Value.CatchLocation == "Any") {
-                    if (kv.Value.Season == Season || kv.Value.Season == "Any") {
+                if (kv.Value.CatchLocation.Contains(Area) || kv.Value.CatchLocation == "Any") {
+                    if (kv.Value.Season.Contains(Season) || kv.Value.Season == "Any") {
                         if (kv.Value.EarliestTime < CurrentTime && kv.Value.LatestTime > CurrentTime) {
                             if (kv.Value.RequiredLevel <= FishingLevel) {
                                 validFish.Add(kv.Value);
@@ -129,7 +129,7 @@ namespace LofiHollow.Managers {
 
         public void FinishFishing(bool success) {
             if (success) {
-                Item caughtFish = new(HookedFish.RawFish.FullName());
+                Item caughtFish = new(HookedFish.FishItemID);
 
                 int quality = GameLoop.rand.Next(HookedFish.MaxQuality) + 1;
                 int QualityCap = (int)Math.Floor((GameLoop.World.Player.Skills["Fishing"].Level + 1f) / 10f) + 1;

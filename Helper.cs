@@ -17,6 +17,10 @@ namespace LofiHollow {
             return new ColoredString(text, condition ? Color.Yellow : secondCondition ? Color.Cyan : Color.Red, Color.Black);
         }
 
+        public static string Center(object obj, int width, int fillChar = ' ') {
+            return obj.ToString().Align(HorizontalAlignment.Center, width, (char) fillChar);
+        }
+
 
         public static ColoredString LetterGrade(int Q, int align = -1) {
             string qual = "";
@@ -103,14 +107,8 @@ namespace LofiHollow {
 
             double modifiedPrice = (baseValueCoppers - growthCycles);
 
-            double finalPrice;
-              
-            if (quality < 11)
-                finalPrice = modifiedPrice * (double) quality;
-            else
-                finalPrice = modifiedPrice * 20.0;
 
-            return Math.Round(finalPrice, 1);
+            return Math.Round(modifiedPrice, 1);
         }
 
         public static ColoredString ConvertCoppers(int copperValue) {

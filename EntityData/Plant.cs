@@ -86,7 +86,7 @@ namespace LofiHollow.EntityData {
             }
         }
 
-        public void Harvest(Actor harvester) {
+        public void Harvest(Player harvester) {
             if (CurrentStage != -1 && Stages[CurrentStage].HarvestItem != "") {
                 Item produce = new(Stages[CurrentStage].HarvestItem);
                 produce.ItemQuantity = ProducePerHarvestMin;
