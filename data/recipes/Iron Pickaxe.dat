@@ -1,0 +1,26 @@
+{
+  "Name": "Iron Pickaxe",
+  "FinishedID": "lh:Iron Pickaxe",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 50,
+  "ExpGranted": 60,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Iron Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

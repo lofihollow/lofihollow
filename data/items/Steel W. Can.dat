@@ -1,0 +1,23 @@
+{
+  "Name": "Steel W. Can",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Waters plants",
+  "Description": "",
+  "AverageValue": 70,
+  "Weight": 1.0,
+  "Durability": 140,
+  "MaxDurability": 140,
+  "Quality": 0,
+  "ItemTier": 60,
+  "ItemCat": "Watering Can",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": null,
+  "ForegroundR": 42,
+  "ForegroundG": 52,
+  "ForegroundB": 57,
+  "ItemGlyph": 328
+}

@@ -1,0 +1,29 @@
+{
+  "Name": "Digitite Hatchet",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Cuts trees",
+  "Description": "",
+  "AverageValue": 100,
+  "Weight": 1.0,
+  "Durability": 200,
+  "MaxDurability": 200,
+  "Quality": 0,
+  "ItemTier": 90,
+  "ItemCat": "Hatchet",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": {
+    "Glyph": 287,
+    "R": 0,
+    "G": 161,
+    "B": 173,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 21
+}

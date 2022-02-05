@@ -20183,7 +20183,7 @@
       "ForegroundB": 66,
       "TileGlyph": 339,
       "LightBlocked": 0.0,
-      "ExposedToSky": false,
+      "ExposedToSky": true,
       "EmitsLight": {
         "Intensity": 2.0,
         "Radius": 10
@@ -20395,7 +20395,7 @@
       "ForegroundB": 66,
       "TileGlyph": 339,
       "LightBlocked": 0.0,
-      "ExposedToSky": false,
+      "ExposedToSky": true,
       "EmitsLight": {
         "Intensity": 2.0,
         "Radius": 10
@@ -20607,7 +20607,7 @@
       "ForegroundB": 66,
       "TileGlyph": 339,
       "LightBlocked": 0.0,
-      "ExposedToSky": false,
+      "ExposedToSky": true,
       "EmitsLight": {
         "Intensity": 2.0,
         "Radius": 10
@@ -20819,7 +20819,7 @@
       "ForegroundB": 66,
       "TileGlyph": 339,
       "LightBlocked": 0.0,
-      "ExposedToSky": false,
+      "ExposedToSky": true,
       "EmitsLight": {
         "Intensity": 2.0,
         "Radius": 10
@@ -30097,7 +30097,7 @@
       "ForegroundB": 66,
       "TileGlyph": 339,
       "LightBlocked": 0.0,
-      "ExposedToSky": false,
+      "ExposedToSky": true,
       "EmitsLight": {
         "Intensity": 2.0,
         "Radius": 10
@@ -35931,7 +35931,7 @@
       "ForegroundB": 66,
       "TileGlyph": 339,
       "LightBlocked": 0.0,
-      "ExposedToSky": false,
+      "ExposedToSky": true,
       "EmitsLight": {
         "Intensity": 2.0,
         "Radius": 10
@@ -41110,7 +41110,7 @@
       "ForegroundB": 66,
       "TileGlyph": 339,
       "LightBlocked": 0.0,
-      "ExposedToSky": false,
+      "ExposedToSky": true,
       "EmitsLight": {
         "Intensity": 2.0,
         "Radius": 10
@@ -50943,7 +50943,7 @@
       "ForegroundB": 66,
       "TileGlyph": 339,
       "LightBlocked": 0.0,
-      "ExposedToSky": false,
+      "ExposedToSky": true,
       "EmitsLight": {
         "Intensity": 2.0,
         "Radius": 10

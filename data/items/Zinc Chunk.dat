@@ -1,0 +1,23 @@
+{
+  "Name": "Zinc Chunk",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A chunk of zinc",
+  "Description": "",
+  "AverageValue": 10,
+  "Weight": 1.0,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 146,
+  "ForegroundG": 137,
+  "ForegroundB": 138,
+  "ItemGlyph": 321
+}

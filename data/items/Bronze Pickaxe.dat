@@ -1,0 +1,29 @@
+{
+  "Name": "Bronze Pickaxe",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Mines ores",
+  "Description": "",
+  "AverageValue": 50,
+  "Weight": 1.0,
+  "Durability": 100,
+  "MaxDurability": 100,
+  "Quality": 0,
+  "ItemTier": 40,
+  "ItemCat": "Pickaxe",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": {
+    "Glyph": 322,
+    "R": 176,
+    "G": 141,
+    "B": 87,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 288
+}

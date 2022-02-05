@@ -22,10 +22,10 @@ namespace LofiHollow.Managers {
 		public bool isHost = false;
 		public bool FoundLobby = false;
 
+
 		public bool HostOwnsFarm = false;
 
 		public NetworkManager(bool second = false) {
-			
 			if (second) {
 				System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "1");
 				discord = new Discord.Discord(579827348665532425, (UInt64)Discord.CreateFlags.Default);
@@ -33,9 +33,9 @@ namespace LofiHollow.Managers {
 				System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
 				discord = new Discord.Discord(579827348665532425, (UInt64)Discord.CreateFlags.Default);
 			}
-			
 			//discord = new Discord.Discord(579827348665532425, (UInt64)Discord.CreateFlags.Default);
-		} 
+
+		}
 
 		public void BroadcastMsg(string msg) {
 			if (lobbyManager != null) {
@@ -211,7 +211,7 @@ namespace LofiHollow.Managers {
 
 						GameLoop.World.maps[tileMapPos].SetTile(tilePos, tile);
 						GameLoop.World.maps[tileMapPos].GetTile(tilePos).UpdateAppearance();
-						if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(new GoRogue.Coord(tilePos.X, tilePos.Y))) {
+						if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(tilePos.ToCoord())) {
 							GameLoop.World.maps[tileMapPos].GetTile(tilePos).Unshade();
 						} else {
 							GameLoop.World.maps[tileMapPos].GetTile(tilePos).Shade(); 

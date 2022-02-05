@@ -79,6 +79,8 @@ namespace LofiHollow.Managers {
                 kv.Value.Sleeping = false;
             } 
 
+            GameLoop.UIManager.Photo.PopulateJobList();
+
             GameLoop.World.SavePlayer();
         }
 

@@ -8,16 +8,23 @@
   "Description": "",
   "AverageValue": 2,
   "Weight": 1.0,
-  "ItemCategory": -1,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
   "EquipSlot": -1,
+  "Properties": {
+    "Tool": [
+      {
+        "Property": "Grinding",
+        "Tier": 1
+      }
+    ]
+  },
+  "Dec": null,
   "ForegroundR": 100,
   "ForegroundG": 100,
   "ForegroundB": 100,
-  "ItemGlyph": 333,
-  "Tool": [
-	{
-      "Property": "Grinding",
-      "Tier": 1
-    }
-  ]
+  "ItemGlyph": 333
 }

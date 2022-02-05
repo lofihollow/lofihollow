@@ -1,0 +1,23 @@
+{
+  "Name": "Iron W. Can",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Waters plants",
+  "Description": "",
+  "AverageValue": 60,
+  "Weight": 1.0,
+  "Durability": 120,
+  "MaxDurability": 120,
+  "Quality": 0,
+  "ItemTier": 50,
+  "ItemCat": "Watering Can",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": null,
+  "ForegroundR": 83,
+  "ForegroundG": 86,
+  "ForegroundB": 90,
+  "ItemGlyph": 328
+}

@@ -25,6 +25,7 @@ namespace LofiHollow.UI {
         public UI_Container Container;
         public UI_Help Help;
         public UI_MissionLog MissionLog;
+        public UI_Photo Photo;
           
         public SadConsole.Console SignConsole;
         public Window SignWindow; 
@@ -86,6 +87,9 @@ namespace LofiHollow.UI {
                     } else if (selectedMenu == "MissionLog") {
                         MissionLog.RenderMissions();
                         MissionLog.MissionInput();
+                    } else if (selectedMenu == "Photo") {
+                        Photo.RenderPhoto();
+                        Photo.PhotoInput();
                     } else {
                         if (selectedMenu != "Dialogue") {
                             if (selectedMenu == "Sign")
@@ -128,6 +132,7 @@ namespace LofiHollow.UI {
             Container = new UI_Container(75, 29, "");
             Help = new UI_Help(72, 42, "");
             MissionLog = new UI_MissionLog(72, 42, "");
+            Photo = new UI_Photo(31, 31, "");
              
             UseMouse = true;
             selectedMenu = "MainMenu";
@@ -227,12 +232,21 @@ namespace LofiHollow.UI {
                     World.SaveMapToFile(GameLoop.World.maps[GameLoop.World.Player.MapPos], GameLoop.World.Player.MapPos);
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyDown(Key.F2)) {
-                    Minigames.ToggleMinigame("Bartending");
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F2)) { 
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Medium Backpack"));
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyDown(Key.F3)) {
-                    GameLoop.World.Player.Clock.AM = false;
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F3)) { 
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Obsidian Shard"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Copper Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Zinc Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Tin Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Iron Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Gold Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Silver Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Tungsten Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Titanium Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Digitite Chunk"));
                 }
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F1)) {

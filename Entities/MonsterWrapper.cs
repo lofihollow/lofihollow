@@ -72,16 +72,15 @@ namespace LofiHollow.Entities {
                 if (GameLoop.World.Player.CombatLevel < CombatLevel + monster.Confidence || monster.AlwaysAggro) {
                     defender = GameLoop.World.Player;
                     targetPoint = new Point(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y);
-                    distanceToNearest = GameLoop.World.maps[MapPos].MapPath.ShortestPath(new GoRogue.Coord(Position.X, Position.Y), new GoRogue.Coord(targetPoint.X, targetPoint.Y)).Length;
+                    distanceToNearest = GameLoop.World.maps[MapPos].MapPath.ShortestPath(Position.ToCoord(), targetPoint.ToCoord()).Length;
                 }
             }
 
             foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
                 if (kv.Value.MapPos == MapPos) {
                     kv.Value.CalculateCombatLevel();
-                    if (kv.Value.CombatLevel < CombatLevel + monster.Confidence || monster.AlwaysAggro) {
-                        GoRogue.Coord otherPos = new(kv.Value.Position.X, kv.Value.Position.Y);
-                        int newDist = GameLoop.World.maps[MapPos].MapPath.ShortestPath(new GoRogue.Coord(Position.X, Position.Y), otherPos).Length;
+                    if (kv.Value.CombatLevel < CombatLevel + monster.Confidence || monster.AlwaysAggro) { 
+                        int newDist = GameLoop.World.maps[MapPos].MapPath.ShortestPath(Position.ToCoord(), kv.Value.Position.ToCoord()).Length;
                         if (newDist < distanceToNearest) {
                             defender = kv.Value;
                             targetPoint = new Point(kv.Value.Position.X, kv.Value.Position.Y);
@@ -93,7 +92,7 @@ namespace LofiHollow.Entities {
 
             if (distanceToNearest < 25 && distanceToNearest > 1) {
                 if (CurrentPath == null) {
-                    CurrentPath = GameLoop.World.maps[MapPos].MapPath.ShortestPath(new GoRogue.Coord(Position.X, Position.Y), new GoRogue.Coord(targetPoint.X, targetPoint.Y));
+                    CurrentPath = GameLoop.World.maps[MapPos].MapPath.ShortestPath(Position.ToCoord(), targetPoint.ToCoord());
                     pathPos = 0;
                 }
 
@@ -114,7 +113,7 @@ namespace LofiHollow.Entities {
                     Point currEnd = new(CurrentPath.End.X, CurrentPath.End.Y);
 
                     if (targetPoint != currEnd) {
-                        CurrentPath = GameLoop.World.maps[MapPos].MapPath.ShortestPath(new GoRogue.Coord(Position.X, Position.Y), new GoRogue.Coord(targetPoint.X, targetPoint.Y));
+                        CurrentPath = GameLoop.World.maps[MapPos].MapPath.ShortestPath(Position.ToCoord(), targetPoint.ToCoord());
                         pathPos = 0;
                     }
                 }

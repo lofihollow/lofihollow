@@ -33,27 +33,12 @@ namespace LofiHollow {
         [JsonProperty]
         public int MaxDurability = -1;
         [JsonProperty]
-        public int Quality = 0;
+        public int Quality = 1;
         [JsonProperty]
         public int ItemTier = -1;
         [JsonProperty]
-        public int ItemCategory = -1;
-        // -1: Debug / Empty
-        // 0: Weapon
-        // 1: Watering Can
-        // 2: Pickaxe
-        // 3: Axe
-        // 4: Hoe
-        // 5: Hammer
-        // 6: Armor
-        // 7: Fishing Rod
-        // 8: Raw Fish
-        // 9: Seed
-        // 10: Vegetable
-        // 11: Consumable
-        // 12: Deed
-        // 13: Currency
-        // 14: Key
+        public string ItemCat = "";
+         
         [JsonProperty]
         public int EquipSlot = -1;
         // -1: Not equippable
@@ -68,30 +53,12 @@ namespace LofiHollow {
         // 8: Ring
         // 9: Cape
 
-
         [JsonProperty]
-        public Plant Plant;
-
-        [JsonProperty]
-        public Equipment Stats;
-
-        [JsonProperty]
-        public Heal Heal;
-
-        [JsonProperty]
-        public MonsterPenFood MonsterFood;
-        [JsonProperty]
-        public Egg MonsterEgg;
+        public Dictionary<string, object> Properties = new();
 
         [JsonProperty]
         public Decorator Dec;
 
-
-
-        [JsonProperty]
-        public List<ToolData> Tool = null;
-        [JsonProperty]
-        public List<CraftComponent> Craft = null;
 
         [JsonProperty]
         public int ForegroundR = 0;
@@ -114,7 +81,7 @@ namespace LofiHollow {
                 Name = temp.Name;
                 Package = temp.Package;
                 SubID = temp.SubID;
-                ItemCategory = temp.ItemCategory;
+                ItemCat = temp.ItemCat;
                 EquipSlot = temp.EquipSlot;
                 IsStackable = temp.IsStackable; 
                 Description = temp.Description;
@@ -126,26 +93,27 @@ namespace LofiHollow {
                 Durability = temp.Durability;
                 MaxDurability = temp.MaxDurability;
                 ItemTier = temp.ItemTier;
+                 
                 Quality = temp.Quality;
 
                 ForegroundR = temp.ForegroundR; 
                 ForegroundG = temp.ForegroundG; 
                 ForegroundB = temp.ForegroundB;
-                ItemGlyph = temp.ItemGlyph;  
-
-                Stats = temp.Stats;
-                Heal = temp.Heal;
+                ItemGlyph = temp.ItemGlyph; 
                 Dec = temp.Dec;
-                Plant = temp.Plant;
-                Tool = temp.Tool;
-                Craft = temp.Craft;
-                MonsterFood = temp.MonsterFood;
-                MonsterEgg = temp.MonsterEgg;
 
-                if (name == "lh:(EMPTY)")
+                foreach(KeyValuePair<string, object> kv in temp.Properties) {
+                    Properties.Add(kv.Key, kv.Value);
+                }
+
+                if (name == "lh:(EMPTY)") {
                     ItemQuantity = 0;
-                else
+                    Quality = 0;
+                } else {
+                    if (Quality == 0)
+                        Quality = 1;
                     ItemQuantity = quantity;
+                }
             }
         }
 
@@ -153,7 +121,7 @@ namespace LofiHollow {
             Name = temp.Name;
             Package = temp.Package;
             SubID = temp.SubID;
-            ItemCategory = temp.ItemCategory;
+            ItemCat = temp.ItemCat;
             EquipSlot = temp.EquipSlot;
             IsStackable = temp.IsStackable;
             Description = temp.Description;
@@ -169,22 +137,24 @@ namespace LofiHollow {
             ForegroundB = temp.ForegroundB;
             ItemGlyph = temp.ItemGlyph;
             ItemTier = temp.ItemTier;
+             
             Quality = temp.Quality;
 
             Dec = temp.Dec;
-            Tool = temp.Tool;
-            Craft = temp.Craft;
-            MonsterFood = temp.MonsterFood;
-            MonsterEgg = temp.MonsterEgg;
 
-            Stats = temp.Stats;
-            Heal = temp.Heal;
-            Plant = temp.Plant;
+            foreach (KeyValuePair<string, object> kv in temp.Properties) {
+                Properties.Add(kv.Key, kv.Value);
+            }
 
-            if (Name == "(EMPTY)")
+
+            if (Name == "(EMPTY)") {
                 ItemQuantity = 0;
-            else
-                ItemQuantity = 1; 
+                Quality = 0;
+            } else {
+                if (Quality == 0)
+                    Quality = 1;
+                ItemQuantity = 1;
+            }
         }
 
         public ColoredString AsColoredGlyph() {

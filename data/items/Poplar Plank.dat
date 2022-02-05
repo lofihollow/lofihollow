@@ -1,25 +1,33 @@
 {
   "Name": "Poplar Plank",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": true,
   "ShortDesc": "A poplar plank",
   "Description": "",
   "AverageValue": 2,
   "Weight": 1.0,
-  "ItemCategory": -1,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
   "EquipSlot": -1,
+  "Properties": {
+    "Craft": [
+      {
+        "Property": "Plank",
+        "Tier": 1,
+        "Quantity": 1,
+        "Stacks": true,
+        "CountsAsMultiple": false
+      }
+    ]
+  },
+  "Dec": null,
   "ForegroundR": 101,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph": 331,
-  "Craft": [
-	{
-      "Property": "Plank",
-      "Tier": 1,
-      "Quantity": 1,
-      "Stacks": true,
-	  "CountsAsMultiple": false
-    }
-  ]
+  "ItemGlyph": 331
 }

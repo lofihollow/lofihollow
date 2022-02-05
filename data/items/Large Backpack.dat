@@ -1,16 +1,23 @@
 {
   "Name": "Large Backpack",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
   "ShortDesc": "Expands Inventory",
   "Description": "",
   "AverageValue": 1000,
   "Weight": 0.5,
-  "ItemCategory": -1,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
   "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph":336
+  "ItemGlyph": 336
 }

@@ -1,0 +1,18 @@
+{
+  "Name": "Bronze W. Can",
+  "FinishedID": "lh:Bronze W. Can",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 40,
+  "ExpGranted": 50,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Bronze Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

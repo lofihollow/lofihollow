@@ -1,0 +1,23 @@
+{
+  "Name": "Bronze W. Can",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Waters plants",
+  "Description": "",
+  "AverageValue": 50,
+  "Weight": 1.0,
+  "Durability": 100,
+  "MaxDurability": 100,
+  "Quality": 0,
+  "ItemTier": 40,
+  "ItemCat": "Watering Can",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": null,
+  "ForegroundR": 176,
+  "ForegroundG": 141,
+  "ForegroundB": 87,
+  "ItemGlyph": 328
+}

@@ -1,6 +1,8 @@
 ﻿using LofiHollow.Entities;
+using LofiHollow.Entities.NPC;
 using LofiHollow.EntityData;
 using LofiHollow.Managers;
+using LofiHollow.Minigames.Photo;
 using Newtonsoft.Json;
 using SadConsole;
 using SadConsole.Input;
@@ -134,7 +136,7 @@ namespace LofiHollow.UI {
             if (GameHost.Instance.Mouse.LeftButtonDown) {
                 if (GameLoop.World.Player.Inventory[hotbarSelect].Name == "(EMPTY)") { 
 
-                    int distance = GoRogue.Lines.Get(new GoRogue.Coord(mapPos.X, mapPos.Y), new GoRogue.Coord(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y)).Count();
+                    int distance = GoRogue.Lines.Get(mapPos.ToCoord(), GameLoop.World.Player.Position.ToCoord()).Count();
                     if (distance < 5) {
                         if (mapPos.X >= 0 && mapPos.X <= GameLoop.MapWidth && mapPos.Y >= 0 && mapPos.Y <= GameLoop.MapHeight) { 
                             TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos); 
@@ -177,9 +179,9 @@ namespace LofiHollow.UI {
             }
 
             if (GameHost.Instance.Mouse.LeftClicked) {
-                int tempCat = GameLoop.World.Player.Inventory[hotbarSelect].ItemCategory;
+                string tempCat = GameLoop.World.Player.Inventory[hotbarSelect].ItemCat;
 
-                int distToClick = GoRogue.Lines.Get(new GoRogue.Coord(mapPos.X, mapPos.Y), new GoRogue.Coord(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y)).Count();
+                int distToClick = GoRogue.Lines.Get(mapPos.ToCoord(), GameLoop.World.Player.Position.ToCoord()).Count();
                  if (distToClick < 5) {
                     TileBase clickedTile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos);
                     if (clickedTile.MiscString != "") {
@@ -199,7 +201,7 @@ namespace LofiHollow.UI {
                     }
                 }
 
-                if (tempCat == 13 && !madeCoinThisFrame) { // Clicked with a coin
+                if (tempCat == "Currency" && !madeCoinThisFrame) { // Clicked with a coin
                     if (GameLoop.World.Player.Inventory[hotbarSelect].Name == "Copper Coin") {
                         GameLoop.World.Player.CopperCoins++;
                         CommandManager.RemoveOneItem(GameLoop.World.Player, hotbarSelect);
@@ -221,7 +223,7 @@ namespace LofiHollow.UI {
                     }
                 }
 
-                if (tempCat == 4 || tempCat == 9) {
+                if (tempCat == "Hoe" || tempCat == "Seed") {
                     if (GameLoop.World.Player.MapPos == new Point3D(-1, 0, 0) && !GameLoop.CheckFlag("farm")) {
                         GameLoop.UIManager.AddMsg(new ColoredString("You need to buy this land from the town hall first.", Color.Red, Color.Black));
                     } else if (GameLoop.World.Player.MapPos != new Point3D(-1, 0, 0)) {
@@ -229,8 +231,8 @@ namespace LofiHollow.UI {
                     }
                 }
 
-                if (tempCat == 5) { // Clicked with a hammer
-                    int distance = GoRogue.Lines.Get(new GoRogue.Coord(mapPos.X, mapPos.Y), new GoRogue.Coord(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y)).Count();
+                if (tempCat == "Hammer") { // Clicked with a hammer
+                    int distance = GoRogue.Lines.Get(mapPos.ToCoord(), GameLoop.World.Player.Position.ToCoord()).Count();
                     if (distance < 5) {
                         if (mapPos.X >= 0 && mapPos.X <= GameLoop.MapWidth && mapPos.Y >= 0 && mapPos.Y <= GameLoop.MapHeight) {
                             if (GameLoop.World.Player.MapPos == new Point3D(-1, 0, 0)) {
@@ -344,7 +346,7 @@ namespace LofiHollow.UI {
                     }
                 }
 
-                if (tempCat == 12) { // Clicked with a permit in-hand
+                if (tempCat == "Deed") { // Clicked with a permit in-hand
                     if (GameLoop.World.Player.Inventory[hotbarSelect].Name == "Farm Permit") { // Permit is for the farm
                         if (GameLoop.SingleOrHosting()) {
                             if (!GameLoop.CheckFlag("farm")) {
@@ -417,19 +419,167 @@ namespace LofiHollow.UI {
                     GameLoop.SoundManager.PlaySound("successJingle");
                     GameLoop.UIManager.AddMsg("Your backpack can now hold 27 items!");
                 }
+
+                if (GameLoop.World.Player.Inventory[hotbarSelect].Name == "Camera") { // Used Camera
+                    Item photo = new("lh:Photo");
+                    Photo data = new();
+
+                    Point topLeft = mapPos - new Point(10, 10);
+                    if (topLeft.X < 0)
+                        topLeft = new Point(0, topLeft.Y);
+                    if (topLeft.Y < 0)
+                        topLeft = new Point(topLeft.X, 0);
+                    if (topLeft.X + 21 > GameLoop.MapWidth)
+                        topLeft = new Point(GameLoop.MapWidth - 21, topLeft.Y);
+                    if (topLeft.Y + 21 > GameLoop.MapHeight)
+                        topLeft = new Point(topLeft.X, GameLoop.MapHeight - 21);
+
+                    for (int x = 0; x < 21; x++) {
+                        for (int y = 0; y < 21; y++) {
+                            Point maploc = topLeft + new Point(x, y);
+                            TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(maploc);
+
+                            if (tile.IsVisible) {
+                                if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(maploc.ToCoord())) {
+                                    if (tile.Lock == null) {
+                                        data.tiles[x + (y * 21)] = new(tile.Name, tile.ForegroundR, tile.ForegroundG, tile.ForegroundB, 255, tile.TileGlyph, tile.Dec);
+                                    } else {
+                                        if (tile.Lock.Closed)
+                                            data.tiles[x + (y * 21)] = new(tile.Name, tile.ForegroundR, tile.ForegroundG, tile.ForegroundB, 255, tile.Lock.ClosedGlyph, tile.Dec);
+                                        else
+                                            data.tiles[x + (y * 21)] = new(tile.Name, tile.ForegroundR, tile.ForegroundG, tile.ForegroundB, 255, tile.Lock.OpenedGlyph, tile.Dec);
+                                    }
+
+                                } else {
+                                    data.tiles[x + (y * 21)] = new("", 0, 0, 0, 255, 32, null);
+                                }
+                            } else {
+                                data.tiles[x + (y * 21)] = new("", 0, 0, 0, 255, 32, null);
+                            }
+
+                            if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(maploc.ToCoord())) {
+                                if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetEntityAt<ItemWrapper>(maploc) != null) {
+                                    PhotoEntity ent = new();
+                                    ItemWrapper wrap = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetEntityAt<ItemWrapper>(maploc);
+
+                                    ent.Glyph = wrap.item.ItemGlyph;
+                                    ent.ColR = wrap.item.ForegroundR;
+                                    ent.ColG = wrap.item.ForegroundG;
+                                    ent.ColB = wrap.item.ForegroundB;
+                                    ent.ColA = 255;
+
+                                    ent.Name = wrap.item.Name;
+                                    ent.Type = "Item";
+                                    ent.X = x;
+                                    ent.Y = y;
+
+                                    if (wrap.item.Dec != null)
+                                        ent.Dec = new(wrap.item.Dec);
+
+                                    data.entities.Add(ent);
+                                }
+
+                                if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetEntityAt<MonsterWrapper>(maploc) != null) {
+                                    PhotoEntity ent = new();
+                                    MonsterWrapper wrap = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetEntityAt<MonsterWrapper>(maploc);
+
+                                    ent.Glyph = wrap.monster.ActorGlyph;
+                                    ent.ColR = wrap.monster.ForegroundR;
+                                    ent.ColG = wrap.monster.ForegroundG;
+                                    ent.ColB = wrap.monster.ForegroundB;
+                                    ent.ColA = 255;
+                                    ent.Type = "Monster";
+
+                                    ent.Name = wrap.monster.Name;
+                                    ent.X = x;
+                                    ent.Y = y;
+                                    data.entities.Add(ent);
+                                }
+
+                                foreach (KeyValuePair<int, NPC> kv in GameLoop.World.npcLibrary) {
+                                    if (kv.Value.Position == maploc && kv.Value.MapPos == GameLoop.World.Player.MapPos) {
+                                        PhotoEntity ent = new();
+                                        ent.Glyph = kv.Value.ActorGlyph;
+                                        ent.ColR = kv.Value.ForegroundR;
+                                        ent.ColG = kv.Value.ForegroundG;
+                                        ent.ColB = kv.Value.ForegroundB;
+                                        ent.ColA = 255;
+
+                                        ent.Name = kv.Value.Name;
+                                        ent.Type = "NPC";
+                                        ent.X = x;
+                                        ent.Y = y;
+                                        data.entities.Add(ent);
+                                    }
+                                }
+
+                                foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
+                                    if (kv.Value.Position == maploc && kv.Value.MapPos == GameLoop.World.Player.MapPos) {
+                                        PhotoEntity ent = new();
+                                        ent.Glyph = kv.Value.ActorGlyph;
+                                        ent.ColR = kv.Value.ForegroundR;
+                                        ent.ColG = kv.Value.ForegroundG;
+                                        ent.ColB = kv.Value.ForegroundB;
+                                        ent.ColA = 255;
+
+                                        ent.Name = kv.Value.Name;
+                                        ent.Type = "Player";
+                                        ent.X = x;
+                                        ent.Y = y;
+                                        data.entities.Add(ent);
+                                    }
+                                }
+
+                                if (GameLoop.World.Player.Position == maploc) {
+                                    PhotoEntity ent = new();
+                                    ent.Glyph = GameLoop.World.Player.ActorGlyph;
+                                    ent.ColR = GameLoop.World.Player.ForegroundR;
+                                    ent.ColG = GameLoop.World.Player.ForegroundG;
+                                    ent.ColB = GameLoop.World.Player.ForegroundB;
+                                    ent.ColA = 255;
+
+                                    ent.Name = GameLoop.World.Player.Name;
+                                    ent.X = x;
+                                    ent.Y = y;
+                                    ent.Type = "Player";
+                                    data.entities.Add(ent);
+                                }
+                            }
+                        }
+                    }
+
+                    data.SeasonTaken = GameLoop.World.Player.Clock.GetSeason();
+                    data.DayTaken = GameLoop.World.Player.Clock.Day;
+                    data.MinutesTaken = GameLoop.World.Player.Clock.GetCurrentTime();
+
+                    if (!photo.Properties.ContainsKey("Photo"))
+                        photo.Properties.Add("Photo", data);
+
+                    CommandManager.AddItemToInv(GameLoop.World.Player, photo);
+                    GameLoop.SoundManager.PlaySound("camera"); 
+
+                }
+
+                if (GameLoop.World.Player.Inventory[hotbarSelect].Properties.ContainsKey("Photo")) { // Used Photo
+                    Photo photo = GameLoop.World.Player.Inventory[hotbarSelect].Properties.Get<Photo>("Photo");
+                    GameLoop.UIManager.Photo.CurrentPhoto = photo;
+                    GameLoop.UIManager.selectedMenu = "Photo";
+                    GameLoop.UIManager.Photo.ShowingBoard = false;
+                    GameLoop.UIManager.Photo.Toggle();
+                }
             }
 
 
             if (GameHost.Instance.Mouse.LeftButtonDown) {
                 if (GameLoop.World.Player.Inventory[hotbarSelect].Name != "(EMPTY)") {
-                    if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCategory == 7) { // Fishing rod
+                    if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCat == "Fishing Rod") { // Fishing rod
                         if (ChargeBar < 100) {
                             ChargeBar++;
                         }
                     }
 
-                    if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCategory == 4) { // Clicked with a hoe
-                        int distance = GoRogue.Lines.Get(new GoRogue.Coord(mapPos.X, mapPos.Y), new GoRogue.Coord(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y)).Count();
+                    if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCat == "Hoe") { // Clicked with a hoe
+                        int distance = GoRogue.Lines.Get(mapPos.ToCoord(), GameLoop.World.Player.Position.ToCoord()).Count();
                         if (distance < 5) {
                             if (mapPos.X >= 0 && mapPos.X <= GameLoop.MapWidth && mapPos.Y >= 0 && mapPos.Y <= GameLoop.MapHeight) {
                                 TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos);
@@ -449,8 +599,8 @@ namespace LofiHollow.UI {
                         }
                     }
 
-                    if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCategory == 1) { // Clicked with a watering can
-                        int distance = GoRogue.Lines.Get(new GoRogue.Coord(mapPos.X, mapPos.Y), new GoRogue.Coord(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y)).Count();
+                    if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCat == "Watering Can") { // Clicked with a watering can
+                        int distance = GoRogue.Lines.Get(mapPos.ToCoord(), GameLoop.World.Player.Position.ToCoord()).Count();
                         if (distance < 5) {
                             if (mapPos.X >= 0 && mapPos.X <= GameLoop.MapWidth && mapPos.Y >= 0 && mapPos.Y <= GameLoop.MapHeight) {
                                 TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos);
@@ -476,16 +626,17 @@ namespace LofiHollow.UI {
                         }
                     }
 
-                    if (GameLoop.World.Player.Inventory[hotbarSelect].Plant != null && !Harvesting) { // Clicked with a seed
-                        int distance = GoRogue.Lines.Get(new GoRogue.Coord(mapPos.X, mapPos.Y), new GoRogue.Coord(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y)).Count();
+                    if (GameLoop.World.Player.Inventory[hotbarSelect].Properties.ContainsKey("Plant") && !Harvesting) { // Clicked with a seed
+                        Plant plant = GameLoop.World.Player.Inventory[hotbarSelect].Properties.Get<Plant>("Plant");
+                        int distance = GoRogue.Lines.Get(mapPos.ToCoord(), GameLoop.World.Player.Position.ToCoord()).Count();
                         if (distance < 5) {
                             if (mapPos.X >= 0 && mapPos.X <= GameLoop.MapWidth && mapPos.Y >= 0 && mapPos.Y <= GameLoop.MapHeight) {
                                 TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mapPos);
                                 if (tile.Name == "Tilled Dirt") {
                                     if (GameLoop.World.Player.MapPos == new Point3D(-1, 0, 0) && GameLoop.CheckFlag("farm")) {
-                                        if (GameLoop.World.Player.Inventory[hotbarSelect].Plant.RequiredLevel <= GameLoop.World.Player.Skills["Farming"].Level) {
-                                            if (GameLoop.World.Player.Inventory[hotbarSelect].Plant.GrowthSeason == "Any" || GameLoop.World.Player.Inventory[hotbarSelect].Plant.GrowthSeason == GameLoop.World.Player.Clock.GetSeason()) {
-                                                tile.Plant = new Plant(GameLoop.World.Player.Inventory[hotbarSelect].Plant);
+                                        if (plant.RequiredLevel <= GameLoop.World.Player.Skills["Farming"].Level) {
+                                            if (plant.GrowthSeason == "Any" || plant.GrowthSeason == GameLoop.World.Player.Clock.GetSeason()) {
+                                                tile.Plant = new Plant(plant);
                                                 tile.Name = tile.Plant.ProduceName + " Plant";
                                                 tile.UpdateAppearance();
                                                 GameLoop.UIManager.Map.MapConsole.SetEffect(mapPos.X, mapPos.Y, new CustomBlink(168, Color.Blue));
@@ -495,11 +646,11 @@ namespace LofiHollow.UI {
                                                 GameLoop.SendMessageIfNeeded(new string[] { "updateTile", mapPos.X.ToString(), mapPos.Y.ToString(), GameLoop.World.Player.MapPos.ToString(), json }, false, false);
                                             } else {
                                                 Harvesting = true;
-                                                GameLoop.UIManager.AddMsg(new ColoredString("You can't plant that right now. (" + GameLoop.World.Player.Inventory[hotbarSelect].Plant.GrowthSeason + ")", Color.Red, Color.Black));
+                                                GameLoop.UIManager.AddMsg(new ColoredString("You can't plant that right now. (" + plant.GrowthSeason + ")", Color.Red, Color.Black));
                                             }
                                         } else {
                                             Harvesting = true;
-                                            GameLoop.UIManager.AddMsg(new ColoredString("You aren't high enough level to plant that. (" + GameLoop.World.Player.Inventory[hotbarSelect].Plant.RequiredLevel + ")", Color.Red, Color.Black));
+                                            GameLoop.UIManager.AddMsg(new ColoredString("You aren't high enough level to plant that. (" + plant.RequiredLevel + ")", Color.Red, Color.Black));
                                         }
                                     }
                                 }
@@ -532,7 +683,7 @@ namespace LofiHollow.UI {
                     }
                     if (ChargeBar >= 10) {
                         if (GameLoop.World.Player.Inventory[hotbarSelect].Name != "(EMPTY)") {
-                            if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCategory == 7) { // Fishing rod
+                            if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCat == "Fishing Rod") { // Fishing rod
                                 Point target = LureSpot * new Point(2, 2);
                                 int xDist = (int)((double)((target.X / 10) * (ChargeBar / 10)));
                                 int yDist = (int)((double)((target.Y / 10) * (ChargeBar / 10)));
@@ -552,7 +703,7 @@ namespace LofiHollow.UI {
 
 
             if (GameHost.Instance.Mouse.RightClicked) {
-                if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCategory == 5) {
+                if (GameLoop.World.Player.Inventory[hotbarSelect].ItemCat == "Hammer") {
                     GameLoop.UIManager.Construction.ToggleConstruction();
                 }
             }
@@ -685,26 +836,22 @@ namespace LofiHollow.UI {
                         SidebarConsole.Print(0, 43, "Key SubID: " + tile.Lock.KeySubID);
             */
              
-            if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F4)) {
-                GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights.Clear();
-                GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights.Add(1, 45);
-                GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights.Add(2, 45);
-                GameLoop.World.maps[GameLoop.World.Player.MapPos].MonsterWeights.Add(3, 10);
-                GameLoop.World.maps[GameLoop.World.Player.MapPos].MinimumMonsters = 5;
-                GameLoop.World.maps[GameLoop.World.Player.MapPos].MaximumMonsters = 10;
-
-            }
 
             Point mousePos = GameHost.Instance.Mouse.ScreenPosition.PixelLocationToSurface(12, 12) - new Point(1, 1);
             if (mousePos.X < 72 && mousePos.Y < 41 && mousePos.X >= 0 && mousePos.Y >= 0) {
                 if (GameHost.Instance.Mouse.LeftButtonDown) {
-                        TileBase tile = new(GameLoop.World.tileLibrary.ElementAt(tileIndex).Key);
-                        if (mousePos.ToIndex(GameLoop.MapWidth) < GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles.Length) { 
-                            GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[mousePos.ToIndex(GameLoop.MapWidth)] = tile;
+                    TileBase tile = new(GameLoop.World.tileLibrary.ElementAt(tileIndex).Key);
+                    if (mousePos.ToIndex(GameLoop.MapWidth) < GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles.Length) { 
+                        GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[mousePos.ToIndex(GameLoop.MapWidth)] = tile;
+                            
+                        if (GameLoop.World.Player.MapPos.Z <= 0) {
+                            GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[mousePos.ToIndex(GameLoop.MapWidth)].ExposedToSky = true;
+                        }
+
                         GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[GameLoop.World.Player.MapPos]);
-                            string json = JsonConvert.SerializeObject(tile, Formatting.Indented);
-                            GameLoop.SendMessageIfNeeded(new string[] { "updateTile", mousePos.X.ToString(), mousePos.Y.ToString(), GameLoop.World.Player.MapPos.ToString(), json }, false, false);
-                        } 
+                        string json = JsonConvert.SerializeObject(tile, Formatting.Indented);
+                        GameLoop.SendMessageIfNeeded(new string[] { "updateTile", mousePos.X.ToString(), mousePos.Y.ToString(), GameLoop.World.Player.MapPos.ToString(), json }, false, false);
+                    } 
                 }
 
                 if (GameHost.Instance.Mouse.RightClicked) {
@@ -816,26 +963,28 @@ namespace LofiHollow.UI {
                  
                 
                 SidebarConsole.Print(0, 26, "Tile Index: " + tileIndex);
-                 
-                TileBase PlacingTile = GameLoop.World.tileLibrary[GameLoop.World.tileLibrary.ElementAt(tileIndex).Key];
 
-                SidebarConsole.Print(0, 27, "Tile Name: " + PlacingTile.Name);
-                SidebarConsole.Print(0, 28, "Tile Appearance: ");
-                SidebarConsole.Print(17, 28, PlacingTile.AsColoredGlyph()); 
+                if (tileIndex < GameLoop.World.tileLibrary.Count) {
+                    TileBase PlacingTile = GameLoop.World.tileLibrary[GameLoop.World.tileLibrary.ElementAt(tileIndex).Key];
 
-                if (tileSelected != new Point(-1, -1)) {
-                    TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(tileSelected);
-                    SidebarConsole.Print(0, 35, "Selected Tile: " + tile.Name);
-                    SidebarConsole.Print(0, 36, "Tile Appearance: ");
-                    SidebarConsole.Print(17, 36, tile.AsColoredGlyph());
-                    if (tile.Lock != null) {
-                        SidebarConsole.Print(0, 37, "Owner: " + tile.Lock.Owner);
-                        SidebarConsole.Print(0, 38, "Rel Unlock: " + tile.Lock.RelationshipUnlock);
-                        SidebarConsole.Print(0, 39, "Mission Unlock: " + tile.Lock.MissionUnlock);
-                        SidebarConsole.Print(0, 40, "Always Locked: " + tile.Lock.AlwaysLocked);
-                        SidebarConsole.Print(0, 41, "Unlocks at: " + TimeManager.MinutesToTime(tile.Lock.UnlockTime));
-                        SidebarConsole.Print(0, 42, "Locks at: " + TimeManager.MinutesToTime(tile.Lock.LockTime));
-                        SidebarConsole.Print(0, 43, "Key Name: " + tile.Lock.UnlockKeyName);
+                    SidebarConsole.Print(0, 27, "Tile Name: " + PlacingTile.Name);
+                    SidebarConsole.Print(0, 28, "Tile Appearance: ");
+                    SidebarConsole.Print(17, 28, PlacingTile.AsColoredGlyph());
+
+                    if (tileSelected != new Point(-1, -1)) {
+                        TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(tileSelected);
+                        SidebarConsole.Print(0, 35, "Selected Tile: " + tile.Name);
+                        SidebarConsole.Print(0, 36, "Tile Appearance: ");
+                        SidebarConsole.Print(17, 36, tile.AsColoredGlyph());
+                        if (tile.Lock != null) {
+                            SidebarConsole.Print(0, 37, "Owner: " + tile.Lock.Owner);
+                            SidebarConsole.Print(0, 38, "Rel Unlock: " + tile.Lock.RelationshipUnlock);
+                            SidebarConsole.Print(0, 39, "Mission Unlock: " + tile.Lock.MissionUnlock);
+                            SidebarConsole.Print(0, 40, "Always Locked: " + tile.Lock.AlwaysLocked);
+                            SidebarConsole.Print(0, 41, "Unlocks at: " + TimeManager.MinutesToTime(tile.Lock.UnlockTime));
+                            SidebarConsole.Print(0, 42, "Locks at: " + TimeManager.MinutesToTime(tile.Lock.LockTime));
+                            SidebarConsole.Print(0, 43, "Key Name: " + tile.Lock.UnlockKeyName);
+                        }
                     }
                 }
             } else { // Print non-map editor stuff
@@ -886,7 +1035,7 @@ namespace LofiHollow.UI {
                     SidebarConsole.Print(0, y++, "Mouse-Look");
                     Point mouseOverMap = new MouseScreenObjectState(GameLoop.UIManager.Map.MapConsole, GameHost.Instance.Mouse).CellPosition;
                     if (mouseOverMap.X >= 0 && mouseOverMap.Y >= 0 && mouseOverMap.X <= GameLoop.MapWidth && mouseOverMap.Y <= GameLoop.MapHeight) {
-                        if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(new GoRogue.Coord(mouseOverMap.X, mouseOverMap.Y))) {
+                        if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(mouseOverMap.ToCoord())) {
                             TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(mouseOverMap);
 
                             SidebarConsole.Print(0, y++, tile.AsColoredGlyph() + new ColoredString(" " + tile.Name, Color.White, Color.Black));
@@ -989,7 +1138,7 @@ namespace LofiHollow.UI {
                         else
                             SidebarConsole.Print(3, y, new ColoredString(("(" + item.ItemQuantity + ") " + item.Name), i == hotbarSelect ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.TransparentBlack) + LetterGrade);
 
-                        if (i == hotbarSelect && item.ItemCategory == 7) {
+                        if (i == hotbarSelect && item.ItemCat == "Fishing Rod") {
                             SidebarConsole.Print(15, y, "[");
                             int chargePercent = ChargeBar / 10;
 
@@ -1004,7 +1153,7 @@ namespace LofiHollow.UI {
                             SidebarConsole.Print(25, y, "]");
                         }
 
-                        if (i == hotbarSelect && item.ItemCategory == 5 && GameLoop.UIManager.Construction.SelectedConstructible != -1) {
+                        if (i == hotbarSelect && item.ItemCat == "Hammer" && GameLoop.UIManager.Construction.SelectedConstructible != -1) {
                             SidebarConsole.Print(23, y, "["); 
                             SidebarConsole.Print(24, y, GameLoop.World.constructibles[GameLoop.UIManager.Construction.SelectedConstructible].Appearance());
                             SidebarConsole.Print(25, y, "]");

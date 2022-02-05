@@ -1,16 +1,23 @@
 {
   "Name": "Ladder",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": true,
   "ShortDesc": "A ladder",
   "Description": "",
   "AverageValue": 5,
   "Weight": 0.5,
-  "ItemCategory": -1,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
   "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
   "ForegroundR": 101,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph":327
+  "ItemGlyph": 327
 }

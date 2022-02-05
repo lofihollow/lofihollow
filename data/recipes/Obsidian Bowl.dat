@@ -1,0 +1,18 @@
+{
+  "Name": "Obsidian Bowl",
+  "FinishedID": "lh:Obsidian Bowl",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 10,
+  "ExpGranted": 20,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Obsidian Shard",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

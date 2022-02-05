@@ -1,0 +1,18 @@
+{
+  "Name": "Stone Trinket",
+  "FinishedID": "lh:Stone Trinket",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 1,
+  "ExpGranted": 10,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Stone Chunk",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

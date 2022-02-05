@@ -16,7 +16,7 @@ using LofiHollow.Missions;
 namespace LofiHollow {
     public class World { 
         public Dictionary<string, TileBase> tileLibrary = new();
-        public Dictionary<int, MineTile> mineTileLibrary = new();
+        public Dictionary<string, MineTile> mineTileLibrary = new();
         public Dictionary<string, Item> itemLibrary = new();
         public Dictionary<string, Monster> monsterLibrary = new();
         public Dictionary<Point3D, Map> maps = new();
@@ -74,10 +74,8 @@ namespace LofiHollow {
 
                 foreach (string fileName in itemFiles) {
                     string json = File.ReadAllText(fileName);
-
                     Item item = JsonConvert.DeserializeObject<Item>(json);
-
-                    itemLibrary.Add(item.FullName(), item);
+                    itemLibrary.Add(item.FullName(), item); 
                 }
             } 
         }
@@ -127,7 +125,7 @@ namespace LofiHollow {
 
                     MineTile tile = JsonConvert.DeserializeObject<MineTile>(json);
 
-                    mineTileLibrary.Add(tile.MineTileID, tile);
+                    mineTileLibrary.Add(tile.Name, tile);
                 }
             }
 
@@ -390,6 +388,9 @@ namespace LofiHollow {
                 if (!Player.MissionLog.ContainsKey(kv.Key))
                     Player.MissionLog.Add(kv.Key, kv.Value);
             }
+
+
+            GameLoop.UIManager.Photo.PopulateJobList();
 
             DoneInitializing = true;
             GameLoop.UIManager.Map.LoadMap(Player.MapPos);

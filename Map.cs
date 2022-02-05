@@ -9,9 +9,7 @@ using LofiHollow.Managers;
 
 namespace LofiHollow {
     [JsonObject(MemberSerialization.OptIn)]
-    public class Map {
-        [JsonProperty]
-        public Dictionary<int,int> MonsterWeights = new();
+    public class Map { 
         [JsonProperty]
         public int MinimumMonsters = 0;
         [JsonProperty]
@@ -105,15 +103,15 @@ namespace LofiHollow {
         }
 
         public T GetEntityAt<T>(Point location) where T : Entity {
-            return Entities.GetItems(new GoRogue.Coord(location.X, location.Y)).OfType<T>().FirstOrDefault();
+            return Entities.GetItems(location.ToCoord()).OfType<T>().FirstOrDefault();
         }
 
         public List<T> GetAllEntities<T>(Point location) where T : Entity {
-            return Entities.GetItems(new GoRogue.Coord(location.X, location.Y)).OfType<T>().ToList();
+            return Entities.GetItems(location.ToCoord()).OfType<T>().ToList();
         }
 
         public T GetEntityAt<T>(Point location, string name) where T : Entity {
-            var allItems = Entities.GetItems(new GoRogue.Coord(location.X, location.Y)).OfType<T>().ToList();
+            var allItems = Entities.GetItems(location.ToCoord()).OfType<T>().ToList();
 
             if (allItems.Count > 1) {
                 for (int i = 0; i < allItems.Count; i++) {
@@ -123,7 +121,7 @@ namespace LofiHollow {
                 }
             }
 
-            return Entities.GetItems(new GoRogue.Coord(location.X, location.Y)).OfType<T>().FirstOrDefault();
+            return Entities.GetItems(location.ToCoord()).OfType<T>().FirstOrDefault();
         }
 
         public TileBase GetTile(Point location) {
@@ -140,32 +138,19 @@ namespace LofiHollow {
         }
          
         public void Add(Entity entity) { 
-            Entities.Add(entity, new GoRogue.Coord(entity.Position.X, entity.Position.Y));
+            Entities.Add(entity, entity.Position.ToCoord());
             entity.PositionChanged += OnPositionChange; 
         }
 
         private void OnPositionChange(object sender, SadConsole.ValueChangedEventArgs<Point> e) {
-            Entities.Move(sender as Entity, new GoRogue.Coord(e.NewValue.X, e.NewValue.Y)); 
+            Entities.Move(sender as Entity, e.NewValue.ToCoord()); 
         } 
 
 
         public void PopulateMonsters(Point3D MapPos) {
             int diff = MaximumMonsters - MinimumMonsters;
             int monsterAmount = GameLoop.rand.Next(diff) + MinimumMonsters;
-
-            int weight = 0;
-
-            if (MonsterWeights.Count > 1) {
-                foreach(KeyValuePair<int, int> kv in MonsterWeights) {
-                    weight += kv.Value;
-                }
-            } else if (MonsterWeights.Count == 1) {
-                weight = MonsterWeights.ElementAt(0).Value;
-            }
-
-            int count1 = 0;
-            int count2 = 0;
-            int count3 = 0;
+             
 
             SpawnedMonsters = monsterAmount;
         } 

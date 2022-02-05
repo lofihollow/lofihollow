@@ -95,8 +95,8 @@ namespace LofiHollow.Minigames.Mining {
             BlocksLOS = other.BlocksLOS;
         }
 
-        public MineTile(int index) {
-            MineTile other = GameLoop.World.mineTileLibrary[index];
+        public MineTile(string name) {
+            MineTile other = GameLoop.World.mineTileLibrary[name];
 
             Name = other.Name;
             TileGlyph = other.TileGlyph;

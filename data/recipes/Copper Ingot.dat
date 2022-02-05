@@ -3,14 +3,14 @@
   "FinishedID": "lh:Copper Ingot",
   "FinishedQty": 1,
   "Skill": "Smithing",
-  "RequiredLevel": 1,
-  "ExpGranted": 10,
+  "RequiredLevel": 10,
+  "ExpGranted": 20,
   "SpecificMaterials": [
     {
-      "Name": "Copper Chunk",
+      "Name": "lh:Copper Chunk",
       "SubID": 0,
       "ItemQuantity": 1,
-      "Stacks": false
+      "Stacks": true
     }
   ],
   "GenericMaterials": [

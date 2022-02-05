@@ -83,8 +83,8 @@ namespace LofiHollow.Managers {
                     }
 
                     if (mousePos.Y == 2 && mousePos.X < 15 && CurrentPen.Monster.Name == "(EMPTY)" && CurrentPen.Egg == null) {
-                        if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].MonsterEgg != null) {
-                            CurrentPen.Egg = GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].MonsterEgg;
+                        if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].Properties.ContainsKey("MonsterEgg")) {
+                            CurrentPen.Egg = GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].Properties.Get<Egg>("MonsterEgg");
                             GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect] = new("lh:(EMPTY)");
                         }
                     }

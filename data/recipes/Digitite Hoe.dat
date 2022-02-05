@@ -1,0 +1,26 @@
+{
+  "Name": "Digitite Hoe",
+  "FinishedID": "lh:Digitite Hoe",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 90,
+  "ExpGranted": 100,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Digitite Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

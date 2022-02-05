@@ -1,0 +1,35 @@
+{
+  "Name": "Digitite Ingot",
+  "FinishedID": "lh:Digitite Ingot",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 90,
+  "ExpGranted": 110,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Digitite Chunk",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": true
+    }
+  ],
+  "RequiredTools": [
+    {
+      "Property": "Furnace",
+      "Tier": 1
+    },
+    {
+      "Property": "Hammer",
+      "Tier": 1
+    }
+  ]
+}

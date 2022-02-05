@@ -1,0 +1,29 @@
+{
+  "Name": "Bronze Hoe",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Tills dirt",
+  "Description": "",
+  "AverageValue": 50,
+  "Weight": 1.0,
+  "Durability": 100,
+  "MaxDurability": 100,
+  "Quality": 0,
+  "ItemTier": 40,
+  "ItemCat": "Hoe",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": {
+    "Glyph": 289,
+    "R": 176,
+    "G": 141,
+    "B": 87,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 288
+}

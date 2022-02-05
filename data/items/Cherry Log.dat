@@ -1,32 +1,40 @@
 {
   "Name": "Cherry Log",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
   "ShortDesc": "A cherry log",
   "Description": "",
   "AverageValue": 1000,
   "Weight": 1.0,
-  "ItemCategory": -1,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
   "EquipSlot": -1,
+  "Properties": {
+    "Craft": [
+      {
+        "Property": "Fuel",
+        "Tier": 1,
+        "Quantity": 1,
+        "Stacks": false,
+        "CountsAsMultiple": true
+      },
+      {
+        "Property": "Wood",
+        "Tier": 70,
+        "Quantity": 1,
+        "Stacks": false,
+        "CountsAsMultiple": false
+      }
+    ]
+  },
+  "Dec": null,
   "ForegroundR": 140,
   "ForegroundG": 96,
   "ForegroundB": 63,
-  "ItemGlyph":330,
-  "Craft": [
-	{
-      "Property": "Fuel",
-      "Tier": 1,
-      "Quantity": 1,
-      "Stacks": false,
-	  "CountsAsMultiple": true
-    },
-	{
-      "Property": "Wood",
-      "Tier": 70,
-      "Quantity": 1,
-      "Stacks": false,
-	  "CountsAsMultiple": false
-    }
-  ]
+  "ItemGlyph": 330
 }

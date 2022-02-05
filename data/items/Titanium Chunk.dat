@@ -1,0 +1,23 @@
+{
+  "Name": "Titanium Chunk",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A chunk of titanium",
+  "Description": "",
+  "AverageValue": 35,
+  "Weight": 1.0,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 0,
+  "ForegroundG": 168,
+  "ForegroundB": 107,
+  "ItemGlyph": 321
+}

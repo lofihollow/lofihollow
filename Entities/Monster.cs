@@ -61,7 +61,7 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public int ForegroundB = 0;
         [JsonProperty]
-        public int ForegroundA = 0;
+        public int ForegroundA = 255;
         [JsonProperty]
         public int ActorGlyph = 0;
 
@@ -75,6 +75,14 @@ namespace LofiHollow.Entities {
                 Monster temp = GameLoop.World.monsterLibrary[name];
                 SetAll(temp);
             }
+        }
+
+        public int CalculateCombatLevel() {
+            int combatStat = Math.Max(MonAttack +MonStrength, Math.Max(2 * MonMagic, 2 * MonRanged));
+
+            int CombatLevel = (int)Math.Floor((double)(((13 / 10) * combatStat) + MonDefense + MonConstitution) / 4);
+
+            return CombatLevel;
         }
 
         public ColoredString GetAppearance() {

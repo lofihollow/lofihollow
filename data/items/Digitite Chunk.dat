@@ -1,0 +1,23 @@
+{
+  "Name": "Digitite Chunk",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A chunk of digitite",
+  "Description": "",
+  "AverageValue": 40,
+  "Weight": 1.0,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 0,
+  "ForegroundG": 161,
+  "ForegroundB": 173,
+  "ItemGlyph": 321
+}

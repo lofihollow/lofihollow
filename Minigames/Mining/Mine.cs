@@ -146,7 +146,7 @@ namespace LofiHollow.Minigames.Mining {
 
             if (newDist < 6) {
                 if (Levels[depth].GetTile(breakPos).Name != "Air") {
-                    int ToolTier = player.GetToolTier(2);
+                    int ToolTier = player.GetToolTier("Pickaxe");
                     if (ToolTier >= Levels[player.MineDepth].GetTile(breakPos).RequiredTier) {
                         Levels[player.MineDepth].GetTile(breakPos).Damage(ToolTier);
                         if (Levels[player.MineDepth].GetTile(breakPos).TileHP <= 0) {

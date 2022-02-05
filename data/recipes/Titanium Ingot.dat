@@ -1,0 +1,35 @@
+{
+  "Name": "Titanium Ingot",
+  "FinishedID": "lh:Titanium Ingot",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 80,
+  "ExpGranted": 100,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Titanium Chunk",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": true
+    }
+  ],
+  "RequiredTools": [
+    {
+      "Property": "Furnace",
+      "Tier": 1
+    },
+    {
+      "Property": "Hammer",
+      "Tier": 1
+    }
+  ]
+}

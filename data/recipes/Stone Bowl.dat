@@ -1,0 +1,18 @@
+{
+  "Name": "Stone Bowl",
+  "FinishedID": "lh:Stone Bowl",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 1,
+  "ExpGranted": 20,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Stone Chunk",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

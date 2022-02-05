@@ -6,6 +6,7 @@ using GoRogue.DiceNotation;
 using SadConsole;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using LofiHollow.EntityData;
 
 namespace LofiHollow.Managers {
     public class CommandManager {
@@ -149,9 +150,10 @@ namespace LofiHollow.Managers {
         }
 
         public static string UseItem(Actor actor, Item item) {
-            if (item.Heal != null) {
+            if (item.Properties.ContainsKey("Heal")) {
+                Heal heal = item.Properties.Get<Heal>("Heal");
                 if (actor.CurrentHP != actor.MaxHP) {
-                    int healAmount = GoRogue.DiceNotation.Dice.Roll(item.Heal.HealAmount);
+                    int healAmount = GoRogue.DiceNotation.Dice.Roll(heal.HealAmount);
 
                     if (actor.CurrentHP + healAmount > actor.MaxHP) {
                         healAmount = actor.MaxHP - actor.CurrentHP;

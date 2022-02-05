@@ -1,16 +1,23 @@
 {
   "Name": "Iron Chunk",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
-  "IsStackable": false,
+  "IsStackable": true,
   "ShortDesc": "A chunk of iron",
   "Description": "",
-  "AverageValue": 10,
+  "AverageValue": 20,
   "Weight": 1.0,
-  "ItemCategory": -1,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
   "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
   "ForegroundR": 203,
   "ForegroundG": 205,
   "ForegroundB": 205,
-  "ItemGlyph":321
+  "ItemGlyph": 321
 }

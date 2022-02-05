@@ -1,63 +1,82 @@
 {
   "Name": "Grape Seed",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": true,
   "ShortDesc": "Grows grapes (15)",
   "Description": "",
   "AverageValue": 5,
-  "Weight": 0,
-  "ItemCategory": 9,
+  "Weight": 0.0,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "Seed",
   "EquipSlot": -1,
+  "Properties": {
+    "Plant": {
+      "CurrentStage": 0,
+      "DayCounter": 0,
+      "GrowthSeason": "Fall",
+      "HarvestRevert": 2,
+      "ProduceName": "",
+      "RequiredLevel": 15,
+      "ExpOnHarvest": 20,
+      "ExpPerExtra": 5,
+      "ProducePerHarvestMin": 2,
+      "ProducePerHarvestMax": 5,
+      "ProduceIsSeed": false,
+      "WateredToday": false,
+      "Stages": [
+        {
+          "DaysToNext": 0,
+          "HarvestItem": "",
+          "ColorR": 110,
+          "ColorG": 66,
+          "ColorB": 33,
+          "Glyph": 291,
+          "Dec": null
+        },
+        {
+          "DaysToNext": 4,
+          "HarvestItem": "",
+          "ColorR": 0,
+          "ColorG": 127,
+          "ColorB": 0,
+          "Glyph": 300,
+          "Dec": null
+        },
+        {
+          "DaysToNext": 2,
+          "HarvestItem": "",
+          "ColorR": 0,
+          "ColorG": 127,
+          "ColorB": 0,
+          "Glyph": 301,
+          "Dec": null
+        },
+        {
+          "DaysToNext": 0,
+          "HarvestItem": "lh:Grapes",
+          "ColorR": 106,
+          "ColorG": 13,
+          "ColorB": 173,
+          "Glyph": 306,
+          "Dec": {
+            "Glyph": 305,
+            "R": 0,
+            "G": 127,
+            "B": 0,
+            "A": 255
+          }
+        }
+      ]
+    }
+  },
+  "Dec": null,
   "ForegroundR": 106,
   "ForegroundG": 13,
   "ForegroundB": 173,
-  "ItemGlyph": 290,
-  "Plant":  {
-    "GrowthSeason": "Fall",
-	"ProducePerHarvestMin": 2,
-	"ProducePerHarvestMax": 5,
-	"ProduceIsSeed": false,
-	"HarvestRevert": 2,
-	"RequiredLevel": 15,
-	"ExpOnHarvest": 20,
-	"ExpPerExtra": 5,
-	"Stages": [
-		{
-			"DaysToNext": 0,
-			"ColorR": 110,
-			"ColorG": 66,
-			"ColorB": 33,
-			"Glyph": 291
-		},
-		{
-			"DaysToNext": 4,
-			"ColorR": 0,
-			"ColorG": 127,
-			"ColorB": 0,
-			"Glyph": 300
-		},
-		{
-			"DaysToNext": 2,
-			"ColorR": 0,
-			"ColorG": 127,
-			"ColorB": 0,
-			"Glyph": 301
-		},
-		{
-			"DaysToNext": 0,
-			"HarvestItem": "lh:Grapes",
-			"ColorR": 106,
-			"ColorG": 13,
-			"ColorB": 173,
-			"Glyph": 306,
-			"Dec": { 
-				"Glyph": 305,
-				"R": 0,
-				"G": 127,
-				"B": 0 
-			}
-		}
-	]
-  }
+  "ItemGlyph": 290
 }

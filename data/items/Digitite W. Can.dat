@@ -1,0 +1,23 @@
+{
+  "Name": "Digitite W. Can",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Waters plants",
+  "Description": "",
+  "AverageValue": 100,
+  "Weight": 1.0,
+  "Durability": 200,
+  "MaxDurability": 200,
+  "Quality": 0,
+  "ItemTier": 90,
+  "ItemCat": "Watering Can",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": null,
+  "ForegroundR": 0,
+  "ForegroundG": 161,
+  "ForegroundB": 173,
+  "ItemGlyph": 328
+}

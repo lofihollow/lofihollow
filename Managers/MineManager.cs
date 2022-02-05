@@ -131,7 +131,7 @@ namespace LofiHollow.Managers {
             if (GameHost.Instance.Mouse.LeftButtonDown) {
                 int AgilityLevel = 0;
 
-                if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCategory == 2) {
+                if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCat == "Pickaxe") {
                     if (GameLoop.World.Player.TimeLastActed + (120 - (AgilityLevel)) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
                         GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
 
@@ -139,7 +139,7 @@ namespace LofiHollow.Managers {
                     }
                 } else if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].Name == "Ladder") {
                     if (CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(mousePos).Name == "Air") {
-                        CurrentMine.Levels[GameLoop.World.Player.MineDepth].SetTile(mousePos, new MineTile(8));
+                        CurrentMine.Levels[GameLoop.World.Player.MineDepth].SetTile(mousePos, new MineTile("Ladder"));
                         GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemQuantity -= 1;
                         if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemQuantity <= 0)
                             GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect] = new("lh:(EMPTY)");

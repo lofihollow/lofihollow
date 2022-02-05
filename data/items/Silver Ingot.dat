@@ -1,0 +1,23 @@
+{
+  "Name": "Silver Ingot",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A silver ingot",
+  "Description": "",
+  "AverageValue": 100,
+  "Weight": 0.5,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 192,
+  "ForegroundG": 192,
+  "ForegroundB": 192,
+  "ItemGlyph": 326
+}

@@ -25,27 +25,30 @@
 (DONE) Construction
 (DONE) Mining
 (DONE) Crafting System
- 
-Switch multiplayer over to Steam
-
 
 Demo Mode: Play as much as you want, but only up to level 5 in any skill.
 
 Content Needs
 - Fishing: All Spring, All Summer, All Fall, All Winter, All Holiday, 9 All season, 10 trash items
 - Farming: Remaining crops at 25 and below, come up with crops above 25.
-- Mining: At least a few more ore tiers
 - Construction: Walls/Floor/Door in each tier of wood, Stone wall/floor, 
 - NPC Dialogue
 - Cooking: Recipes to cook food
-- Smithing: Recipes for armor, weapons, and tools at each tier.
+- Smithing: Recipes for armor and weapons at each tier.
 - Monsters: Add a variety of monsters for at least the first 20-30 combat levels
 - Missions: All the missions for Chapter 1
+- Tools: All Fishing Rods
 
 
 Let players restrict access to containers
 Multiplayer Loading Screen: Connected, Received Host Farm, Received NPCs, Received entity data
 Make sure produce items have accurate-enough sprites
+
+Rentable apartments: 
+- Special maps as a test for demiplanes
+- Costs a flat rate each month, can pay in advance and check how long you have left
+- Only the owner can build furniture in it (can't build structural things)
+- Teleport into apartments from the building lobby via menu
 
 
 Make attacking slower so monsters don't eviscerate the player instantly
@@ -53,6 +56,7 @@ Make attacking slower so monsters don't eviscerate the player instantly
 Ways to earn money at the start
 - Adventurers Guild (job board with random assorted quests - kill, collect items)
 - Couriers guild deliveries
+- Photography jobs (capture photos of specific monsters or NPCs, bring them back)
 - Job minigames
 - - (DONE) Bartending
 - - Cafe?
@@ -60,6 +64,22 @@ Ways to earn money at the start
 - - General store (store mode?)
 - - Clothier (tailoring?)
 - - Library (sort books, or catch falling books maybe?)
+- - Blacksmith
+
+Photography
+- (DONE) Let players set the name of the photo, display it when you view the photo. Also save and display the date and time the photo was taken
+- (DONE) Capture monsters, NPCs, players, and items in the photos
+- (DONE) Rudimentary logic for determining whether or not something is in the photo
+- (DONE) Repeatable random missions to capture specific photos
+- Photo scoring system? Based on where it is in the frame and how many of the subject there are
+- - Centered: How close the entity is to the center of the frame
+- - Number: Amount of entities in the frame of the matching type
+- - Distance: How close to you the subject is
+- (DONE) Mouse-over to view tile/entity names while viewing photo
+- Limited film, each photo uses some up.
+- Photo album that you can insert photos into, combining multiple into a single item
+- Show an indicator around the cursor for the area captured by a photo while holding a camera
+
 
 Kaalista's Monster Pens
 - (DONE) Three slots that can hold a monster each
@@ -76,11 +96,19 @@ Kaalista's Monster Pens
 - Have to clean up the pen regularly
 
 
-Day/Night System
-- (DONE) Overworld is lit during the day
-- Shade and restrict FOV while in darkness
-- (DONE) Add light sources 
-- If tiles are exposed to the sky, use normal minimums. Otherwise let darkness go all the way to fully obscured
+Cyberspace
+- Connect to official server, see other players walking around in it in real time
+- Opens in its own UI
+- Actual detailed humanoid character sprites and customization
+- Virtual currency you can only use in cyberspace
+- - Earn currency by playing minigames in cyberspace
+- - Spend currency to buy customization options, or order items that get sent to you in the "real" world
+- Chat feature with all players on the same map
+- Players can buy shops/homes/apartments and decorate them
+- Mega Man Battle Network style combat in "unsafe" zones vs virus-style enemies
+- Game zone where you can play board/card games against other players
+- Survey Zone - Answer surveys or vote in polls for currency
+
 
 Cooking
 - Flexible Ingredient tags: Fruit, Vegetable, Egg, Cooked Meat, Cooked Fish, Raw Meat, Raw Fish, Water, Oil, Flour
@@ -113,6 +141,21 @@ Skills still needing implementing:
 - Crafting (the actual crafting skill): Turn cotton, flax, wool into cloth. Other misc crafting stuff
 - Farming: Farming-related crafting recipes
 - Tinkering: A crafting skill focused on technologial creations
+
+Spellcrafting for Magic
+- Nouns and verbs
+- Combine one of each, get a set effect
+- Slightly modify the effect via parameters (limited by magic level)
+- Save currently prepared spells to hotbar
+- Costs energy to use magic
+- Create and Destroy can only be used in dungeons or maps you own
+- Verbs: Create, Destroy, 
+
+
+Revamped Combat (for like the fifth time)
+- Make it so you just hold melee weapons in your hand, and an indicator appears on the side of you where your mouse is
+- Click to swing the weapon
+- Weapons have variable length that determines how many tiles the swipe hits
 
 Flexible tile properties
 
@@ -196,11 +239,6 @@ Mod Support
 - WIP Sandbox to make changes or upload to workshop
 - Browse workshop mods in-game
 
-Magic
-- Have effects that add certain rune requirements to the spell
-- A grid that you place effect tiles on to run logic for how the spell operates
-- Magic level determines how many tiles you can have on the grid, and also what tiles are available
-
 
 Farming
 - Seeds: only plantable in the correct season and only if you have a high enough farming level
@@ -231,6 +269,7 @@ NPCs
 - - Saffron (Farm Supply) (Placed, Shop)
 - - Indigo (Inventor)
 - - Cedar (Mayor)
+- - Maple (Carpenter)
 - Courier's Guild
 - - Algae (Guild leader)
 - - Poppy (Guild worker)
@@ -286,8 +325,7 @@ Dumb Ideas that could be fun/funny:
 - Jump button that moves you up a level and hovers you there for a second)
 - - Build up velocity by running before a jump to move tiles while you're in the air, up to 4 tiles of velocity
 - - Maybe as a reward for a dungeon? You get spring shoes and can then jump, spring shoes required to enter/complete the next dungeon
-- Small chance for an NPC named "the devil" to appear on top of a chopped hickory tree, secret mission to beat him at a rhythm game when you speak to him
-- Camera mechanic: When held in hand and clicked, capture area around cursor. Output to a photo item
+- Small chance for an NPC named "the devil" to appear on top of a chopped hickory tree, secret mission to beat him at a rhythm game when you speak to him 
 - A space area with simulated atmos
 
 Arcade games / Computer? / Console
@@ -353,6 +391,10 @@ Minigames
 - - (DONE) Bartending (at Tom's Bar)
 - Prop Hunt
 - Trouble in Terrorist Town?
+- Dead by Daylight clone (4v1, player on their own team plays as a monster)
+- Baseball minigame
+- Minigolf
+- Soccer
 
 
 
@@ -366,9 +408,13 @@ Achievements
 - - Funny Business: Spell "lol" in the kill feed
 - - Funnier Business: Spell "lmao" in the kill feed
 - - Funniest Business: Spell "lmfao" in the kill feed
+- 
 - Map Clear Achievements (10, 20, 50, 100 maps in a single day)
 - 99 in each skill
 - 99 in all skills
+- 92 in each skill (half way there)
+- 92 in all skills
+- Industrious: Rent the apartment in Noonbreeze on day 1
 - Max out relationship with 1, 5, 10, 20 NPCs
 - Get to -100 relationship with 1, 5, 10, 20 NPCs
 - Max relationship with a shop vendor
@@ -398,9 +444,6 @@ City
 - Rentable apartment - have to pay a certain amount each month
 - Minigame jobs to earn money
 
-
-Magic
-- Spell Programming?
 
 Cultivation
 - Also ability programming, but you can tie it to melee/ranged attacks

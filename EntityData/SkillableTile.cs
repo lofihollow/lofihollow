@@ -14,7 +14,7 @@ namespace LofiHollow.EntityData {
         [JsonProperty]
         public string DepletedName; // The name of the tile once it has been depleted
         [JsonProperty]
-        public int HarvestTool; // ItemCategory number that must be matched for harvesting
+        public string HarvestTool; // ItemCat that must be matched for harvesting
         [JsonProperty]
         public string RequiredSkill; // Skill associated with this tile
         [JsonProperty]

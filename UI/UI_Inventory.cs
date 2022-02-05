@@ -63,7 +63,7 @@ namespace LofiHollow.UI {
 
                     if (item.EquipSlot != -1) {
                         Options += new ColoredString("EQUIP", (mousePos.Y == i + 1 && mousePos.X > 33 && mousePos.X < 41) ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.Black);
-                    } else if (item.ItemCategory == 11) {
+                    } else if (item.ItemCat == "Consumable") {
                         Options += new ColoredString(" USE ", (mousePos.Y == i + 1 && mousePos.X > 33 && mousePos.X < 41) ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.Black);
                     } else {
                         Options += new ColoredString("     ", item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.Black);
@@ -104,7 +104,7 @@ namespace LofiHollow.UI {
                             Item item = GameLoop.World.Player.Inventory[slot];
                             if (GameLoop.World.Player.Inventory[slot].EquipSlot != -1) {
                                 CommandManager.EquipItem(GameLoop.World.Player, slot, GameLoop.World.Player.Inventory[slot]);
-                            } else if (item.ItemCategory == 11) {
+                            } else if (item.ItemCat == "Consumable") {
                                 string[] itemResult = CommandManager.UseItem(GameLoop.World.Player, item).Split("|"); ;
 
                                 if (itemResult[0] != "f") {

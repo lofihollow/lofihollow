@@ -1,0 +1,18 @@
+{
+  "Name": "Obsidian Trinket",
+  "FinishedID": "lh:Obsidian Trinket",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 10,
+  "ExpGranted": 10,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Obsidian Shard",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

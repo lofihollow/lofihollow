@@ -1,0 +1,23 @@
+{
+  "Name": "Obsidian Trinket",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Pretty, but useless",
+  "Description": "",
+  "AverageValue": 10,
+  "Weight": 0.5,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 104,
+  "ForegroundG": 77,
+  "ForegroundB": 119,
+  "ItemGlyph": 309
+}

@@ -1,0 +1,36 @@
+{
+  "Name": "Brass Hammer",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Builds things",
+  "Description": "",
+  "AverageValue": 40,
+  "Weight": 1.0,
+  "Durability": 80,
+  "MaxDurability": 80,
+  "Quality": 0,
+  "ItemTier": 30,
+  "ItemCat": "Hammer",
+  "EquipSlot": -1,
+  "Properties": {
+    "Tool": [
+      {
+        "Property": "Hammer",
+        "Tier": 30
+      }
+    ]
+  },
+  "Dec": {
+    "Glyph": 329,
+    "R": 179,
+    "G": 115,
+    "B": 92,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 288
+}

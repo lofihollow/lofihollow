@@ -1,0 +1,36 @@
+{
+  "Name": "Bronze Hammer",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Builds things",
+  "Description": "",
+  "AverageValue": 50,
+  "Weight": 1.0,
+  "Durability": 100,
+  "MaxDurability": 100,
+  "Quality": 0,
+  "ItemTier": 40,
+  "ItemCat": "Hammer",
+  "EquipSlot": -1,
+  "Properties": {
+    "Tool": [
+      {
+        "Property": "Hammer",
+        "Tier": 40
+      }
+    ]
+  },
+  "Dec": {
+    "Glyph": 329,
+    "R": 176,
+    "G": 141,
+    "B": 87,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 288
+}

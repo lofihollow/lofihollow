@@ -1,0 +1,24 @@
+{
+  "Name": "Zinc Ore",
+  "Spawns": true,
+  "BlocksMove": true,
+  "BlocksLOS": true,
+  "TileGlyph": 320,
+  "ForeR": 101,
+  "ForeG": 101,
+  "ForeB": 101,
+  "Dec": {
+	"Glyph": 323,
+	"R": 146,
+	"G": 137,
+	"B": 138
+  },
+  "OutputID": "lh:Zinc Chunk",
+  "RequiredTier": 20,
+  "TileHP": 3,
+  "Chance": 40,
+  "MaxPerMap": 100,
+  "MinDepth": 2,
+  "MaxDepth": 20,
+  "GrantedExp": 40
+}

@@ -1,0 +1,29 @@
+{
+  "Name": "Tungsten Hoe",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Tills dirt",
+  "Description": "",
+  "AverageValue": 80,
+  "Weight": 1.0,
+  "Durability": 160,
+  "MaxDurability": 160,
+  "Quality": 0,
+  "ItemTier": 70,
+  "ItemCat": "Hoe",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": {
+    "Glyph": 289,
+    "R": 203,
+    "G": 205,
+    "B": 205,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 288
+}

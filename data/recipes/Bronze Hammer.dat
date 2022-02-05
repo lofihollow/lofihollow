@@ -1,0 +1,26 @@
+{
+  "Name": "Bronze Hammer",
+  "FinishedID": "lh:Bronze Hammer",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 40,
+  "ExpGranted": 50,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Bronze Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

@@ -1,16 +1,23 @@
 {
   "Name": "Bread",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
   "ShortDesc": "A loaf of bread",
   "Description": "",
   "AverageValue": 5,
   "Weight": 0.5,
-  "ItemCategory": 11,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "Consumable",
   "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph":326
+  "ItemGlyph": 326
 }

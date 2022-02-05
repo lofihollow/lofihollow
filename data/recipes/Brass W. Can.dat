@@ -1,0 +1,18 @@
+{
+  "Name": "Brass W. Can",
+  "FinishedID": "lh:Brass W. Can",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 30,
+  "ExpGranted": 40,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Brass Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

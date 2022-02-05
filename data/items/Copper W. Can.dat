@@ -1,0 +1,23 @@
+{
+  "Name": "Copper W. Can",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Waters plants",
+  "Description": "",
+  "AverageValue": 30,
+  "Weight": 0.1,
+  "Durability": 60,
+  "MaxDurability": 60,
+  "Quality": 0,
+  "ItemTier": 20,
+  "ItemCat": "Watering Can",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": null,
+  "ForegroundR": 183,
+  "ForegroundG": 65,
+  "ForegroundB": 13,
+  "ItemGlyph": 328
+}

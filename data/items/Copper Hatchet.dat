@@ -1,22 +1,29 @@
 {
   "Name": "Copper Hatchet",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
   "ShortDesc": "Cuts trees",
   "Description": "",
-  "AverageValue": 10,
-  "Weight": 1,
-  "ItemCategory": 3,
-  "EquipSlot": 0,
+  "AverageValue": 30,
+  "Weight": 1.0,
+  "Durability": 60,
+  "MaxDurability": 60,
+  "Quality": 0,
+  "ItemTier": 20,
+  "ItemCat": "Hatchet",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": {
+    "Glyph": 287,
+    "R": 183,
+    "G": 65,
+    "B": 14,
+    "A": 255
+  },
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph": 21,
-  "Dec": {
-	"Glyph": 287,
-	"R": 183,
-	"G": 65,
-	"B": 14
-  }
+  "ItemGlyph": 21
 }

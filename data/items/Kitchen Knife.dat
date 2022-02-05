@@ -1,40 +1,46 @@
 {
   "Name": "Kitchen Knife",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
   "ShortDesc": "Chops things.",
   "Description": "",
   "AverageValue": 10,
-  "Weight": 1,
+  "Weight": 1.0,
   "Durability": 10,
   "MaxDurability": 10,
-  "ItemCategory": 0,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "Weapon",
   "EquipSlot": 0,
+  "Properties": {
+    "Tool": [
+      {
+        "Property": "Cutting",
+        "Tier": 1
+      }
+    ],
+    "Stats": {
+      "DamageType": "Stab,Stab,Slash,Stab",
+      "CombatType": "Melee",
+      "WeaponTier": 0,
+      "ArmorVsSlash": 0,
+      "ArmorVsStab": 0,
+      "ArmorVsCrush": 0,
+      "ArmorVsRange": 0,
+      "ArmorVsMagic": 1,
+      "StabBonus": 4,
+      "SlashBonus": 2,
+      "CrushBonus": -4,
+      "RangeBonus": 0,
+      "MagicBonus": 1,
+      "StrengthBonus": 3
+    }
+  },
+  "Dec": null,
   "ForegroundR": 183,
   "ForegroundG": 65,
   "ForegroundB": 14,
-  "ItemGlyph": 20,
-  "Stats": {
-    "DamageType": "Stab,Stab,Slash,Stab",
-	"CombatType": "Melee",
-	"WeaponTier": 0,
-	"ArmorVsSlash": 0,
-	"ArmorVsStab": 0,
-	"ArmorVsCrush": 0,
-	"ArmorVsRange": 0,
-	"ArmorVsMagic": 1,
-	"StabBonus": 4,
-	"SlashBonus": 2,
-	"CrushBonus": -4,
-	"RangeBonus": 0,
-	"MagicBonus": 1,
-	"StrengthBonus": 3
-  },
-  "Tool": [
-	{
-      "Property": "Cutting",
-      "Tier": 1
-    }
-  ]
+  "ItemGlyph": 20
 }

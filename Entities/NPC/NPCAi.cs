@@ -172,7 +172,7 @@ namespace LofiHollow.Entities.NPC {
 
                 if (destination.X == npc.MapPos.X && destination.Y == npc.MapPos.Y && destination.Z != npc.MapPos.Z) { 
                     // Right XY, wrong elevation
-                    if (npc.Position == pos || GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(new GoRogue.Coord(npc.Position.X, npc.Position.Y), new GoRogue.Coord(pos.X, pos.Y)) == null) { // At the right spot on the wrong level or couldn't path to the right spot, find the nearest staircase
+                    if (npc.Position == pos || GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(npc.Position.ToCoord(), pos.ToCoord()) == null) { // At the right spot on the wrong level or couldn't path to the right spot, find the nearest staircase
                         int distanceToFound = 100;
                         string findName = destination.Z > npc.MapPos.Z ? "Up Stairs" : "Down Stairs";
 
@@ -180,7 +180,7 @@ namespace LofiHollow.Entities.NPC {
                             for (int y = 0; y < GameLoop.MapHeight; y++) {
                                 if (destination.Z != npc.MapPos.Z) {
                                     if (GameLoop.World.maps[npc.MapPos].GetTile(new Point(x, y)).Name == findName) { 
-                                        int distance = GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(new GoRogue.Coord(npc.Position.X, npc.Position.Y), new GoRogue.Coord(x, y)).LengthWithStart;
+                                        int distance = GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(npc.Position.ToCoord(), new GoRogue.Coord(x, y)).LengthWithStart;
                                         if (distance < distanceToFound) {
                                             distanceToFound = distance;
                                             edgeX = x;
@@ -202,7 +202,7 @@ namespace LofiHollow.Entities.NPC {
                     GameLoop.World.LoadMapAt(npc.MapPos);
 
                 if (GameLoop.World.maps.ContainsKey(npc.MapPos)) {
-                    CurrentPath = GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(new GoRogue.Coord(npc.Position.X, npc.Position.Y), new GoRogue.Coord(edgeX, edgeY));
+                    CurrentPath = GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(npc.Position.ToCoord(), new GoRogue.Coord(edgeX, edgeY));
                     pathPos = 0;
                 }
             }

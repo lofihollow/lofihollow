@@ -1,0 +1,36 @@
+{
+  "Name": "Steel Hammer",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Builds things",
+  "Description": "",
+  "AverageValue": 70,
+  "Weight": 1.0,
+  "Durability": 140,
+  "MaxDurability": 140,
+  "Quality": 0,
+  "ItemTier": 60,
+  "ItemCat": "Hammer",
+  "EquipSlot": -1,
+  "Properties": {
+    "Tool": [
+      {
+        "Property": "Hammer",
+        "Tier": 60
+      }
+    ]
+  },
+  "Dec": {
+    "Glyph": 329,
+    "R": 42,
+    "G": 52,
+    "B": 57,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 288
+}

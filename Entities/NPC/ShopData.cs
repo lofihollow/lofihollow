@@ -13,7 +13,7 @@ namespace LofiHollow.Entities.NPC {
         public Point Position;
         public Point3D MapPos;
         public List<string> SoldItems = new();
-        public int BuyCategory = 0;
+        public string BuyCategory = "None";
 
         public bool ShopOpen(NPC vendor) {
             if (WanderingVendor)
@@ -24,7 +24,7 @@ namespace LofiHollow.Entities.NPC {
         }
 
         public int GetPrice(int relationship, Item item, bool buying) {
-            bool interested = BuyCategory == item.ItemCategory || SoldItems.Contains(item.Name);
+            bool interested = BuyCategory == item.ItemCat || SoldItems.Contains(item.Name);
             float mod = 0;
 
             if (relationship > 0)

@@ -3,14 +3,14 @@
   "FinishedID": "lh:Iron Ingot",
   "FinishedQty": 1,
   "Skill": "Smithing",
-  "RequiredLevel": 10,
-  "ExpGranted": 20,
+  "RequiredLevel": 50,
+  "ExpGranted": 70,
   "SpecificMaterials": [
     {
-      "Name": "Iron Chunk",
+      "Name": "lh:Iron Chunk",
       "SubID": 0,
       "ItemQuantity": 1,
-      "Stacks": false
+      "Stacks": true
     }
   ],
   "GenericMaterials": [

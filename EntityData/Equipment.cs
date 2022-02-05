@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace LofiHollow.EntityData {
+    [JsonObject(MemberSerialization.OptOut)]
     public class Equipment {
         public string DamageType = "";
         public string CombatType = "";
@@ -24,9 +25,6 @@ namespace LofiHollow.EntityData {
 
         public int StrengthBonus = 0;
 
-        [JsonConstructor]
-        public Equipment(){
-
-        } 
+        public int Reach = 1;
     }
 }

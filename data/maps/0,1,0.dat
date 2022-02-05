@@ -1606,7 +1606,7 @@
       "SkillableTile": {
         "HarvestableName": "Birch Tree",
         "DepletedName": "Birch Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 20,
         "ItemGiven": "9",
@@ -2803,7 +2803,7 @@
       "SkillableTile": {
         "HarvestableName": "Maple Tree",
         "DepletedName": "Maple Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 40,
         "ItemGiven": "11",
@@ -3177,15 +3177,15 @@
       "SkillableTile": null
     },
     {
-      "Name": "Poplar Floor",
+      "Name": "Job Board",
       "Package": "lh",
-      "IsBlockingMove": false,
+      "IsBlockingMove": true,
       "IsBlockingLOS": false,
-      "MiscString": "",
-      "ForegroundR": 101,
+      "MiscString": "Minigame,Bartending,,",
+      "ForegroundR": 110,
       "ForegroundG": 66,
       "ForegroundB": 33,
-      "TileGlyph": 46,
+      "TileGlyph": 352,
       "LightBlocked": 0.0,
       "ExposedToSky": true,
       "EmitsLight": null,
@@ -6780,7 +6780,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -6894,7 +6894,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -9364,7 +9364,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -12509,7 +12509,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -12699,7 +12699,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -19715,7 +19715,7 @@
       "SkillableTile": {
         "HarvestableName": "Cherry Blossom Tree",
         "DepletedName": "Cherry Blossom Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 70,
         "ItemGiven": "14",
@@ -19810,7 +19810,7 @@
       "SkillableTile": {
         "HarvestableName": "Cherry Blossom Tree",
         "DepletedName": "Cherry Blossom Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 70,
         "ItemGiven": "14",
@@ -21244,7 +21244,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -22442,7 +22442,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -23710,7 +23710,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -24470,7 +24470,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -24869,7 +24869,7 @@
       "SkillableTile": {
         "HarvestableName": "Mahogany Tree",
         "DepletedName": "Mahogany Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 60,
         "ItemGiven": "13",
@@ -25648,7 +25648,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -26688,7 +26688,7 @@
       "SkillableTile": {
         "HarvestableName": "Cherry Blossom Tree",
         "DepletedName": "Cherry Blossom Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 70,
         "ItemGiven": "14",
@@ -28151,7 +28151,7 @@
       "SkillableTile": {
         "HarvestableName": "Hickory Tree",
         "DepletedName": "Hickory Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 50,
         "ItemGiven": "12",
@@ -29253,7 +29253,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -33167,7 +33167,7 @@
       "SkillableTile": {
         "HarvestableName": "Teak Tree",
         "DepletedName": "Teak Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 30,
         "ItemGiven": "10",
@@ -33452,7 +33452,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -34682,7 +34682,7 @@
       "SkillableTile": {
         "HarvestableName": "Cherry Blossom Tree",
         "DepletedName": "Cherry Blossom Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 70,
         "ItemGiven": "14",
@@ -34777,7 +34777,7 @@
       "SkillableTile": {
         "HarvestableName": "Cherry Blossom Tree",
         "DepletedName": "Cherry Blossom Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 70,
         "ItemGiven": "14",
@@ -39307,7 +39307,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -41294,7 +41294,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -44492,7 +44492,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -46050,7 +46050,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -46696,7 +46696,7 @@
       "SkillableTile": {
         "HarvestableName": "Hickory Tree",
         "DepletedName": "Hickory Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 50,
         "ItemGiven": "12",
@@ -47831,7 +47831,7 @@
       "SkillableTile": {
         "HarvestableName": "Hickory Tree",
         "DepletedName": "Hickory Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 50,
         "ItemGiven": "12",
@@ -50353,7 +50353,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -51364,7 +51364,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",
@@ -51630,7 +51630,7 @@
       "SkillableTile": {
         "HarvestableName": "Hickory Tree",
         "DepletedName": "Hickory Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 50,
         "ItemGiven": "12",
@@ -52124,7 +52124,7 @@
       "SkillableTile": {
         "HarvestableName": "Cedar Tree",
         "DepletedName": "Cedar Stump",
-        "HarvestTool": 3,
+        "HarvestTool": "3",
         "RequiredSkill": "Woodcutting",
         "RequiredLevel": 10,
         "ItemGiven": "8",

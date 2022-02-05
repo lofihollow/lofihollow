@@ -1,0 +1,24 @@
+{
+  "Name": "Iron Ore",
+  "Spawns": true,
+  "BlocksMove": true,
+  "BlocksLOS": true,
+  "TileGlyph": 320,
+  "ForeR": 101,
+  "ForeG": 101,
+  "ForeB": 101,
+  "Dec": {
+	"Glyph": 323,
+	"R": 183,
+	"G": 65,
+	"B": 14
+  },
+  "OutputID": "lh:Iron Chunk",
+  "RequiredTier": 40,
+  "TileHP": 3,
+  "Chance": 40,
+  "MaxPerMap": 100,
+  "MinDepth": 5,
+  "MaxDepth": 20,
+  "GrantedExp": 60
+}

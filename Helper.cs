@@ -1,4 +1,5 @@
 ﻿using LofiHollow.EntityData;
+using Newtonsoft.Json.Linq;
 using SadConsole;
 using SadRogue.Primitives;
 using System;
@@ -142,6 +143,31 @@ namespace LofiHollow {
                 build += copperString;
 
             return build;
+        }
+    }
+
+
+    public static class DictionaryExtensions {
+        public static T Get<T>(this Dictionary<string, object> instance, string name) {
+            if (name != "Photo") {
+                var result = ((JObject)instance[name]).Value<JObject>();
+                var convert = result.ToObject<T>();
+                return convert;
+            } else {
+                return ((T)instance[name]);
+            }
+        }
+
+        public static List<T> GetList<T>(this Dictionary<string, object> instance, string name) {
+            var result = ((JArray) instance[name]).Value<JArray>();
+            List<T> list = result.ToObject<List<T>>();
+            return list;
+        }
+    }
+
+    public static class PointExtensions {
+        public static GoRogue.Coord ToCoord(this Point instance) {
+            return new GoRogue.Coord(instance.X, instance.Y);
         }
     }
 }

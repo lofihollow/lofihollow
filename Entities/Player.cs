@@ -269,8 +269,8 @@ namespace LofiHollow.Entities {
         }
 
 
-        public int GetToolTier(int Category) {
-            if (Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCategory == Category) {
+        public int GetToolTier(string Category) {
+            if (Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCat == Category) {
                 return Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemTier;
             }
 

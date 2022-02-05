@@ -86,18 +86,19 @@ namespace LofiHollow.EntityData {
                         amountLeft *= GenericMaterials[i].Tier;
 
                     for (int j = 0; j < act.Inventory.Length; j++) {
-                        if (act.Inventory[j].Craft != null && act.Inventory[j].ItemQuantity > 0 && (act.Inventory[i].Quality == 0 || act.Inventory[i].Quality >= MinQuality)) {
-                            for (int k = 0; k < act.Inventory[j].Craft.Count; k++) {
-                                if (act.Inventory[j].Craft[k].Property == GenericMaterials[i].Property) {
-                                    if (act.Inventory[j].Craft[k].CountsAsMultiple) {
-                                        if (act.Inventory[j].Craft[k].Tier > amountLeft) {
+                        if (act.Inventory[j].Properties.ContainsKey("Craft") && act.Inventory[j].ItemQuantity > 0 && (act.Inventory[i].Quality == 0 || act.Inventory[i].Quality >= MinQuality)) {
+                            List<CraftComponent> craft = act.Inventory[j].Properties.GetList<CraftComponent>("Craft");
+                            for (int k = 0; k < craft.Count; k++) {
+                                if (craft[k].Property == GenericMaterials[i].Property) {
+                                    if (craft[k].CountsAsMultiple) {
+                                        if (craft[k].Tier > amountLeft) {
                                             if (act.Inventory[j].Quality > individualQuality)
                                                 individualQuality = act.Inventory[j].Quality;
                                             amountLeft = 0;
                                             TotalWeight += act.Inventory[j].Weight;
                                             if (act.Inventory[j].ItemQuantity > 1)
                                                 act.Inventory[j].ItemQuantity--; 
-                                        } else if (act.Inventory[j].Craft[k].Tier == amountLeft) {
+                                        } else if (craft[k].Tier == amountLeft) {
                                             if (act.Inventory[j].Quality > individualQuality)
                                                 individualQuality = act.Inventory[j].Quality;
                                             amountLeft = 0;
@@ -105,14 +106,14 @@ namespace LofiHollow.EntityData {
                                             if (act.Inventory[j].ItemQuantity > 1)
                                                 act.Inventory[j].ItemQuantity--; 
                                         } else {
-                                            if (act.Inventory[j].ItemQuantity * act.Inventory[j].Craft[k].Tier > amountLeft) {
+                                            if (act.Inventory[j].ItemQuantity * craft[k].Tier > amountLeft) {
                                                 if (act.Inventory[j].Quality > individualQuality)
                                                     individualQuality = act.Inventory[j].Quality;
                                                 amountLeft = 0;
                                                 TotalWeight += act.Inventory[j].Weight;
-                                                int amountRequired = (int)Math.Ceiling((double)amountLeft / (double)act.Inventory[j].Craft[k].Tier);
+                                                int amountRequired = (int)Math.Ceiling((double)amountLeft / (double) craft[k].Tier);
                                                 act.Inventory[j].ItemQuantity -= amountRequired; 
-                                            } else if (act.Inventory[j].ItemQuantity * act.Inventory[j].Craft[k].Tier == amountLeft) {
+                                            } else if (act.Inventory[j].ItemQuantity * craft[k].Tier == amountLeft) {
                                                 if (act.Inventory[j].Quality > individualQuality)
                                                     individualQuality = act.Inventory[j].Quality;
                                                 amountLeft = 0;
@@ -120,7 +121,7 @@ namespace LofiHollow.EntityData {
                                             } else {
                                                 if (act.Inventory[j].Quality > individualQuality)
                                                     individualQuality = act.Inventory[j].Quality;
-                                                amountLeft -= act.Inventory[j].Craft[k].Tier * act.Inventory[j].ItemQuantity;
+                                                amountLeft -= craft[k].Tier * act.Inventory[j].ItemQuantity;
                                                 TotalWeight += act.Inventory[j].Weight;
                                                 act.Inventory[j].ItemQuantity = 0;
                                             }

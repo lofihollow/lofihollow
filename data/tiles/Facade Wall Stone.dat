@@ -1,0 +1,19 @@
+{
+  "Name": "Facade Wall Stone",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "MiscString": "",
+  "ForegroundR": 100,
+  "ForegroundG": 100,
+  "ForegroundB": 100,
+  "TileGlyph": 337,
+  "LightBlocked": 1.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

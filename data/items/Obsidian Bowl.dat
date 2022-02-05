@@ -1,0 +1,23 @@
+{
+  "Name": "Obsidian Bowl",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Waters plants",
+  "Description": "",
+  "AverageValue": 20,
+  "Weight": 1.0,
+  "Durability": 40,
+  "MaxDurability": 40,
+  "Quality": 0,
+  "ItemTier": 10,
+  "ItemCat": "Watering Can",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": null,
+  "ForegroundR": 104,
+  "ForegroundG": 77,
+  "ForegroundB": 119,
+  "ItemGlyph": 351
+}

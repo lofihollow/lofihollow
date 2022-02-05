@@ -32,13 +32,13 @@ namespace LofiHollow.Minigames.Mining {
                     for (int x = 0; x < 70; x++) {
                         for (int y = 0; y < 8; y++) {
                             if (y == 4 && x == 35) {
-                                Mine[x + (y * 70)] = new MineTile(5);
+                                Mine[x + (y * 70)] = new MineTile("Mine Entrance");
                             } else if (y < 5) {
-                                Mine[x + (y * 70)] = new MineTile(0);
+                                Mine[x + (y * 70)] = new MineTile("Air");
                             } else if (y == 5) {
-                                Mine[x + (y * 70)] = new MineTile(3);
+                                Mine[x + (y * 70)] = new MineTile("Grass");
                             } else {
-                                Mine[x + (y * 70)] = new MineTile(1);
+                                Mine[x + (y * 70)] = new MineTile("Dirt");
                             }
                         }
                     }
@@ -48,15 +48,15 @@ namespace LofiHollow.Minigames.Mining {
 
                 for (int x = 0; x < 70; x++) {
                     for (int y = topY; y < 40; y++) {
-                        Mine[x + (y * 70)] = new MineTile(2);
+                        Mine[x + (y * 70)] = new MineTile("Stone");
                     }
                 } 
 
 
-                for (int i = 6; i < GameLoop.World.mineTileLibrary.Count; i++) {
-                    MineTile tile = GameLoop.World.mineTileLibrary[i]; 
+                foreach (KeyValuePair<string, MineTile> kv in GameLoop.World.mineTileLibrary) {
+                    MineTile tile = new(kv.Value); 
 
-                    if (tile.MinDepth <= Depth && Depth <= tile.MaxDepth) {
+                    if (tile.MinDepth <= Depth && Depth <= tile.MaxDepth && tile.Spawns) {
                         for (int j = 0; j < tile.MaxPerMap; j++) {
 
                             if (GameLoop.rand.Next(100) + 1 < tile.Chance) {
@@ -64,7 +64,7 @@ namespace LofiHollow.Minigames.Mining {
                                 int y = GameLoop.rand.Next(40);
 
                                 if (GetTile(new Point(x, y)).Name == "Stone") {
-                                    SetTile(new Point(x, y), new MineTile(i));
+                                    SetTile(new Point(x, y), new MineTile(tile));
                                 }
                             }
                         }
@@ -73,7 +73,49 @@ namespace LofiHollow.Minigames.Mining {
             }
 
             if (loc == "Lake") {
+                int topY = 0;
+                if (Depth == 0) {
+                    for (int x = 0; x < 70; x++) {
+                        for (int y = 0; y < 8; y++) {
+                            if (y == 4 && x == 35) {
+                                Mine[x + (y * 70)] = new MineTile("Mine Entrance");
+                            } else if (y < 5) {
+                                Mine[x + (y * 70)] = new MineTile("Air");
+                            } else if (y == 5) {
+                                Mine[x + (y * 70)] = new MineTile("Grass");
+                            } else {
+                                Mine[x + (y * 70)] = new MineTile("Dirt");
+                            }
+                        }
+                    }
 
+                    topY = 8;
+                }
+
+                for (int x = 0; x < 70; x++) {
+                    for (int y = topY; y < 40; y++) {
+                        Mine[x + (y * 70)] = new MineTile("Stone");
+                    }
+                }
+
+
+                foreach (KeyValuePair<string, MineTile> kv in GameLoop.World.mineTileLibrary) {
+                    MineTile tile = new(kv.Value);
+
+                    if (tile.MinDepth <= Depth + 5 && Depth + 5 <= tile.MaxDepth && tile.Spawns) {
+                        for (int j = 0; j < tile.MaxPerMap; j++) {
+
+                            if (GameLoop.rand.Next(100) + 1 < tile.Chance) {
+                                int x = GameLoop.rand.Next(70);
+                                int y = GameLoop.rand.Next(40);
+
+                                if (GetTile(new Point(x, y)).Name == "Stone") {
+                                    SetTile(new Point(x, y), new MineTile(tile));
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
 
@@ -106,7 +148,7 @@ namespace LofiHollow.Minigames.Mining {
         }
 
         public void TileToAir(Point pos) {
-            Mine[pos.X + (pos.Y * 70)] = new MineTile(0);
+            Mine[pos.X + (pos.Y * 70)] = new MineTile("Air");
 
             if (pos.Y < 5) {
                 Mine[pos.X + (pos.Y * 70)].ForeR = 0;
@@ -130,11 +172,11 @@ namespace LofiHollow.Minigames.Mining {
         }
 
         public T GetEntityAt<T>(Point location) where T : Entity {
-            return Entities.GetItems(new GoRogue.Coord(location.X, location.Y)).OfType<T>().FirstOrDefault();
+            return Entities.GetItems(location.ToCoord()).OfType<T>().FirstOrDefault();
         }
 
         public T GetEntityAt<T>(Point location, string name) where T : Entity {
-            var allItems = Entities.GetItems(new GoRogue.Coord(location.X, location.Y)).OfType<T>().ToList();
+            var allItems = Entities.GetItems(location.ToCoord()).OfType<T>().ToList();
 
             if (allItems.Count > 1) {
                 for (int i = 0; i < allItems.Count; i++) {
@@ -144,7 +186,7 @@ namespace LofiHollow.Minigames.Mining {
                 }
             }
 
-            return Entities.GetItems(new GoRogue.Coord(location.X, location.Y)).OfType<T>().FirstOrDefault();
+            return Entities.GetItems(location.ToCoord()).OfType<T>().FirstOrDefault();
         }
 
         public void Remove(Entity entity) {
@@ -153,12 +195,12 @@ namespace LofiHollow.Minigames.Mining {
         }
 
         public void Add(Entity entity) {
-            Entities.Add(entity, new GoRogue.Coord(entity.Position.X, entity.Position.Y));
+            Entities.Add(entity, entity.Position.ToCoord());
             entity.PositionChanged += OnPositionChange;
         }
 
         private void OnPositionChange(object sender, SadConsole.ValueChangedEventArgs<Point> e) {
-            Entities.Move(sender as Entity, new GoRogue.Coord(e.NewValue.X, e.NewValue.Y));
+            Entities.Move(sender as Entity, e.NewValue.ToCoord());
         }
 
     }

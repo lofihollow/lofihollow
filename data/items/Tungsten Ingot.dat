@@ -1,0 +1,23 @@
+{
+  "Name": "Tungsten Ingot",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A tungsten ingot",
+  "Description": "",
+  "AverageValue": 100,
+  "Weight": 0.5,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 203,
+  "ForegroundG": 205,
+  "ForegroundB": 205,
+  "ItemGlyph": 326
+}

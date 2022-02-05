@@ -1,0 +1,18 @@
+{
+  "Name": "Titanium W. Can",
+  "FinishedID": "lh:Titanium W. Can",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 80,
+  "ExpGranted": 90,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Titanium Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

@@ -1,0 +1,26 @@
+{
+  "Name": "Stone Hatchet",
+  "FinishedID": "lh:Stone Hatchet",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 1,
+  "ExpGranted": 20,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Stone Chunk",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

@@ -1,0 +1,23 @@
+{
+  "Name": "Titanium W. Can",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Waters plants",
+  "Description": "",
+  "AverageValue": 90,
+  "Weight": 1.0,
+  "Durability": 180,
+  "MaxDurability": 180,
+  "Quality": 0,
+  "ItemTier": 80,
+  "ItemCat": "Watering Can",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": null,
+  "ForegroundR": 0,
+  "ForegroundG": 168,
+  "ForegroundB": 107,
+  "ItemGlyph": 328
+}

@@ -1,0 +1,26 @@
+{
+  "Name": "Titanium Pickaxe",
+  "FinishedID": "lh:Titanium Pickaxe",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 80,
+  "ExpGranted": 90,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Titanium Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

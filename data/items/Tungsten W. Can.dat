@@ -1,0 +1,23 @@
+{
+  "Name": "Tungsten W. Can",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Waters plants",
+  "Description": "",
+  "AverageValue": 80,
+  "Weight": 1.0,
+  "Durability": 160,
+  "MaxDurability": 160,
+  "Quality": 0,
+  "ItemTier": 70,
+  "ItemCat": "Watering Can",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": null,
+  "ForegroundR": 203,
+  "ForegroundG": 205,
+  "ForegroundB": 205,
+  "ItemGlyph": 328
+}

@@ -1,0 +1,23 @@
+{
+  "Name": "Brass Ingot",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A brass ingot",
+  "Description": "",
+  "AverageValue": 50,
+  "Weight": 0.5,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 179,
+  "ForegroundG": 115,
+  "ForegroundB": 92,
+  "ItemGlyph": 326
+}

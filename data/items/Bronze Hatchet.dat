@@ -1,0 +1,29 @@
+{
+  "Name": "Bronze Hatchet",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Cuts trees",
+  "Description": "",
+  "AverageValue": 50,
+  "Weight": 1.0,
+  "Durability": 100,
+  "MaxDurability": 100,
+  "Quality": 0,
+  "ItemTier": 40,
+  "ItemCat": "Hatchet",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": {
+    "Glyph": 287,
+    "R": 176,
+    "G": 141,
+    "B": 87,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 21
+}

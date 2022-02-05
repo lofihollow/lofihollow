@@ -22,7 +22,6 @@ namespace LofiHollow {
         public static UIManager UIManager;
         public static World World;
         public static CommandManager CommandManager;
-        public static SteamManager SteamManager;
         public static NetworkManager NetworkManager;
         public static SoundManager SoundManager;
 
@@ -93,8 +92,7 @@ namespace LofiHollow {
             if (SoundManager != null)
                 SoundManager.UpdateSounds();
 
-            SteamManager.RunCallbacks();
-
+            
         }
 
         private static void Init() { 
@@ -105,7 +103,6 @@ namespace LofiHollow {
 
             
             CommandManager = new CommandManager(); 
-            SteamManager = new SteamManager();
             SoundManager = new SoundManager();
 
             //  World.LoadExistingMaps();

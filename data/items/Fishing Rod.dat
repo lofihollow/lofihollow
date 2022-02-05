@@ -1,22 +1,29 @@
 {
   "Name": "Fishing Rod",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
   "ShortDesc": "Catches fish",
   "Description": "",
   "AverageValue": 15,
-  "Weight": 1,
-  "ItemCategory": 7,
+  "Weight": 1.0,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "Fishing Rod",
   "EquipSlot": 0,
+  "Properties": {},
+  "Dec": {
+    "Glyph": 283,
+    "R": 255,
+    "G": 255,
+    "B": 255,
+    "A": 255
+  },
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph": 282,
-  "Dec": {
-	"Glyph": 283,
-	"R": 255,
-	"G": 255,
-	"B": 255
-  }
+  "ItemGlyph": 282
 }

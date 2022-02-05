@@ -1,31 +1,39 @@
 {
   "Name": "Bucket of Water",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
   "ShortDesc": "Wets things.",
   "Description": "",
   "AverageValue": 5,
   "Weight": 0.5,
-  "ItemCategory": 11,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "Consumable",
   "EquipSlot": -1,
+  "Properties": {
+    "Craft": [
+      {
+        "Property": "Water",
+        "Tier": 5,
+        "Quantity": 1,
+        "Stacks": false,
+        "CountsAsMultiple": true
+      }
+    ]
+  },
+  "Dec": {
+    "Glyph": 335,
+    "R": 0,
+    "G": 184,
+    "B": 94,
+    "A": 255
+  },
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph":334,
-  "Dec": {
-	"Glyph": 335,
-	"R": 0,
-	"G": 184,
-	"B": 94
-  }, 
-  "Craft": [
-	{
-      "Property": "Water",
-      "Tier": 5,
-      "Quantity": 1,
-      "Stacks": false,
-	  "CountsAsMultiple": true
-    }
-  ]
+  "ItemGlyph": 334
 }

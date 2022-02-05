@@ -1,16 +1,23 @@
 {
   "Name": "Copper Ingot",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": true,
   "ShortDesc": "A copper ingot",
   "Description": "",
-  "AverageValue": 10,
+  "AverageValue": 20,
   "Weight": 0.5,
-  "ItemCategory": -1,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
   "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
   "ForegroundR": 183,
   "ForegroundG": 65,
   "ForegroundB": 14,
-  "ItemGlyph":326
+  "ItemGlyph": 326
 }

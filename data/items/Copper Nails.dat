@@ -8,19 +8,26 @@
   "Description": "",
   "AverageValue": 2,
   "Weight": 1.0,
-  "ItemCategory": -1,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
   "EquipSlot": -1,
+  "Properties": {
+    "Craft": [
+      {
+        "Property": "Nail",
+        "Tier": 1,
+        "Quantity": 1,
+        "Stacks": true,
+        "CountsAsMultiple": false
+      }
+    ]
+  },
+  "Dec": null,
   "ForegroundR": 100,
   "ForegroundG": 100,
   "ForegroundB": 100,
-  "ItemGlyph": 332,
-  "Craft": [
-	{
-      "Property": "Nail",
-      "Tier": 1,
-      "Quantity": 1,
-      "Stacks": true,
-	  "CountsAsMultiple": false
-    }
-  ]
+  "ItemGlyph": 332
 }

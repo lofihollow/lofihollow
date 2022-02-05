@@ -1,0 +1,23 @@
+{
+  "Name": "Stone Trinket",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Pretty, but useless",
+  "Description": "",
+  "AverageValue": 5,
+  "Weight": 0.5,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 101,
+  "ForegroundG": 101,
+  "ForegroundB": 101,
+  "ItemGlyph": 309
+}

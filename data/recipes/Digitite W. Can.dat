@@ -1,0 +1,18 @@
+{
+  "Name": "Digitite W. Can",
+  "FinishedID": "lh:Digitite W. Can",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 90,
+  "ExpGranted": 100,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Digitite Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

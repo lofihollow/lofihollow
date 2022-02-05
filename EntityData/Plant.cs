@@ -94,9 +94,10 @@ namespace LofiHollow.EntityData {
                     produce.ItemQuantity += GameLoop.rand.Next(ProducePerHarvestMax - ProducePerHarvestMin);
 
                 if (ProduceIsSeed) {
-                    produce.Plant = new(this);
-                    produce.Plant.CurrentStage = 0;
-                    produce.Plant.DayCounter = 0;
+                    Plant plant = new(this);
+                    plant.CurrentStage = 0;
+                    plant.DayCounter = 0;
+                    produce.Properties.Add("Plant", plant);
                 }
 
 

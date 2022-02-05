@@ -1,0 +1,23 @@
+{
+  "Name": "Camera",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "",
+  "Description": "Immortalizes memories.",
+  "AverageValue": 100,
+  "Weight": 0.0,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Properties": {},
+  "Dec": null,
+  "ForegroundR": 150,
+  "ForegroundG": 150,
+  "ForegroundB": 150,
+  "ItemGlyph": 348
+}

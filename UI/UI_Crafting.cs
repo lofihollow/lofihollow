@@ -59,8 +59,8 @@ namespace LofiHollow.UI {
             CraftingConsole.DrawLine(new Point(0, 2), new Point(70, 2), 196, Color.White, Color.Black);
 
 
-            for (int i = 0; i < CurrentSkillRecipes.Count; i++) {
-                CraftingRecipe current = CurrentSkillRecipes[i];
+            for (int i = 0; i < CurrentSkillRecipes.Count && i < 11; i++) {
+                CraftingRecipe current = CurrentSkillRecipes[i + craftTopIndex];
                 string Entry;
 
                 if (current.FinishedQty > 1) 
@@ -94,14 +94,16 @@ namespace LofiHollow.UI {
 
 
                 CraftingConsole.Print(0, 26, finished.AsColoredGlyph());
+                if (finished.Dec != null)
+                    CraftingConsole.AddDecorator(0, 26, 1, finished.GetDecorator());
                 CraftingConsole.Print(2, 26, (current.FinishedQty * craftingQuantity) + "x " + finished.Name);
                 CraftingConsole.Print(0, 27, new ColoredString("Value: ", Color.White, Color.Black) + Helper.ConvertCoppers(finished.AverageValue * current.FinishedQty));
                 CraftingConsole.Print(0, 28, "Desc: " + finished.Description);
-                CraftingConsole.Print(20, 26, new ColoredString("Max. " + CurrentSkill + " Quality: ") + Helper.LetterGrade(QualityCap));
-                CraftingConsole.Print(20, 27, new ColoredString("Best Ingredient Quality: ") + Helper.LetterGrade(canCraft));
-                CraftingConsole.Print(20, 28, new ColoredString("Min. Ingredient Quality: -"));
-                CraftingConsole.Print(47, 28, MinimumQuality == 0 ? new ColoredString("Any") : Helper.LetterGrade(MinimumQuality, 3));
-                CraftingConsole.Print(51, 28, "+");
+                CraftingConsole.Print(25, 26, new ColoredString("Max. " + CurrentSkill + " Quality: ") + Helper.LetterGrade(QualityCap));
+                CraftingConsole.Print(25, 27, new ColoredString("Best Ingredient Quality: ") + Helper.LetterGrade(canCraft));
+                CraftingConsole.Print(25, 28, new ColoredString("Min. Ingredient Quality: -"));
+                CraftingConsole.Print(52, 28, MinimumQuality == 0 ? new ColoredString("Any") : Helper.LetterGrade(MinimumQuality, 3));
+                CraftingConsole.Print(56, 28, "+");
                 CraftingConsole.DrawLine(new Point(0, 29), new Point(70, 29), '-', Color.White, Color.Black);
                 CraftingConsole.Print(62, 26, new ColoredString("CRAFT", canCraft > -1 ? Color.Lime : Color.Red, Color.Black));
                 CraftingConsole.Print(62, 27, "-");
@@ -152,6 +154,13 @@ namespace LofiHollow.UI {
 
         public void CraftingInput() {
             Point mousePos = new MouseScreenObjectState(CraftingConsole, GameHost.Instance.Mouse).CellPosition;
+            if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
+                if (craftTopIndex + 1 < CurrentSkillRecipes.Count - 11)
+                    craftTopIndex++;
+            } else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
+                if (craftTopIndex > 0)
+                    craftTopIndex--;
+            }
 
             if (GameHost.Instance.Mouse.LeftClicked) {
                 if (mousePos == new Point(69, 0)) {
@@ -159,11 +168,20 @@ namespace LofiHollow.UI {
                 }
 
                 if (mousePos.Y - 3 < 25 && mousePos.Y - 3 >= 0) {
-                    if (CurrentSkillRecipes.Count > (mousePos.Y + craftTopIndex - 3) / 2) {
-                        if ((float)((mousePos.Y + craftTopIndex - 3) / 2f) == (mousePos.Y + craftTopIndex - 3) / 2) {
-                            selectedIndex = (mousePos.Y + craftTopIndex - 3) / 2;
+                    int itemSlot = -1;
+                    if ((float)((mousePos.Y - 3) / 2f) == (mousePos.Y - 3) / 2) {
+                        itemSlot = (mousePos.Y - 3) / 2;
+
+                        if (itemSlot >= 0)
+                            itemSlot += craftTopIndex;
+
+                        if (itemSlot < CurrentSkillRecipes.Count) {
+                            selectedIndex = itemSlot;
                         }
-                    } 
+                    }
+
+                    if (itemSlot >= 0)
+                        itemSlot += craftTopIndex; 
                 }
 
                 if (mousePos.Y == 26 && (mousePos.X >= 62 && mousePos.X <= 66)) {
@@ -172,14 +190,14 @@ namespace LofiHollow.UI {
                     RefreshList();
                 }
 
-                if (mousePos == new Point(51, 28)) {
+                if (mousePos == new Point(56, 28)) {
                     if (MinimumQuality < 11) {
                         MinimumQuality++;
                         RefreshList();
                     }
                 }
 
-                if (mousePos == new Point(45, 28)) {
+                if (mousePos == new Point(50, 28)) {
                     if (MinimumQuality > 0) {
                         MinimumQuality--;
                         RefreshList();

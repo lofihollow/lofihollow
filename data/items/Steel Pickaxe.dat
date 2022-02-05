@@ -1,0 +1,29 @@
+{
+  "Name": "Steel Pickaxe",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Mines ores",
+  "Description": "",
+  "AverageValue": 70,
+  "Weight": 1.0,
+  "Durability": 140,
+  "MaxDurability": 140,
+  "Quality": 0,
+  "ItemTier": 60,
+  "ItemCat": "Pickaxe",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": {
+    "Glyph": 322,
+    "R": 42,
+    "G": 52,
+    "B": 57,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 288
+}

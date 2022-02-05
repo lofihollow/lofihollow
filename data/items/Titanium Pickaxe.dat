@@ -1,0 +1,29 @@
+{
+  "Name": "Titanium Pickaxe",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Mines ores",
+  "Description": "",
+  "AverageValue": 90,
+  "Weight": 1.0,
+  "Durability": 180,
+  "MaxDurability": 180,
+  "Quality": 0,
+  "ItemTier": 80,
+  "ItemCat": "Pickaxe",
+  "EquipSlot": -1,
+  "Properties": { },
+  "Dec": {
+    "Glyph": 322,
+    "R": 0,
+    "G": 168,
+    "B": 107,
+    "A": 255
+  },
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 288
+}

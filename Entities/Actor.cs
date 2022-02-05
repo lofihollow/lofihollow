@@ -201,17 +201,19 @@ namespace LofiHollow.Entities {
 
             if (this is Player play) {
                 for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Stats != null) {
+                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
+                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
+
                         if (type == "Slash")
-                            StyleBonus += play.Equipment[i].Stats.SlashBonus;
+                            StyleBonus += Stats.SlashBonus;
                         if (type == "Stab")
-                            StyleBonus += play.Equipment[i].Stats.StabBonus;
+                            StyleBonus += Stats.StabBonus;
                         if (type == "Crush")
-                            StyleBonus += play.Equipment[i].Stats.CrushBonus;
+                            StyleBonus += Stats.CrushBonus;
                         if (type == "Range")
-                            StyleBonus += play.Equipment[i].Stats.RangeBonus;
+                            StyleBonus += Stats.RangeBonus;
                         if (type == "Magic")
-                            StyleBonus += play.Equipment[i].Stats.MagicBonus;
+                            StyleBonus += Stats.MagicBonus;
                     }
                 }
             }
@@ -243,17 +245,18 @@ namespace LofiHollow.Entities {
 
             if (this is Player play) {
                 for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Stats != null) {
+                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
+                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
                         if (damageType == "Slash")
-                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsSlash;
+                            TotalDefenseBonus += Stats.ArmorVsSlash;
                         if (damageType == "Stab")
-                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsStab;
+                            TotalDefenseBonus += Stats.ArmorVsStab;
                         if (damageType == "Crush")
-                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsCrush;
+                            TotalDefenseBonus += Stats.ArmorVsCrush;
                         if (damageType == "Range")
-                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsRange;
+                            TotalDefenseBonus += Stats.ArmorVsRange;
                         if (damageType == "Magic")
-                            TotalDefenseBonus += play.Equipment[i].Stats.ArmorVsMagic;
+                            TotalDefenseBonus += Stats.ArmorVsMagic;
                     }
                 }
             }
@@ -290,17 +293,18 @@ namespace LofiHollow.Entities {
 
             if (this is Player play) {
                 for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Stats != null) {
+                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
+                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
                         if (damageType == "Slash")
-                            TotalStrengthBonus += play.Equipment[i].Stats.StrengthBonus;
+                            TotalStrengthBonus += Stats.StrengthBonus;
                         if (damageType == "Stab")
-                            TotalStrengthBonus += play.Equipment[i].Stats.StrengthBonus;
+                            TotalStrengthBonus += Stats.StrengthBonus;
                         if (damageType == "Crush")
-                            TotalStrengthBonus += play.Equipment[i].Stats.StrengthBonus;
+                            TotalStrengthBonus += Stats.StrengthBonus;
                         if (damageType == "Range")
-                            TotalStrengthBonus += play.Equipment[i].Stats.RangeBonus;
+                            TotalStrengthBonus += Stats.RangeBonus;
                         if (damageType == "Magic")
-                            TotalStrengthBonus += play.Equipment[i].Stats.MagicBonus;
+                            TotalStrengthBonus += Stats.MagicBonus;
                     }
                 }
             }
@@ -316,8 +320,9 @@ namespace LofiHollow.Entities {
 
         public string GetDamageType() {
             if (this is Player play) {
-                if (play.Equipment[0].Stats != null) {
-                    string[] types = play.Equipment[0].Stats.DamageType.Split(",");
+                if (play.Equipment[0].Properties.ContainsKey("Stats")) {
+                    Equipment Stats = play.Equipment[0].Properties.Get<Equipment>("Stats");
+                    string[] types = Stats.DamageType.Split(",");
 
                     if (CombatMode == "Attack")
                         return types[0];
@@ -390,6 +395,10 @@ namespace LofiHollow.Entities {
                             } else if (split[0] == "Monster Pen") { 
                                 GameLoop.UIManager.Minigames.MonsterPenManager.Setup(Int32.Parse(split[1]));
                                 GameLoop.UIManager.Minigames.ToggleMinigame("Monster Pen");
+                            } else if (split[0] == "Minigame") {
+                                if (split[1] == "Bartending") {
+                                    GameLoop.UIManager.Minigames.ToggleMinigame("Bartending");
+                                }
                             }
                         }
 
@@ -398,7 +407,7 @@ namespace LofiHollow.Entities {
                             if (map.GetTile(newPosition).Name == tile.HarvestableName) {
                                 if (Skills.ContainsKey(tile.RequiredSkill)) {
                                     if (Skills[tile.RequiredSkill].Level >= tile.RequiredLevel) {
-                                        if (play.Equipment[0].ItemCategory == tile.HarvestTool || play.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCategory == tile.HarvestTool) {
+                                        if (play.Equipment[0].ItemCat == tile.HarvestTool || play.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCat == tile.HarvestTool) {
                                             if (play.HasInventorySlotOpen()) {
                                                 CommandManager.AddItemToInv(play, new Item(tile.ItemGiven));
                                                 GameLoop.UIManager.AddMsg(tile.HarvestMessage);

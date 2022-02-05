@@ -1,0 +1,18 @@
+{
+  "Name": "Steel W. Can",
+  "FinishedID": "lh:Steel W. Can",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 60,
+  "ExpGranted": 70,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Steel Ingot",
+      "SubID": 0,
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [ ],
+  "RequiredTools": [ ]
+}

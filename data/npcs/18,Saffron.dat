@@ -121,7 +121,7 @@
 		"Y": 1,
 		"Z": 0
 	},
-	"SoldItems": [ "lh:Copper Hoe", "lh:Copper Water Can", "lh:*Seed" ],
+	"SoldItems": [ "lh:Copper Hoe", "lh:Copper W. Can", "lh:*Seed" ],
 	"BuyCategory": 9
   }, 
   "MapPos": {

@@ -92,9 +92,10 @@ namespace LofiHollow.UI {
 
             MapConsole.Surface = new CellSurface(GameLoop.MapWidth, GameLoop.MapHeight, map.Tiles);
             MapWindow.Title = GameLoop.World.maps[GameLoop.World.Player.MapPos].MinimapTile.name.Align(HorizontalAlignment.Center, GameLoop.MapWidth - 2, (char)196);
-           
 
 
+            LightMap = new GoRogue.SenseMapping.SenseMap(GameLoop.World.maps[GameLoop.World.Player.MapPos].LightRes);
+            LightMap.Calculate();
             SyncMapEntities(map);
         }
 
@@ -125,7 +126,7 @@ namespace LofiHollow.UI {
                     MapConsole.Children.Add(temp.ScreenAppearance);
                     
                     if (temp.MapPos == GameLoop.World.Player.MapPos || (temp.MapPos.X == GameLoop.World.Player.MapPos.X && temp.MapPos.Y == GameLoop.World.Player.MapPos.Y && temp.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
-                        if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(new GoRogue.Coord(temp.Position.X, temp.Position.Y))) {
+                        if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(temp.Position.ToCoord())) {
                             temp.ScreenAppearance.IsVisible = true;
                         } else {
                             temp.ScreenAppearance.IsVisible = false;
@@ -146,7 +147,7 @@ namespace LofiHollow.UI {
 
                     if (kv.Value.MapPos == GameLoop.World.Player.MapPos || (kv.Value.MapPos.X == GameLoop.World.Player.MapPos.X && kv.Value.MapPos.Y == GameLoop.World.Player.MapPos.Y && kv.Value.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
                         // EntityRenderer.Add(kv.Value); 
-                        if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(new GoRogue.Coord(kv.Value.Position.X, kv.Value.Position.Y))) {
+                        if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(kv.Value.Position.ToCoord())) {
                             kv.Value.ScreenAppearance.IsVisible = true;
                         } else {
                             kv.Value.ScreenAppearance.IsVisible = false;
@@ -164,8 +165,6 @@ namespace LofiHollow.UI {
 
 
                 FOV = new GoRogue.FOV(GameLoop.World.maps[GameLoop.World.Player.MapPos].MapFOV);
-                LightMap = new GoRogue.SenseMapping.SenseMap(GameLoop.World.maps[GameLoop.World.Player.MapPos].LightRes);
-
                 for (int i = 0; i < GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles.Length; i++) {
                     if (GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].EmitsLight != null) {
                         Light light = GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].EmitsLight;
@@ -192,7 +191,7 @@ namespace LofiHollow.UI {
 
                 if (ent.MapPos == GameLoop.World.Player.MapPos || (ent.MapPos.X == GameLoop.World.Player.MapPos.X && ent.MapPos.Y == GameLoop.World.Player.MapPos.Y && ent.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
                     if (LimitedVision) {
-                        if (FOV.CurrentFOV.Contains(new GoRogue.Coord(ent.Position.X, ent.Position.Y))) {
+                        if (FOV.CurrentFOV.Contains(ent.Position.ToCoord())) {
                             ent.ScreenAppearance.IsVisible = true;
                         } else {
                             ent.ScreenAppearance.IsVisible = false;
@@ -261,7 +260,6 @@ namespace LofiHollow.UI {
                 } 
             }
 
-
             foreach (var pos in FOV.CurrentFOV) {
                 if (LightMap.CurrentSenseMap.Contains(pos)) {
                     GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(new Point(pos.X, pos.Y)).SetLight(LightMap[pos]); 
@@ -288,8 +286,9 @@ namespace LofiHollow.UI {
                 }
             }
 
+
             if (GameLoop.UIManager.Sidebar.ChargeBar != 0) {
-                Point itemMouse = new MouseScreenObjectState(GameLoop.UIManager.Map.MapConsole, GameHost.Instance.Mouse).CellPosition;
+                Point itemMouse = new MouseScreenObjectState(MapConsole, GameHost.Instance.Mouse).CellPosition;
                 Point PlayerPosPixels = new(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y);
 
                 Point offset = itemMouse - PlayerPosPixels;
@@ -320,7 +319,7 @@ namespace LofiHollow.UI {
 
                 MapConsole.SetDecorator(otherSide.X, otherSide.Y, 1, new CellDecorator(Color.White, '*', Mirror.None));
                  
-                var line = Lines.Get(new Coord(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y), new Coord(otherSide.X, otherSide.Y));
+                var line = Lines.Get(GameLoop.World.Player.Position.ToCoord(), otherSide.ToCoord());
                 int index = GameLoop.World.Player.Position.X < otherSide.X ? 0 : 10;
 
                 foreach (var pos in line) {
@@ -360,7 +359,7 @@ namespace LofiHollow.UI {
 
                 if (kv.Value.MapPos == GameLoop.World.Player.MapPos || (kv.Value.MapPos.X == GameLoop.World.Player.MapPos.X && kv.Value.MapPos.Y == GameLoop.World.Player.MapPos.Y && kv.Value.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
                     // EntityRenderer.Add(kv.Value); 
-                    if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(new GoRogue.Coord(kv.Value.Position.X, kv.Value.Position.Y))) {
+                    if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(kv.Value.Position.ToCoord())) {
                         kv.Value.ScreenAppearance.IsVisible = true;
                     } else {
                         kv.Value.ScreenAppearance.IsVisible = false;
@@ -373,8 +372,6 @@ namespace LofiHollow.UI {
                     kv.Value.ScreenAppearance.Position = kv.Value.Position;
                 }
             } 
-
-            LightMap.Calculate(); 
         }
 
     }

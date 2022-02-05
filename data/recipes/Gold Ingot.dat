@@ -1,0 +1,35 @@
+{
+  "Name": "Gold Ingot",
+  "FinishedID": "lh:Gold Ingot",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 40,
+  "ExpGranted": 60,
+  "SpecificMaterials": [
+    {
+      "Name": "lh:Gold Chunk",
+      "SubID": 0,
+      "ItemQuantity": 1,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": true
+    }
+  ],
+  "RequiredTools": [
+    {
+      "Property": "Furnace",
+      "Tier": 1
+    },
+    {
+      "Property": "Hammer",
+      "Tier": 1
+    }
+  ]
+}

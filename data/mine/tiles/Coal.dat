@@ -1,0 +1,24 @@
+{
+  "Name": "Coal",
+  "Spawns": true,
+  "BlocksMove": true,
+  "BlocksLOS": true,
+  "TileGlyph": 320,
+  "ForeR": 101,
+  "ForeG": 101,
+  "ForeB": 101,
+  "Dec": {
+	"Glyph": 323,
+	"R": 33,
+	"G": 33,
+	"B": 33
+  },
+  "OutputID": "lh:Coal",
+  "RequiredTier": 30,
+  "TileHP": 3,
+  "Chance": 40,
+  "MaxPerMap": 100,
+  "MinDepth": 4,
+  "MaxDepth": 20,
+  "GrantedExp": 50
+}

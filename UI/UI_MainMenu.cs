@@ -787,7 +787,6 @@ namespace LofiHollow.UI {
                         GameLoop.NetworkManager.CreateLobby();
                     } else if (mousePos.Y == 4 && mousePos.X >= 8 && mousePos.X <= 13) {
                         // Join game
-
                         if (LobbyCode.Length == 6) {
                             GameLoop.NetworkManager = new NetworkManager(false);
                             GameLoop.NetworkManager.SearchLobbiesAndJoin(LobbyCode);

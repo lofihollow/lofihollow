@@ -1,28 +1,36 @@
 {
   "Name": "Copper Hammer",
   "Package": "lh",
+  "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
   "ShortDesc": "Builds things",
   "Description": "",
-  "AverageValue": 10,
-  "Weight": 1, 
-  "ItemCategory": 5,
+  "AverageValue": 30,
+  "Weight": 1.0,
+  "Durability": 60,
+  "MaxDurability": 60,
+  "Quality": 0,
+  "ItemTier": 20,
+  "ItemCat": "Hammer",
   "EquipSlot": -1,
+  "Properties": {
+    "Tool": [
+      {
+        "Property": "Hammer",
+        "Tier": 20
+      }
+    ]
+  },
+  "Dec": {
+    "Glyph": 329,
+    "R": 183,
+    "G": 65,
+    "B": 14,
+    "A": 255
+  },
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph": 288,
-  "Dec": {
-	"Glyph": 329,
-	"R": 183,
-	"G": 65,
-	"B": 14
-  }, 
-  "Tool": [
-	{
-      "Property": "Hammer",
-      "Tier": 1
-    }
-  ]
+  "ItemGlyph": 288
 }
