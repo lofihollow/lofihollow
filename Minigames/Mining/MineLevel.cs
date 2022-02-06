@@ -1,33 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using LofiHollow.Entities;
+using Newtonsoft.Json;
 using SadRogue.Primitives;
-using ProtoBuf;
 
-namespace LofiHollow.Minigames.Mining {
-    [ProtoContract]
+namespace LofiHollow.Minigames.Mining { 
+    [JsonObject(MemberSerialization.OptIn)]
     public class MineLevel {
-        [ProtoMember(1)]
+        [JsonProperty]
         public MineTile[] Mine;
-        [ProtoMember(2)]
+        [JsonProperty]
         public int Depth = 0;
 
-        public GoRogue.MultiSpatialMap<Entity> Entities;
+        public GoRogue.MultiSpatialMap<Entity> Entities; 
         public GoRogue.Pathing.FastAStar MapPath;
         public GoRogue.MapViews.LambdaMapView<bool> MapFOV;
 
-        public MineLevel() {
-            Entities = new GoRogue.MultiSpatialMap<Entity>();
-
-            var MapView = new GoRogue.MapViews.LambdaMapView<bool>(70, 40, pos => IsTileWalkable(new Point(pos.X, pos.Y)));
-            MapFOV = new GoRogue.MapViews.LambdaMapView<bool>(GameLoop.MapWidth, GameLoop.MapHeight, pos => BlockingLOS(new Point(pos.X, pos.Y)));
-            MapPath = new GoRogue.Pathing.FastAStar(MapView, GoRogue.Distance.CHEBYSHEV);
-        }
+        public List<Player> Players = new();
 
         public MineLevel(int dep, string loc) {
             Entities = new GoRogue.MultiSpatialMap<Entity>();
             Mine = new MineTile[70 * 40];
-            Depth = dep;
+            Depth = dep; 
 
             if (loc == "Mountain") {
                 int topY = 0;
@@ -53,11 +50,11 @@ namespace LofiHollow.Minigames.Mining {
                     for (int y = topY; y < 40; y++) {
                         Mine[x + (y * 70)] = new MineTile("Stone");
                     }
-                }
+                } 
 
 
                 foreach (KeyValuePair<string, MineTile> kv in GameLoop.World.mineTileLibrary) {
-                    MineTile tile = new(kv.Value);
+                    MineTile tile = new(kv.Value); 
 
                     if (tile.MinDepth <= Depth && Depth <= tile.MaxDepth && tile.Spawns) {
                         for (int j = 0; j < tile.MaxPerMap; j++) {

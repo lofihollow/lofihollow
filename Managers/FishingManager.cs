@@ -33,7 +33,7 @@ namespace LofiHollow.Managers {
         public void FishingDraw() {
             GameLoop.UIManager.Minigames.MinigameConsole.DrawLine(new Point(0, 35), new Point(10, 35), 196, new Color(0, 127, 0));
             GameLoop.UIManager.Minigames.MinigameConsole.DrawLine(new Point(11, 35), new Point(72, 35), '~', new Color(0, 94, 184));
-            GameLoop.UIManager.Minigames.MinigameConsole.Print(10, 34, GameLoop.World.Player.player.GetAppearance());
+            GameLoop.UIManager.Minigames.MinigameConsole.Print(10, 34, GameLoop.World.Player.GetAppearance());
             GameLoop.UIManager.Minigames.MinigameConsole.Print(11, 34, new ColoredString("/", new Color(110, 66, 33), Color.Black));
             GameLoop.UIManager.Minigames.MinigameConsole.Print(12, 33, new ColoredString("/", new Color(110, 66, 33), Color.Black));
             GameLoop.UIManager.Minigames.MinigameConsole.Print(13, 32, new ColoredString("/", new Color(110, 66, 33), Color.Black));
@@ -132,19 +132,19 @@ namespace LofiHollow.Managers {
                 Item caughtFish = new(HookedFish.FishItemID);
 
                 int quality = GameLoop.rand.Next(HookedFish.MaxQuality) + 1;
-                int QualityCap = (int)Math.Floor((GameLoop.World.Player.player.Skills["Fishing"].Level + 1f) / 10f) + 1;
+                int QualityCap = (int)Math.Floor((GameLoop.World.Player.Skills["Fishing"].Level + 1f) / 10f) + 1;
                 caughtFish.Quality = Math.Min(quality, QualityCap);
 
                 Color fore = new(HookedFish.colR, HookedFish.colG, HookedFish.colB, HookedFish.colA);
 
-                CommandManager.AddItemToInv(GameLoop.World.Player.player, caughtFish);
+                CommandManager.AddItemToInv(GameLoop.World.Player, caughtFish);
                 GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 ColoredString caught = new("You caught a ", Color.Cyan, Color.Black);
                 caught += new ColoredString(HookedFish.Name, fore, Color.Black);
                 caught += new ColoredString(" !", Color.Cyan, Color.Black);
 
                 GameLoop.UIManager.AddMsg(caught);
-                GameLoop.World.Player.player.Skills["Fishing"].GrantExp(HookedFish.GrantedExp);
+                GameLoop.World.Player.Skills["Fishing"].GrantExp(HookedFish.GrantedExp);
             } else {
                 GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 if (LineStress >= 100) {

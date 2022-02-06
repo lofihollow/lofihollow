@@ -1,7 +1,7 @@
 ﻿using LofiHollow.Entities;
 using LofiHollow.EntityData;
 using LofiHollow.Managers;
-using ProtoBuf;
+using Newtonsoft.Json;
 using SadRogue.Primitives;
 using System;
 using System.Collections.Generic;
@@ -10,36 +10,50 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LofiHollow.EntityData {
-    [ProtoContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Plant {
-        [ProtoMember(1)]
+        [JsonProperty]
         public int CurrentStage = 0;
-        [ProtoMember(2)]
+
+        [JsonProperty]
         public int DayCounter = 0;
-        [ProtoMember(3)]
+
+        [JsonProperty]
         public string GrowthSeason = "";
-        [ProtoMember(4)]
+
+        [JsonProperty]
         public int HarvestRevert = -1;
-        [ProtoMember(5)]
-        public string ProduceName = "";
-        [ProtoMember(6)]
+
+        [JsonProperty]
+        public string ProduceName = ""; 
+
+        [JsonProperty]
         public int RequiredLevel = 0;
-        [ProtoMember(7)]
+
+        [JsonProperty]
         public int ExpOnHarvest = 0;
-        [ProtoMember(8)]
+
+        [JsonProperty]
         public int ExpPerExtra = 0;
-        [ProtoMember(9)]
+
+        [JsonProperty]
         public int ProducePerHarvestMin = 0;
-        [ProtoMember(10)]
+        [JsonProperty]
         public int ProducePerHarvestMax = 0;
-        [ProtoMember(11)]
+
+        [JsonProperty]
         public bool ProduceIsSeed = false;
-        [ProtoMember(12)]
+
+        [JsonProperty]
         public bool WateredToday = false;
-        [ProtoMember(13)]
+
+
+
+        [JsonProperty]
         public List<PlantStage> Stages = new();
 
 
+        [JsonConstructor]
         public Plant() {
 
         }
@@ -58,11 +72,11 @@ namespace LofiHollow.EntityData {
         }
 
         public void DayUpdate() {
-            if (GameLoop.World.Player.player.Clock.GetSeason() == GrowthSeason || GrowthSeason == "Any") {
-                if (WateredToday) {
+            if (GameLoop.World.Player.Clock.GetSeason() == GrowthSeason || GrowthSeason == "Any") {
+                if (WateredToday) { 
                     DayCounter++;
                     if (DayCounter > Stages[CurrentStage].DaysToNext) {
-                        if (Stages.Count > CurrentStage + 1) {
+                        if (Stages.Count > CurrentStage + 1) { 
                             CurrentStage++;
                             DayCounter = 1;
                         }
@@ -83,14 +97,14 @@ namespace LofiHollow.EntityData {
                     Plant plant = new(this);
                     plant.CurrentStage = 0;
                     plant.DayCounter = 0;
-                    produce.Plant = plant;
+                    produce.Properties.Add("Plant", plant);
                 }
 
 
                 CommandManager.AddItemToInv(harvester, produce);
 
                 CurrentStage = HarvestRevert;
-                DayCounter = 0;
+                DayCounter = 0; 
             }
         }
     }

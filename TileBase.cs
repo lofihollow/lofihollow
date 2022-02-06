@@ -4,67 +4,63 @@ using SadConsole;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using LofiHollow.EntityData;
-using ProtoBuf;
 
 namespace LofiHollow {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
-    public class Tile : ColoredGlyph {
-        [ProtoMember(1)]
+    [JsonObject(MemberSerialization.OptIn)]
+    public class TileBase : ColoredGlyph {
+        [JsonProperty]
         public string Name = "Grass";
-        [ProtoMember(2)]
+        [JsonProperty]
         public string Package = "lh";
-        [ProtoMember(3)]
+        [JsonProperty]
         public bool IsBlockingMove = false;
-        [ProtoMember(4)]
-        public bool IsBlockingLOS = false;
+        [JsonProperty]
+        public bool IsBlockingLOS = false; 
 
-        [ProtoMember(5)]
+        [JsonProperty]
         public string MiscString = "";
 
-        [ProtoMember(6)]
+        [JsonProperty]
         public int ForegroundR = 0;
-        [ProtoMember(7)]
+        [JsonProperty]
         public int ForegroundG = 0;
-        [ProtoMember(8)]
+        [JsonProperty]
         public int ForegroundB = 0;
-        [ProtoMember(9)]
+        [JsonProperty]
         public int TileGlyph = 0;
 
 
-        [ProtoMember(10)]
+        [JsonProperty]
         public double LightBlocked = 0.0;
-        [ProtoMember(11)]
+        [JsonProperty]
         public bool ExposedToSky = false;
-        [ProtoMember(12)]
+        [JsonProperty]
         public Light EmitsLight;
 
-        [JsonIgnore]
+
         public int CurrentLight = 0;
 
-        [ProtoMember(13)]
+        [JsonProperty]
         public Decorator Dec;
 
-        [ProtoMember(14)]
+        [JsonProperty]
         public LockOwner Lock;
 
-        [ProtoMember(15)]
+        [JsonProperty]
         public Container Container;
 
-        [ProtoMember(16)]
+        [JsonProperty]
         public Plant Plant = null;
 
-        [ProtoMember(17)]
+        [JsonProperty]
         public SkillableTile SkillableTile = null;
 
-        [JsonIgnore]
         public bool DeconstructFlag = false;
 
         [JsonConstructor]
-        public Tile() : base(Color.Black, Color.Transparent, 32) {
+        public TileBase() : base(Color.Black, Color.Transparent, 32) {
             Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
             Glyph = TileGlyph;
-            UpdateAppearance();
         }
 
         [OnDeserialized]
@@ -74,7 +70,7 @@ namespace LofiHollow {
         }
 
 
-        public Tile(Tile other) {
+        public TileBase(TileBase other) {
             IsBlockingMove = other.IsBlockingMove;
             IsBlockingLOS = other.IsBlockingLOS;
             Name = other.Name;
@@ -101,9 +97,9 @@ namespace LofiHollow {
             Glyph = TileGlyph;
         } 
 
-        public Tile(string name) {
+        public TileBase(string name) {
             if (GameLoop.World.tileLibrary.ContainsKey(name)) {
-                Tile other = GameLoop.World.tileLibrary[name];
+                TileBase other = GameLoop.World.tileLibrary[name];
                 IsBlockingMove = other.IsBlockingMove;
                 IsBlockingLOS = other.IsBlockingLOS;
                 Name = other.Name;

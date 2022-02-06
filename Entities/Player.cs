@@ -1,82 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
 using LofiHollow.Managers;
-using ProtoBuf;
-using Newtonsoft.Json;
 
 namespace LofiHollow.Entities {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Player : Actor {
-        [ProtoMember(1)]
+        [JsonProperty]
         public TimeManager Clock = new();
 
-        [ProtoMember(2)]
+        [JsonProperty]
         public Dictionary<string, int> MetNPCs = new();
 
-        [ProtoMember(3)]
+        [JsonProperty]
         public Dictionary<string, Missions.Mission> MissionLog = new();
 
 
-        [ProtoMember(4)]
+        [JsonProperty]
         public Item[] Inventory;
-        [ProtoMember(5)]
+        [JsonProperty]
         public Item[] Equipment;
 
-        [ProtoMember(6)]
+        [JsonProperty]
         public bool OwnsFarm = false;
 
-        [ProtoMember(7)]
+        public List<Point3D> VisitedMaps = new();
+
+        public double TimeLastTicked = 0;
+        public int MapsClearedToday = 0;
+        public Stack<ColoredString> killList = new(52);
+
+        public string MineLocation = "None";
+        public int MineDepth = 0;
+        public bool MineVisible = false;
+        public Point MineEnteredAt = new Point(0, 0);
+
+        public string CurrentKillTask = "";
+        public int KillTaskProgress = 0;
+        public int KillTaskGoal = 0;
+
+        public string CurrentDeliveryTask = "";
+
+        [JsonProperty]
         public int CourierGuildRank = 1;
-        [ProtoMember(8)]
+        [JsonProperty]
         public int AdventurerGuildRank = 1;
 
-        [ProtoMember(9)]
-        public int CopperCoins = 0;
-        [ProtoMember(10)]
-        public int SilverCoins = 0;
-        [ProtoMember(11)]
-        public int GoldCoins = 0;
-        [ProtoMember(12)]
-        public int JadeCoins = 0;
-
-        [ProtoMember(13)]
-        public int LivesRemaining = -1;
-        [ProtoMember(14)]
-        public int DropsOnDeath = -1; // -1: Nothing, 0: Gold, 1: Items and Gold
-
-        [JsonIgnore]
-        public List<Point3D> VisitedMaps = new();
-        [JsonIgnore]
-        public int MapsClearedToday = 0;
-        [JsonIgnore]
-        public Stack<ColoredString> killList = new(52);
-        [JsonIgnore]
-        public string MineLocation = "None";
-        [JsonIgnore]
-        public int MineDepth = 0;
-        [JsonIgnore]
-        public bool MineVisible = false;
-        [JsonIgnore]
-        public Point MineEnteredAt = new Point(0, 0);
-        [JsonIgnore]
-        public string CurrentKillTask = "";
-        [JsonIgnore]
-        public int KillTaskProgress = 0;
-        [JsonIgnore]
-        public int KillTaskGoal = 0;
-        [JsonIgnore]
-        public string CurrentDeliveryTask = "";
-        [JsonIgnore]
         public bool Sleeping = false;
 
-        public Player() { }
+        [JsonProperty]
+        public int CopperCoins = 0;
+        [JsonProperty]
+        public int SilverCoins = 0;
+        [JsonProperty]
+        public int GoldCoins = 0;
+        [JsonProperty]
+        public int JadeCoins = 0;
 
-        public Player(bool newPlayer) {
+        [JsonProperty]
+        public int LivesRemaining = -1;
+        [JsonProperty]
+        public int DropsOnDeath = -1; // -1: Nothing, 0: Gold, 1: Items and Gold
+
+        public Player(Color foreground) : base(foreground, '@') {
             ActorGlyph = '@';
-
+             
             Equipment = new Item[10];
             for (int i = 0; i < Equipment.Length; i++) {
                 Equipment[i] = new Item("lh:(EMPTY)");
@@ -87,13 +77,6 @@ namespace LofiHollow.Entities {
             for (int i = 0; i < Inventory.Length; i++) {
                 Inventory[i] = new Item("lh:(EMPTY)");
             }
-
-            ForegroundR = 127;
-            ForegroundG = 127;
-            ForegroundB = 127;
-            Position = new(25, 25);
-            MapPos = new(3, 1, 0);
-            Name = "Player";
         }
 
         public bool HasInventorySlotOpen(string stackID = "") {
@@ -107,7 +90,7 @@ namespace LofiHollow.Entities {
 
 
         public void PlayerDied() {
-            if (MapPos == GameLoop.World.Player.player.MapPos && this != GameLoop.World.Player.player) {
+            if (MapPos == GameLoop.World.Player.MapPos && this != GameLoop.World.Player) {
                 GameLoop.UIManager.AddMsg(new ColoredString(Name + " died!", Color.Red, Color.Black));
             }
 
@@ -160,29 +143,29 @@ namespace LofiHollow.Entities {
 
                 if (CopperCoins > 0) {
                     copperWrap.item.ItemQuantity = CopperCoins;
-                    copperWrap.item.Position = Position;
-                    copperWrap.item.MapPos = MapPos;
+                    copperWrap.Position = Position;
+                    copperWrap.MapPos = MapPos;
                     CopperCoins = 0;
                 }
 
                 if (SilverCoins > 0) {
                     silverWrap.item.ItemQuantity = SilverCoins;
-                    silverWrap.item.Position = Position;
-                    silverWrap.item.MapPos = MapPos;
+                    silverWrap.Position = Position;
+                    silverWrap.MapPos = MapPos;
                     SilverCoins = 0;
                 }
 
                 if (GoldCoins > 0) {
                     goldWrap.item.ItemQuantity = GoldCoins;
-                    goldWrap.item.Position = Position;
-                    goldWrap.item.MapPos = MapPos;
+                    goldWrap.Position = Position;
+                    goldWrap.MapPos = MapPos;
                     GoldCoins = 0;
                 }
 
                 if (JadeCoins > 0) {
                     jadeWrap.item.ItemQuantity = JadeCoins;
-                    jadeWrap.item.Position = Position;
-                    jadeWrap.item.MapPos = MapPos;
+                    jadeWrap.Position = Position;
+                    jadeWrap.MapPos = MapPos;
                     JadeCoins = 0;
                 }
 
@@ -231,14 +214,14 @@ namespace LofiHollow.Entities {
                 MoveTo(new Point(35, 6), new Point3D(0, 0, 0));
                 CurrentHP = MaxHP;
 
-                if (this == GameLoop.World.Player.player) {
+                if (this == GameLoop.World.Player) {
                     GameLoop.UIManager.AddMsg(new ColoredString("Oh no, you died!", Color.Red, Color.Black));
                     GameLoop.UIManager.AddMsg(new ColoredString("A warm yellow light fills your vision.", Color.Yellow, Color.Black));
                     GameLoop.UIManager.AddMsg(new ColoredString("As it fades, you find yourself in the Cemetary.", Color.Yellow, Color.Black));
 
                     if (GameLoop.UIManager.selectedMenu == "Minigame") {
                         GameLoop.UIManager.Minigames.ToggleMinigame("None");
-                        GameLoop.UIManager.selectedMenu = "None";
+                        GameLoop.UIManager.selectedMenu = "None"; 
                     }
                 }
 
@@ -249,7 +232,7 @@ namespace LofiHollow.Entities {
 
 
 
-                if (MapPos == GameLoop.World.Player.player.MapPos && this != GameLoop.World.Player.player) {
+                if (MapPos == GameLoop.World.Player.MapPos && this != GameLoop.World.Player) {
                     GameLoop.UIManager.AddMsg(new ColoredString(Name + " appears in a flash of yellow light!", Color.Yellow, Color.Black));
                 }
             } else {
@@ -257,11 +240,9 @@ namespace LofiHollow.Entities {
 
                 if (GameLoop.NetworkManager != null) {
                     if (GameLoop.NetworkManager.isHost) {
-                        NetMsg died = new("hostDead", null);
-                        GameLoop.SendMessageIfNeeded(died, true, false);
+                        GameLoop.SendMessageIfNeeded(new string[] { "hostDead" }, true, false); 
                     } else {
-                        NetMsg died = new("outOfLives", null);
-                        GameLoop.SendMessageIfNeeded(died, false, true);
+                        GameLoop.SendMessageIfNeeded(new string[] { "outOfLives" }, false, true);
                         GameLoop.NetworkManager.lobbyManager.DisconnectLobby(GameLoop.NetworkManager.lobbyID, (Discord.Result result) => {
 
                         });
@@ -295,6 +276,6 @@ namespace LofiHollow.Entities {
 
             return 0;
         }
-
+        
     }
 }

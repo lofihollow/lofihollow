@@ -1,46 +1,45 @@
-﻿using SadRogue.Primitives;
+﻿using System;
+using SadRogue.Primitives;
 using SadConsole;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 using LofiHollow.EntityData;
 using System.Collections.Generic;
 using LofiHollow.Minigames;
-using ProtoBuf;
-using LofiHollow.Minigames.Photo;
-using Newtonsoft.Json;
 
 namespace LofiHollow {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Item {
-        [ProtoMember(1)]
+        [JsonProperty]
         public string Name = "";
-        [ProtoMember(2)]
+        [JsonProperty]
         public string Package = "";
-        [ProtoMember(3)]
+        [JsonProperty]
         public int SubID = 0;
-        [ProtoMember(4)]
+        [JsonProperty]
         public int ItemQuantity = 0;
-        [ProtoMember(5)]
+        [JsonProperty]
         public bool IsStackable = false;
-        [ProtoMember(6)]
+        [JsonProperty]
         public string ShortDesc = "";
-        [ProtoMember(7)]
+        [JsonProperty]
         public string Description = "";
-        [ProtoMember(8)]
+        [JsonProperty]
         public int AverageValue = 0;
-        [ProtoMember(9)]
+        [JsonProperty]
         public float Weight = 0.0f;
-        [ProtoMember(10)]
+        [JsonProperty]
         public int Durability = -1;
-        [ProtoMember(11)]
+        [JsonProperty]
         public int MaxDurability = -1;
-        [ProtoMember(12)]
+        [JsonProperty]
         public int Quality = 1;
-        [ProtoMember(13)]
+        [JsonProperty]
         public int ItemTier = -1;
-        [ProtoMember(14)]
+        [JsonProperty]
         public string ItemCat = "";
-
-        [ProtoMember(15)]
+         
+        [JsonProperty]
         public int EquipSlot = -1;
         // -1: Not equippable
         // 0: Main hand
@@ -54,43 +53,24 @@ namespace LofiHollow {
         // 8: Ring
         // 9: Cape
 
-        [ProtoMember(16)]
+        [JsonProperty]
+        public Dictionary<string, object> Properties = new();
+
+        [JsonProperty]
         public Decorator Dec;
 
 
-        [ProtoMember(17)]
+        [JsonProperty]
         public int ForegroundR = 0;
-        [ProtoMember(18)]
+        [JsonProperty]
         public int ForegroundG = 0;
-        [ProtoMember(19)]
+        [JsonProperty]
         public int ForegroundB = 0;
-        [ProtoMember(20)]
+        [JsonProperty]
         public int ItemGlyph = 0;
 
-        [ProtoMember(21)]
-        public Plant Plant;
-        [ProtoMember(22)]
-        public List<ToolData> Tool;
-        [ProtoMember(23)]
-        public List<CraftComponent> Craft;
-        [ProtoMember(24)]
-        public Equipment Stats;
-        [ProtoMember(25)]
-        public Photo Photo;
-        [ProtoMember(26)]
-        public Egg Egg;
-        [ProtoMember(27)]
-        public MonsterPenFood MonsterFood;
-        [ProtoMember(28)]
-        public Heal Heal;
 
-
-        [JsonIgnore]
-        public Point Position;
-        [JsonIgnore]
-        public Point3D MapPos;
-
-
+        [JsonConstructor]
         public Item() { }
 
 
@@ -103,7 +83,7 @@ namespace LofiHollow {
                 SubID = temp.SubID;
                 ItemCat = temp.ItemCat;
                 EquipSlot = temp.EquipSlot;
-                IsStackable = temp.IsStackable;
+                IsStackable = temp.IsStackable; 
                 Description = temp.Description;
                 ShortDesc = temp.ShortDesc;
 
@@ -113,23 +93,18 @@ namespace LofiHollow {
                 Durability = temp.Durability;
                 MaxDurability = temp.MaxDurability;
                 ItemTier = temp.ItemTier;
-
+                 
                 Quality = temp.Quality;
 
-                ForegroundR = temp.ForegroundR;
-                ForegroundG = temp.ForegroundG;
+                ForegroundR = temp.ForegroundR; 
+                ForegroundG = temp.ForegroundG; 
                 ForegroundB = temp.ForegroundB;
-                ItemGlyph = temp.ItemGlyph;
+                ItemGlyph = temp.ItemGlyph; 
                 Dec = temp.Dec;
 
-                Plant = temp.Plant;
-                Tool = temp.Tool;
-                Craft = temp.Craft;
-                Stats = temp.Stats;
-                Photo = temp.Photo;
-                Egg = temp.Egg;
-                MonsterFood = temp.MonsterFood;
-                Heal = temp.Heal;
+                foreach(KeyValuePair<string, object> kv in temp.Properties) {
+                    Properties.Add(kv.Key, kv.Value);
+                }
 
                 if (name == "lh:(EMPTY)") {
                     ItemQuantity = 0;
@@ -142,7 +117,7 @@ namespace LofiHollow {
             }
         }
 
-        public Item(Item temp) {
+        public Item(Item temp) { 
             Name = temp.Name;
             Package = temp.Package;
             SubID = temp.SubID;
@@ -162,19 +137,15 @@ namespace LofiHollow {
             ForegroundB = temp.ForegroundB;
             ItemGlyph = temp.ItemGlyph;
             ItemTier = temp.ItemTier;
-
+             
             Quality = temp.Quality;
 
             Dec = temp.Dec;
 
-            Plant = temp.Plant;
-            Tool = temp.Tool;
-            Craft = temp.Craft;
-            Stats = temp.Stats;
-            Photo = temp.Photo;
-            Egg = temp.Egg;
-            MonsterFood = temp.MonsterFood;
-            Heal = temp.Heal;
+            foreach (KeyValuePair<string, object> kv in temp.Properties) {
+                Properties.Add(kv.Key, kv.Value);
+            }
+
 
             if (Name == "(EMPTY)") {
                 ItemQuantity = 0;
@@ -211,8 +182,8 @@ namespace LofiHollow {
         public ColoredString LetterGrade() {
             string qual = "";
             Color col = Color.Black;
-
-            switch (Quality) {
+             
+            switch(Quality) {
                 case 1:
                     qual = "F";
                     col = Color.Red;
@@ -254,11 +225,11 @@ namespace LofiHollow {
                     col = Color.BlueViolet;
                     break;
                 case 11:
-                    qual = ((char)172).ToString();
+                    qual = ((char) 172).ToString();
                     col = Color.White;
                     break;
                 default:
-                    return new ColoredString("");
+                    return new ColoredString(""); 
             }
 
             return new ColoredString(qual, col, Color.Black);

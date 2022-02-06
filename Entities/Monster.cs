@@ -1,54 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LofiHollow.Managers;
 using LofiHollow.Minigames;
-using ProtoBuf;
+using Newtonsoft.Json;
+using SadConsole;
+using SadRogue.Primitives;
 
 namespace LofiHollow.Entities {
-    [ProtoContract]
-    public class Monster : Actor {
-        [ProtoMember(2)]
+    [JsonObject(MemberSerialization.OptIn)]
+    public class Monster {
+        [JsonProperty]
+        public string Name = "";
+        [JsonProperty]
         public string Package = "";
-        [ProtoMember(3)]
+
+        [JsonProperty]
         public string UniqueID;
-        [ProtoMember(4)]
+
+        [JsonProperty]
         public int MonConstitution = 1;
-        [ProtoMember(5)]
+        [JsonProperty]
         public int MonAttack = 1;
-        [ProtoMember(6)]
+        [JsonProperty]
         public int MonStrength = 1;
-        [ProtoMember(7)]
+        [JsonProperty]
         public int MonDefense = 1;
-        [ProtoMember(8)]
+        [JsonProperty]
         public int MonMagic = 1;
-        [ProtoMember(9)]
+        [JsonProperty]
         public int MonRanged = 1;
 
-        [ProtoMember(10)]
+        [JsonProperty]
         public string CombatType = "";
-        [ProtoMember(11)]
+        [JsonProperty]
         public string DamageType = "Crush";
-        [ProtoMember(12)]
+        [JsonProperty]
         public string SpecificWeakness = "";
-        [ProtoMember(13)]
+        [JsonProperty]
         public string SpawnLocation = "";
 
-        [ProtoMember(14)]
+        [JsonProperty]
         public int Confidence = 0;
 
-        [ProtoMember(15)]
+        [JsonProperty]
         public bool AlwaysAggro = false;
 
-        [ProtoMember(16)]
+        [JsonProperty]
         public bool CanDropEgg = false;
-        [ProtoMember(17)]
+        [JsonProperty]
         public Egg EggData;
 
-        [ProtoMember(18)]
+        [JsonProperty]
         public List<string> DropTable = new();
 
+        [JsonProperty]
+        public int ForegroundR = 0;
+        [JsonProperty]
+        public int ForegroundG = 0;
+        [JsonProperty]
+        public int ForegroundB = 0;
+        [JsonProperty]
+        public int ForegroundA = 255;
+        [JsonProperty]
+        public int ActorGlyph = 0;
 
-        public Monster() { }
+
+        [JsonConstructor]
+        public Monster() { 
+        }
 
         public Monster(string name) {
             if (GameLoop.World.monsterLibrary != null && GameLoop.World.monsterLibrary.ContainsKey(name)) {
@@ -57,35 +77,19 @@ namespace LofiHollow.Entities {
             }
         }
 
-        public void SpawnDrops() {
-            for (int i = 0; i < DropTable.Count; i++) {
-                string[] split = DropTable[i].Split(";");
+        public int CalculateCombatLevel() {
+            int combatStat = Math.Max(MonAttack +MonStrength, Math.Max(2 * MonMagic, 2 * MonRanged));
 
-                int roll = GameLoop.rand.Next(Int32.Parse(split[1]));
+            int CombatLevel = (int)Math.Floor((double)(((13 / 10) * combatStat) + MonDefense + MonConstitution) / 4);
 
-                if (roll == 0) {
-                    ItemWrapper item = new(split[0]);
-
-                    if (item.item.IsStackable) {
-                        item.item.ItemQuantity = GameLoop.rand.Next(Int32.Parse(split[2])) + 1;
-                        item.item.Position = Position;
-                        item.item.MapPos = MapPos;
-                        CommandManager.SpawnItem(item);
-                    } else {
-                        int qty = GameLoop.rand.Next(Int32.Parse(split[2])) + 1;
-
-                        for (int j = 0; j < qty; j++) {
-                            ItemWrapper itemNonStack = new(split[0]);
-                            itemNonStack.item.Position = Position;
-                            itemNonStack.item.MapPos = MapPos;
-                            CommandManager.SpawnItem(itemNonStack);
-                        }
-                    }
-                }
-            }
+            return CombatLevel;
         }
 
-        public void SetAll(Monster temp) {
+        public ColoredString GetAppearance() {
+            return new ColoredString(((char)ActorGlyph).ToString(), new Color(ForegroundR, ForegroundG, ForegroundB, ForegroundA), Color.Black);
+        }
+
+        public void SetAll(Monster temp) { 
             UniqueID = Guid.NewGuid().ToString("N");
 
             Name = temp.Name;

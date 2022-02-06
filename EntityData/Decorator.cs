@@ -1,20 +1,23 @@
 ﻿using Newtonsoft.Json;
 using SadConsole;
-using ProtoBuf;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LofiHollow.EntityData {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Decorator {
-        [ProtoMember(1)]
+        [JsonProperty]
         public int Glyph = 0;
-        [ProtoMember(2)]
+        [JsonProperty]
         public int R = 0;
-        [ProtoMember(3)]
+        [JsonProperty]
         public int G = 0;
-        [ProtoMember(4)]
+        [JsonProperty]
         public int B = 0;
-        [ProtoMember(5)]
+        [JsonProperty]
         public int A = 255;
 
         [JsonConstructor]

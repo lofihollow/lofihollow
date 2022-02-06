@@ -1,15 +1,20 @@
 ﻿using LofiHollow.Entities;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using ProtoBuf;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LofiHollow.EntityData {
-    [ProtoContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class ToolData {
-        [ProtoMember(1)]
+        [JsonProperty]
         public string Property = "";
-        [ProtoMember(2)]
+        [JsonProperty]
         public int Tier = 1;
 
+        [JsonConstructor]
         public ToolData() { }
 
         public ToolData(string prop, int tier) {
@@ -22,8 +27,8 @@ namespace LofiHollow.EntityData {
                 return true;
 
             for (int i = 0; i < act.Inventory.Length; i++) {
-                if (act.Inventory[i].Tool != null) {
-                    List<ToolData> tool = act.Inventory[i].Tool;
+                if (act.Inventory[i].Properties.ContainsKey("Tool")) {
+                    List<ToolData> tool = act.Inventory[i].Properties.GetList<ToolData>("Tool");
                     for (int j = 0; j < tool.Count; j++) {
                         if (tool[j].Property == Property && tool[j].Tier >= Tier) {
                             return true;

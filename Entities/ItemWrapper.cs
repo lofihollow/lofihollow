@@ -5,7 +5,6 @@ namespace LofiHollow.Entities {
     public class ItemWrapper : Entity {
         public Item item;
         public int CurrentAlpha = 255;
-        public int MineDepth = 0;
 
         public ItemWrapper(string name) : base(Color.Black, Color.Transparent, 32) {
             if (GameLoop.World.itemLibrary.ContainsKey(name)) {

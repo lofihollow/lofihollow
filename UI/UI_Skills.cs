@@ -46,7 +46,7 @@ namespace LofiHollow.UI {
                 SkillConsole.DrawLine(new Point(16, 1), new Point(SkillConsole.Width - 1, 1), 196, Color.White, Color.Black);
                 int index = 0;
 
-                foreach (KeyValuePair<string, Skill> kv in GameLoop.World.Player.player.Skills) {
+                foreach (KeyValuePair<string, Skill> kv in GameLoop.World.Player.Skills) {
                     string name = kv.Key;
                     int level = kv.Value.Level;
                     int exp = kv.Value.TotalExp;
@@ -68,7 +68,7 @@ namespace LofiHollow.UI {
                 if (GameHost.Instance.Mouse.LeftClicked) {
                     int slot = mousePos.Y;
                     if (slot >= 0 && slot <= 15)
-                        CommandManager.UnequipItem(GameLoop.World.Player.player, slot);
+                        CommandManager.UnequipItem(GameLoop.World.Player, slot);
                 }
             }
 

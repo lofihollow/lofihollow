@@ -1,16 +1,19 @@
-﻿using ProtoBuf;
-using Newtonsoft.Json; 
-using System.Collections.Generic; 
+﻿using LofiHollow.Entities;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LofiHollow.EntityData {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Container {
-        [ProtoMember(1)]
+        [JsonProperty]
         public int Capacity = 0;
-        [ProtoMember(2)]
+        [JsonProperty]
         public List<Item> Items = new();
-        [ProtoMember(3)]
+        [JsonProperty]
         public string Name = "";
 
         [JsonConstructor]

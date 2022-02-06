@@ -1,47 +1,42 @@
 ﻿ 
 using Newtonsoft.Json;
-using ProtoBuf;
 using SadRogue.Primitives;
 using System;
 
 namespace LofiHollow.Entities.NPC {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class NPCAi {
-        [ProtoMember(1)]
+        [JsonProperty]
         public Schedule SpringNormal;
-        [ProtoMember(2)]
+        [JsonProperty]
         public Schedule SpringRain;
 
-        [ProtoMember(3)]
+        [JsonProperty]
         public Schedule SummerNormal;
-        [ProtoMember(4)]
+        [JsonProperty]
         public Schedule SummerRain;
 
-        [ProtoMember(5)]
+        [JsonProperty]
         public Schedule FallNormal;
-        [ProtoMember(6)]
+        [JsonProperty]
         public Schedule FallRain;
 
-        [ProtoMember(7)]
+        [JsonProperty]
         public Schedule WinterNormal;
-        [ProtoMember(8)]
+        [JsonProperty]
         public Schedule WinterSnow;
 
-        [ProtoMember(9)]
+        [JsonProperty]
         public Schedule Holiday;
-        [ProtoMember(10)]
+        [JsonProperty]
         public Schedule Birthday;
-        [ProtoMember(11)]
+        [JsonProperty]
         public Schedule Default;
 
-        [JsonIgnore]
+
         public Schedule Current;
-        [JsonIgnore]
         public GoRogue.Pathing.Path CurrentPath;
-        [JsonIgnore]
         public bool UpdatePath = true;
-        [JsonIgnore]
         public int pathPos = 0;
 
 
@@ -128,8 +123,7 @@ namespace LofiHollow.Entities.NPC {
             }
         }
 
-        public void MoveTowardsNode(int CurrentTime, NPCWrapper wrap) {
-            NPC npc = wrap.npc;
+        public void MoveTowardsNode(int CurrentTime, NPC npc) { 
             UpdateNode(CurrentTime);
 
             string[] FullNode = Current.Nodes[Current.CurrentNode].Split(";");
@@ -208,12 +202,8 @@ namespace LofiHollow.Entities.NPC {
                     GameLoop.World.LoadMapAt(npc.MapPos);
 
                 if (GameLoop.World.maps.ContainsKey(npc.MapPos)) {
-                    (GoRogue.Coord start, GoRogue.Coord end) endpoints = (npc.Position.ToCoord(), new GoRogue.Coord(edgeX, edgeY));
-                    var pather = GameLoop.World.maps[npc.MapPos];
-                    if (pather.MapPath != null) { 
-                        CurrentPath = pather.MapPath.ShortestPath(endpoints.start, endpoints.end);
-                        pathPos = 0;
-                    }
+                    CurrentPath = GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(npc.Position.ToCoord(), new GoRogue.Coord(edgeX, edgeY));
+                    pathPos = 0;
                 }
             }
 
@@ -271,9 +261,9 @@ namespace LofiHollow.Entities.NPC {
 
                     if (recentlyMovedMaps) {
                         if (npc.MapPos != GameLoop.World.Player.MapPos || (npc.MapPos.X == GameLoop.World.Player.MapPos.X && npc.MapPos.Y == GameLoop.World.Player.MapPos.Y && npc.MapPos.Z > GameLoop.World.Player.MapPos.Z)) {
-                            GameLoop.UIManager.Map.EntityRenderer.Remove(wrap);
+                            GameLoop.UIManager.Map.EntityRenderer.Remove(npc);
                         } else {
-                            GameLoop.UIManager.Map.EntityRenderer.Add(wrap);
+                            GameLoop.UIManager.Map.EntityRenderer.Add(npc);
                         }
                         CurrentPath = null;
                         pathPos = 0;

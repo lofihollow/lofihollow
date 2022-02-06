@@ -1,6 +1,6 @@
 ﻿using LofiHollow.Entities;
 using LofiHollow.Entities.NPC;
-using ProtoBuf;
+using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
 using System;
@@ -10,23 +10,27 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LofiHollow.Managers {
-    [ProtoContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class TimeManager {
-        [ProtoMember(1)]
+        [JsonProperty]
         public int Hours = 9;
-        [ProtoMember(2)]
+        [JsonProperty]
         public int Minutes = 0;
-        [ProtoMember(3)]
+        [JsonProperty]
         public int Month = 1;
-        [ProtoMember(4)]
+        [JsonProperty]
         public int Day = 1;
-        [ProtoMember(5)]
+        [JsonProperty]
         public int Year = 1;
-        [ProtoMember(6)]
+        [JsonProperty]
         public bool AM = true;
 
         public string GetSeason() {
-            if (Month == 1) { return "Spring"; } else if (Month == 2) { return "Summer"; } else if (Month == 3) { return "Fall"; } else if (Month == 4) { return "Winter"; } else { return "Holiday"; }
+            if (Month == 1) { return "Spring"; } 
+            else if (Month == 2) { return "Summer"; }
+            else if (Month == 3) { return "Fall"; } 
+            else if (Month == 4) { return "Winter"; } 
+            else { return "Holiday"; }
         }
 
         public bool IsItThisDay(int month, int day) { return (Month == month && Day == day); }
@@ -63,18 +67,17 @@ namespace LofiHollow.Managers {
                 GameLoop.UIManager.AddMsg(new ColoredString("You sleep through the night.", Color.Lime, Color.Black));
             }
 
-            NetMsg msg = new("newDay", passedOut.ToByteArray());
-            GameLoop.SendMessageIfNeeded(msg, false, false);
+            GameLoop.SendMessageIfNeeded(new string[] { "newDay", passedOut.ToString() }, false, false);
 
-            GameLoop.World.Player.player.Sleeping = false;
-            GameLoop.World.Player.player.CurrentHP = GameLoop.World.Player.player.MaxHP;
-            GameLoop.World.Player.player.CurrentStamina = GameLoop.World.Player.player.MaxStamina;
+            GameLoop.World.Player.Sleeping = false;
+            GameLoop.World.Player.CurrentHP = GameLoop.World.Player.MaxHP;
+            GameLoop.World.Player.CurrentStamina = GameLoop.World.Player.MaxStamina;
 
-            foreach (KeyValuePair<long, PlayerWrapper> kv in GameLoop.World.otherPlayers) {
-                kv.Value.player.CurrentHP = kv.Value.player.MaxHP;
-                kv.Value.player.CurrentStamina = kv.Value.player.MaxStamina;
-                kv.Value.player.Sleeping = false;
-            }
+            foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
+                kv.Value.CurrentHP = kv.Value.MaxHP;
+                kv.Value.CurrentStamina = kv.Value.MaxStamina;
+                kv.Value.Sleeping = false;
+            } 
 
             GameLoop.UIManager.Photo.PopulateJobList();
 
@@ -88,8 +91,8 @@ namespace LofiHollow.Managers {
                 Hours++;
                 Minutes = 0;
 
-                if (GameLoop.World.Player.player.MineLocation == "None") {
-                    if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(GameLoop.World.Player.player.Position).Name == "Bed") {
+                if (GameLoop.World.Player.MineLocation == "None") {
+                    if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Bed") {
                         GameLoop.UIManager.AddMsg(new ColoredString("Press " + ((char)12) + " while standing on a bed to sleep.", Color.Yellow, Color.Black));
                     }
                 }
@@ -124,12 +127,12 @@ namespace LofiHollow.Managers {
             if (!tickedDay) {
                 int sleepCount = 0;
                 int totalPlayers = 1;
-                if (GameLoop.World.Player.player.Sleeping)
+                if (GameLoop.World.Player.Sleeping)
                     sleepCount++;
 
-                foreach (KeyValuePair<long, PlayerWrapper> kv in GameLoop.World.otherPlayers) {
+                foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
                     totalPlayers++;
-                    if (kv.Value.player.Sleeping)
+                    if (kv.Value.Sleeping)
                         sleepCount++;
                 }
 
@@ -152,21 +155,21 @@ namespace LofiHollow.Managers {
                 }
             }
 
-            NetMsg timeUpdate = new("time", this.ToByteArray());
-            GameLoop.SendMessageIfNeeded(timeUpdate, false, false);
+            string time = JsonConvert.SerializeObject(this, Formatting.Indented);
+            GameLoop.SendMessageIfNeeded(new string[] { "time", time.ToString() }, false, false);
         }
 
 
         public void DailyUpdates() {
-            foreach (KeyValuePair<string, NPCWrapper> kv in GameLoop.World.npcLibrary) {
-                kv.Value.npc.ReceivedGiftToday = false;
+            foreach (KeyValuePair<int, NPC> kv in GameLoop.World.npcLibrary) {
+                kv.Value.ReceivedGiftToday = false;
             }
 
             if (!GameLoop.World.maps.ContainsKey(new Point3D(-1, 0, 0)))
                 GameLoop.World.LoadMapAt(new Point3D(-1, 0, 0));
 
             for (int i = 0; i < GameLoop.World.maps[new Point3D(-1, 0, 0)].Tiles.Length; i++) {
-                Tile tile = GameLoop.World.maps[new Point3D(-1, 0, 0)].Tiles[i];
+                TileBase tile = GameLoop.World.maps[new Point3D(-1, 0, 0)].Tiles[i];
 
                 if (tile.Plant != null) {
                     tile.Plant.DayUpdate();
@@ -174,30 +177,22 @@ namespace LofiHollow.Managers {
                     int x = i % GameLoop.MapWidth;
                     int y = i / GameLoop.MapWidth;
 
-                    NetMsg tileUpdate = new("updateTile", tile.ToByteArray());
-                    tileUpdate.X = x;
-                    tileUpdate.Y = y;
-                    tileUpdate.mX = -1;
-                    tileUpdate.mY = 0;
-                    tileUpdate.mZ = 0;
-
-
-                    GameLoop.SendMessageIfNeeded(tileUpdate, false, false);
+                    GameLoop.SendMessageIfNeeded(new string[] { "updateTile", x.ToString(), y.ToString(), "-1;0;0" }, false, false); 
                 }
             }
 
 
-            GameLoop.World.Player.player.MapsClearedToday = 0;
-            GameLoop.World.Player.player.killList.Clear();
+            GameLoop.World.Player.MapsClearedToday = 0;
+            GameLoop.World.Player.killList.Clear();
 
-            foreach (KeyValuePair<long, PlayerWrapper> kv in GameLoop.World.otherPlayers) {
-                kv.Value.player.MapsClearedToday = 0;
+            foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
+                kv.Value.MapsClearedToday = 0;
             }
 
             GameLoop.UIManager.Minigames.MineManager.MountainMine = new("Mountain");
             GameLoop.UIManager.Minigames.MineManager.LakeMine = new("Lake");
-
-            GameLoop.UIManager.Map.LoadMap(GameLoop.World.Player.player.MapPos);
+               
+            GameLoop.UIManager.Map.LoadMap(GameLoop.World.Player.MapPos);
 
 
             GameLoop.UIManager.Minigames.MonsterPenManager.DailyUpdate();

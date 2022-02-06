@@ -1,100 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
 using LofiHollow.EntityData;
+using System.Text;
+using LofiHollow.UI;
 using LofiHollow.Managers;
-using ProtoBuf;
-using Newtonsoft.Json;
 
 namespace LofiHollow.Entities {
-    [ProtoContract]
-    [ProtoInclude(17, typeof(Monster))]
-    [ProtoInclude(18, typeof(Player))]
-    [ProtoInclude(19, typeof(NPC.NPC))]
-    [JsonObject(MemberSerialization.OptOut)]
-    public abstract class Actor {
-        [ProtoMember(1)]
+    [JsonObject(MemberSerialization.OptIn)]
+    public abstract class Actor : Entity {
+        [JsonProperty]
         public int CurrentHP;
-        [ProtoMember(2)]
+        [JsonProperty]
         public int MaxHP;
 
-        [ProtoMember(3)]
+        [JsonProperty]
         public int CurrentStamina = 100;
-        [ProtoMember(4)]
+        [JsonProperty]
         public int MaxStamina = 100;
 
-        [ProtoMember(5)]
-        public Point3D MapPos = new(0, 0, 0);
+        public SadConsole.Console ScreenAppearance;
 
-        [ProtoMember(6)]
+
+        [JsonProperty]
+        public int SizeMod = 0;
+        [JsonProperty]
         public int Vision = 36;
 
 
-        [ProtoMember(7)]
+        [JsonProperty]
         public string CombatMode = "Attack";
-        [ProtoMember(8)]
-        public int CombatLevel = 1;
 
-        [ProtoMember(9)]
+        
+
+        [JsonProperty]
+        public int CombatLevel = 1;
+        
+
+        public double TimeLastActed = 0;
+
+
+        [JsonProperty]
         public Dictionary<string, Skill> Skills = new();
 
-        [ProtoMember(10)]
+
+        [JsonProperty]
         public int ForegroundR = 0;
-        [ProtoMember(11)]
+        [JsonProperty]
         public int ForegroundG = 0;
-        [ProtoMember(12)]
+        [JsonProperty]
         public int ForegroundB = 0;
-        [ProtoMember(13)]
-        public int ForegroundA = 255;
-        [ProtoMember(14)]
+        [JsonProperty]
         public int ActorGlyph = 0;
 
-        [ProtoMember(15)]
-        public Point Position;
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context) {
+            Appearance.Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
+            Appearance.Background = new Color(0, 0, 0, 50);
+            Appearance.Glyph = ActorGlyph; 
+        } 
 
-        [ProtoMember(16)]
-        public string Name = "";
+        public void UpdateAppearance() {
+            Appearance.Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
+            Appearance.Background = new Color(0, 0, 0, 50);
+            Appearance.Glyph = ActorGlyph;
 
-        [JsonIgnore]
-        public double TimeLastActed = 0;
-        [JsonIgnore]
-        public double TimeLastTicked = 0;
+            if (SizeMod <= 0) {
+                ScreenAppearance = new(1, 1);
+
+                if (SizeMod <= -1)
+                    ScreenAppearance.FontSize = new Point(6, 6);
 
 
-        public void Death(bool drops = true) {
-            if (MapPos == GameLoop.World.Player.player.MapPos) {
-                GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[MapPos]);
-                GameLoop.UIManager.AddMsg(Name + " died.");
+                ScreenAppearance.Print(0, 0, new ColoredString(Appearance));
             }
 
-            if (drops && this is Monster mon)
-                mon.SpawnDrops();
-
-            GameLoop.World.maps[MapPos].SpawnedMonsters--;
-
-            if (GameLoop.World.maps[MapPos].SpawnedMonsters == 0) {
-                GameLoop.World.Player.player.MapsClearedToday++;
+            if (SizeMod >= 1) {
+                int newSize = SizeMod + 1;
+                ScreenAppearance = new(1, 1);
+                ScreenAppearance.FontSize = new Point(12 * newSize, 12 * newSize); 
+                
+                ScreenAppearance.Print(0, 0, new ColoredString(Appearance));
             }
+
+            if (SizeMod != 0)
+                ScreenAppearance.UsePixelPositioning = true;
+
+            UpdatePosition();
         }
-
-        public int TakeDamage(int damage) {
-            int damageTaken = 0;
-            if (damage > CurrentHP) {
-                damageTaken = CurrentHP;
-                CurrentHP = 0;
-            } else {
-                CurrentHP -= damage;
-                damageTaken = damage;
-            }
-
-            if (CurrentHP <= 0) {
-                Death(true);
-            }
-
-            return damageTaken;
-        }
-
 
         public void SwitchMeleeMode() {
             if (CombatMode == "Attack") {
@@ -124,21 +120,36 @@ namespace LofiHollow.Entities {
 
             Skills["Constitution"].GrantExp(damage * 2);
         }
+        
+        public void UpdatePosition() {
+            if (ScreenAppearance.UsePixelPositioning)
+                ScreenAppearance.Position = new Point(Position.X * 12, Position.Y * 12);
+            else
+                ScreenAppearance.Position = Position;
+        }
 
-        public Actor() {
+        protected Actor(Color foreground, int glyph) : base(foreground, Color.Transparent, glyph) {
+            Appearance.Foreground = foreground; 
+            Appearance.Glyph = glyph;
+            Appearance.Background = new Color(0, 0, 0, 50);
+
+            ForegroundR = foreground.R;
+            ForegroundG = foreground.G;
+            ForegroundB = foreground.B;
+
             MaxStamina = 100;
             CurrentStamina = MaxStamina;
         }
 
         public ColoredString GetAppearance() {
-            return new ColoredString(((char)ActorGlyph).ToString(), new Color(ForegroundR, ForegroundG, ForegroundB), Color.Transparent);
+            return new ColoredString(Appearance.GlyphCharacter.ToString(), Appearance.Foreground, Color.Transparent);
         }
 
-        public int CalculateCombatLevel() {
-            if (this is Monster mon) {
-                int combatStat = Math.Max(mon.MonAttack + mon.MonStrength, Math.Max(2 * mon.MonMagic, 2 * mon.MonRanged));
+        public void CalculateCombatLevel() {
+            if (this is MonsterWrapper mon) { 
+                int combatStat = Math.Max(mon.monster.MonAttack + mon.monster.MonStrength, Math.Max(2 * mon.monster.MonMagic, 2 * mon.monster.MonRanged));
 
-                CombatLevel = (int)Math.Floor((double)(((13 / 10) * combatStat) + mon.MonDefense + mon.MonConstitution) / 4);
+                CombatLevel = (int) Math.Floor((double) (((13 / 10) * combatStat) + mon.monster.MonDefense + mon.monster.MonConstitution) / 4);
             } else {
                 int Attack = Skills["Attack"].Level;
                 int Strength = Skills["Strength"].Level;
@@ -151,8 +162,6 @@ namespace LofiHollow.Entities {
 
                 CombatLevel = (int)Math.Floor((double)(((13 / 10) * CombatStat) + Defense + Constitution) / 4);
             }
-
-            return CombatLevel;
         }
 
         public void UpdateHP() {
@@ -160,20 +169,20 @@ namespace LofiHollow.Entities {
                 MaxHP = Skills["Constitution"].Level;
                 CurrentHP = MaxHP;
             } else {
-                var mon = (Monster)this;
-                MaxHP = mon.MonConstitution;
+                var mon = (MonsterWrapper)this;
+                MaxHP = mon.monster.MonConstitution;
                 CurrentHP = MaxHP;
             }
         }
 
         public int EffectiveAttackLevel(string damageType) {
             int effectiveAttackLevel = 0;
-            if (damageType == "Crush" || damageType == "Slash" || damageType == "Stab") {
+            if (damageType == "Crush" || damageType == "Slash" || damageType == "Stab") { 
                 if (this is Player)
                     effectiveAttackLevel = Skills["Attack"].Level;
                 else {
-                    var mon = (Monster)this;
-                    effectiveAttackLevel = mon.MonAttack;
+                    var mon = (MonsterWrapper)this;
+                    effectiveAttackLevel = mon.monster.MonAttack;
                 }
 
                 if (CombatMode == "Attack")
@@ -186,14 +195,14 @@ namespace LofiHollow.Entities {
 
             return effectiveAttackLevel;
         }
-
+         
         public int AttackRoll(string type) {
             int StyleBonus = 0;
 
             if (this is Player play) {
                 for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Stats != null) {
-                        Equipment Stats = play.Equipment[i].Stats;
+                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
+                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
 
                         if (type == "Slash")
                             StyleBonus += Stats.SlashBonus;
@@ -215,12 +224,12 @@ namespace LofiHollow.Entities {
 
         public int DefenceRoll(string damageType) {
             int effectiveDefenseLevel = 0;
-            if (damageType == "Crush" || damageType == "Slash" || damageType == "Stab") {
+            if (damageType == "Crush" || damageType == "Slash" || damageType == "Stab") { 
                 if (this is Player)
                     effectiveDefenseLevel = Skills["Defense"].Level;
                 else {
-                    var mon = (Monster)this;
-                    effectiveDefenseLevel = mon.MonDefense;
+                    var mon = (MonsterWrapper)this;
+                    effectiveDefenseLevel = mon.monster.MonDefense;
                 }
 
                 if (CombatMode == "Defense")
@@ -236,8 +245,8 @@ namespace LofiHollow.Entities {
 
             if (this is Player play) {
                 for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Stats != null) {
-                        Equipment Stats = play.Equipment[i].Stats;
+                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
+                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
                         if (damageType == "Slash")
                             TotalDefenseBonus += Stats.ArmorVsSlash;
                         if (damageType == "Stab")
@@ -255,21 +264,21 @@ namespace LofiHollow.Entities {
             if (this is Player) {
                 return effectiveDefenseLevel * (TotalDefenseBonus + 64);
             } else {
-                var mon = (Monster)this;
-                return (mon.MonDefense + 9) * (TotalDefenseBonus + 64);
+                var mon = (MonsterWrapper)this;
+                return (mon.monster.MonDefense + 9) * (TotalDefenseBonus + 64);
             }
         }
 
         public int DamageRoll(string damageType) {
             int effectiveStrength = 0;
             if (damageType == "Crush" || damageType == "Slash" || damageType == "Stab") {
-
+                
 
                 if (this is Player)
                     effectiveStrength = Skills["Strength"].Level;
                 else {
-                    var mon = (Monster)this;
-                    effectiveStrength = mon.MonStrength;
+                    var mon = (MonsterWrapper)this;
+                    effectiveStrength = mon.monster.MonStrength;
                 }
 
                 if (CombatMode == "Strength")
@@ -284,8 +293,8 @@ namespace LofiHollow.Entities {
 
             if (this is Player play) {
                 for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Stats != null) {
-                        Equipment Stats = play.Equipment[i].Stats;
+                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
+                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
                         if (damageType == "Slash")
                             TotalStrengthBonus += Stats.StrengthBonus;
                         if (damageType == "Stab")
@@ -300,19 +309,19 @@ namespace LofiHollow.Entities {
                 }
             }
 
-            int maxDamage = (int)Math.Floor((double)(((effectiveStrength * (TotalStrengthBonus + 64)) + 320) / 640));
+            int maxDamage = (int) Math.Floor((double)(((effectiveStrength * (TotalStrengthBonus + 64)) + 320) / 640));
 
             if (maxDamage > 1) {
                 return (GameLoop.rand.Next(maxDamage) + 1);
-            }
+            } 
 
             return 1;
         }
 
         public string GetDamageType() {
             if (this is Player play) {
-                if (play.Equipment[0].Stats != null) {
-                    Equipment Stats = play.Equipment[0].Stats;
+                if (play.Equipment[0].Properties.ContainsKey("Stats")) {
+                    Equipment Stats = play.Equipment[0].Properties.Get<Equipment>("Stats");
                     string[] types = Stats.DamageType.Split(",");
 
                     if (CombatMode == "Attack")
@@ -329,6 +338,25 @@ namespace LofiHollow.Entities {
             return "Crush";
         }
 
+        public int TakeDamage(int damage) {
+            int damageTaken = 0;
+            if (damage > CurrentHP) {
+                damageTaken = CurrentHP;
+                CurrentHP = 0; 
+            } else {
+                CurrentHP -= damage;
+                damageTaken = damage;
+            }
+
+            if (CurrentHP <= 0) {
+                if (this is Player player)
+                    player.PlayerDied();
+                else
+                    Death(true);
+            }
+
+            return damageTaken;
+        }
 
         public bool MoveBy(Point positionChange) {
             int AgilityLevel = 0;
@@ -347,7 +375,7 @@ namespace LofiHollow.Entities {
 
 
                 if (GameLoop.World.maps[MapPos].GetEntityAt<MonsterWrapper>(newPosition) != null) {
-                    Monster monster = GameLoop.World.maps[MapPos].GetEntityAt<MonsterWrapper>(newPosition).Wrapped;
+                    MonsterWrapper monster = GameLoop.World.maps[MapPos].GetEntityAt<MonsterWrapper>(newPosition);
 
                     CommandManager.Attack(this, monster, true);
                     return false;
@@ -364,7 +392,7 @@ namespace LofiHollow.Entities {
                                     GameLoop.UIManager.Crafting.SetupCrafting(split[1], split[2], Int32.Parse(split[3]));
                                 else
                                     GameLoop.UIManager.Crafting.SetupCrafting(split[1], "None", 1);
-                            } else if (split[0] == "Monster Pen") {
+                            } else if (split[0] == "Monster Pen") { 
                                 GameLoop.UIManager.Minigames.MonsterPenManager.Setup(Int32.Parse(split[1]));
                                 GameLoop.UIManager.Minigames.ToggleMinigame("Monster Pen");
                             } else if (split[0] == "Minigame") {
@@ -475,7 +503,7 @@ namespace LofiHollow.Entities {
                 }
 
 
-
+                
                 bool movedMaps = false;
 
                 // Moved off the map (left)
@@ -514,42 +542,32 @@ namespace LofiHollow.Entities {
                     movedMaps = true;
                 }
 
-                if (movedMaps && this == GameLoop.World.Player.player) {
+                if (movedMaps && ID == GameLoop.World.Player.ID) {
                     GameLoop.UIManager.Map.LoadMap(MapPos);
-
-                    NetMsg request = new("requestEntities", null);
-                    request.SetMapPos(GameLoop.World.Player.player.MapPos);
-                    GameLoop.SendMessageIfNeeded(request, false, false);
-
-                    GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Entities.Clear();
+                    GameLoop.SendMessageIfNeeded(new string[] { "requestEntities", GameLoop.World.Player.MapPos.ToString() }, false, false, 0);
+                    
+                    GameLoop.World.maps[GameLoop.World.Player.MapPos].Entities.Clear(); 
 
                     if (GameLoop.SingleOrHosting()) {
-                        if (!GameLoop.World.Player.player.VisitedMaps.Contains(MapPos)) {
+                        if (!GameLoop.World.Player.VisitedMaps.Contains(MapPos)) {
                             GameLoop.World.maps[MapPos].PopulateMonsters(MapPos);
-                            GameLoop.World.Player.player.VisitedMaps.Add(MapPos);
+                            GameLoop.World.Player.VisitedMaps.Add(MapPos);
                         }
                     }
 
                     return true;
-                }
+                } 
 
                 if (newPosition.X >= 0 && newPosition.X <= GameLoop.MapWidth && newPosition.Y >= 0 && newPosition.Y <= GameLoop.MapHeight) {
                     if (map.GetTile(newPosition).Name.ToLower().Contains("door")) {
-                        if (map.GetTile(newPosition).Lock != null) {
-                            if (map.GetTile(newPosition).Lock.Closed) {
-                                if (map.GetTile(newPosition).Lock.CanOpen()) {
-                                    map.ToggleLock(newPosition, MapPos);
-                                    return false;
-                                } else {
-                                    GameLoop.UIManager.AddMsg(new ColoredString("The door won't budge. Must be locked.", Color.Brown, Color.Black));
-                                    return false;
-                                }
+                        if (map.GetTile(newPosition).Lock.Closed) {
+                            if (map.GetTile(newPosition).Lock.CanOpen()) {
+                                map.ToggleLock(newPosition, MapPos);
+                                return false;
+                            } else {
+                                GameLoop.UIManager.AddMsg(new ColoredString("The door won't budge. Must be locked.", Color.Brown, Color.Black));
+                                return false;
                             }
-                        } else {
-                            LockOwner defaultLock = new();
-                            defaultLock.OpenedGlyph = 23;
-                            defaultLock.ClosedGlyph = 24;
-                            map.GetTile(newPosition).Lock = defaultLock;
                         }
                     }
 
@@ -569,22 +587,26 @@ namespace LofiHollow.Entities {
 
                     if (map.IsTileWalkable(Position + positionChange)) {
                         // if there's an NPC here, initiate dialogue
-                        if (this == GameLoop.World.Player.player) {
-                            foreach (KeyValuePair<string, NPCWrapper> kv in GameLoop.World.npcLibrary) {
-                                if (kv.Value.Position == newPosition && kv.Value.npc.MapPos == MapPos) {
-                                    GameLoop.UIManager.DialogueWindow.SetupDialogue(kv.Value.npc);
+                        if (ID == GameLoop.World.Player.ID) {
+                            for (int i = 0; i < GameLoop.World.npcLibrary.Count; i++) {
+                                NPC.NPC npc = GameLoop.World.npcLibrary[i];
+                                if (npc.Position == newPosition && npc.MapPos == MapPos) {
+                                    GameLoop.UIManager.DialogueWindow.SetupDialogue(npc); 
+
+                                    
+
                                     return false;
                                 }
                             }
 
-                            Tile tile = map.GetTile(Position + positionChange);
+                            TileBase tile = map.GetTile(Position + positionChange);
                             if (tile.Name == "Sign") {
                                 GameLoop.UIManager.SignText(Position + positionChange, MapPos);
                                 return true;
                             }
                         }
 
-                        Position += positionChange;
+                        Position += positionChange; 
                         return true;
                     }
                 }
@@ -592,30 +614,54 @@ namespace LofiHollow.Entities {
             return false;
         }
 
-        public bool MoveTo(Point newPosition, Point3D mapLoc) {
+        public bool MoveTo(Point newPosition, Point3D mapLoc) { 
             bool movedMaps = false;
             if (!GameLoop.World.maps.ContainsKey(mapLoc)) { GameLoop.World.CreateMap(mapLoc); }
 
             if (GameLoop.World.maps[mapLoc].IsTileWalkable(newPosition)) {
                 Position = newPosition;
 
-                if (MapPos != mapLoc) { movedMaps = true; }
+                if (ScreenAppearance == null) {
+                    UpdateAppearance();
+                }
+
+                ScreenAppearance.Position = newPosition;
+
+                if (MapPos != mapLoc) { movedMaps = true; } 
                 MapPos = mapLoc;
 
-                if (movedMaps && this == GameLoop.World.Player.player) {
+                if (movedMaps && ID == GameLoop.World.Player.ID) {
                     GameLoop.UIManager.Map.LoadMap(MapPos);
                 }
             }
 
             return true;
+        } 
+
+        public void Death(bool drops = true) {
+            GameLoop.World.maps[MapPos].Remove(this);
+            if (MapPos == GameLoop.World.Player.MapPos) {
+                GameLoop.UIManager.Map.EntityRenderer.Remove(this);
+                GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[MapPos]);
+                GameLoop.UIManager.AddMsg(this.Name + " died.");
+            } 
+
+            if (drops && this is MonsterWrapper wrap)
+                wrap.SpawnDrops();
+
+            GameLoop.World.maps[MapPos].SpawnedMonsters--;
+
+            if (GameLoop.World.maps[MapPos].SpawnedMonsters == 0) {
+                GameLoop.World.Player.MapsClearedToday++; 
+            }
         }
 
         public void ExpendStamina(int amount) {
             CurrentStamina -= amount;
             if (CurrentStamina < 0) {
-                if (this == GameLoop.World.Player.player) {
+                if (this == GameLoop.World.Player) {
                     if (GameLoop.NetworkManager == null) { // in single-player, skip to the next day
-                        GameLoop.World.Player.player.Clock.NextDay(true);
+                        GameLoop.World.Player.Clock.NextDay(true);
                     } else {
                         GameLoop.UIManager.AddMsg(new ColoredString("You blacked out!", Color.Red, Color.Black));
                         MoveTo(new Point(35, 6), new Point3D(0, 0, 0));

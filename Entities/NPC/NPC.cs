@@ -1,87 +1,113 @@
 ﻿using Newtonsoft.Json;
-using ProtoBuf;
+using SadRogue.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LofiHollow.Entities.NPC {
-    [JsonObject(MemberSerialization.OptOut)]
-    [ProtoContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class NPC : Actor {
-        [ProtoMember(1)]
+        [JsonProperty]
         public int npcID;
-        [ProtoMember(2)]
+        [JsonProperty]
         public NPCAi AI;
-        [ProtoMember(3)]
+        [JsonProperty]
         public string Occupation = "";
 
-        [ProtoMember(4)]
+        [JsonProperty]
         public int BirthMonth = 1;
-        [ProtoMember(5)]
+        [JsonProperty]
         public int BirthDay = 2;
-
-        [ProtoMember(6)]
+         
+        [JsonProperty]
         public string Introduction = "";
 
-        [ProtoMember(7)]
+        [JsonProperty]
         public Dictionary<string, string> Greetings = new();
 
-        [ProtoMember(8)]
+        [JsonProperty]
         public Dictionary<string, string> Farewells = new();
 
-        [ProtoMember(9)]
+        [JsonProperty]
         public Dictionary<string, string> ChitChats = new();
 
-        [ProtoMember(10)]
+        [JsonProperty]
         public Dictionary<string, string> GiftResponses = new();
 
-        [ProtoMember(11)]
+        [JsonProperty]
         public List<string> HatedGiftIDs = new();
-        [ProtoMember(12)]
-        public List<string> DislikedGiftIDs = new();
-        [ProtoMember(13)]
+        [JsonProperty]
+        public List<string> DislikedGiftIDs = new(); 
+        [JsonProperty]
         public List<string> LikedGiftIDs = new();
-        [ProtoMember(14)]
+        [JsonProperty]
         public List<string> LovedGiftIDs = new();
 
-        [JsonIgnore]
-        public bool ReceivedGiftToday = false;
+        public bool ReceivedGiftToday = false; 
 
-        [ProtoMember(15)]
+        [JsonProperty]
         public ShopData Shop = new();
 
         [JsonConstructor]
-        public NPC() { }
+        public NPC() : base(Color.White, '@') {
+            Appearance.Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
+            Appearance.Glyph = ActorGlyph; 
+        }
 
 
-        public NPC(NPC other) {
+        public NPC(NPC other) : base(Color.White, '@') {
             AI = other.AI;
             ForegroundR = other.ForegroundR;
             ForegroundG = other.ForegroundG;
             ForegroundB = other.ForegroundB;
             ActorGlyph = other.ActorGlyph;
+
+            Appearance.Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
+            Appearance.Glyph = ActorGlyph; 
+        }
+
+        public void Update(bool newSchedule) {
+            if (newSchedule || AI.Current == null) {
+                string season = GameLoop.World.Player.Clock.GetSeason();
+
+                if (GameLoop.World.Player.Clock.IsItThisDay(BirthMonth, BirthDay))
+                    season = "Birthday";
+
+
+                AI.SetSchedule(season, "Sunny");
+            }
+
+            Point oldPos = new(Position.X, Position.Y);
+            AI.MoveTowardsNode(GameLoop.World.Player.Clock.GetCurrentTime(), this);
+
+            if (oldPos != Position) {
+                GameLoop.SendMessageIfNeeded(new string[] { "moveNPC", npcID.ToString(), Position.X.ToString(), Position.Y.ToString(), MapPos.ToString() }, true, false);
+            }
         }
 
         public string RelationshipDescriptor() {
             int PlayerOpinion = 0;
-
-            if (GameLoop.World.Player.player.MetNPCs.ContainsKey(Name)) {
-                PlayerOpinion = GameLoop.World.Player.player.MetNPCs[Name];
+            
+            if (GameLoop.World.Player.MetNPCs.ContainsKey(Name)) {
+                PlayerOpinion = GameLoop.World.Player.MetNPCs[Name];
             }
 
-            if (PlayerOpinion == -100)
-                return "Nemesis";
+            if (PlayerOpinion == -100) 
+                return "Nemesis"; 
 
             if (PlayerOpinion <= -50)
                 return "Hate";
 
             if (PlayerOpinion <= -25)
-                return "Unfriendly";
+                return "Unfriendly"; 
 
             if (PlayerOpinion <= -10)
-                return "Dislike";
+                return "Dislike"; 
 
             if (PlayerOpinion < 10)
-                return "Neutral";
+                return "Neutral"; 
 
             if (PlayerOpinion <= 25)
                 return "Like";
@@ -99,7 +125,7 @@ namespace LofiHollow.Entities.NPC {
         }
 
         public bool IsBirthday() {
-            return GameLoop.World.Player.player.Clock.IsItThisDay(BirthMonth, BirthDay);
+            return GameLoop.World.Player.Clock.IsItThisDay(BirthMonth, BirthDay);
         }
 
 
@@ -150,8 +176,8 @@ namespace LofiHollow.Entities.NPC {
             if (IsBirthday())
                 relModifier *= 2;
 
-            if (!ReceivedGiftToday && GameLoop.World.Player.player.MetNPCs.ContainsKey(Name)) {
-                GameLoop.World.Player.player.MetNPCs[Name] += relModifier;
+            if (!ReceivedGiftToday && GameLoop.World.Player.MetNPCs.ContainsKey(Name)) {
+                GameLoop.World.Player.MetNPCs[Name] += relModifier;
                 ReceivedGiftToday = true;
             }
 

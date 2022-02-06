@@ -1,19 +1,24 @@
 ﻿using LofiHollow.Minigames;
+using Newtonsoft.Json;
 using SadConsole;
 using SadConsole.Input;
 using SadRogue.Primitives;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Key = SadConsole.Input.Keys;
-using ProtoBuf;
 
 namespace LofiHollow.Managers {
-    [ProtoContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class MonsterPenManager : Minigame {
         public MonsterPen CurrentPen;
-        [ProtoMember(1)]
+        [JsonProperty]
         public MonsterPen FirstPen = new(0);
-        [ProtoMember(2)]
+        [JsonProperty]
         public MonsterPen SecondPen = new(1);
-        [ProtoMember(3)]
+        [JsonProperty]
         public MonsterPen ThirdPen = new(2);
 
         public void Setup(int pen) {
@@ -57,7 +62,7 @@ namespace LofiHollow.Managers {
 
 
         public override void Input() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition; 
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
                 Close();
             }
@@ -78,9 +83,9 @@ namespace LofiHollow.Managers {
                     }
 
                     if (mousePos.Y == 2 && mousePos.X < 15 && CurrentPen.Monster.Name == "(EMPTY)" && CurrentPen.Egg == null) {
-                        if (GameLoop.World.Player.player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].Egg != null) {
-                            CurrentPen.Egg = GameLoop.World.Player.player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].Egg;
-                            GameLoop.World.Player.player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect] = new("lh:(EMPTY)");
+                        if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].Properties.ContainsKey("MonsterEgg")) {
+                            CurrentPen.Egg = GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].Properties.Get<Egg>("MonsterEgg");
+                            GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect] = new("lh:(EMPTY)");
                         }
                     }
                 }

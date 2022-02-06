@@ -1,16 +1,19 @@
 ﻿using LofiHollow.Entities;
 using Newtonsoft.Json;
-using ProtoBuf;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LofiHollow.EntityData {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class ConstructionMaterial {
-        [ProtoMember(1)]
+        [JsonProperty]
         public string Name = "";
-        [ProtoMember(2)]
+        [JsonProperty]
         public int ItemQuantity = 0;
-        [ProtoMember(3)]
+        [JsonProperty]
         public bool Stacks = false;
 
 

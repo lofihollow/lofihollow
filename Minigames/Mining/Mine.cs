@@ -1,14 +1,16 @@
-﻿using LofiHollow.Entities;
-using ProtoBuf;
-using SadRogue.Primitives;
-using System.Collections.Generic;
+﻿using LofiHollow.Entities; 
+using Newtonsoft.Json;
+using SadConsole;
+using SadConsole.Input;
+using SadRogue.Primitives; 
+using System.Collections.Generic; 
 
 namespace LofiHollow.Minigames.Mining {
-    [ProtoContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Mine {
-        [ProtoMember(1)]
+        [JsonProperty]
         public string Location = "";
-        [ProtoMember(2)]
+        [JsonProperty]
         public Dictionary<int, MineLevel> Levels = new();
 
         public bool SyncedFromHost = false;
@@ -21,27 +23,26 @@ namespace LofiHollow.Minigames.Mining {
         }
 
         public void DropItem(Player actor, int slot, int depth) {
-            if (actor.Inventory.Length > slot && actor.Inventory[slot].Name != "(EMPTY)") {
-                ItemWrapper wrap = new(actor.Inventory[slot]);
-                wrap.Position = actor.Position / 12;
+            if (actor.Inventory.Length > slot && actor.Inventory[slot].Name != "(EMPTY)") { 
+                    ItemWrapper wrap = new(actor.Inventory[slot]);
+                    wrap.Position = actor.Position / 12;
 
 
-                actor.Inventory[slot] = new Item("lh:(EMPTY)");
+                    actor.Inventory[slot] = new Item("lh:(EMPTY)");
 
-                SendItem(wrap, depth);
-                SpawnItem(wrap, depth);
+                    SendItem(wrap, depth);
+                    SpawnItem(wrap, depth);
             }
         }
 
         public void SendItem(ItemWrapper item, int depth) {
-            item.MineDepth = depth;
-            NetMsg msg = new("mineItem", item.ToByteArray());
-            GameLoop.SendMessageIfNeeded(msg, false, false);
-        }
+            string json = JsonConvert.SerializeObject(item, Formatting.Indented);
+            GameLoop.SendMessageIfNeeded(new string[] { "mineItem", Location, depth.ToString(), json }, false, false);
+        }  
 
         public void PickupItem(Player player) {
             ItemWrapper wrap = Levels[player.MineDepth].GetEntityAt<ItemWrapper>(player.Position / 12);
-            if (wrap != null) {
+            if (wrap != null) { 
                 for (int i = 0; i < player.Inventory.Length; i++) {
                     if (player.Inventory[i].StacksWith(wrap.item)) {
                         player.Inventory[i].ItemQuantity++;
@@ -60,7 +61,7 @@ namespace LofiHollow.Minigames.Mining {
                         SendPickup(wrap, player.MineDepth);
                         break;
                     }
-                }
+                } 
             }
         }
 
@@ -89,27 +90,26 @@ namespace LofiHollow.Minigames.Mining {
         public void SpawnItem(ItemWrapper item, int Depth) {
             if (Levels.ContainsKey(Depth)) {
                 Levels[Depth].Add(item);
-
-                if (Depth == GameLoop.World.Player.player.MineDepth) {
+                
+                if (Depth == GameLoop.World.Player.MineDepth) {
                     GameLoop.UIManager.Minigames.MineManager.MiningEntities.Add(item);
                 }
             }
         }
 
         public void SendPickup(ItemWrapper item, int Depth) {
-            item.MineDepth = Depth;
-            NetMsg msg = new("mineDestroy", item.ToByteArray());
-            GameLoop.SendMessageIfNeeded(msg, false, false);
+            string json = JsonConvert.SerializeObject(item, Formatting.Indented);
+            GameLoop.SendMessageIfNeeded(new string[] { "mineDestroy", Location, Depth.ToString(), json }, false, false); 
         }
 
         public void DestroyItem(ItemWrapper wrap, int Depth) {
-            if (Levels.ContainsKey(Depth)) {
+            if (Levels.ContainsKey(Depth)) { 
                 ItemWrapper localCopy = Levels[Depth].GetEntityAt<ItemWrapper>(wrap.Position, wrap.item.Name);
                 if (localCopy != null) {
                     Levels[Depth].Remove(localCopy);
                     GameLoop.UIManager.Minigames.MineManager.MiningEntities.Remove(localCopy);
                 }
-            }
+            } 
         }
 
 
@@ -128,14 +128,14 @@ namespace LofiHollow.Minigames.Mining {
 
 
             if (refreshMap)
-                if (player == GameLoop.World.Player.player)
+                if (player == GameLoop.World.Player)
                     GameLoop.UIManager.Minigames.MineManager.MiningFOV = new GoRogue.FOV(Levels[player.MineDepth].MapFOV);
 
 
             return true;
         }
 
-        public bool BreakTileAt(Player player, int depth, Point breakPos) {
+        public bool BreakTileAt(Player player, int depth, Point breakPos) { 
             if (breakPos.X < 0 || breakPos.X > 70)
                 return false;
             if (breakPos.Y < 0 || breakPos.Y > 40)
@@ -161,14 +161,9 @@ namespace LofiHollow.Minigames.Mining {
                             GameLoop.SoundManager.PlaySound("mineHit");
                         }
 
-                        NetMsg msg = new("updateMine", Levels[player.MineDepth].GetTile(breakPos).ToByteArray());
-                        msg.X = breakPos.X;
-                        msg.Y = breakPos.Y;
-                        msg.MiscString = Location;
-                        msg.MiscInt = player.MineDepth;
-
-                        GameLoop.SendMessageIfNeeded(msg, false, false);
-
+                        string json = JsonConvert.SerializeObject(Levels[player.MineDepth].GetTile(breakPos), Formatting.Indented);
+                        GameLoop.SendMessageIfNeeded(new string[] { "updateMine", Location, player.MineDepth.ToString(), breakPos.X.ToString(), breakPos.Y.ToString(), json }, false, false);
+                  
                         return true;
                     } else {
                         return false;
@@ -185,9 +180,9 @@ namespace LofiHollow.Minigames.Mining {
             if (newPosition.X / 12 < 0 || newPosition.X / 12 >= 70)
                 return false;
 
-            if (newPosition.Y < 0 && depth > 0) {
-                // int newDepth = depth - 1;
-                // MovePlayerTo(player, newDepth, newPosition.WithY(39 * 12), true);
+            if (newPosition.Y < 0 && depth > 0) { 
+               // int newDepth = depth - 1;
+               // MovePlayerTo(player, newDepth, newPosition.WithY(39 * 12), true);
                 // return true;
                 return false;
             }
@@ -199,7 +194,7 @@ namespace LofiHollow.Minigames.Mining {
                 return false;
             }
 
-
+            
 
             if (Levels.ContainsKey(player.MineDepth)) {
                 if (Levels[player.MineDepth].GetTile(new Point((newPosition.X + 6) / 12, (newPosition.Y + 12) / 12)).Name == "Air") {

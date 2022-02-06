@@ -1,5 +1,5 @@
 ﻿using SadRogue.Primitives;
-using SadConsole;
+using SadConsole; 
 using System;
 using Key = SadConsole.Input.Keys;
 using SadConsole.UI;
@@ -14,7 +14,7 @@ namespace LofiHollow.UI {
         public SadConsole.UI.Colors CustomColors;
 
         public UI_DialogueWindow DialogueWindow;
-        public UI_Sidebar Sidebar;
+        public UI_Sidebar Sidebar; 
         public UI_MainMenu MainMenu;
         public UI_Inventory Inventory;
         public UI_Map Map;
@@ -26,21 +26,21 @@ namespace LofiHollow.UI {
         public UI_Help Help;
         public UI_MissionLog MissionLog;
         public UI_Photo Photo;
-
+          
         public SadConsole.Console SignConsole;
-        public Window SignWindow;
-        public string signText = "";
+        public Window SignWindow; 
+        public string signText = ""; 
 
-        public Point targetDir = new(0, 0);
+        public Point targetDir = new(0, 0); 
         public string targetType = "None";
         public string selectedMenu = "None";
         public bool flying = false;
 
         public bool clientAndConnected = true;
-
-        public UIManager() {
+         
+        public UIManager() { 
             IsVisible = true;
-            IsFocused = true;
+            IsFocused = true; 
             Parent = GameHost.Instance.Screen;
         }
 
@@ -111,19 +111,19 @@ namespace LofiHollow.UI {
 
             if (GameLoop.NetworkManager != null && GameLoop.NetworkManager.lobbyManager != null)
                 GameLoop.NetworkManager.lobbyManager.FlushNetwork();
-
+            
             base.Update(timeElapsed);
-        }
+        } 
 
         public void Init() {
             SetupCustomColors();
 
             Map = new UI_Map(72, 42);
-            Sidebar = new UI_Sidebar(28, GameLoop.GameHeight, "");
+            Sidebar = new UI_Sidebar(28, GameLoop.GameHeight, ""); 
             Inventory = new UI_Inventory(GameLoop.GameWidth / 2, GameLoop.GameHeight / 2, "");
             CreateSignWindow((GameLoop.MapWidth / 2) - 1, GameLoop.MapHeight / 2, "");
 
-            DialogueWindow = new UI_DialogueWindow(72, 42, "");
+            DialogueWindow = new UI_DialogueWindow(72, 42, ""); 
             MainMenu = new UI_MainMenu();
             Skills = new UI_Skills(72, 42, "[SKILLS]");
             Minigames = new UI_Minigame(72, 42, "");
@@ -133,67 +133,66 @@ namespace LofiHollow.UI {
             Help = new UI_Help(72, 42, "");
             MissionLog = new UI_MissionLog(72, 42, "");
             Photo = new UI_Photo(31, 31, "");
-
+             
             UseMouse = true;
             selectedMenu = "MainMenu";
-        }
+        } 
 
         private void CheckKeyboard() {
-            if (selectedMenu != "Sign") {
+            if (selectedMenu != "Sign") { 
                 if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftControl)) {
-                    if (GameHost.Instance.Keyboard.IsKeyPressed(Key.W)) {
-                        CommandManager.MoveActorTo(GameLoop.World.Player.player, GameLoop.World.Player.player.Position, GameLoop.World.Player.player.MapPos + new Point3D(0, -1, 0));
+                    if (GameHost.Instance.Keyboard.IsKeyPressed(Key.W)) { 
+                        CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, -1, 0)); 
                     }
                     if (GameHost.Instance.Keyboard.IsKeyPressed(Key.S)) {
-                        CommandManager.MoveActorTo(GameLoop.World.Player.player, GameLoop.World.Player.player.Position, GameLoop.World.Player.player.MapPos + new Point3D(0, 1, 0));
+                        CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 1, 0));
                     }
                     if (GameHost.Instance.Keyboard.IsKeyPressed(Key.A)) {
-                        CommandManager.MoveActorTo(GameLoop.World.Player.player, GameLoop.World.Player.player.Position, GameLoop.World.Player.player.MapPos + new Point3D(-1, 0, 0));
+                        CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(-1, 0, 0));
                     }
                     if (GameHost.Instance.Keyboard.IsKeyPressed(Key.D)) {
-                        CommandManager.MoveActorTo(GameLoop.World.Player.player, GameLoop.World.Player.player.Position, GameLoop.World.Player.player.MapPos + new Point3D(1, 0, 0));
+                        CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(1, 0, 0));
                     }
                 } else {
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) {
-                        CommandManager.MoveActorBy(GameLoop.World.Player.player, new Point(0, -1));
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) { 
+                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1));
                         Map.UpdateVision();
                     }
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) {
-                        CommandManager.MoveActorBy(GameLoop.World.Player.player, new Point(0, 1));
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) { 
+                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
                         Map.UpdateVision();
                     }
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) {
-                        CommandManager.MoveActorBy(GameLoop.World.Player.player, new Point(-1, 0));
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) { 
+                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
                         Map.UpdateVision();
                     }
                     if (GameHost.Instance.Keyboard.IsKeyDown(Key.D)) {
-                        CommandManager.MoveActorBy(GameLoop.World.Player.player, new Point(1, 0));
+                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
                         Map.UpdateVision();
                     }
                     if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemPeriod)) {
-                        if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(GameLoop.World.Player.player.Position).Name == "Down Stairs") {
-                            CommandManager.MoveActorTo(GameLoop.World.Player.player, GameLoop.World.Player.player.Position, GameLoop.World.Player.player.MapPos + new Point3D(0, 0, -1));
+                        if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Down Stairs") {
+                            CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, -1));
                             Map.UpdateVision();
-                        } else if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(GameLoop.World.Player.player.Position).Name == "Mine Entrance") {
+                        } else if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Mine Entrance") { 
                             selectedMenu = "Minigame";
-                            GameLoop.World.Player.player.MineEnteredAt = GameLoop.World.Player.player.Position;
-                            Minigames.MineManager.MiningSetup(GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(GameLoop.World.Player.player.Position).MiscString);
+                            GameLoop.World.Player.MineEnteredAt = GameLoop.World.Player.Position;
+                            Minigames.MineManager.MiningSetup(GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).MiscString);
                             if (GameLoop.SingleOrHosting())
                                 Minigames.ToggleMinigame("Mining");
                             else
                                 AddMsg("Receiving mine data from host, please wait.");
-                        } else if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(GameLoop.World.Player.player.Position).Name == "Bed") {
+                        } else if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Bed") {
                             GameLoop.UIManager.AddMsg(new ColoredString("You lie down to sleep...", Color.Green, Color.Black));
-                            GameLoop.World.Player.player.Sleeping = true;
+                            GameLoop.World.Player.Sleeping = true;
 
-                            NetMsg msg = new("sleep", true.ToByteArray());
-                            GameLoop.SendMessageIfNeeded(msg, false, true);
+                            GameLoop.SendMessageIfNeeded(new string[] { "sleep", "true" }, false, true); 
                         }
                     }
 
                     if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemComma)) {
-                        if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(GameLoop.World.Player.player.Position).Name == "Up Stairs") {
-                            CommandManager.MoveActorTo(GameLoop.World.Player.player, GameLoop.World.Player.player.Position, GameLoop.World.Player.player.MapPos + new Point3D(0, 0, 1));
+                        if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Up Stairs") {
+                            CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, 1));
                             Map.UpdateVision();
                         }
                     }
@@ -221,7 +220,7 @@ namespace LofiHollow.UI {
                     }
 
                     if (GameHost.Instance.Keyboard.IsKeyReleased(Key.G)) {
-                        CommandManager.PickupItem(GameLoop.World.Player.player);
+                        CommandManager.PickupItem(GameLoop.World.Player);
                     }
 
                     if (GameHost.Instance.Keyboard.IsKeyReleased(Key.C)) {
@@ -230,29 +229,38 @@ namespace LofiHollow.UI {
                 }
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F9)) {
-                    World.SaveMapToFile(GameLoop.World.maps[GameLoop.World.Player.player.MapPos], GameLoop.World.Player.player.MapPos);
+                    World.SaveMapToFile(GameLoop.World.maps[GameLoop.World.Player.MapPos], GameLoop.World.Player.MapPos);
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F2)) {
-                    CommandManager.AddItemToInv(GameLoop.World.Player.player, new("lh:Fishing Rod"));
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F2)) { 
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Medium Backpack"));
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F3)) {
-                    GameLoop.World.SavePlayer();
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F3)) { 
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Obsidian Shard"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Copper Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Zinc Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Tin Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Iron Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Gold Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Silver Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Tungsten Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Titanium Chunk"));
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Digitite Chunk"));
                 }
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F1)) {
                     Help.ToggleHelp("Guide");
                     GameLoop.SoundManager.PlaySound("openGuide");
                 }
-
+                
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F5)) {
                     Map.LimitedVision = !Map.LimitedVision;
 
                     if (!Map.LimitedVision) {
-                        for (int i = 0; i < GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles.Length; i++) {
-                            GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Unshade();
-                            GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].IsVisible = true;
+                        for (int i = 0; i < GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles.Length; i++) {
+                            GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Unshade();
+                            GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].IsVisible = true;
                         }
                     } else {
                         Map.UpdateVision();
@@ -260,8 +268,8 @@ namespace LofiHollow.UI {
                 }
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Tab)) {
-                    GameLoop.World.Player.player.SwitchMeleeMode();
-                    AddMsg(new ColoredString("Switched melee to " + GameLoop.World.Player.player.CombatMode + ". (" + GameLoop.World.Player.player.GetDamageType() + ")", Color.Yellow, Color.Black));
+                    GameLoop.World.Player.SwitchMeleeMode();
+                    AddMsg(new ColoredString("Switched melee to " + GameLoop.World.Player.CombatMode + ". (" + GameLoop.World.Player.GetDamageType() + ")", Color.Yellow, Color.Black));
                 }
             } else if (selectedMenu == "Sign") {
                 if (GameHost.Instance.Keyboard.HasKeysPressed) {
@@ -290,9 +298,9 @@ namespace LofiHollow.UI {
 
             for (int i = 0; i < signLines.Length; i++) {
                 SignConsole.Print(0, startY + i, signLines[i].Align(HorizontalAlignment.Center, SignConsole.Width));
-            }
+            } 
         }
-
+         
         public void CreateSignWindow(int width, int height, string title) {
             SignWindow = new(width, height);
             SignWindow.CanDrag = false;
@@ -311,16 +319,16 @@ namespace LofiHollow.UI {
 
             SignWindow.Show();
             SignWindow.IsVisible = false;
-        }
+        } 
 
         private void SetupCustomColors() {
-            CustomColors = SadConsole.UI.Colors.CreateAnsi();
-            CustomColors.ControlHostBackground = new AdjustableColor(Color.Black, "Black");
-            CustomColors.Lines = new AdjustableColor(Color.White, "White");
+            CustomColors = SadConsole.UI.Colors.CreateAnsi(); 
+            CustomColors.ControlHostBackground = new AdjustableColor(Color.Black, "Black");  
+            CustomColors.Lines = new AdjustableColor(Color.White, "White");  
             CustomColors.Title = new AdjustableColor(Color.White, "White");
 
-            CustomColors.RebuildAppearances();
-            SadConsole.UI.Themes.Library.Default.Colors = CustomColors;
+            CustomColors.RebuildAppearances(); 
+            SadConsole.UI.Themes.Library.Default.Colors = CustomColors; 
         }
 
         public void SignText(Point locInMap, Point3D MapLoc) {
@@ -329,19 +337,43 @@ namespace LofiHollow.UI {
             SignWindow.IsFocused = true;
 
             if (MapLoc == new Point3D(0, 1, 0)) { // Town Center
-                if (locInMap == new Point(31, 9)) { signText = "Tom's Bar"; } else if (locInMap == new Point(21, 9)) { signText = "Blacksmith||Weekdays 9am to 5pm|Closed Weekends"; } else if (locInMap == new Point(12, 20)) { signText = "Jasper's General Goods"; } else if (locInMap == new Point(21, 30)) { signText = "Adventure Guild"; } else if (locInMap == new Point(29, 30)) { signText = "Emerose's Apothecary"; } else if (locInMap == new Point(12, 24)) { signText = "Library"; } else if (locInMap == new Point(6, 16)) { signText = "Zephyr's Textiles"; } else if (locInMap == new Point(37, 7)) { signText = "Indigo -- Workshop"; } else if (locInMap == new Point(49, 9)) { signText = "Indigo -- Residence"; } else {
+                if (locInMap == new Point(31, 9)) { signText = "Tom's Bar"; }
+                else if (locInMap == new Point(21, 9)) { signText = "Blacksmith||Weekdays 9am to 5pm|Closed Weekends"; } 
+                else if (locInMap == new Point(12, 20)) { signText = "Jasper's General Goods"; } 
+                else if (locInMap == new Point(21, 30)) { signText = "Adventure Guild"; }
+                else if (locInMap == new Point(29, 30)) { signText = "Emerose's Apothecary"; } 
+                else if (locInMap == new Point(12, 24)) { signText = "Library"; }
+                else if (locInMap == new Point(6, 16)) { signText = "Zephyr's Textiles"; }
+                else if (locInMap == new Point(37, 7)) { signText = "Indigo -- Workshop"; }
+                else if (locInMap == new Point(49, 9)) { signText = "Indigo -- Residence"; }
+                else {
                     AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + ") has no text.");
                 }
-            } else if (MapLoc == new Point3D(1, 1, 0)) {
-                if (locInMap == new Point(5, 24)) { signText = "Sapphire's Bakery"; } else if (locInMap == new Point(8, 20)) { signText = "Saffron's Farm Supply"; } else if (locInMap == new Point(10, 28)) { signText = "Cobalt's House"; } else if (locInMap == new Point(16, 28)) { signText = "Tak's House"; } else if (locInMap == new Point(21, 24)) { signText = "Clinic"; } else if (locInMap == new Point(28, 25)) { signText = "Courier's Guild"; } else if (locInMap == new Point(59, 24)) { signText = "Merchant's Guild"; } else if (locInMap == new Point(43, 15)) { signText = "Town Hall"; } else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + ") has no text."); }
-            } else if (MapLoc == new Point3D(-3, 1, 0)) { signText = "North -- Lake|West -- Mountain Cave|East -- Noonbreeze"; } else if (MapLoc == new Point3D(-3, -1, 0)) { signText = "Fisherman's Cabin"; } else if (MapLoc == new Point3D(-5, 1, 0)) { signText = "Mountain Tunnel||Under Construction"; } else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + "), map (" + MapLoc.X + "," + MapLoc.Y + "," + MapLoc.Z + ")"); }
+            } 
+
+            else if (MapLoc == new Point3D(1, 1, 0)) {
+                if (locInMap == new Point(5, 24)) { signText = "Sapphire's Bakery"; } 
+                else if (locInMap == new Point(8, 20)) { signText = "Saffron's Farm Supply"; }
+                else if (locInMap == new Point(10, 28)) { signText = "Cobalt's House"; }
+                else if (locInMap == new Point(16, 28)) { signText = "Tak's House"; }
+                else if (locInMap == new Point(21, 24)) { signText = "Clinic"; }
+                else if (locInMap == new Point(28, 25)) { signText = "Courier's Guild"; }
+                else if (locInMap == new Point(59, 24)) { signText = "Merchant's Guild"; }
+                else if (locInMap == new Point(43, 15)) { signText = "Town Hall"; }
+                else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + ") has no text."); }
+            }
+            
+            else if (MapLoc == new Point3D(-3, 1, 0)) { signText = "North -- Lake|West -- Mountain Cave|East -- Noonbreeze"; }
+            else if (MapLoc == new Point3D(-3, -1, 0)) { signText = "Fisherman's Cabin"; } 
+            else if (MapLoc == new Point3D(-5, 1, 0)) { signText = "Mountain Tunnel||Under Construction"; } 
+            else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + "), map (" + MapLoc.X + "," + MapLoc.Y + "," + MapLoc.Z + ")"); }
         }
 
         public void CheckFall() {
-            if (GameLoop.World.Player.player.Position.X < 0 || GameLoop.World.Player.player.Position.Y < 0 || GameLoop.World.Player.player.Position.X > GameLoop.MapWidth || GameLoop.World.Player.player.Position.Y > GameLoop.MapHeight)
+            if (GameLoop.World.Player.Position.X < 0 || GameLoop.World.Player.Position.Y < 0 || GameLoop.World.Player.Position.X > GameLoop.MapWidth || GameLoop.World.Player.Position.Y > GameLoop.MapHeight)
                 return;
-            if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(GameLoop.World.Player.player.Position).Name == "Space" && !flying) {
-                CommandManager.MoveActorTo(GameLoop.World.Player.player, GameLoop.World.Player.player.Position, GameLoop.World.Player.player.MapPos + new Point3D(0, 0, -1));
+            if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Space" && !flying) {
+                CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, -1));
                 AddMsg("You fell down!");
             }
         }

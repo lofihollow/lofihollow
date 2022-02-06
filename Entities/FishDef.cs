@@ -1,54 +1,57 @@
 ﻿using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
-using ProtoBuf;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LofiHollow.Entities {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class FishDef {
-        [ProtoMember(1)]
+        [JsonProperty]
         public string PackageID = "";
-        [ProtoMember(2)]
+        [JsonProperty]
         public string Name = "";
-        [ProtoMember(3)]
+        [JsonProperty]
         public string Season = "";
-        [ProtoMember(4)]
+        [JsonProperty]
         public int EarliestTime = 360;
-        [ProtoMember(5)]
+        [JsonProperty]
         public int LatestTime = 360;
-        [ProtoMember(6)]
+        [JsonProperty]
         public string CatchLocation = "";
 
-        [ProtoMember(7)]
-        public int MaxQuality = 1;
+        [JsonProperty]
+        public int MaxQuality = 1; 
 
-        [ProtoMember(8)]
+        [JsonProperty]
         public int RequiredLevel = 0;
-        [ProtoMember(9)]
+        [JsonProperty]
         public int GrantedExp = 0;
 
-        [ProtoMember(10)]
+        [JsonProperty]
         public int Strength = 0;
-        [ProtoMember(11)]
+        [JsonProperty]
         public int FightChance = 10;
-        [ProtoMember(12)]
+        [JsonProperty]
         public int FightLength = 0;
 
-        [ProtoMember(13)]
+        [JsonProperty]
         public int colR = 0;
-        [ProtoMember(14)]
+        [JsonProperty]
         public int colG = 0;
-        [ProtoMember(15)]
+        [JsonProperty]
         public int colB = 0;
-        [ProtoMember(16)]
+        [JsonProperty]
         public int colA = 255;
-        [ProtoMember(17)]
+        [JsonProperty]
         public int glyph = 0;
 
-        [ProtoMember(18)]
+        [JsonProperty]
         public string FishItemID = "";
-        [ProtoMember(19)]
+        [JsonProperty]
         public string FilletID = "";
 
         public ColoredString GetAppearance() {

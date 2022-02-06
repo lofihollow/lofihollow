@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
-using ProtoBuf;
+﻿using Newtonsoft.Json; 
 using System.Collections.Generic; 
 
 namespace LofiHollow.Entities.NPC {
-    [ProtoContract]
-    [JsonObject(MemberSerialization.OptOut)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Schedule {
-        [ProtoMember(1)]
+        [JsonProperty]
         public List<string> Nodes = new();
-        [ProtoMember(2)]
+
+        [JsonProperty]
         public int NextNodeTime;
-        [ProtoMember(3)]
+
+        [JsonProperty]
         public int CurrentNode;
 
         [JsonConstructor]

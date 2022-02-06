@@ -1,25 +1,28 @@
 ﻿using LofiHollow.Entities;
-using System.Collections.Generic;
-using ProtoBuf;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LofiHollow.EntityData {
-    [ProtoContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class CraftComponent {
-        [ProtoMember(1)]
+        [JsonProperty]
         public string Property = "";
-        [ProtoMember(2)]
+        [JsonProperty]
         public int Tier = 0;
-        [ProtoMember(3)]
+        [JsonProperty]
         public int Quantity = 0;
-        [ProtoMember(4)]
+        [JsonProperty]
         public bool Stacks = false;
-        [ProtoMember(5)]
+        [JsonProperty]
         public bool CountsAsMultiple = false;
-
+         
         [JsonConstructor]
         public CraftComponent() { }
-
+         
         public CraftComponent(string prop, int tier, int qty, bool stack, bool countsAsMult) {
             Property = prop;
             Tier = tier;
@@ -35,8 +38,8 @@ namespace LofiHollow.EntityData {
             int heldTotal = 0;
             int Quality = 0;
             for (int i = 0; i < act.Inventory.Length; i++) {
-                if (act.Inventory[i].Craft != null) {
-                    List<CraftComponent> craft = act.Inventory[i].Craft;
+                if (act.Inventory[i].Properties.ContainsKey("Craft")) {
+                    List<CraftComponent> craft = act.Inventory[i].Properties.GetList<CraftComponent>("Craft");
                     for (int j = 0; j < craft.Count; j++) {
                         if (craft[j].Property == Property && craft[j].Tier >= Tier && (act.Inventory[i].Quality == 0 || act.Inventory[i].Quality >= MinQuality)) {
                             if (CountsAsMultiple)

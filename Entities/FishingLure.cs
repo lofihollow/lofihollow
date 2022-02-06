@@ -55,7 +55,7 @@ namespace LofiHollow.Entities {
             } else if (!FishOnHook) {
                 Effect = null;
                 if (Position != new Point(-1, -1) && xVelocity == 0 && yVelocity == 0) {
-                    Tile tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(Position);
+                    TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(Position);
                     if (tile.Name == "Water" || tile.Name == "Shallow Water") {
                         if (GameLoop.rand.Next(100) == 1) {
                             FishOnHook = true;
