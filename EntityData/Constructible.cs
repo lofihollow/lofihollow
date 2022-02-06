@@ -1,55 +1,52 @@
-﻿using LofiHollow.EntityData;
+﻿using ProtoBuf;
 using Newtonsoft.Json;
 using SadConsole;
-using SadRogue.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SadRogue.Primitives; 
+using System.Collections.Generic; 
 
 namespace LofiHollow.EntityData {
-    [JsonObject(MemberSerialization.OptIn)]
+    [ProtoContract]
+    [JsonObject(MemberSerialization.OptOut)]
     public class Constructible {
-        [JsonProperty]
+        [ProtoMember(1)]
         public string Name = "";
-        [JsonProperty]
+        [ProtoMember(2)]
         public string Materials = "";
 
-        [JsonProperty]
+        [ProtoMember(3)]
         public int Glyph = 32;
 
-        [JsonProperty]
+        [ProtoMember(4)]
         public int ForegroundR = 0;
-        [JsonProperty]
+        [ProtoMember(5)]
         public int ForegroundG = 0;
-        [JsonProperty]
+        [ProtoMember(6)]
         public int ForegroundB = 0;
 
-        [JsonProperty]
+        [ProtoMember(7)]
         public Decorator Dec;
 
-        [JsonProperty]
+        [ProtoMember(8)]
         public LockOwner Lock;
 
-        [JsonProperty]
+        [ProtoMember(9)]
         public string SpecialProps = "";
 
-        [JsonProperty]
+        [ProtoMember(10)]
         public int RequiredLevel = 0;
-        [JsonProperty]
+        [ProtoMember(11)]
         public int ExpGranted = 0;
 
-        [JsonProperty]
+        [ProtoMember(12)]
         public bool BlocksMove = false;
 
-        [JsonProperty]
+        [ProtoMember(13)]
         public bool BlocksLOS = false;
 
-        [JsonProperty]
+        [ProtoMember(14)]
         public Container Container;
 
-        [JsonProperty]
+        [ProtoMember(15)]
         public List<ConstructionMaterial> MaterialsNeeded = new();
 
 

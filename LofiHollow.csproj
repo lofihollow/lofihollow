@@ -1128,6 +1128,7 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="OptimizedPriorityQueue" Version="4.2.0" />
+    <PackageReference Include="protobuf-net" Version="3.0.101" />
     <PackageReference Include="SadConsole" Version="9.2.1" />
     <PackageReference Include="SadConsole.Host.MonoGame" Version="9.2.0" />
     <PackageReference Include="SadRex" Version="1.0.3" />

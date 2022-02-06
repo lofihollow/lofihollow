@@ -48,13 +48,13 @@ namespace LofiHollow.Managers {
 
             if (GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible) {
                 NewSong = "Title Theme";
-            } else if (GameLoop.World.Player.MineLocation != "None") {
+            } else if (GameLoop.World.Player.player.MineLocation != "None") {
                 NewSong = "Mine Theme";
             } else if (GameLoop.UIManager.Minigames.CurrentGame != "None") {
                 NewSong = "Minigame Theme";
             } else if (GameLoop.UIManager.DialogueWindow.dialogueOption == "Shop") {
                 NewSong = "Shop Theme";
-            } else if (GameLoop.World.Player.Clock.GetCurrentTime() > 1110) {
+            } else if (GameLoop.World.Player.player.Clock.GetCurrentTime() > 1110) {
                 NewSong = "Noonbreeze Night Theme";
             } else {
                 NewSong = "Noonbreeze Day Theme";

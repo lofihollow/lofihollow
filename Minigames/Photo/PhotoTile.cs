@@ -2,21 +2,25 @@
 using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProtoBuf;
 
 namespace LofiHollow.Minigames.Photo {
     [JsonObject(MemberSerialization.OptOut)]
+    [ProtoContract]
     public class PhotoTile {
+        [ProtoMember(1)]
         public string Name;
+        [ProtoMember(2)]
         public int ColR;
+        [ProtoMember(3)]
         public int ColG;
+        [ProtoMember(4)]
         public int ColB;
+        [ProtoMember(5)]
         public int ColA;
+        [ProtoMember(6)]
         public int Glyph;
+        [ProtoMember(7)]
         public Decorator Dec;
 
         [JsonConstructor]

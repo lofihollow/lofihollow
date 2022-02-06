@@ -48,7 +48,7 @@ namespace LofiHollow.UI {
             MessageLog = new MessageLogWindow(72, 18, "Message Log");
             GameLoop.UIManager.Children.Add(MessageLog);
             MessageLog.Show();
-            MessageLog.Position = new Point(0, 42); 
+            MessageLog.Position = new Point(0, 42);
             MessageLog.IsVisible = false;
 
         }
@@ -56,18 +56,18 @@ namespace LofiHollow.UI {
         public void LoadMap(Point3D pos) {
             if (!GameLoop.World.maps.ContainsKey(pos)) { GameLoop.World.CreateMap(pos); }
             Map map = GameLoop.World.maps[pos];
-              
+
             for (int i = 0; i < map.Tiles.Length; i++) {
                 map.Tiles[i].Unshade();
                 map.Tiles[i].IsVisible = false;
 
                 int depth = 0;
-                TileBase tile = new(GameLoop.World.maps[GameLoop.World.Player.MapPos + new Point3D(0, 0, depth)].Tiles[i]);
+                Tile tile = new(GameLoop.World.maps[GameLoop.World.Player.player.MapPos + new Point3D(0, 0, depth)].Tiles[i]);
 
                 if (map.Tiles[i].Name == "Space") {
-                    while (tile.Name == "Space" && GameLoop.World.maps.ContainsKey(GameLoop.World.Player.MapPos + new Point3D(0, 0, depth - 1))) {
+                    while (tile.Name == "Space" && GameLoop.World.maps.ContainsKey(GameLoop.World.Player.player.MapPos + new Point3D(0, 0, depth - 1))) {
                         depth--;
-                        tile = new TileBase(GameLoop.World.maps[GameLoop.World.Player.MapPos + new Point3D(0, 0, depth)].Tiles[i]);
+                        tile = new(GameLoop.World.maps[GameLoop.World.Player.player.MapPos + new Point3D(0, 0, depth)].Tiles[i]);
                     }
 
                     float mult = Math.Max(0.0f, 1.0f + (depth * 0.2f));
@@ -78,7 +78,6 @@ namespace LofiHollow.UI {
                     map.Tiles[i].ForegroundG = shaded.G;
                     map.Tiles[i].ForegroundB = shaded.B;
                     map.Tiles[i].TileGlyph = tile.TileGlyph;
-                    map.Tiles[i].UpdateAppearance();
                 }
 
                 if (map.Tiles[i].Plant != null) {
@@ -88,145 +87,114 @@ namespace LofiHollow.UI {
                 } else {
                     MapConsole.SetEffect(i, null);
                 }
+
+                map.Tiles[i].UpdateAppearance();
             }
 
             MapConsole.Surface = new CellSurface(GameLoop.MapWidth, GameLoop.MapHeight, map.Tiles);
-            MapWindow.Title = GameLoop.World.maps[GameLoop.World.Player.MapPos].MinimapTile.name.Align(HorizontalAlignment.Center, GameLoop.MapWidth - 2, (char)196);
+            MapWindow.Title = GameLoop.World.maps[GameLoop.World.Player.player.MapPos].MinimapTile.name.Align(HorizontalAlignment.Center, GameLoop.MapWidth - 2, (char)196);
 
 
-            LightMap = new GoRogue.SenseMapping.SenseMap(GameLoop.World.maps[GameLoop.World.Player.MapPos].LightRes);
+            LightMap = new GoRogue.SenseMapping.SenseMap(GameLoop.World.maps[GameLoop.World.Player.player.MapPos].LightRes);
             LightMap.Calculate();
             SyncMapEntities(map);
         }
 
         public void SyncMapEntities(Map map) {
-            if (GameLoop.World != null) { 
+            if (GameLoop.World != null) {
                 MapConsole.ForceRendererRefresh = true;
-                MapConsole.Children.Clear(); 
+                MapConsole.Children.Clear();
                 EntityRenderer.RemoveAll();
 
-                if (GameLoop.World.Player.ScreenAppearance == null)
-                    GameLoop.World.Player.UpdateAppearance();
-                MapConsole.Children.Add(GameLoop.World.Player.ScreenAppearance);
+                EntityRenderer.Add(GameLoop.World.Player);
 
                 foreach (Entity entity in map.Entities.Items) {
-                    if (entity is ItemWrapper) {
-                        EntityRenderer.Add(entity); 
-                    } else {
-                        if (entity is Actor act) {
-                            MapConsole.Children.Add(act.ScreenAppearance);
-                        }
-                    }
+                    EntityRenderer.Add(entity);
                 }
 
-                for (int i = 0; i < GameLoop.World.npcLibrary.Count; i++) {
-                    NPC temp = GameLoop.World.npcLibrary[i];
-                    if (temp.ScreenAppearance == null)
-                        temp.UpdateAppearance();
-                    MapConsole.Children.Add(temp.ScreenAppearance);
-                    
-                    if (temp.MapPos == GameLoop.World.Player.MapPos || (temp.MapPos.X == GameLoop.World.Player.MapPos.X && temp.MapPos.Y == GameLoop.World.Player.MapPos.Y && temp.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
-                        if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(temp.Position.ToCoord())) {
-                            temp.ScreenAppearance.IsVisible = true;
-                        } else {
-                            temp.ScreenAppearance.IsVisible = false;
-                        }
-                    } else {
-                        temp.ScreenAppearance.IsVisible = false;
-                    }
-
-                    if (temp.ScreenAppearance.Position != temp.Position) {
-                        temp.ScreenAppearance.Position = temp.Position;
-                    }
-                }
-
-                foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
-                    if (kv.Value.ScreenAppearance == null)
-                        kv.Value.UpdateAppearance();
-                    MapConsole.Children.Add(kv.Value.ScreenAppearance);
-
-                    if (kv.Value.MapPos == GameLoop.World.Player.MapPos || (kv.Value.MapPos.X == GameLoop.World.Player.MapPos.X && kv.Value.MapPos.Y == GameLoop.World.Player.MapPos.Y && kv.Value.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
-                        // EntityRenderer.Add(kv.Value); 
+                foreach (KeyValuePair<string, NPCWrapper> kv in GameLoop.World.npcLibrary) {
+                    if (kv.Value.npc.MapPos == GameLoop.World.Player.player.MapPos || (kv.Value.npc.MapPos.X == GameLoop.World.Player.player.MapPos.X && kv.Value.npc.MapPos.Y == GameLoop.World.Player.player.MapPos.Y && kv.Value.npc.MapPos.Z < GameLoop.World.Player.player.MapPos.Z)) {
                         if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(kv.Value.Position.ToCoord())) {
-                            kv.Value.ScreenAppearance.IsVisible = true;
+                            EntityRenderer.Add(kv.Value);
                         } else {
-                            kv.Value.ScreenAppearance.IsVisible = false;
+                            EntityRenderer.Remove(kv.Value);
                         }
                     } else {
-                        kv.Value.ScreenAppearance.IsVisible = false;
-                    }
-
-                    if (kv.Value.ScreenAppearance.Position != kv.Value.Position) {
-                        kv.Value.ScreenAppearance.Position = kv.Value.Position;
+                        EntityRenderer.Remove(kv.Value);
                     }
                 }
 
+                foreach (KeyValuePair<long, PlayerWrapper> kv in GameLoop.World.otherPlayers) {
+                    if (kv.Value.player.MapPos == GameLoop.World.Player.player.MapPos || (kv.Value.player.MapPos.X == GameLoop.World.Player.player.MapPos.X && kv.Value.player.MapPos.Y == GameLoop.World.Player.player.MapPos.Y && kv.Value.player.MapPos.Z < GameLoop.World.Player.player.MapPos.Z)) {
+                        if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(kv.Value.player.Position.ToCoord())) {
+                            EntityRenderer.Add(kv.Value);
+                        } else {
+                            EntityRenderer.Remove(kv.Value);
+                        }
+                    } else {
+                        EntityRenderer.Remove(kv.Value);
+                    }
+                }
 
-
-
-                FOV = new GoRogue.FOV(GameLoop.World.maps[GameLoop.World.Player.MapPos].MapFOV);
-                for (int i = 0; i < GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles.Length; i++) {
-                    if (GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].EmitsLight != null) {
-                        Light light = GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].EmitsLight;
+                FOV = new GoRogue.FOV(GameLoop.World.maps[GameLoop.World.Player.player.MapPos].MapFOV);
+                for (int i = 0; i < GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles.Length; i++) {
+                    if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].EmitsLight != null) {
+                        Light light = GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].EmitsLight;
                         LightMap.AddSenseSource(new GoRogue.SenseMapping.SenseSource(GoRogue.SenseMapping.SourceType.RIPPLE, new Coord(i % GameLoop.MapWidth, i / GameLoop.MapWidth), light.Radius, GoRogue.Distance.EUCLIDEAN, light.Intensity));
                     }
                 }
 
-                UpdateVision(); 
+                UpdateVision();
             }
         }
 
 
         public void UpdateNPCs() {
             if (GameLoop.SingleOrHosting()) {
-                for (int i = 0; i < GameLoop.World.npcLibrary.Count; i++) {
-                    GameLoop.World.npcLibrary[i].Update(false);
+                foreach (KeyValuePair<string, NPCWrapper> kv in GameLoop.World.npcLibrary) {
+                    kv.Value.Update(false);
                 }
             }
-             
-            for (int i = 0; i < GameLoop.World.npcLibrary.Count; i++) {
-                NPC ent = GameLoop.World.npcLibrary[i];
-                if (ent.ScreenAppearance == null)
-                    ent.UpdateAppearance();
 
-                if (ent.MapPos == GameLoop.World.Player.MapPos || (ent.MapPos.X == GameLoop.World.Player.MapPos.X && ent.MapPos.Y == GameLoop.World.Player.MapPos.Y && ent.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
+            foreach (KeyValuePair<string, NPCWrapper> kv in GameLoop.World.npcLibrary) {
+                NPC ent = kv.Value.npc;
+
+                if (ent.MapPos == GameLoop.World.Player.player.MapPos || (ent.MapPos.X == GameLoop.World.Player.player.MapPos.X && ent.MapPos.Y == GameLoop.World.Player.player.MapPos.Y && ent.MapPos.Z < GameLoop.World.Player.player.MapPos.Z)) {
                     if (LimitedVision) {
                         if (FOV.CurrentFOV.Contains(ent.Position.ToCoord())) {
-                            ent.ScreenAppearance.IsVisible = true;
+                            EntityRenderer.Add(kv.Value);
                         } else {
-                            ent.ScreenAppearance.IsVisible = false;
+                            EntityRenderer.Remove(kv.Value);
                         }
                     } else {
-                        ent.ScreenAppearance.IsVisible = true;
+                        EntityRenderer.Add(kv.Value);
                     }
                 } else {
-                    ent.ScreenAppearance.IsVisible = false;
+                    EntityRenderer.Remove(kv.Value);
                 }
 
-                if (ent.MapPos.Z < GameLoop.World.Player.MapPos.Z) {
-                    int depth = GameLoop.World.Player.MapPos.Z - ent.MapPos.Z;
+                if (ent.MapPos.Z < GameLoop.World.Player.player.MapPos.Z) {
+                    int depth = GameLoop.World.Player.player.MapPos.Z - ent.MapPos.Z;
 
-                    Color shaded = new(ent.Appearance.Foreground.R, ent.Appearance.Foreground.G, ent.Appearance.Foreground.B, 255 - (depth * 51));
-
-                    ent.Appearance.Foreground = shaded;
+                    ent.ForegroundA = 255 - (depth * 51);
                 }
-            } 
+            }
         }
 
         public void RenderOverlays() {
-            for (int i = 0; i < GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles.Length; i++) {
+            for (int i = 0; i < GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles.Length; i++) {
                 MapConsole.ClearDecorators(i, 1);
 
-                if (GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Dec != null) {
-                    Decorator dec = GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Dec;
-                    MapConsole.AddDecorator(i, 1, new CellDecorator(new Color(dec.R, dec.G, dec.B, GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Foreground.A), dec.Glyph, Mirror.None));
+                if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Dec != null) {
+                    Decorator dec = GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Dec;
+                    MapConsole.AddDecorator(i, 1, new CellDecorator(new Color(dec.R, dec.G, dec.B, GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Foreground.A), dec.Glyph, Mirror.None));
                 }
 
-                if (GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Plant != null) {
-                    if (!GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Plant.WateredToday) {
-                        if (GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Plant.CurrentStage != GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Plant.Stages.Count - 1) {
-                            if (GameLoop.World.maps[GameLoop.World.Player.MapPos].Tiles[i].Plant.CurrentStage != -1) {
-                                if (MapConsole.GetEffect(i) == null) { 
+                if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Plant != null) {
+                    if (!GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Plant.WateredToday) {
+                        if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Plant.CurrentStage != GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Plant.Stages.Count - 1) {
+                            if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].Tiles[i].Plant.CurrentStage != -1) {
+                                if (MapConsole.GetEffect(i) == null) {
                                     MapConsole.SetEffect(i, new CustomBlink(168, Color.Blue));
                                 }
                             }
@@ -235,7 +203,7 @@ namespace LofiHollow.UI {
                 }
             }
 
-            if (GameLoop.World.Player.MapPos == new Point3D(1, 0, -1)) {
+            if (GameLoop.World.Player.player.MapPos == new Point3D(1, 0, -1)) {
                 if (GameLoop.UIManager.Minigames.MonsterPenManager != null) {
                     if (GameLoop.UIManager.Minigames.MonsterPenManager.FirstPen != null) {
                         if (GameLoop.UIManager.Minigames.MonsterPenManager.FirstPen.Monster.Name != "(EMPTY)") {
@@ -257,21 +225,21 @@ namespace LofiHollow.UI {
                                 MapConsole.Print(21, 34, GameLoop.UIManager.Minigames.MonsterPenManager.ThirdPen.Monster.Appearance());
                         }
                     }
-                } 
+                }
             }
 
             foreach (var pos in FOV.CurrentFOV) {
                 if (LightMap.CurrentSenseMap.Contains(pos)) {
-                    GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(new Point(pos.X, pos.Y)).SetLight(LightMap[pos]); 
+                    GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(new Point(pos.X, pos.Y)).SetLight(LightMap[pos]);
                 }
 
-                if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(new Point(pos.X, pos.Y)) != null) {
-                    TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(new Point(pos.X, pos.Y));
+                if (GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(new Point(pos.X, pos.Y)) != null) {
+                    Tile tile = GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(new Point(pos.X, pos.Y));
                     if (tile.ExposedToSky) {
                         int baseAlpha = 0;
 
-                        if (GameLoop.World.Player.Clock.GetCurrentTime() > 1110) {
-                            baseAlpha = (GameLoop.World.Player.Clock.GetCurrentTime() - 1110);
+                        if (GameLoop.World.Player.player.Clock.GetCurrentTime() > 1110) {
+                            baseAlpha = (GameLoop.World.Player.player.Clock.GetCurrentTime() - 1110);
 
                             if (baseAlpha < 0)
                                 baseAlpha = 0;
@@ -289,7 +257,7 @@ namespace LofiHollow.UI {
 
             if (GameLoop.UIManager.Sidebar.ChargeBar != 0) {
                 Point itemMouse = new MouseScreenObjectState(MapConsole, GameHost.Instance.Mouse).CellPosition;
-                Point PlayerPosPixels = new(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y);
+                Point PlayerPosPixels = new(GameLoop.World.Player.player.Position.X, GameLoop.World.Player.player.Position.Y);
 
                 Point offset = itemMouse - PlayerPosPixels;
                 offset *= new Point(-1, -1);
@@ -301,7 +269,7 @@ namespace LofiHollow.UI {
 
                 Point circle = new((int)x, (int)y);
 
-                Point temp = GameLoop.World.Player.Position + circle;
+                Point temp = GameLoop.World.Player.player.Position + circle;
                 int cellX = temp.X;
                 int cellY = temp.Y;
 
@@ -318,60 +286,52 @@ namespace LofiHollow.UI {
                 GameLoop.UIManager.Sidebar.LureSpot = circle * new Point(-1, -1);
 
                 MapConsole.SetDecorator(otherSide.X, otherSide.Y, 1, new CellDecorator(Color.White, '*', Mirror.None));
-                 
-                var line = Lines.Get(GameLoop.World.Player.Position.ToCoord(), otherSide.ToCoord());
-                int index = GameLoop.World.Player.Position.X < otherSide.X ? 0 : 10;
+
+                var line = Lines.Get(GameLoop.World.Player.player.Position.ToCoord(), otherSide.ToCoord());
+                int index = GameLoop.World.Player.player.Position.X < otherSide.X ? 0 : 10;
 
                 foreach (var pos in line) {
                     if (index == GameLoop.UIManager.Sidebar.ChargeBar / 10) {
                         MapConsole.SetDecorator(pos.X, pos.Y, 1, new CellDecorator(Color.Lime, '*', Mirror.None));
                     }
 
-                    if (GameLoop.World.Player.Position.X < otherSide.X) {
+                    if (GameLoop.World.Player.player.Position.X < otherSide.X) {
                         index++;
                     } else {
                         index--;
                     }
-                } 
+                }
             }
         }
 
         public void UpdateVision() {
-            if (GameLoop.World.Player.Position.X <= GameLoop.MapWidth && GameLoop.World.Player.Position.Y <= GameLoop.MapHeight) {
+            if (GameLoop.World.Player.player.Position.X <= GameLoop.MapWidth && GameLoop.World.Player.player.Position.Y <= GameLoop.MapHeight) {
                 if (LimitedVision) {
-                    FOV.Calculate(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y, GameLoop.World.Player.Vision);
+                    FOV.Calculate(GameLoop.World.Player.player.Position.X, GameLoop.World.Player.player.Position.Y, GameLoop.World.Player.player.Vision);
                     foreach (var position in FOV.NewlyUnseen) {
-                        GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(new Point(position.X, position.Y)).Shade();
+                        GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(new Point(position.X, position.Y)).Shade();
                         MapConsole.ClearDecorators(position.X, position.Y, 1);
                     }
 
                     foreach (var position in FOV.NewlySeen) {
-                        GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(new Point(position.X, position.Y)).IsVisible = true;
-                        GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(new Point(position.X, position.Y)).Unshade();
+                        GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(new Point(position.X, position.Y)).IsVisible = true;
+                        GameLoop.World.maps[GameLoop.World.Player.player.MapPos].GetTile(new Point(position.X, position.Y)).Unshade();
                     }
                 }
             }
 
-            foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
-                if (kv.Value.ScreenAppearance == null)
-                    kv.Value.UpdateAppearance();
-                MapConsole.Children.Add(kv.Value.ScreenAppearance);
+            foreach (KeyValuePair<long, PlayerWrapper> kv in GameLoop.World.otherPlayers) {
+                if (kv.Value.player.MapPos == GameLoop.World.Player.player.MapPos || (kv.Value.player.MapPos.X == GameLoop.World.Player.player.MapPos.X && kv.Value.player.MapPos.Y == GameLoop.World.Player.player.MapPos.Y && kv.Value.player.MapPos.Z < GameLoop.World.Player.player.MapPos.Z)) {
 
-                if (kv.Value.MapPos == GameLoop.World.Player.MapPos || (kv.Value.MapPos.X == GameLoop.World.Player.MapPos.X && kv.Value.MapPos.Y == GameLoop.World.Player.MapPos.Y && kv.Value.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
-                    // EntityRenderer.Add(kv.Value); 
-                    if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(kv.Value.Position.ToCoord())) {
-                        kv.Value.ScreenAppearance.IsVisible = true;
+                    if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(kv.Value.player.Position.ToCoord())) {
+                        EntityRenderer.Add(kv.Value);
                     } else {
-                        kv.Value.ScreenAppearance.IsVisible = false;
+                        EntityRenderer.Remove(kv.Value);
                     }
                 } else {
-                    kv.Value.ScreenAppearance.IsVisible = false;
+                    EntityRenderer.Remove(kv.Value);
                 }
-
-                if (kv.Value.ScreenAppearance.Position != kv.Value.Position) {
-                    kv.Value.ScreenAppearance.Position = kv.Value.Position;
-                }
-            } 
+            }
         }
 
     }

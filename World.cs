@@ -15,13 +15,13 @@ using LofiHollow.Missions;
 
 namespace LofiHollow {
     public class World { 
-        public Dictionary<string, TileBase> tileLibrary = new();
+        public Dictionary<string, Tile> tileLibrary = new();
         public Dictionary<string, MineTile> mineTileLibrary = new();
         public Dictionary<string, Item> itemLibrary = new();
         public Dictionary<string, Monster> monsterLibrary = new();
         public Dictionary<Point3D, Map> maps = new();
         public Dictionary<string, Skill> skillLibrary = new();
-        public Dictionary<int, NPC> npcLibrary = new();
+        public Dictionary<string, NPCWrapper> npcLibrary = new();
         public Dictionary<string, FishDef> fishLibrary = new();
         public Dictionary<int, Constructible> constructibles = new();
         public Dictionary<int, CraftingRecipe> recipeLibrary = new();
@@ -30,12 +30,12 @@ namespace LofiHollow {
         public List<Chapter> Chapters = new();
 
 
-        public Dictionary<long, Player> otherPlayers = new();
+        public Dictionary<long, PlayerWrapper> otherPlayers = new();
 
 
         public bool DoneInitializing = false;
          
-        public Player Player { get; set; }
+        public PlayerWrapper Player { get; set; }
 
          
         public World() {
@@ -181,7 +181,7 @@ namespace LofiHollow {
                 foreach (string fileName in tileFiles) {
                     string json = File.ReadAllText(fileName);
 
-                    TileBase tile = JsonConvert.DeserializeObject<TileBase>(json);
+                    Tile tile = JsonConvert.DeserializeObject<Tile>(json);
 
                     tileLibrary.Add(tile.FullName(), tile);
                 }
@@ -205,7 +205,10 @@ namespace LofiHollow {
                     string json = File.ReadAllText(fileName);
                     NPC npc = JsonConvert.DeserializeObject<NPC>(json);
 
-                    npcLibrary.Add(npc.npcID, npc);
+                    if (npc.Name != "") {
+                        NPCWrapper wrap = new(npc);
+                        npcLibrary.Add(npc.Name, wrap);
+                    }
                 }
             }
 
@@ -313,16 +316,16 @@ namespace LofiHollow {
         }
 
         public void SavePlayer() {
-            System.IO.Directory.CreateDirectory("./saves/" + Player.Name + "/");
-            string path = "./saves/" + Player.Name + "/player.dat";
+            System.IO.Directory.CreateDirectory("./saves/" + Player.player.Name + "/");
+            string path = "./saves/" + Player.player.Name + "/player.dat";
 
             using StreamWriter output = new(path);
             string jsonString = JsonConvert.SerializeObject(Player, Formatting.Indented);
             output.WriteLine(jsonString);
             output.Close();
 
-            if (GameLoop.World.Player.OwnsFarm) {
-                string farmPath = "./saves/" + Player.Name + "/farm.dat";
+            if (GameLoop.World.Player.player.OwnsFarm) {
+                string farmPath = "./saves/" + Player.player.Name + "/farm.dat";
 
                 if (!GameLoop.World.maps.ContainsKey(new(-1, 0, 0)))
                     GameLoop.World.LoadMapAt(new(-1, 0, 0));
@@ -334,14 +337,14 @@ namespace LofiHollow {
             }
 
             if (GameLoop.SingleOrHosting()) {
-                string timePath = "./saves/" + Player.Name + "/time.dat";
+                string timePath = "./saves/" + Player.player.Name + "/time.dat";
 
                 using StreamWriter timeOutput = new(timePath);
-                string timeJson = JsonConvert.SerializeObject(GameLoop.World.Player.Clock, Formatting.Indented);
+                string timeJson = JsonConvert.SerializeObject(GameLoop.World.Player.player.Clock, Formatting.Indented);
                 timeOutput.WriteLine(timeJson);
                 timeOutput.Close();
 
-                string monsterPens = "./saves/" + Player.Name + "/monsterPens.dat";
+                string monsterPens = "./saves/" + Player.player.Name + "/monsterPens.dat";
 
                 using StreamWriter monsterOutput = new(monsterPens);
                 string monsterJson = JsonConvert.SerializeObject(GameLoop.UIManager.Minigames.MonsterPenManager, Formatting.Indented);
@@ -361,11 +364,11 @@ namespace LofiHollow {
                     string[] name = fileName.Split("/");
 
                     if (name[^1] == "player.dat") {
-                        Player = JsonConvert.DeserializeObject<Player>(json);
+                        Player.player = JsonConvert.DeserializeObject<Player>(json);
                     }
 
                     if (name[^1] == "time.dat") {
-                        Player.Clock = JsonConvert.DeserializeObject<TimeManager>(json);
+                        Player.player.Clock = JsonConvert.DeserializeObject<TimeManager>(json);
                     }
 
                     if (name[^1] == "monsterPens.dat") {
@@ -374,27 +377,30 @@ namespace LofiHollow {
                 }
             }
 
-            if (Player.OwnsFarm) {
+            if (Player.player.OwnsFarm) {
                 LoadPlayerFarm();
             }
 
             foreach (KeyValuePair<string, Skill> kv in skillLibrary) {
                 Skill skill = new(kv.Value);
-                if (!Player.Skills.ContainsKey(skill.Name))
-                    Player.Skills.Add(skill.Name, skill);
+                if (!Player.player.Skills.ContainsKey(skill.Name))
+                    Player.player.Skills.Add(skill.Name, skill);
             }
 
             foreach (KeyValuePair<string, Mission> kv in missionLibrary) {
-                if (!Player.MissionLog.ContainsKey(kv.Key))
-                    Player.MissionLog.Add(kv.Key, kv.Value);
+                if (!Player.player.MissionLog.ContainsKey(kv.Key))
+                    Player.player.MissionLog.Add(kv.Key, kv.Value);
             }
 
 
             GameLoop.UIManager.Photo.PopulateJobList();
 
             DoneInitializing = true;
-            GameLoop.UIManager.Map.LoadMap(Player.MapPos);
-         //   GameLoop.UIManager.Map.EntityRenderer.Add(Player); 
+            GameLoop.UIManager.Map.LoadMap(Player.player.MapPos);
+            GameLoop.UIManager.Map.EntityRenderer.Add(Player);
+
+            Player.Position = Player.player.Position;
+            Player.UpdateAppearance();
         }
 
 
@@ -431,38 +437,38 @@ namespace LofiHollow {
         } 
 
         public void CreatePlayer() {
-            Player = new(Color.Yellow);
-            Player.Position = new(25, 25);
-            Player.MapPos = new(3, 1, 0);
-            Player.Name = "Player";
+            Player = new(new());
+            Player.player.Position = new(25, 25);
+            Player.player.MapPos = new(3, 1, 0);
+            Player.player.Name = "Player";
 
 
-            GameLoop.UIManager.Map.LoadMap(Player.MapPos);
-          //  GameLoop.UIManager.Map.EntityRenderer.Add(Player);
+            GameLoop.UIManager.Map.LoadMap(Player.player.MapPos);
+            GameLoop.UIManager.Map.EntityRenderer.Add(Player);
             Player.ZIndex = 10;
 
-            Player.MaxHP = 0;
-            Player.CurrentHP = Player.MaxHP;
+            Player.player.MaxHP = 0;
+            Player.player.CurrentHP = Player.player.MaxHP;
             
         }
 
         public void FreshStart() {
-            Player.MaxHP = 10;
-            Player.CurrentHP = Player.MaxHP;
+            Player.player.MaxHP = 10;
+            Player.player.CurrentHP = Player.player.MaxHP;
             LoadMapAt(Player.MapPos);
 
             DoneInitializing = true;
-            Player.Inventory[0] = new Item("lh:Rusty Dagger");
+            Player.player.Inventory[0] = new Item("lh:Rusty Dagger");
 
-            Player.Skills = new Dictionary<string, Skill>();
+            Player.player.Skills = new Dictionary<string, Skill>();
             
             foreach (KeyValuePair<string, Skill> kv in skillLibrary) {
                 Skill skill = new(kv.Value);
-                Player.Skills.Add(skill.Name, skill);
+                Player.player.Skills.Add(skill.Name, skill);
             } 
 
             foreach (KeyValuePair<string, Mission> kv in missionLibrary) {
-                Player.MissionLog.Add(kv.Key, kv.Value);
+                Player.player.MissionLog.Add(kv.Key, kv.Value);
             }
 
             SavePlayer();

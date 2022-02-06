@@ -63,7 +63,7 @@ namespace LofiHollow.UI {
                 CraftingRecipe current = CurrentSkillRecipes[i + craftTopIndex];
                 string Entry;
 
-                if (current.FinishedQty > 1) 
+                if (current.FinishedQty > 1)
                     Entry = (current.FinishedQty + "x " + current.Name).Align(HorizontalAlignment.Center, 44) + "|";
                 else
                     Entry = current.Name.Align(HorizontalAlignment.Center, 44) + "|";
@@ -88,9 +88,9 @@ namespace LofiHollow.UI {
             if (CurrentSkillRecipes.Count > selectedIndex) {
                 CraftingRecipe current = CurrentSkillRecipes[selectedIndex];
                 Item finished = new(current.FinishedID);
-                int QualityCap = (int)Math.Floor((GameLoop.World.Player.Skills[CurrentSkill].Level + 1f) / 10f) + 1;
+                int QualityCap = (int)Math.Floor((GameLoop.World.Player.player.Skills[CurrentSkill].Level + 1f) / 10f) + 1;
 
-                int canCraft = current.ActorCanCraft(GameLoop.World.Player, CurrentSkill, craftingQuantity, MinimumQuality);
+                int canCraft = current.ActorCanCraft(GameLoop.World.Player.player, CurrentSkill, craftingQuantity, MinimumQuality);
 
 
                 CraftingConsole.Print(0, 26, finished.AsColoredGlyph());
@@ -112,9 +112,9 @@ namespace LofiHollow.UI {
 
                 CraftingConsole.Print(0, 30, "Required Tools: ");
                 for (int i = 0; i < current.RequiredTools.Count; i++) {
-                    bool hasTool = current.RequiredTools[i].ActorHasTool(GameLoop.World.Player);
+                    bool hasTool = current.RequiredTools[i].ActorHasTool(GameLoop.World.Player.player);
                     ColoredString check = new ColoredString(((char)4).ToString(), Color.Lime, Color.Black);
-                    
+
                     if (!hasTool)
                         check = new ColoredString("x", Color.Red, Color.Black);
 
@@ -124,7 +124,7 @@ namespace LofiHollow.UI {
                 CraftingConsole.DrawLine(new Point(24, 30), new Point(24, 40), '|', Color.White, Color.Black);
                 CraftingConsole.Print(25, 30, "Specific Materials: ");
                 for (int i = 0; i < current.SpecificMaterials.Count; i++) {
-                    bool hasTool = current.SpecificMaterials[i].ActorHasComponent(GameLoop.World.Player, craftingQuantity, MinimumQuality) != -1;
+                    bool hasTool = current.SpecificMaterials[i].ActorHasComponent(GameLoop.World.Player.player, craftingQuantity, MinimumQuality) != -1;
                     ColoredString check = new ColoredString(((char)4).ToString(), Color.Lime, Color.Black);
 
                     if (!hasTool)
@@ -138,7 +138,7 @@ namespace LofiHollow.UI {
                 CraftingConsole.DrawLine(new Point(49, 30), new Point(49, 40), '|', Color.White, Color.Black);
                 CraftingConsole.Print(50, 30, "Flexible Materials: ");
                 for (int i = 0; i < current.GenericMaterials.Count; i++) {
-                    int Qual = current.GenericMaterials[i].ActorHasComponent(GameLoop.World.Player, craftingQuantity, MinimumQuality);
+                    int Qual = current.GenericMaterials[i].ActorHasComponent(GameLoop.World.Player.player, craftingQuantity, MinimumQuality);
                     ColoredString check = new ColoredString("x", Color.Red, Color.Black);
 
                     if (Qual == 0)
@@ -181,11 +181,11 @@ namespace LofiHollow.UI {
                     }
 
                     if (itemSlot >= 0)
-                        itemSlot += craftTopIndex; 
+                        itemSlot += craftTopIndex;
                 }
 
                 if (mousePos.Y == 26 && (mousePos.X >= 62 && mousePos.X <= 66)) {
-                    CurrentSkillRecipes[selectedIndex].Craft(GameLoop.World.Player, craftingQuantity, MinimumQuality);
+                    CurrentSkillRecipes[selectedIndex].Craft(GameLoop.World.Player.player, craftingQuantity, MinimumQuality);
 
                     RefreshList();
                 }
@@ -242,7 +242,7 @@ namespace LofiHollow.UI {
             for (int i = 0; i < GameLoop.World.recipeLibrary.Count; i++) {
                 if (GameLoop.World.recipeLibrary[i].Skill == CurrentSkill)
                     CurrentSkillRecipes.Add(GameLoop.World.recipeLibrary[i]);
-                if (GameLoop.World.recipeLibrary[i].ActorCanCraft(GameLoop.World.Player, CurrentSkill, 1, MinimumQuality) > -1)
+                if (GameLoop.World.recipeLibrary[i].ActorCanCraft(GameLoop.World.Player.player, CurrentSkill, 1, MinimumQuality) > -1)
                     CurrentCraftable.Add(GameLoop.World.recipeLibrary[i]);
             }
         }
@@ -253,7 +253,7 @@ namespace LofiHollow.UI {
             StationTier = tier;
             RefreshList();
 
-            CraftingWindow.Title = skill.Align(HorizontalAlignment.Center, 70, (char) 196);
+            CraftingWindow.Title = skill.Align(HorizontalAlignment.Center, 70, (char)196);
 
             selectedIndex = 0;
             craftTopIndex = 0;

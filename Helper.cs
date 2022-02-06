@@ -4,6 +4,7 @@ using SadConsole;
 using SadRogue.Primitives;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -168,6 +169,25 @@ namespace LofiHollow {
     public static class PointExtensions {
         public static GoRogue.Coord ToCoord(this Point instance) {
             return new GoRogue.Coord(instance.X, instance.Y);
+        }
+    }
+
+    public static class SerializerExtensions {
+        public static byte[] ToByteArray<T>(this T obj) {
+            using (var memStream = new MemoryStream()) {
+                ProtoBuf.Serializer.Serialize(memStream, obj);
+                return memStream.ToArray();
+            }
+        }
+
+        public static T FromByteArray<T>(this byte[] protoBytes) {
+            T result;
+
+            using (var memStream = new MemoryStream(protoBytes)) {
+                result = ProtoBuf.Serializer.Deserialize<T>(memStream);
+            }
+
+            return result;
         }
     }
 }

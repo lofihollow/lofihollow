@@ -40,8 +40,8 @@ namespace LofiHollow.UI {
             InventoryConsole.Print((InventoryConsole.Width / 2) - 4, 0, "BACKPACK");
 
             for (int i = 0; i < 27; i++) {
-                if (i < GameLoop.World.Player.Inventory.Length) {
-                    Item item = GameLoop.World.Player.Inventory[i];
+                if (i < GameLoop.World.Player.player.Inventory.Length) {
+                    Item item = GameLoop.World.Player.player.Inventory[i];
 
                     ColoredString LetterGrade = new("");
                     if (item.Quality > 0)
@@ -50,7 +50,7 @@ namespace LofiHollow.UI {
 
                     InventoryConsole.Print(0, i + 1, item.AsColoredGlyph());
                     if (item.Dec != null) {
-                        InventoryConsole.SetDecorator(0, i+1, 1, new CellDecorator(new Color(item.Dec.R, item.Dec.G, item.Dec.B), item.Dec.Glyph, Mirror.None));
+                        InventoryConsole.SetDecorator(0, i + 1, 1, new CellDecorator(new Color(item.Dec.R, item.Dec.G, item.Dec.B), item.Dec.Glyph, Mirror.None));
                     }
                     if (!item.IsStackable || (item.IsStackable && item.ItemQuantity == 1))
                         InventoryConsole.Print(2, i + 1, new ColoredString(item.Name, invMoveIndex == i ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.Black) + LetterGrade);
@@ -88,30 +88,30 @@ namespace LofiHollow.UI {
 
             if (mousePos.X >= 0 && mousePos.X <= 70 && mousePos.Y >= 0 && mousePos.Y <= 40) {
                 int slot = mousePos.Y - 1;
-                if (slot >= 0 && slot < GameLoop.World.Player.Inventory.Length) {
+                if (slot >= 0 && slot < GameLoop.World.Player.player.Inventory.Length) {
                     int x = mousePos.X;
                     if (GameHost.Instance.Mouse.LeftClicked) {
                         if (x < 34) {
                             if (invMoveIndex == -1)
                                 invMoveIndex = slot;
                             else {
-                                Item tempID = GameLoop.World.Player.Inventory[invMoveIndex];
-                                GameLoop.World.Player.Inventory[invMoveIndex] = GameLoop.World.Player.Inventory[slot];
-                                GameLoop.World.Player.Inventory[slot] = tempID;
+                                Item tempID = GameLoop.World.Player.player.Inventory[invMoveIndex];
+                                GameLoop.World.Player.player.Inventory[invMoveIndex] = GameLoop.World.Player.player.Inventory[slot];
+                                GameLoop.World.Player.player.Inventory[slot] = tempID;
                                 invMoveIndex = -1;
                             }
                         } else if (x > 34 && x < 42) {
-                            Item item = GameLoop.World.Player.Inventory[slot];
-                            if (GameLoop.World.Player.Inventory[slot].EquipSlot != -1) {
-                                CommandManager.EquipItem(GameLoop.World.Player, slot, GameLoop.World.Player.Inventory[slot]);
+                            Item item = GameLoop.World.Player.player.Inventory[slot];
+                            if (GameLoop.World.Player.player.Inventory[slot].EquipSlot != -1) {
+                                CommandManager.EquipItem(GameLoop.World.Player.player, slot, GameLoop.World.Player.player.Inventory[slot]);
                             } else if (item.ItemCat == "Consumable") {
-                                string[] itemResult = CommandManager.UseItem(GameLoop.World.Player, item).Split("|"); ;
+                                string[] itemResult = CommandManager.UseItem(GameLoop.World.Player.player, item).Split("|"); ;
 
                                 if (itemResult[0] != "f") {
                                     if (item.IsStackable && item.ItemQuantity > 1) {
                                         item.ItemQuantity -= 1;
                                     } else {
-                                        GameLoop.World.Player.Inventory[slot] = new Item("lh:(EMPTY)");
+                                        GameLoop.World.Player.player.Inventory[slot] = new Item("lh:(EMPTY)");
                                     }
                                     GameLoop.UIManager.AddMsg(new ColoredString("Used the " + item.Name + ".", Color.AliceBlue, Color.Black));
                                     GameLoop.UIManager.AddMsg(new ColoredString(itemResult[1], Color.AliceBlue, Color.Black));
@@ -121,8 +121,8 @@ namespace LofiHollow.UI {
                                 }
                             }
                         } else if (x > 42) {
-                            if (slot < GameLoop.World.Player.Inventory.Length && slot >= 0) {
-                                CommandManager.DropItem(GameLoop.World.Player, slot);
+                            if (slot < GameLoop.World.Player.player.Inventory.Length && slot >= 0) {
+                                CommandManager.DropItem(GameLoop.World.Player.player, slot);
                             }
                         }
                     }

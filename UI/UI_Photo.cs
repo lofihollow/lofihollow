@@ -41,12 +41,12 @@ namespace LofiHollow.UI {
 
             PhotoWindow.Show();
             PhotoWindow.IsVisible = false;
-        } 
+        }
 
         public bool HasPhotoOf(Player play, string targetName, string type) {
             for (int i = 0; i < play.Inventory.Length; i++) {
-                if (play.Inventory[i].Properties.ContainsKey("Photo")) {
-                    Photo photo = play.Inventory[i].Properties.Get<Photo>("Photo");
+                if (play.Inventory[i].Photo != null) {
+                    Photo photo = play.Inventory[i].Photo;
 
                     if (photo.Contains(targetName, type)) {
                         return true;
@@ -59,8 +59,8 @@ namespace LofiHollow.UI {
 
         public void ConsumePhoto(Player play, string targetName, string type, int reward) {
             for (int i = 0; i < play.Inventory.Length; i++) {
-                if (play.Inventory[i].Properties.ContainsKey("Photo")) {
-                    Photo photo = play.Inventory[i].Properties.Get<Photo>("Photo");
+                if (play.Inventory[i].Photo != null) {
+                    Photo photo = play.Inventory[i].Photo;
                     if (photo.Contains(targetName, type)) {
                         CommandManager.RemoveOneItem(play, i);
                         play.CopperCoins += reward;
@@ -75,10 +75,10 @@ namespace LofiHollow.UI {
 
             for (int i = 0; i < 12; i++) {
                 int type = GameLoop.rand.Next(4);
-                string targetType;
-                string targetName;
-                int rewardAmount;
-                ColoredString app;
+                string targetType = "";
+                string targetName = "";
+                int rewardAmount = 0;
+                ColoredString app = null;
                 Decorator dec = null;
 
                 if (type == 0)
@@ -86,30 +86,32 @@ namespace LofiHollow.UI {
                 else if (type == 1)
                     targetType = "NPC";
                 else
-                    targetType = "Monster"; 
+                    targetType = "Monster";
 
 
-                if (targetType == "Item") {
+                if (targetType == "Item" && GameLoop.World.itemLibrary.Count > 0) {
                     int index = GameLoop.rand.Next(GameLoop.World.itemLibrary.Count - 1) + 1;
                     targetName = GameLoop.World.itemLibrary.ElementAt(index).Value.Name;
                     app = GameLoop.World.itemLibrary.ElementAt(index).Value.AsColoredGlyph();
                     if (GameLoop.World.itemLibrary.ElementAt(index).Value.Dec != null)
                         dec = new(GameLoop.World.itemLibrary.ElementAt(index).Value.Dec);
                     rewardAmount = GameLoop.rand.Next(8) + 2;
-                } else if (targetType == "NPC") {
+                } else if (targetType == "NPC" && GameLoop.World.npcLibrary.Count > 0) {
                     int index = GameLoop.rand.Next(GameLoop.World.npcLibrary.Count);
-                    targetName = GameLoop.World.npcLibrary.ElementAt(index).Value.Name; 
-                    app = GameLoop.World.npcLibrary.ElementAt(index).Value.GetAppearance();
+                    targetName = GameLoop.World.npcLibrary.ElementAt(index).Value.Name;
+                    app = GameLoop.World.npcLibrary.ElementAt(index).Value.npc.GetAppearance();
                     rewardAmount = GameLoop.rand.Next(8) + 2;
-                } else {
+                } else if (GameLoop.World.monsterLibrary.Count > 0) {
                     int index = GameLoop.rand.Next(GameLoop.World.monsterLibrary.Count);
-                    targetName = GameLoop.World.monsterLibrary.ElementAt(index).Value.Name; 
+                    targetName = GameLoop.World.monsterLibrary.ElementAt(index).Value.Name;
                     app = GameLoop.World.monsterLibrary.ElementAt(index).Value.GetAppearance();
                     rewardAmount = GameLoop.rand.Next(GameLoop.World.monsterLibrary.ElementAt(index).Value.CalculateCombatLevel()) + 2;
                 }
 
-                PhotoJob newJob = new(app, dec, targetName, targetType, rewardAmount);
-                DailyJobs.Add(newJob);
+                if (targetName != "" && targetType != "" && app != null) {
+                    PhotoJob newJob = new(app, dec, targetName, targetType, rewardAmount);
+                    DailyJobs.Add(newJob);
+                }
             }
         }
 
@@ -117,8 +119,8 @@ namespace LofiHollow.UI {
             Point mousePos = new MouseScreenObjectState(PhotoConsole, GameHost.Instance.Mouse).CellPosition;
             PhotoConsole.Clear();
             if (!ShowingBoard) {
-                if (CurrentPhoto != null && CurrentPhoto.tiles != null) { 
-                    PhotoConsole.Fill(Color.White, Color.Black, 32); 
+                if (CurrentPhoto != null && CurrentPhoto.tiles != null) {
+                    PhotoConsole.Fill(Color.White, Color.Black, 32);
                     PhotoConsole.Print(26, 0, ((char)350).ToString(), Color.Lime);
                     PhotoConsole.Print(0, 1, CurrentPhoto.PhotoName.Align(HorizontalAlignment.Center, 29));
                     PhotoConsole.DrawLine(new Point(4, 3), new Point(24, 3), 196, Color.White);
@@ -166,18 +168,18 @@ namespace LofiHollow.UI {
                 PhotoConsole.Print(0, 1, ("Subject".Align(HorizontalAlignment.Center, 17) + "|" + "Reward".Align(HorizontalAlignment.Center, 6) + "|"));
                 PhotoConsole.DrawLine(new Point(0, 2), new Point(28, 2), 196, Color.White);
                 for (int i = 0; i < DailyJobs.Count; i++) {
-                    PhotoConsole.Print(0, 3 + (i * 2), DailyJobs[i].Appearance + 
-                        new ColoredString((" " + DailyJobs[i].Target).Align(HorizontalAlignment.Left, 16) 
+                    PhotoConsole.Print(0, 3 + (i * 2), DailyJobs[i].Appearance +
+                        new ColoredString((" " + DailyJobs[i].Target).Align(HorizontalAlignment.Left, 16)
                         + "|" + DailyJobs[i].RewardCoppers.ToString().Align(HorizontalAlignment.Center, 6) + "|"));
 
-                    PhotoConsole.Print(25, 3 + (i * 2), new ColoredString("DONE", HasPhotoOf(GameLoop.World.Player, DailyJobs[i].Target, DailyJobs[i].Type) ? Color.Lime : Color.Red, Color.Black));
+                    PhotoConsole.Print(25, 3 + (i * 2), new ColoredString("DONE", HasPhotoOf(GameLoop.World.Player.player, DailyJobs[i].Target, DailyJobs[i].Type) ? Color.Lime : Color.Red, Color.Black));
                     if (DailyJobs[i].Dec != null)
                         PhotoConsole.SetDecorator(0, 3 + (i * 2), 1, DailyJobs[i].Dec.GetDec());
                     PhotoConsole.DrawLine(new Point(0, 4 + (i * 2)), new Point(28, 4 + (i * 2)), '-');
                 }
             }
 
-            
+
             PhotoConsole.Print(28, 0, "X");
         }
 
@@ -222,8 +224,8 @@ namespace LofiHollow.UI {
                         if ((float)((mousePos.Y - 3) / 2f) == (mousePos.Y - 3) / 2) {
                             int slot = (mousePos.Y - 3) / 2;
                             if (slot < DailyJobs.Count) {
-                                if (HasPhotoOf(GameLoop.World.Player, DailyJobs[slot].Target, DailyJobs[slot].Type)) {
-                                    ConsumePhoto(GameLoop.World.Player, DailyJobs[slot].Target, DailyJobs[slot].Type, DailyJobs[slot].RewardCoppers);
+                                if (HasPhotoOf(GameLoop.World.Player.player, DailyJobs[slot].Target, DailyJobs[slot].Type)) {
+                                    ConsumePhoto(GameLoop.World.Player.player, DailyJobs[slot].Target, DailyJobs[slot].Type, DailyJobs[slot].RewardCoppers);
                                     DailyJobs.RemoveAt(slot);
                                 }
                             }

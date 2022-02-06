@@ -259,7 +259,7 @@ namespace LofiHollow.Minigames.Jobs {
                 }
             } else {
                 if (GameHost.Instance.Mouse.LeftClicked) {
-                    GameLoop.World.Player.CopperCoins += Score;
+                    GameLoop.World.Player.player.CopperCoins += Score;
                     Reset();
                     GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 }

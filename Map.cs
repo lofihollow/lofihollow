@@ -1,48 +1,63 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using SadRogue.Primitives;
 using LofiHollow.Entities;
-using Newtonsoft.Json;
 using LofiHollow.EntityData;
 using System.Collections.Generic;
-using LofiHollow.Managers;
+using ProtoBuf;
+using Newtonsoft.Json;
 
 namespace LofiHollow {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class Map { 
-        [JsonProperty]
+    [ProtoContract] 
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Map {
+        [ProtoMember(1)]
         public int MinimumMonsters = 0;
-        [JsonProperty]
+        [ProtoMember(2)]
         public int MaximumMonsters = 0;
-        [JsonProperty]
-        public TileBase[] Tiles;
-        [JsonProperty]
+        [ProtoMember(3)]
+        public Tile[] Tiles;
+        [ProtoMember(4)]
         public int Width;
-        [JsonProperty]
+        [ProtoMember(5)]
         public int Height;
 
-        [JsonProperty]
+        [ProtoMember(6)]
         public MinimapTile MinimapTile = new(',', new Color(0, 127, 0), Color.Black);
 
+        [JsonIgnore]
         public int SpawnedMonsters = -1;
-       
 
+        [JsonIgnore]
         public GoRogue.MultiSpatialMap<Entity> Entities;
+        [JsonIgnore]
         public GoRogue.Pathing.FastAStar MapPath;
+        [JsonIgnore]
         public static GoRogue.IDGenerator IDGenerator = new();
-
+        [JsonIgnore]
         public GoRogue.MapViews.LambdaMapView<bool> MapFOV;
+        [JsonIgnore]
         public GoRogue.MapViews.LambdaMapView<double> LightRes;
 
+        public Map() {
+            Entities = new GoRogue.MultiSpatialMap<Entity>();
+
+            var MapView = new GoRogue.MapViews.LambdaMapView<bool>(Width, Height, pos => IsTileWalkable(new Point(pos.X, pos.Y)));
+            MapFOV = new GoRogue.MapViews.LambdaMapView<bool>(GameLoop.MapWidth, GameLoop.MapHeight, pos => BlockingLOS(new Point(pos.X, pos.Y)));
+            MapPath = new GoRogue.Pathing.FastAStar(MapView, GoRogue.Distance.CHEBYSHEV);
+
+            LightRes = new GoRogue.MapViews.LambdaMapView<double>(GameLoop.MapWidth, GameLoop.MapHeight, pos => GetLightRes(new Point(pos.X, pos.Y)));
+        }
 
         public Map(int width, int height) {
             Width = width;
             Height = height;
-            Tiles = new TileBase[width * height];
+            Tiles = new Tile[width * height];
 
             for (int i = 0; i < Tiles.Length; i++) {
-                Tiles[i] = new TileBase(); 
+                Tiles[i] = new Tile();
             }
+
+
 
             Entities = new GoRogue.MultiSpatialMap<Entity>();
 
@@ -58,8 +73,8 @@ namespace LofiHollow {
                 return 0;
             return Tiles[location.Y * Width + location.X].LightBlocked;
         }
-         
-        public bool IsTileWalkable(Point location) { 
+
+        public bool IsTileWalkable(Point location) {
             if (location.X < 0 || location.Y < 0 || location.X >= Width || location.Y >= Height)
                 return false;
             if (GetEntityAt<MonsterWrapper>(location) != null)
@@ -72,6 +87,7 @@ namespace LofiHollow {
                 return true;
             return !Tiles[location.Y * Width + location.X].IsBlockingLOS;
         }
+
 
         public void ToggleLock(Point location, Point3D mapPos) {
             if (location.X < 0 || location.Y < 0 || location.X >= Width || location.Y >= Height)
@@ -91,8 +107,14 @@ namespace LofiHollow {
 
                 Tiles[location.Y * Width + location.X].Lock.Closed = !Tiles[location.Y * Width + location.X].Lock.Closed;
                 Tiles[location.Y * Width + location.X].LightBlocked = Tiles[location.Y * Width + location.X].IsBlockingLOS ? 1 : 0;
-                string serialized = JsonConvert.SerializeObject(Tiles[location.Y * Width + location.X], Formatting.Indented);
-                GameLoop.SendMessageIfNeeded(new string[] { "updateTile", location.X.ToString(), location.Y.ToString(), mapPos.ToString(), serialized}, false, false);
+
+                NetMsg tileUpdate = new("updateTile", Tiles[(location.Y * Width) + location.X].ToByteArray());
+                tileUpdate.X = location.X;
+                tileUpdate.Y = location.Y;
+                tileUpdate.mX = mapPos.X;
+                tileUpdate.mY = mapPos.Y;
+                tileUpdate.mZ = mapPos.Z;
+                GameLoop.SendMessageIfNeeded(tileUpdate, false, false);
 
                 GameLoop.SoundManager.PlaySound("door");
 
@@ -124,35 +146,35 @@ namespace LofiHollow {
             return Entities.GetItems(location.ToCoord()).OfType<T>().FirstOrDefault();
         }
 
-        public TileBase GetTile(Point location) {
+        public Tile GetTile(Point location) {
             return Tiles[location.ToIndex(GameLoop.MapWidth)];
         }
 
-        public void SetTile(Point location, TileBase tile) {
-           Tiles[location.ToIndex(GameLoop.MapWidth)] = tile;
+        public void SetTile(Point location, Tile tile) {
+            Tiles[location.ToIndex(GameLoop.MapWidth)] = tile;
         }
 
-        public void Remove(Entity entity) { 
+        public void Remove(Entity entity) {
             Entities.Remove(entity);
-            entity.PositionChanged -= OnPositionChange; 
-        }
-         
-        public void Add(Entity entity) { 
-            Entities.Add(entity, entity.Position.ToCoord());
-            entity.PositionChanged += OnPositionChange; 
+            entity.PositionChanged -= OnPositionChange;
         }
 
-        private void OnPositionChange(object sender, SadConsole.ValueChangedEventArgs<Point> e) {
-            Entities.Move(sender as Entity, e.NewValue.ToCoord()); 
-        } 
+        public void Add(Entity entity) {
+            Entities.Add(entity, entity.Position.ToCoord());
+            entity.PositionChanged += OnPositionChange;
+        }
+
+        private void OnPositionChange(object sender, SadConsole.ValueChangedEventArgs<SadRogue.Primitives.Point> e) {
+            Entities.Move(sender as Entity, e.NewValue.ToCoord());
+        }
 
 
         public void PopulateMonsters(Point3D MapPos) {
             int diff = MaximumMonsters - MinimumMonsters;
             int monsterAmount = GameLoop.rand.Next(diff) + MinimumMonsters;
-             
+
 
             SpawnedMonsters = monsterAmount;
-        } 
+        }
     }
 }

@@ -7,22 +7,21 @@ using System;
 using System.Collections.Generic;
 using LofiHollow.Managers;
 using Key = SadConsole.Input.Keys;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using ProtoBuf;
 
 namespace LofiHollow.UI {
     public class UI_MainMenu {
-        public SadConsole.Console MenuBackdrop; 
-        public SadConsole.UI.ControlsConsole NameConsole; 
+        public SadConsole.Console MenuBackdrop;
+        public SadConsole.UI.ControlsConsole NameConsole;
         public SadConsole.UI.Controls.TextBox NameBox;
         public Window MainMenuWindow;
         public SadRex.Image MenuImage;
-        
+
         public SadConsole.Console MenuConsole;
 
 
         public ControlsConsole ModConsole;
-         
+
         public string LobbyCode = "";
         public string[] Names;
         public string joinError = "";
@@ -87,9 +86,9 @@ namespace LofiHollow.UI {
         }
 
         private void NameChanged(object sender, EventArgs e) {
-            GameLoop.World.Player.Name = NameBox.Text;
+            GameLoop.World.Player.player.Name = NameBox.Text;
         }
-         
+
 
         public void RemakeMenu() {
             MenuBackdrop.Clear();
@@ -182,8 +181,7 @@ namespace LofiHollow.UI {
                 MenuConsole.Print(5, 4, Helper.HoverColoredString("Load Game", mousePos.Y == 4));
                 MenuConsole.Print(5, 6, Helper.HoverColoredString("  Mods", mousePos.Y == 6));
                 MenuConsole.Print(5, 18, Helper.HoverColoredString("  Quit ", mousePos.Y == 18));
-            } 
-            else if (GameLoop.UIManager.selectedMenu == "CharCreation") {
+            } else if (GameLoop.UIManager.selectedMenu == "CharCreation") {
                 MenuConsole.DrawBox(new Rectangle(0, 0, 50, 50), ShapeParameters.CreateStyledBoxFilled(ICellSurface.ConnectedLineThin, new ColoredGlyph(Color.White, Color.Black), new ColoredGlyph(Color.Black, Color.Black)));
 
                 int CreateX = 1;
@@ -192,9 +190,9 @@ namespace LofiHollow.UI {
                 MenuConsole.DrawLine(new Point(CreateX + 13, CreateY), new Point(CreateX + 13, CreateY + 47), (char)179, Color.White, Color.Black);
                 // Attribute window
 
-                string forR = GameLoop.World.Player.ForegroundR.ToString();
-                string forG = GameLoop.World.Player.ForegroundG.ToString();
-                string forB = GameLoop.World.Player.ForegroundB.ToString();
+                string forR = GameLoop.World.Player.player.ForegroundR.ToString();
+                string forG = GameLoop.World.Player.player.ForegroundG.ToString();
+                string forB = GameLoop.World.Player.player.ForegroundB.ToString();
 
                 MenuConsole.Print(CreateX + 1, CreateY + 1, new ColoredString("R: ", Color.White, Color.Black));
                 MenuConsole.Print(CreateX + 6, CreateY + 1, Helper.HoverColoredString("-", mousePos == new Point(CreateX + 6, CreateY + 1)));
@@ -212,28 +210,27 @@ namespace LofiHollow.UI {
                 MenuConsole.Print(CreateX + 12, CreateY + 3, Helper.HoverColoredString("+", mousePos == new Point(CreateX + 11, CreateY + 3)));
 
                 GameLoop.World.Player.UpdateAppearance();
-                MenuConsole.Print(CreateX + 1, CreateY + 5, new ColoredString("Current: ", Color.White, Color.Black) + GameLoop.World.Player.GetAppearance());
+                MenuConsole.Print(CreateX + 1, CreateY + 5, new ColoredString("Current: ", Color.White, Color.Black) + GameLoop.World.Player.player.GetAppearance());
                 MenuConsole.SetBackground(CreateX + 10, CreateY + 5, Color.Black);
 
 
                 MenuConsole.Print(CreateX + 15, CreateY, new ColoredString("Deaths", Color.White, Color.Black));
 
-                MenuConsole.Print(CreateX + 15, CreateY + 1, new ColoredString(((char)236).ToString(), GameLoop.World.Player.LivesRemaining == -1 ? Color.Yellow : Color.White, Color.Black));
-                MenuConsole.Print(CreateX + 17, CreateY + 1, new ColoredString("3", GameLoop.World.Player.LivesRemaining == 3 ? Color.Yellow : Color.White, Color.Black));
-                MenuConsole.Print(CreateX + 19, CreateY + 1, new ColoredString("1".ToString(), GameLoop.World.Player.LivesRemaining == 1 ? Color.Yellow : Color.White, Color.Black));
+                MenuConsole.Print(CreateX + 15, CreateY + 1, new ColoredString(((char)236).ToString(), GameLoop.World.Player.player.LivesRemaining == -1 ? Color.Yellow : Color.White, Color.Black));
+                MenuConsole.Print(CreateX + 17, CreateY + 1, new ColoredString("3", GameLoop.World.Player.player.LivesRemaining == 3 ? Color.Yellow : Color.White, Color.Black));
+                MenuConsole.Print(CreateX + 19, CreateY + 1, new ColoredString("1".ToString(), GameLoop.World.Player.player.LivesRemaining == 1 ? Color.Yellow : Color.White, Color.Black));
 
                 MenuConsole.Print(CreateX + 25, CreateY, new ColoredString("Item Drops On Death", Color.White, Color.Black));
-                MenuConsole.Print(CreateX + 25, CreateY + 1, new ColoredString("Nothing", GameLoop.World.Player.DropsOnDeath == -1 ? Color.Yellow : Color.White, Color.Black));
-                MenuConsole.Print(CreateX + 25, CreateY + 2, new ColoredString("Only Gold", GameLoop.World.Player.DropsOnDeath == 0 ? Color.Yellow : Color.White, Color.Black));
-                MenuConsole.Print(CreateX + 25, CreateY + 3, new ColoredString("Gold and Items".ToString(), GameLoop.World.Player.DropsOnDeath == 1 ? Color.Yellow : Color.White, Color.Black));
+                MenuConsole.Print(CreateX + 25, CreateY + 1, new ColoredString("Nothing", GameLoop.World.Player.player.DropsOnDeath == -1 ? Color.Yellow : Color.White, Color.Black));
+                MenuConsole.Print(CreateX + 25, CreateY + 2, new ColoredString("Only Gold", GameLoop.World.Player.player.DropsOnDeath == 0 ? Color.Yellow : Color.White, Color.Black));
+                MenuConsole.Print(CreateX + 25, CreateY + 3, new ColoredString("Gold and Items".ToString(), GameLoop.World.Player.player.DropsOnDeath == 1 ? Color.Yellow : Color.White, Color.Black));
 
 
                 MenuConsole.Print(CreateX + 1, CreateY + 11, new ColoredString("Name:", Color.White, Color.Black));
 
 
                 MenuConsole.Print(2, MenuConsole.Height - 2, Helper.HoverColoredString("DONE", (mousePos.Y == MenuConsole.Height - 2 && mousePos.X <= 6 && mousePos.X >= 2)));
-            } 
-            else if (GameLoop.UIManager.selectedMenu == "LoadFile") {
+            } else if (GameLoop.UIManager.selectedMenu == "LoadFile") {
                 int fileSize = 5;
                 if (Names != null && Names.Length > 0) {
                     fileSize = Names.Length + 2;
@@ -250,8 +247,7 @@ namespace LofiHollow.UI {
                 }
 
                 MenuConsole.Print(1, 1 + fileSize - 3, Helper.HoverColoredString("[BACK]".Align(HorizontalAlignment.Center, 18), mousePos.Y == (1 + fileSize - 3)));
-            } 
-            else if (GameLoop.UIManager.selectedMenu == "ConnectOrHost") {
+            } else if (GameLoop.UIManager.selectedMenu == "ConnectOrHost") {
                 MenuConsole.DrawBox(new Rectangle(0, 0, 20, 10), ShapeParameters.CreateStyledBoxFilled(ICellSurface.ConnectedLineThin, new ColoredGlyph(Color.White, Color.Black), new ColoredGlyph(Color.Black, Color.Black)));
                 MenuConsole.Print(1, 1, Helper.HoverColoredString("Singleplayer", mousePos.Y == 1));
                 MenuConsole.Print(1, 2, Helper.HoverColoredString("Host and Play", mousePos.Y == 2));
@@ -267,13 +263,12 @@ namespace LofiHollow.UI {
 
 
                 MenuConsole.Print(1, 7, new ColoredString(joinError, Color.White, Color.Black));
-            }
-            else if (GameLoop.UIManager.selectedMenu == "ModMenu") {
+            } else if (GameLoop.UIManager.selectedMenu == "ModMenu") {
                 mousePos = new MouseScreenObjectState(ModConsole, GameHost.Instance.Mouse).CellPosition;
-                 
+
                 ModConsole.DrawBox(new Rectangle(0, 0, 90, 50), ShapeParameters.CreateStyledBoxFilled(ICellSurface.ConnectedLineThin, new ColoredGlyph(Color.White, Color.Black), new ColoredGlyph(Color.White, Color.Black)));
-                
-                if (ModMenuSelect == "Create") { 
+
+                if (ModMenuSelect == "Create") {
                     ModConsole.Print(1, 1, Helper.HoverColoredString("[BACK]".Align(HorizontalAlignment.Center, 9), mousePos.Y == 1 && mousePos.X < 10));
                     ModConsole.Print(10, 1, Helper.HoverColoredString("[SAVE]".Align(HorizontalAlignment.Center, 9), mousePos.Y == 1 && mousePos.X > 10 && mousePos.X < 20));
 
@@ -329,7 +324,7 @@ namespace LofiHollow.UI {
                         ModConsole.Print(58, 1, "Misc String: " + CurrentMod.ModConstructs[ModItemIndex].SpecialProps, SelectedField == 4 ? Color.Yellow : Color.White);
 
                         ModConsole.Print(21, 5, "Appearance: " + CurrentMod.ModConstructs[ModItemIndex].Appearance());
-                         
+
                         ModConsole.Print(21, 7, "Main Red: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].ForegroundR, 3) + "+");
                         ModConsole.Print(21, 8, "Main Grn: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].ForegroundG, 3) + "+");
                         ModConsole.Print(21, 9, "Main Blu: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].ForegroundB, 3) + "+");
@@ -344,18 +339,18 @@ namespace LofiHollow.UI {
                             ModConsole.Print(21, 15, ":   Grn: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].Dec.G, 3) + "+");
                             ModConsole.Print(21, 16, ":   Blu: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].Dec.B, 3) + "+");
                             ModConsole.Print(21, 17, ": Alpha: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].Dec.A, 3) + "+");
-                            ModConsole.Print(21, 18,": Glyph: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].Dec.Glyph, 3) + "+");
+                            ModConsole.Print(21, 18, ": Glyph: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].Dec.Glyph, 3) + "+");
                             ModConsole.Print(21, 19, "[Delete Decorator]", mousePos.Y == 19 && mousePos.X > 20 && mousePos.Y < 40 ? Color.Yellow : Color.DarkSlateGray);
                         }
 
                         ModConsole.Print(21, 22, "Level to Build: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].RequiredLevel, 2) + "+");
                         ModConsole.Print(21, 23, "Exp Granted: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].ExpGranted, 7) + "+");
 
-                        ColoredString moveblockcheck = new(Helper.Center((char)4, 3), Color.Lime, Color.Black); 
+                        ColoredString moveblockcheck = new(Helper.Center((char)4, 3), Color.Lime, Color.Black);
                         if (!CurrentMod.ModConstructs[ModItemIndex].BlocksMove)
                             moveblockcheck = new(Helper.Center("x", 3), Color.Red, Color.Black);
 
-                        ColoredString visblockcheck = new(Helper.Center((char) 4, 3), Color.Lime, Color.Black);
+                        ColoredString visblockcheck = new(Helper.Center((char)4, 3), Color.Lime, Color.Black);
                         if (!CurrentMod.ModConstructs[ModItemIndex].BlocksLOS)
                             visblockcheck = new(Helper.Center("x", 3), Color.Red, Color.Black);
 
@@ -375,8 +370,8 @@ namespace LofiHollow.UI {
                         int y = 32;
 
                         for (int i = 0; i < CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.Count; i++) {
-                            ModConsole.Print(21, y+i, ": Name: " + CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded[i].Name, SelectedField == 5 + i? Color.Yellow : Color.White);
-                            ModConsole.Print(51, y+i, "Quantity: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded[i].ItemQuantity, 3) + "+");
+                            ModConsole.Print(21, y + i, ": Name: " + CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded[i].Name, SelectedField == 5 + i ? Color.Yellow : Color.White);
+                            ModConsole.Print(51, y + i, "Quantity: -" + Helper.Center(CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded[i].ItemQuantity, 3) + "+");
 
                         }
                     }
@@ -540,8 +535,11 @@ namespace LofiHollow.UI {
                     int y = 3;
 
                     foreach (var modPath in Directory.GetFiles("./mods/")) {
-                        string json = File.ReadAllText(modPath); 
-                        Mod mod = JsonConvert.DeserializeObject<Mod>(json);
+                        Mod mod;
+
+                        using (var file = File.OpenRead(modPath)) {
+                            mod = ProtoBuf.Serializer.Deserialize<Mod>(file);
+                        }
 
                         ColoredString modEntry = new("", Color.White, Color.Black);
 
@@ -646,7 +644,7 @@ namespace LofiHollow.UI {
 
                     if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Space)) {
                         LobbyCode += " ";
-                    } 
+                    }
                 }
 
                 if (LobbyCode.Length > 0) {
@@ -661,28 +659,28 @@ namespace LofiHollow.UI {
                     int CreateX = 1;
                     int CreateY = 1;
                     if (mousePos == new Point(CreateX + 6, CreateY + 1))
-                        if (GameLoop.World.Player.ForegroundR > 0)
-                            GameLoop.World.Player.ForegroundR--;
+                        if (GameLoop.World.Player.player.ForegroundR > 0)
+                            GameLoop.World.Player.player.ForegroundR--;
 
                     if (mousePos == new Point(CreateX + 12, CreateY + 1))
-                        if (GameLoop.World.Player.ForegroundR < 255)
-                            GameLoop.World.Player.ForegroundR++;
+                        if (GameLoop.World.Player.player.ForegroundR < 255)
+                            GameLoop.World.Player.player.ForegroundR++;
 
                     if (mousePos == new Point(CreateX + 6, CreateY + 2))
-                        if (GameLoop.World.Player.ForegroundG > 0)
-                            GameLoop.World.Player.ForegroundG--;
+                        if (GameLoop.World.Player.player.ForegroundG > 0)
+                            GameLoop.World.Player.player.ForegroundG--;
 
                     if (mousePos == new Point(CreateX + 12, CreateY + 2))
-                        if (GameLoop.World.Player.ForegroundG < 255)
-                            GameLoop.World.Player.ForegroundG++;
+                        if (GameLoop.World.Player.player.ForegroundG < 255)
+                            GameLoop.World.Player.player.ForegroundG++;
 
                     if (mousePos == new Point(CreateX + 6, CreateY + 3))
-                        if (GameLoop.World.Player.ForegroundB > 0)
-                            GameLoop.World.Player.ForegroundB--;
+                        if (GameLoop.World.Player.player.ForegroundB > 0)
+                            GameLoop.World.Player.player.ForegroundB--;
 
                     if (mousePos == new Point(CreateX + 12, CreateY + 3))
-                        if (GameLoop.World.Player.ForegroundB < 255)
-                            GameLoop.World.Player.ForegroundB++;
+                        if (GameLoop.World.Player.player.ForegroundB < 255)
+                            GameLoop.World.Player.player.ForegroundB++;
                 }
             }
 
@@ -712,24 +710,22 @@ namespace LofiHollow.UI {
                     } else if (mousePos.Y == 18) { // Quit the game
                         System.Environment.Exit(0);
                     }
-                }
-                else if (GameLoop.UIManager.selectedMenu == "CharCreation") {
+                } else if (GameLoop.UIManager.selectedMenu == "CharCreation") {
                     if (mousePos.Y == MenuConsole.Height - 2 && mousePos.X <= 6 && mousePos.X >= 2 && NameBox.EditingText != "") {
                         GameLoop.UIManager.selectedMenu = "ConnectOrHost";
 
                         RemakeMenu();
                         MenuConsole = new SadConsole.Console(20, 20);
-                        MainMenuWindow.Children.Add(MenuConsole); 
+                        MainMenuWindow.Children.Add(MenuConsole);
                         MenuConsole.Position = new Point(40, 20);
-                        NameConsole.IsVisible = false; 
-                       
-                        
+                        NameConsole.IsVisible = false;
 
-                        if (GameLoop.World.Player.Name != NameBox.EditingText)
-                            GameLoop.World.Player.Name = NameBox.EditingText;
 
-                        GameLoop.World.Player.SizeMod = 0;
-                         
+
+                        if (GameLoop.World.Player.player.Name != NameBox.EditingText)
+                            GameLoop.World.Player.player.Name = NameBox.EditingText;
+
+
                         GameLoop.World.FreshStart();
                         GameLoop.UIManager.Map.UpdateVision();
                     }
@@ -738,20 +734,19 @@ namespace LofiHollow.UI {
                     int CreateY = 1;
 
                     if (mousePos == new Point(CreateX + 15, CreateY + 1))
-                        GameLoop.World.Player.LivesRemaining = -1;
+                        GameLoop.World.Player.player.LivesRemaining = -1;
                     if (mousePos == new Point(CreateX + 17, CreateY + 1))
-                        GameLoop.World.Player.LivesRemaining = 3;
+                        GameLoop.World.Player.player.LivesRemaining = 3;
                     if (mousePos == new Point(CreateX + 19, CreateY + 1))
-                        GameLoop.World.Player.LivesRemaining = 1;
+                        GameLoop.World.Player.player.LivesRemaining = 1;
 
                     if (mousePos.X >= CreateX + 25 && mousePos.Y == CreateY + 1)
-                        GameLoop.World.Player.DropsOnDeath = -1;
+                        GameLoop.World.Player.player.DropsOnDeath = -1;
                     if (mousePos.X >= CreateX + 25 && mousePos.Y == CreateY + 2)
-                        GameLoop.World.Player.DropsOnDeath = 0;
+                        GameLoop.World.Player.player.DropsOnDeath = 0;
                     if (mousePos.X >= CreateX + 25 && mousePos.Y == CreateY + 3)
-                        GameLoop.World.Player.DropsOnDeath = 1; 
-                } 
-                else if (GameLoop.UIManager.selectedMenu == "LoadFile") {
+                        GameLoop.World.Player.player.DropsOnDeath = 1;
+                } else if (GameLoop.UIManager.selectedMenu == "LoadFile") {
                     int fileSize = 5;
                     if (Names != null && Names.Length > 0) {
                         fileSize = Names.Length + 2;
@@ -767,11 +762,10 @@ namespace LofiHollow.UI {
                         if (Names != null && Names.Length > fileSlot && fileSlot >= 0) {
                             GameLoop.World.LoadPlayer(Names[fileSlot]);
                             GameLoop.UIManager.selectedMenu = "ConnectOrHost";
-                            GameLoop.UIManager.Map.UpdateVision(); 
+                            GameLoop.UIManager.Map.UpdateVision();
                         }
                     }
-                } 
-                else if (GameLoop.UIManager.selectedMenu == "ConnectOrHost") {
+                } else if (GameLoop.UIManager.selectedMenu == "ConnectOrHost") {
                     if (mousePos.Y == 1) {
                         MainMenuWindow.IsVisible = false;
                         GameLoop.UIManager.Map.MapWindow.IsVisible = true;
@@ -783,7 +777,7 @@ namespace LofiHollow.UI {
                         // Singleplayer
                     } else if (mousePos.Y == 2) {
                         // Host Immediately
-                        GameLoop.NetworkManager = new NetworkManager(true); 
+                        GameLoop.NetworkManager = new NetworkManager(true);
                         GameLoop.NetworkManager.CreateLobby();
                     } else if (mousePos.Y == 4 && mousePos.X >= 8 && mousePos.X <= 13) {
                         // Join game
@@ -794,8 +788,7 @@ namespace LofiHollow.UI {
                             joinError = "Enter lobby code first";
                         }
                     }
-                }
-                else if (GameLoop.UIManager.selectedMenu == "ModMenu") {
+                } else if (GameLoop.UIManager.selectedMenu == "ModMenu") {
                     mousePos = new MouseScreenObjectState(ModConsole, GameHost.Instance.Mouse).CellPosition;
 
                     if (ModMenuSelect == "List") {
@@ -815,8 +808,10 @@ namespace LofiHollow.UI {
                             int y = 3;
                             foreach (var modPath in Directory.GetFiles("./mods/")) {
                                 if (y == mousePos.Y) { // Load when we find the right one
-                                    string json = File.ReadAllText(modPath);
-                                    CurrentMod = JsonConvert.DeserializeObject<Mod>(json);
+                                    using (var file = File.OpenRead(modPath)) {
+                                        CurrentMod = ProtoBuf.Serializer.Deserialize<Mod>(file);
+                                    }
+
                                     ModMenuSelect = "Overview";
                                     CreatingMod = false;
                                     break;
@@ -830,8 +825,10 @@ namespace LofiHollow.UI {
                             int y = 3;
                             foreach (var modPath in Directory.GetFiles("./mods/")) {
                                 if (y == mousePos.Y) { // Load when we find the right one
-                                    string json = File.ReadAllText(modPath);
-                                    CurrentMod = JsonConvert.DeserializeObject<Mod>(json);
+                                    using (var file = File.OpenRead(modPath)) {
+                                        CurrentMod = ProtoBuf.Serializer.Deserialize<Mod>(file);
+                                    }
+
                                     CurrentMod.Enabled = !CurrentMod.Enabled;
                                     SaveMod();
                                     break;
@@ -840,8 +837,7 @@ namespace LofiHollow.UI {
                                 }
                             }
                         }
-                    } 
-                    else if (ModMenuSelect == "Create") {
+                    } else if (ModMenuSelect == "Create") {
                         if (mousePos.Y == 1 && mousePos.X < 10) { // Back to mod list
                             ModMenuSelect = "List";
                             SaveMod();
@@ -850,7 +846,7 @@ namespace LofiHollow.UI {
                         }
 
                         if (mousePos.Y == 1 && mousePos.X > 10 && mousePos.X < 20) { // Save mod
-                            SaveMod(); 
+                            SaveMod();
                         }
 
                         if (mousePos.X < 20) {
@@ -926,8 +922,7 @@ namespace LofiHollow.UI {
                                     CurrentMod.ModSkills.Add(new());
                             }
                         }
-                    } 
-                    else if (ModMenuSelect == "Overview") {
+                    } else if (ModMenuSelect == "Overview") {
                         if (mousePos.Y == 1 && mousePos.X < 10) { // Back to mod list
                             ModMenuSelect = "List";
                             SaveMod();
@@ -936,13 +931,13 @@ namespace LofiHollow.UI {
                         }
 
                         if (mousePos.Y == 1 && mousePos.X > 10) { // Edit mod
-                            ModMenuSelect = "Create"; 
+                            ModMenuSelect = "Create";
                             CreatingMod = true;
                         }
 
                         if (mousePos.Y == 5 && mousePos.X > 20) { // Toggle mod enabled status
                             CurrentMod.Enabled = !CurrentMod.Enabled;
-                            SaveMod(); 
+                            SaveMod();
                         }
 
                         if (CurrentMod != null) {
@@ -987,7 +982,7 @@ namespace LofiHollow.UI {
                         RunInput("", true);
                     }
 
-                    
+
                     if (GameHost.Instance.Mouse.LeftClicked) {
                         if (mousePos.Y == 3 && mousePos.X < 20)
                             SelectedField = 0;
@@ -1012,7 +1007,7 @@ namespace LofiHollow.UI {
                             if (mousePos.Y == 35 && mousePos.X > 20 && mousePos.X < 49 && CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.Count > 3)
                                 SelectedField = 8;
                             if (mousePos.Y == 36 && mousePos.X > 20 && mousePos.X < 49 && CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.Count > 4)
-                                SelectedField = 9; 
+                                SelectedField = 9;
 
                             if (mousePos.Y == 14 && mousePos.X >= 22 && mousePos.Y <= 35 && CurrentMod.ModConstructs[ModItemIndex].Dec == null) {
                                 CurrentMod.ModConstructs[ModItemIndex].Dec = new();
@@ -1041,19 +1036,19 @@ namespace LofiHollow.UI {
                             if (mousePos.Y == 31 && mousePos.X >= 51 && mousePos.X <= 55)
                                 if (CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.Count > 0)
                                     CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.RemoveAt(CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.Count - 1);
-                        
-                            if (mousePos.Y == 48 && mousePos.X > 20 && mousePos.X < 30 && ModItemIndex > 0) { 
+
+                            if (mousePos.Y == 48 && mousePos.X > 20 && mousePos.X < 30 && ModItemIndex > 0) {
                                 ModItemIndex--;
                             }
 
-                            if (mousePos.Y == 48 && mousePos.X > 85) { 
+                            if (mousePos.Y == 48 && mousePos.X > 85) {
                                 if (ModItemIndex + 1 >= CurrentMod.ModConstructs.Count) {
                                     CurrentMod.ModConstructs.Add(new());
                                 }
                                 ModItemIndex++;
                             }
                         }
-                    
+
                         if (ModSubSelect == "Recipe") {
                             if (mousePos.Y == 1 && mousePos.X > 20 && mousePos.X < 40)
                                 SelectedField = 2;
@@ -1066,13 +1061,13 @@ namespace LofiHollow.UI {
                                 if (mousePos.Y >= 15 && mousePos.Y <= 19) {
                                     SelectedField = mousePos.Y - 10;
                                 }
-                            } 
+                            }
 
                             if (mousePos.X > 20 && mousePos.X < 49) {
                                 if (mousePos.Y >= 23 && mousePos.Y <= 27) {
                                     SelectedField = mousePos.Y - 13;
                                 }
-                            } 
+                            }
 
                             if (mousePos.X > 20 && mousePos.X < 49) {
                                 if (mousePos.Y >= 31 && mousePos.Y <= 35) {
@@ -1108,7 +1103,7 @@ namespace LofiHollow.UI {
                             if (mousePos.Y == 10 && mousePos.X > 20)
                                 CurrentMod.ModRecipes[ModItemIndex].WeightBasedOutput = !CurrentMod.ModRecipes[ModItemIndex].WeightBasedOutput;
 
-                           
+
                             if (mousePos.Y == 48 && mousePos.X > 20 && mousePos.X < 30 && ModItemIndex > 0) {
                                 ModItemIndex--;
                             }
@@ -1282,10 +1277,10 @@ namespace LofiHollow.UI {
                                     if (CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.Count > slot)
                                         CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded[slot].ItemQuantity++;
                                 }
-                            } 
+                            }
                         }
-                    
-                    
+
+
                         // Recipe inputs
                         if (ModSubSelect == "Recipe") {
                             if (mousePos == new Point(37, 6))
@@ -1429,7 +1424,7 @@ namespace LofiHollow.UI {
                             if (mousePos == new Point(40, 31))
                                 AddWithCap(ref CurrentMod.ModFish[ModItemIndex].MaxQuality, 1, 11);
                         }
-                    
+
                         // Monster inputs
                         if (ModSubSelect == "Monster") {
                             if (mousePos.X == 57) {
@@ -1486,12 +1481,12 @@ namespace LofiHollow.UI {
                                 if (mousePos.Y == 15)
                                     AddWithCap(ref CurrentMod.ModMonsters[ModItemIndex].MonMagic, 1, 255);
                                 if (mousePos.Y == 16)
-                                    AddWithCap(ref CurrentMod.ModMonsters[ModItemIndex].MonRanged, 1, 255); 
+                                    AddWithCap(ref CurrentMod.ModMonsters[ModItemIndex].MonRanged, 1, 255);
                             }
                         }
                     }
 
-                    if (GameHost.Instance.Mouse.RightClicked) { 
+                    if (GameHost.Instance.Mouse.RightClicked) {
                         // Constructible inputs
                         if (ModSubSelect == "Constructible") {
                             if (mousePos == new Point(31, 7))
@@ -1571,7 +1566,7 @@ namespace LofiHollow.UI {
                             if (mousePos.X == 65) {
                                 if (mousePos.Y >= 32 && mousePos.Y <= 36) {
                                     int slot = mousePos.Y - 32;
-                                    if (CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.Count > slot) 
+                                    if (CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded.Count > slot)
                                         CurrentMod.ModConstructs[ModItemIndex].MaterialsNeeded[slot].ItemQuantity++;
                                 }
                             }
@@ -1814,13 +1809,9 @@ namespace LofiHollow.UI {
                     CurrentMod.ModMonsters[i].Package = CurrentMod.Package;
                 }
 
-
-
-                string path = "./mods/" + CurrentMod.Name + ".dat";
-                using StreamWriter output = new StreamWriter(path);
-                string jsonString = JsonConvert.SerializeObject(CurrentMod, Formatting.Indented);
-                output.WriteLine(jsonString);
-                output.Close();
+                using (var file = File.Create("./mods/" + CurrentMod.Name + ".bin")) {
+                    ProtoBuf.Serializer.Serialize(file, CurrentMod);
+                }
             }
         }
 
@@ -1930,7 +1921,7 @@ namespace LofiHollow.UI {
                     if (ModSubSelect == "Skill") {
                         if (SelectedField == 2)
                             RemoveOneCharacter(ref CurrentMod.ModSkills[ModItemIndex].Name);
-                    } 
+                    }
                 } else {
                     if (SelectedField == 0)
                         CurrentMod.Name += add;
@@ -2035,10 +2026,7 @@ namespace LofiHollow.UI {
                     if (ModSubSelect == "Skill") {
                         if (SelectedField == 2)
                             CurrentMod.ModSkills[ModItemIndex].Name += add;
-                    }
-
-                    /* 
-                     * */
+                    } 
                 }
             }
         }

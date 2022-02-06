@@ -1,22 +1,28 @@
-﻿using LofiHollow.Entities;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using ProtoBuf;
+using System.Collections.Generic; 
 
 namespace LofiHollow.Minigames.Photo {
     [JsonObject(MemberSerialization.OptOut)]
+    [ProtoContract]
     public class Photo { 
+        [ProtoMember(1)]
         public string PhotoName = "Photo";
+        [ProtoMember(2)]
         public string SeasonTaken = "Spring";
+        [ProtoMember(3)]
         public int DayTaken = 0;
+        [ProtoMember(4)]
         public int MinutesTaken = 0;
+        [ProtoMember(5)]
         public PhotoTile[] tiles;
+        [ProtoMember(6)]
         public List<PhotoEntity> entities = new();
 
-        public Photo() {
+        [JsonConstructor]
+        public Photo() { }
+
+        public Photo(bool newPhoto) {
             tiles = new PhotoTile[441];
         }
 
