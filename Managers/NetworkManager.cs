@@ -53,7 +53,8 @@ namespace LofiHollow.Managers {
 			if (result.m_eResult == EResult.k_EResultOK) {
 				string lobbyCode = GetRoomCode();
 				LobbyCode = lobbyCode;
-				SteamMatchmaking.SetLobbyData((CSteamID)result.m_ulSteamIDLobby, "roomCode", lobbyCode); 
+				SteamMatchmaking.SetLobbyData((CSteamID)result.m_ulSteamIDLobby, "roomCode", lobbyCode);
+				currentLobby = result.m_ulSteamIDLobby;
 
 				GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
 				GameLoop.UIManager.Map.MapWindow.IsVisible = true;
@@ -95,11 +96,10 @@ namespace LofiHollow.Managers {
 					NetMsg requestEnts = new("requestEntities");
 					requestEnts.SetMap(GameLoop.World.Player.MapPos);
 					requestEnts.senderID = ownID;
-					byte[] req = requestEnts.ToByteArray();
 					Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
 					if (map != null)
 						map.Entities.Clear();
-					SteamMatchmaking.SendLobbyChatMsg((CSteamID)currentLobby, req, req.Length);
+					BroadcastMsg(requestEnts);
 
 					GameLoop.UIManager.clientAndConnected = true;
 					GameLoop.World.DoneInitializing = true;
@@ -144,7 +144,7 @@ namespace LofiHollow.Managers {
         }
 
 
-		public void OnLobbyMessage(LobbyChatMsg_t result) { 
+		public void OnLobbyMessage(LobbyChatMsg_t result) {
 			if ((CSteamID)result.m_ulSteamIDUser == SteamUser.GetSteamID())
 				return;
 
@@ -155,7 +155,9 @@ namespace LofiHollow.Managers {
 			 
 			if (Data.Length > 0) {
 				NetMsg msg = Data.FromByteArray<NetMsg>();
-				
+
+				GameLoop.UIManager.AddMsg("Received: " + msg.ident);
+
 				if (msg.recipient != CSteamID.Nil && msg.recipient != ownID)
 					return;
 				 
