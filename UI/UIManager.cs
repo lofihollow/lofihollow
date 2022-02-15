@@ -299,8 +299,9 @@ namespace LofiHollow.UI {
                 }
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F3)) {
-                    Combat.Toggle();
-                    Combat.StartCombat("Plains", 1);
+                    //    Combat.Toggle();
+                    //    Combat.StartCombat("Plains", 1);
+                    AddMsg(GameLoop.NetworkManager.LobbyCode);
                 }
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F2)) {

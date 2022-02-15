@@ -16,6 +16,7 @@ namespace LofiHollow.Managers {
 		public CSteamID ownID;
 		public bool isHost = false;
 		public bool FoundLobby = false;
+		public string LobbyCode = "";
 
 
 		protected Callback<LobbyCreated_t> Callback_lobbyCreated;
@@ -44,15 +45,15 @@ namespace LofiHollow.Managers {
 
 		public void JoinSteamLobby(string roomcode) {
 			ownID = SteamUser.GetSteamID();
-			SteamMatchmaking.AddRequestLobbyListStringFilter("roomCode", roomcode, ELobbyComparison.k_ELobbyComparisonEqual);
+			LobbyCode = roomcode;
 			SteamAPICall_t try_getList = SteamMatchmaking.RequestLobbyList();
-			SteamAPICall_t try_joinLobby = SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(0));
         }
 
 		public void OnLobbyCreated(LobbyCreated_t result) {
 			if (result.m_eResult == EResult.k_EResultOK) {
 				string lobbyCode = GetRoomCode();
-				SteamMatchmaking.SetLobbyData((CSteamID)result.m_ulSteamIDLobby, "roomCode", lobbyCode);
+				LobbyCode = lobbyCode;
+				SteamMatchmaking.SetLobbyData((CSteamID)result.m_ulSteamIDLobby, "roomCode", lobbyCode); 
 
 				GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
 				GameLoop.UIManager.Map.MapWindow.IsVisible = true;
@@ -71,9 +72,15 @@ namespace LofiHollow.Managers {
 			for (int i = 0; i < result.m_nLobbiesMatching; i++) {
 				CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
 				lobbyIDs.Add(lobbyID);
-				SteamMatchmaking.RequestLobbyData(lobbyID); 
-            }
-        }
+				SteamMatchmaking.RequestLobbyData(lobbyID);
+
+				if (SteamMatchmaking.GetLobbyData(lobbyID, "roomCode") == LobbyCode) {
+					SteamMatchmaking.JoinLobby(lobbyID);
+
+					GameLoop.UIManager.MainMenu.joinError = "Joining?";
+				}
+            } 
+		}
 
 		public void OnLobbyEntered(LobbyEnter_t result) {
 			if (result.m_EChatRoomEnterResponse == 1) {
@@ -143,7 +150,7 @@ namespace LofiHollow.Managers {
 				if (msg.recipient != CSteamID.Nil && msg.recipient != ownID)
 					return;
 
-
+				GameLoop.UIManager.AddMsg(msg.ident);
 
 				switch (msg.ident) {
 					case "createPlayer":
@@ -581,6 +588,9 @@ namespace LofiHollow.Managers {
 		public void BroadcastMsg(NetMsg msg) { 
 			byte[] message = msg.ToByteArray();
 			SteamMatchmaking.SendLobbyChatMsg((CSteamID)currentLobby, message, message.Length);
+
+
+			GameLoop.UIManager.AddMsg("Sending: " + msg.ident);
 		}
 
 		public static string GetRoomCode() {
