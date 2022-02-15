@@ -55,6 +55,7 @@ namespace LofiHollow.Managers {
 				LobbyCode = lobbyCode;
 				SteamMatchmaking.SetLobbyData((CSteamID)result.m_ulSteamIDLobby, "roomCode", lobbyCode);
 				currentLobby = result.m_ulSteamIDLobby;
+				ownID = SteamUser.GetSteamID();
 
 				GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
 				GameLoop.UIManager.Map.MapWindow.IsVisible = true;
@@ -149,7 +150,7 @@ namespace LofiHollow.Managers {
 				return;
 
 			CSteamID senderA;
-			byte[] Data = new byte[32768];
+			byte[] Data = new byte[65536];
 			EChatEntryType ChatEntryType;
 			int ret = SteamMatchmaking.GetLobbyChatEntry((CSteamID)result.m_ulSteamIDLobby, (int)result.m_iChatID, out senderA, Data, Data.Length, out ChatEntryType);
 			 
@@ -173,9 +174,7 @@ namespace LofiHollow.Managers {
 
 							if (currMap != null)
 								GameLoop.UIManager.Map.SyncMapEntities(currMap);
-						}
-
-						GameLoop.UIManager.AddMsg("Created player w/ ID " + msg.senderID);
+						} 
 						break;
 					case "hostFlags":
 						if (msg.MiscString1 == "farm")
@@ -359,8 +358,10 @@ namespace LofiHollow.Managers {
 						}
 						break;
 					case "movePlayer":
-						GameLoop.World.otherPlayers[msg.senderID].MoveTo(msg.GetPos(), msg.GetMapPos());
-						GameLoop.UIManager.Map.UpdateVision();
+						if (GameLoop.World.otherPlayers.ContainsKey(msg.senderID)) {
+							GameLoop.World.otherPlayers[msg.senderID].MoveTo(msg.GetPos(), msg.GetMapPos());
+							GameLoop.UIManager.Map.UpdateVision();
+						}
 						break;
 					case "updatePlayerMine":
 						GameLoop.World.otherPlayers[msg.senderID].Position = msg.GetPos();
@@ -521,10 +522,12 @@ namespace LofiHollow.Managers {
 						break;
 					case "sendJoinData":
 						foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
-							NetMsg createPlayer = new("createPlayer", kv.Value.ToByteArray());
-							createPlayer.senderID = kv.Key;
-							createPlayer.recipient = msg.senderID;
-							BroadcastMsg(createPlayer);
+							if (kv.Key != msg.senderID) {
+								NetMsg createPlayer = new("createPlayer", kv.Value.ToByteArray());
+								createPlayer.senderID = kv.Key;
+								createPlayer.recipient = msg.senderID;
+								BroadcastMsg(createPlayer);
+							}
 						} 
 
 						NetMsg createHost = new("createPlayer", GameLoop.World.Player.ToByteArray());
