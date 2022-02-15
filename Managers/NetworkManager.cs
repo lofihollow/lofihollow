@@ -43,6 +43,7 @@ namespace LofiHollow.Managers {
         }
 
 		public void JoinSteamLobby(string roomcode) {
+			ownID = SteamUser.GetSteamID();
 			SteamMatchmaking.AddRequestLobbyListStringFilter("roomCode", roomcode, ELobbyComparison.k_ELobbyComparisonEqual);
 			SteamAPICall_t try_getList = SteamMatchmaking.RequestLobbyList();
 			SteamAPICall_t try_joinLobby = SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(0));
@@ -141,6 +142,8 @@ namespace LofiHollow.Managers {
 
 				if (msg.recipient != CSteamID.Nil && msg.recipient != ownID)
 					return;
+
+
 
 				switch (msg.ident) {
 					case "createPlayer":

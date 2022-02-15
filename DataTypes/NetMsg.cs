@@ -6,7 +6,7 @@ namespace LofiHollow.DataTypes {
     [JsonObject(MemberSerialization.OptOut)]
     public class NetMsg {
         public CSteamID senderID;
-        public CSteamID recipient;
+        public CSteamID recipient = CSteamID.Nil;
         public string ident = "";
         public bool Flag = false;
         public string MiscString1 = "";
