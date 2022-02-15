@@ -46,7 +46,7 @@ namespace LofiHollow.Managers {
 		public void JoinSteamLobby(string roomcode) {
 			ownID = SteamUser.GetSteamID();
 			LobbyCode = roomcode;
-			SteamAPICall_t try_getList = SteamMatchmaking.RequestLobbyList();
+			SteamMatchmaking.RequestLobbyList();
         }
 
 		public void OnLobbyCreated(LobbyCreated_t result) {
@@ -74,20 +74,11 @@ namespace LofiHollow.Managers {
 				lobbyIDs.Add(lobbyID);
 				SteamMatchmaking.RequestLobbyData(lobbyID);
 
+
 				if (SteamMatchmaking.GetLobbyData(lobbyID, "roomCode") == LobbyCode) {
+					GameLoop.UIManager.MainMenu.joinError = "Joining lobby";
 					SteamMatchmaking.JoinLobby(lobbyID);
-
-					GameLoop.UIManager.MainMenu.joinError = "Joining?";
-				}
-            } 
-		}
-
-		public void OnLobbyEntered(LobbyEnter_t result) {
-			if (result.m_EChatRoomEnterResponse == 1) {
-				if (SteamMatchmaking.GetLobbyOwner((CSteamID) currentLobby) != ownID) {
-					GameLoop.UIManager.MainMenu.joinError = "Joining lobby...";
-
-					currentLobby = result.m_ulSteamIDLobby;
+					currentLobby = (ulong) lobbyID;
 
 					NetMsg register = new("registerPlayer", GameLoop.World.Player.ToByteArray());
 					BroadcastMsg(register);
@@ -98,6 +89,7 @@ namespace LofiHollow.Managers {
 					GameLoop.UIManager.clientAndConnected = false;
 					FoundLobby = true;
 
+
 					NetMsg requestEnts = new("requestEntities");
 					requestEnts.SetMap(GameLoop.World.Player.MapPos);
 					byte[] req = requestEnts.ToByteArray();
@@ -105,6 +97,24 @@ namespace LofiHollow.Managers {
 					if (map != null)
 						map.Entities.Clear();
 					SteamMatchmaking.SendLobbyChatMsg((CSteamID)currentLobby, req, req.Length);
+
+					GameLoop.UIManager.clientAndConnected = true;
+					GameLoop.World.DoneInitializing = true;
+
+					GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
+					GameLoop.UIManager.Map.MapWindow.IsVisible = true;
+					GameLoop.UIManager.Map.MessageLog.IsVisible = true;
+					GameLoop.UIManager.Sidebar.BattleLog.IsVisible = true;
+					GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
+					GameLoop.UIManager.selectedMenu = "None";
+				}
+            } 
+		}
+
+		public void OnLobbyEntered(LobbyEnter_t result) {
+			if (result.m_EChatRoomEnterResponse == 1) {
+				if (SteamMatchmaking.GetLobbyOwner((CSteamID) currentLobby) != ownID) {
+					GameLoop.UIManager.MainMenu.joinError = "Joining lobby...";
 				} else {
 					GameLoop.UIManager.MainMenu.joinError = "Failed to join lobby.";
 				}
@@ -131,11 +141,7 @@ namespace LofiHollow.Managers {
         }
 
 
-		public void OnLobbyMessage(LobbyChatMsg_t result) {
-			if (result.m_ulSteamIDLobby != currentLobby)
-				return;
-			if (result.m_eChatEntryType != 1)
-				return;
+		public void OnLobbyMessage(LobbyChatMsg_t result) { 
 			if ((CSteamID)result.m_ulSteamIDUser == SteamUser.GetSteamID())
 				return;
 
@@ -143,14 +149,14 @@ namespace LofiHollow.Managers {
 			byte[] Data = new byte[32768];
 			EChatEntryType ChatEntryType;
 			int ret = SteamMatchmaking.GetLobbyChatEntry((CSteamID)result.m_ulSteamIDLobby, (int)result.m_iChatID, out sender, Data, Data.Length, out ChatEntryType);
-
+			 
 			if (Data.Length > 0) {
 				NetMsg msg = Data.FromByteArray<NetMsg>();
-
+				 
+				GameLoop.UIManager.AddMsg(msg.ident);
 				if (msg.recipient != CSteamID.Nil && msg.recipient != ownID)
 					return;
-
-				GameLoop.UIManager.AddMsg(msg.ident);
+				 
 
 				switch (msg.ident) {
 					case "createPlayer":
@@ -198,6 +204,7 @@ namespace LofiHollow.Managers {
 						break;
 					case "registerPlayer":
 						Player player = msg.data.FromByteArray<Player>();
+						player.UsePixelPositioning = true;
 						if (!GameLoop.World.otherPlayers.ContainsKey(sender)) {
 							GameLoop.World.otherPlayers.Add(sender, player);
 
@@ -237,19 +244,7 @@ namespace LofiHollow.Managers {
 								}
 							}
 						}
-						break;
-					case "goToGame":
-						ownID = SteamUser.GetSteamID();
-						GameLoop.UIManager.clientAndConnected = true;
-						GameLoop.World.DoneInitializing = true;
-
-						GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
-						GameLoop.UIManager.Map.MapWindow.IsVisible = true;
-						GameLoop.UIManager.Map.MessageLog.IsVisible = true;
-						GameLoop.UIManager.Sidebar.BattleLog.IsVisible = true;
-						GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
-						GameLoop.UIManager.selectedMenu = "None";
-						break;
+						break; 
 					case "time":
 						GameLoop.World.Player.Clock = msg.data.FromByteArray<TimeManager>();
 						break;
@@ -520,11 +515,7 @@ namespace LofiHollow.Managers {
 							createPlayer.senderID = kv.Key;
 							createPlayer.recipient = sender;
 							BroadcastMsg(createPlayer);
-						}
-
-						NetMsg yourID = new("goToGame");
-						yourID.recipient = sender;
-						BroadcastMsg(yourID);
+						} 
 
 						NetMsg createHost = new("createPlayer", GameLoop.World.Player.ToByteArray());
 						createHost.senderID = ownID;
