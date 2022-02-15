@@ -3,9 +3,7 @@ using SadConsole;
 using SadRogue.Primitives;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.Managers {
     public class FishingManager {

@@ -14,10 +14,17 @@
   "ItemTier": -1,
   "ItemCat": "None",
   "EquipSlot": -1,
-  "Properties": {},
   "Dec": null,
   "ForegroundR": 0,
   "ForegroundG": 168,
   "ForegroundB": 107,
-  "ItemGlyph": 326
+  "ItemGlyph": 326,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

@@ -46,7 +46,7 @@ namespace LofiHollow.Minigames.Photo {
         }
 
         public ColoredString Appearance() {
-            return new ColoredString(((char)Glyph).ToString(), new Color(ColR, ColG, ColB, ColA), Color.Black);
+            return new ColoredString(Glyph.AsString(), new Color(ColR, ColG, ColB, ColA), Color.Black);
         }
 
         public CellDecorator GetDec() {

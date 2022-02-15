@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using SadRogue.Primitives;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.Entities {
     [JsonObject(MemberSerialization.OptIn)]

@@ -59,17 +59,17 @@ namespace LofiHollow.UI {
                 line += new ColoredString(("" + GameLoop.World.constructibles[i].RequiredLevel).Align(HorizontalAlignment.Center, 4, ' '), Color.White, Color.Black);
                 line += new ColoredString("|", Color.White, Color.Black); 
                 if (GameLoop.World.constructibles[i].BlocksMove)
-                     line += new ColoredString(((char)4).ToString().Align(HorizontalAlignment.Center, 5, ' '), Color.Lime, Color.Black);
+                     line += new ColoredString(4.AsString().Align(HorizontalAlignment.Center, 5, ' '), Color.Lime, Color.Black);
                 else
                     line += new ColoredString("x".Align(HorizontalAlignment.Center, 5, ' '), Color.Red, Color.Black);
                 line += new ColoredString("|", Color.White, Color.Black);
                 if (GameLoop.World.constructibles[i].BlocksLOS)
-                    line += new ColoredString(((char)4).ToString().Align(HorizontalAlignment.Center, 5, ' '), Color.Lime, Color.Black);
+                    line += new ColoredString(4.AsString().Align(HorizontalAlignment.Center, 5, ' '), Color.Lime, Color.Black);
                 else
                     line += new ColoredString("x".Align(HorizontalAlignment.Center, 5, ' '), Color.Red, Color.Black);
                 line += new ColoredString("|", Color.White, Color.Black);
                 if (canBuild)
-                    line += new ColoredString(((char)4).ToString().Align(HorizontalAlignment.Center, 11, ' '), Color.Lime, Color.Black);
+                    line += new ColoredString(4.AsString().Align(HorizontalAlignment.Center, 11, ' '), Color.Lime, Color.Black);
                 else 
                     line += new ColoredString("x".Align(HorizontalAlignment.Center, 11, ' '), Color.Red, Color.Black);
 

@@ -95,7 +95,7 @@ namespace LofiHollow.Minigames.Jobs {
             Mini.Print(0, 0, Timer.ToString().Align(HorizontalAlignment.Center, 70));
             Mini.Print(0, 2, ("Score: " + Score).Align(HorizontalAlignment.Center, 70));
             Mini.DrawLine(new Point(10, 35), new Point(70, 35), 205, new Color(110, 66, 33), Color.Black);
-            Mini.Print(9, 35, new ColoredString(((char)213).ToString(), new Color(110, 66, 33), Color.Black));
+            Mini.Print(9, 35, new ColoredString(213.AsString(), new Color(110, 66, 33), Color.Black));
             Mini.DrawLine(new Point(9, 36), new Point(9, 40), 179, new Color(110, 66, 33), Color.Black);
 
             if (Timer > 0) {

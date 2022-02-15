@@ -1,5 +1,4 @@
-﻿using LofiHollow.Entities;
-using LofiHollow.Managers;
+﻿using LofiHollow.DataTypes;
 using SadConsole;
 using SadConsole.Input;
 using SadConsole.UI;
@@ -71,7 +70,7 @@ namespace LofiHollow.UI {
                 Entry += current.ExpGranted.ToString().Align(HorizontalAlignment.Center, 8) + "|";
 
                 bool craftable = CurrentCraftable.Contains(CurrentSkillRecipes[i]);
-                ColoredString check = new ColoredString(((char)4).ToString(), Color.Lime, Color.Black);
+                ColoredString check = new ColoredString(4.AsString(), Color.Lime, Color.Black);
 
                 if (!craftable)
                     check = new ColoredString("x", Color.Red, Color.Black);
@@ -113,7 +112,7 @@ namespace LofiHollow.UI {
                 CraftingConsole.Print(0, 30, "Required Tools: ");
                 for (int i = 0; i < current.RequiredTools.Count; i++) {
                     bool hasTool = current.RequiredTools[i].ActorHasTool(GameLoop.World.Player);
-                    ColoredString check = new ColoredString(((char)4).ToString(), Color.Lime, Color.Black);
+                    ColoredString check = new ColoredString(4.AsString(), Color.Lime, Color.Black);
                     
                     if (!hasTool)
                         check = new ColoredString("x", Color.Red, Color.Black);
@@ -125,7 +124,7 @@ namespace LofiHollow.UI {
                 CraftingConsole.Print(25, 30, "Specific Materials: ");
                 for (int i = 0; i < current.SpecificMaterials.Count; i++) {
                     bool hasTool = current.SpecificMaterials[i].ActorHasComponent(GameLoop.World.Player, craftingQuantity, MinimumQuality) != -1;
-                    ColoredString check = new ColoredString(((char)4).ToString(), Color.Lime, Color.Black);
+                    ColoredString check = new ColoredString(4.AsString(), Color.Lime, Color.Black);
 
                     if (!hasTool)
                         check = new ColoredString("x", Color.Red, Color.Black);
@@ -142,7 +141,7 @@ namespace LofiHollow.UI {
                     ColoredString check = new ColoredString("x", Color.Red, Color.Black);
 
                     if (Qual == 0)
-                        check = new ColoredString(((char)4).ToString(), Color.Lime, Color.Black);
+                        check = new ColoredString(4.AsString(), Color.Lime, Color.Black);
                     else if (Qual > 0)
                         check = Helper.LetterGrade(Qual);
 

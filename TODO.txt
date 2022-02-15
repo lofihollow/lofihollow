@@ -13,6 +13,7 @@
 - Add some fish
 - Finish NPC dialogues
 - (DONE) Construction
+- (DONE) Achievements
 
 
 (DONE) Monsters / Combat [First Sweep]
@@ -25,8 +26,11 @@
 (DONE) Construction
 (DONE) Mining
 (DONE) Crafting System
+(DONE) Rentable Apartments
 
 Demo Mode: Play as much as you want, but only up to level 5 in any skill.
+ 
+Put a cat in the library and a dog somewhere in town as NPCs with special interactions
 
 Content Needs
 - Fishing: All Spring, All Summer, All Fall, All Winter, All Holiday, 9 All season, 10 trash items
@@ -38,20 +42,44 @@ Content Needs
 - Monsters: Add a variety of monsters for at least the first 20-30 combat levels
 - Missions: All the missions for Chapter 1
 - Tools: All Fishing Rods
+- Furniture: Carpets, chairs, tables, plant pots? Jukebox that lets you select what song plays
 
+
+Implement dyes that can change the color of tiles (in maps you can build in)
 
 Let players restrict access to containers
 Multiplayer Loading Screen: Connected, Received Host Farm, Received NPCs, Received entity data
 Make sure produce items have accurate-enough sprites
 
-Rentable apartments: 
-- Special maps as a test for demiplanes
-- Costs a flat rate each month, can pay in advance and check how long you have left
-- Only the owner can build furniture in it (can't build structural things)
-- Teleport into apartments from the building lobby via menu
+
+Turn-Based Combat (again)
+- (DONE) Support multiple enemies and allies
+- Attack any enemy at will
+- Experience is split between all ally units
+- Allow players to form a party, dragging them all into combats together if they're on the same map
+- Establish a turn order, have players act in that order and then all enemies
+- Player can tame monsters and use them in combat to fight enemies
+- Player can choose what they start combat with (just self, self + tamed monster, only tamed monster)
+- In multiplayer, each player only gets one unit in combats, but can choose what the unit is
+- Allow players to have a monster following them around in the overworld, visible to other players
+- Capture monsters by binding their spirit after killing them?
+- Monster Types:
+- - Elemental Types: Metal, Water, Wood, Fire, Earth
+- - Body Types: Digital, Spirit, Physical
+- - Energy Types: Kinetic, Magnetic, Thermal, Gravity, and Electric
+- - Physical Types?: Slash, Pierce, Blunt, 
+- - Food Types??: Salty, Sweet, Bitter, Sour, Umami, Cool, Hot
 
 
-Make attacking slower so monsters don't eviscerate the player instantly
+Deckbuilder Combat
+- Place all combatants on a grid
+- Moves target specific squares or AoE, hitting all targets in the area
+- Customizable deck of cards that show up in random orders
+- Decks can be equipped like other equipment, extra deck boxes take up a slot each in your inventory
+- Cards can be taken out of decks as individual items and dropped/sold/traded
+- Cards acquired via combats, quests, shops, trading, or dungeons
+
+
 
 Ways to earn money at the start
 - Adventurers Guild (job board with random assorted quests - kill, collect items)
@@ -59,12 +87,22 @@ Ways to earn money at the start
 - Photography jobs (capture photos of specific monsters or NPCs, bring them back)
 - Job minigames
 - - (DONE) Bartending
-- - Cafe?
+- - Cafe - Overcooked?
 - - Apothecary?
 - - General store (store mode?)
-- - Clothier (tailoring?)
-- - Library (sort books, or catch falling books maybe?)
+- - Clothier (randomly generated lines, follow them as accurately as possible for max points)
+- - Library (book sorting)
 - - Blacksmith
+
+Cafe Minigame
+- Restaurant has tables
+- Customers show up at door, you have to seat them at an empty table, happiness ticks down while they have to wait
+- After being seated, they wait a short period and then are ready to order
+- Have to visit the table to get their order and take it to the kitchen
+- Wait for food to complete then take it back to the table
+- After another short wait they finish eating and need the bill
+- Take the bill to their table, then they pay and leave, leaving the table dirty
+- Clean table and take dishes to the kitchen to free up the seat for more customers
 
 Photography
 - (DONE) Let players set the name of the photo, display it when you view the photo. Also save and display the date and time the photo was taken
@@ -78,7 +116,7 @@ Photography
 - (DONE) Mouse-over to view tile/entity names while viewing photo
 - Limited film, each photo uses some up.
 - Photo album that you can insert photos into, combining multiple into a single item
-- Show an indicator around the cursor for the area captured by a photo while holding a camera
+- (DONE) Show an indicator around the cursor for the area captured by a photo while holding a camera
 
 
 Kaalista's Monster Pens
@@ -94,20 +132,6 @@ Kaalista's Monster Pens
 - Monster breeding if two pens are filled and one is empty?
 - Minigames you can play with the monsters?
 - Have to clean up the pen regularly
-
-
-Cyberspace
-- Connect to official server, see other players walking around in it in real time
-- Opens in its own UI
-- Actual detailed humanoid character sprites and customization
-- Virtual currency you can only use in cyberspace
-- - Earn currency by playing minigames in cyberspace
-- - Spend currency to buy customization options, or order items that get sent to you in the "real" world
-- Chat feature with all players on the same map
-- Players can buy shops/homes/apartments and decorate them
-- Mega Man Battle Network style combat in "unsafe" zones vs virus-style enemies
-- Game zone where you can play board/card games against other players
-- Survey Zone - Answer surveys or vote in polls for currency
 
 
 Cooking
@@ -134,22 +158,10 @@ Effects System
 
 
 Skills still needing implementing:
-- Alchemy: Minigame that involves mixing/altering potions to reach specific values, then fire the potion to get a finished product
-- Ranged
-- Magic
-- Construction: Furniture crafting recipes
+- Ranged 
 - Crafting (the actual crafting skill): Turn cotton, flax, wool into cloth. Other misc crafting stuff
 - Farming: Farming-related crafting recipes
 - Tinkering: A crafting skill focused on technologial creations
-
-Spellcrafting for Magic
-- Nouns and verbs
-- Combine one of each, get a set effect
-- Slightly modify the effect via parameters (limited by magic level)
-- Save currently prepared spells to hotbar
-- Costs energy to use magic
-- Create and Destroy can only be used in dungeons or maps you own
-- Verbs: Create, Destroy, 
 
 
 Revamped Combat (for like the fifth time)
@@ -178,6 +190,8 @@ Farm Animals
 - Cows
 - Sheep - Can be sheared for wool
 - Pigs
+- Have to build a barn to have animals. Barn must be enclosed (solid walls and doors) and have one animal bed per animal
+
 
 
 Fishing 
@@ -229,15 +243,17 @@ Mod Support
 - - - (DONE) Crafting Recipes
 - - - (DONE) Skills
 - - - (DONE) Fish
-- - - Items
+- - - Items - Might have to be external
 - - - (DONE) Monsters
-- - - NPCs 
-- - - Missions  
-- - Separate editor maybe?
+- - - NPCs - Definitely have to be external, too much data for a good internal menu
+- - - Missions - Probably also external for the same reason
 - - - Maps
 - - - Tiles
+- - - Scripts - Have to be external
 - WIP Sandbox to make changes or upload to workshop
 - Browse workshop mods in-game
+- Add UI buttons to pack/unpack
+
 
 
 Farming
@@ -304,7 +320,7 @@ Map
 - - Adventurer's Guild (Gives kill tasks?)
 - - Apothecary (Sells potions and potion ingredients)
 - - General Store (Sells general goods - seeds, food)
-- - Inn (Allows the player to pay some gold for a room, must pay cost each night)
+- - (DONE) Inn
 - - Cemetary (Graves that act like signs)
 - - Library (Bookcases act like signs?)
 - - Clinic (Pay for healing) 
@@ -327,49 +343,7 @@ Dumb Ideas that could be fun/funny:
 - - Maybe as a reward for a dungeon? You get spring shoes and can then jump, spring shoes required to enter/complete the next dungeon
 - Small chance for an NPC named "the devil" to appear on top of a chopped hickory tree, secret mission to beat him at a rhythm game when you speak to him 
 - A space area with simulated atmos
-
-Arcade games / Computer? / Console
-- Games run using lua scripts via interpreter
-- Arcade machines have one built-in game they play
-- Consoles (and handhelds?) have carts you can swap out to play different games
-- Computers have disks you can switch and also an OS wrapped with other functions
-- Default font file for games is the normal LH tilesheet, but individual games can opt into using a custom tilesheet
-- Computer Apps
-- - Games with online matchmaking? Chess, shogi, etc. Maybe ranked and unranked
-- - GameDev Studio: All the tools for making games (script editor, tile editor, map editor) in one spot. Save to computers disk drive or upload to steam workshop
-- - IRC: Connect to a public IRC channel or similar to chat with other people playing the game
-- - VR/Cyberspace thing: Connect to an actual server hosted by me, able to walk around in a virtual space talking to other people also connected
-- - "Web Browser": Navigate between fake webpages and domains.
-- - - MyHollow: Let people make their own profile page and export to the workshop
-- - - MyHollow: Browse all pages that are currently on the workshop
-- - - Mail Order shops: Pay for items using banked currency, receive them in the mail
-
-
-Mining Expansion
-- Tools that are useable in the Mines
-- - Grapple Hook (shoot at ceiling, swing across gaps)
-- - Bow (Fire arrows at enemies, or attach a rope to a spot)
-- Create the possibility of premade structures in the mines?
-- Hazards in the mine?
-- - Monsters
-- - Lava
-- - Water
-- - Falling Boulders - Fall if nothing is below them
-- Fluid Physics
-- - Liquid moves to the lowest point 
-- - Fractional liquid portions in a tile, set the air tile glyph to the liquid portion
-
-
-
-Shop Mode
-- A shop that you can buy in town
-- Pedestals on which you can place and price items
-- Extra item stats required: Value, Condition
-- Friendly NPCs will be willing to pay more, unfriendly NPCs pay less
-- Each NPC has a chance to buy items they would like as gifts
-- Giving a good deal on an item increases NPC relations, bad deal decreases relations
-
-
+ 
 Minigames
 - Card-based Minigames
 - - Solitaire
@@ -395,30 +369,13 @@ Minigames
 - Baseball minigame
 - Minigolf
 - Soccer
+- Quick Draw/fast reaction time? come up with a context
+- Horse Racing - Time button holds to avoid muddy spots and speed up on the track
+- Text Adventure System
+- Lights out
+- Water pipes flow thing?
+- Pinball
 
-
-
-Achievements
-- Each time you fill the requirements for an achievement, put the milliseconds since day start in the log
-- Kill Feed Achievements
-- - Meticulous: Get z-a in order backwards, spelling the alphabet in the feed
-- - METICULOUS: Get Z-A (capitals) in order backwards, spelling the alphabet in the feed
-- - Obsessive and Compulsive: Get Z-A and then z-a, spelling the alphabet in lower case on the top line of the feed and in caps on the bottom
-- - Maturity: Spell boobs in the kill feed
-- - Funny Business: Spell "lol" in the kill feed
-- - Funnier Business: Spell "lmao" in the kill feed
-- - Funniest Business: Spell "lmfao" in the kill feed
-- 
-- Map Clear Achievements (10, 20, 50, 100 maps in a single day)
-- 99 in each skill
-- 99 in all skills
-- 92 in each skill (half way there)
-- 92 in all skills
-- Industrious: Rent the apartment in Noonbreeze on day 1
-- Max out relationship with 1, 5, 10, 20 NPCs
-- Get to -100 relationship with 1, 5, 10, 20 NPCs
-- Max relationship with a shop vendor
-- -100 relationship with a shop vendor
 
 Conducts? - Keep a record of how many years/months/days you've gone without breaking the conduct
 - Vegan
@@ -427,7 +384,41 @@ Conducts? - Keep a record of how many years/months/days you've gone without brea
 
 
 
-Bespoke Dungeons?
+Cultivation
+- Also ability programming, but you can tie it to melee/ranged attacks
+- Trained via a meditation minigame with huge rewards every 10 levels.
+- Meditation minigame gives a base of 1 exp per cycle, increased in areas dense with spiritual energy
+- Skill is named "Meditation" until level 10, then changes to be named Cultivation after that
+
+
+
+
+
+
+
+EXPANSION PLANS
+The Groove Update
+- Get midi instruments working
+- - Flute
+- - Lyre
+- - Piano (stationary)
+- - Horns/trumpets
+- - Singing? Like KK Slider
+- Tied to a skill maybe, song length based on skill level
+- Guitar Hero style minigame to see how accurately you play, get music exp for hitting notes successfully and more for great/perfects
+- Music audible to other players in the same map
+- Music crystals that store songs for replay later without a minigame attached (ie in a jukebox)
+- Record music to crystals, save to file like photos
+- Compose and play music sheets in-game (play a song with the minigame)
+
+
+The Lore Update
+- Named/Unique Monsters
+- Champion variants of monsters
+- Artifacts (named Items), set list and random
+
+
+The Adventure Update
 - Unique puzzle mechanic for each dungeon
 - Boss fight at the end?
 - Tower dungeon
@@ -436,17 +427,108 @@ Bespoke Dungeons?
 - Dungeon underneath Noonbreeze
 
 
-
-
-City
-- At least 9x9
+The Urban Update
+- City - 9x9 tiles
+- Maybe buildings in city are facades rather than top-down, to make them more visually distinct
 - Lots of flavor buildings - Restaurants, shops, etc
 - Rentable apartment - have to pay a certain amount each month
 - Minigame jobs to earn money
 
 
-Cultivation
-- Also ability programming, but you can tie it to melee/ranged attacks
-- Trained via a meditation minigame with huge rewards every 10 levels.
-- Meditation minigame gives a base of 1 exp per cycle, increased in areas dense with spiritual energy
-- Skill is named "Meditation" until level 10, then changes to be named Cultivation after that
+
+The Entrepreneur Update
+- General Store Mode
+- - A shop that you can buy in town
+- - Pedestals on which you can place and price items
+- - Extra item stats required: Value, Condition
+- - Friendly NPCs will be willing to pay more, unfriendly NPCs pay less
+- - Each NPC has a chance to buy items they would like as gifts
+- - Giving a good deal on an item increases NPC relations, bad deal decreases relations
+
+
+The Computer Update
+- Games run using lua scripts via interpreter
+- Arcade machines have one built-in game they play
+- Consoles (and handhelds?) have carts you can swap out to play different games
+- Computers have disks you can switch and also an OS wrapped with other functions
+- Default font file for games is the normal LH tilesheet, but individual games can opt into using a custom tilesheet
+- Computer Apps
+- - Games with online matchmaking? Chess, shogi, etc. Maybe ranked and unranked
+- - GameDev Studio: All the tools for making games (script editor, tile editor, map editor) in one spot. Save to computers disk drive or upload to steam workshop
+- - IRC: Connect to a public IRC channel or similar to chat with other people playing the game
+- - VR/Cyberspace thing: Connect to an actual server hosted by me, able to walk around in a virtual space talking to other people also connected
+- - "Web Browser": Navigate between fake webpages and domains.
+- - - MyHollow: Let people make their own profile page and export to the workshop
+- - - MyHollow: Browse all pages that are currently on the workshop
+- - - Mail Order shops: Pay for items using banked currency, receive them in the mail
+
+
+The Mining Update 
+- Tools that are useable in the Mines
+- - Grapple Hook (shoot at ceiling, swing across gaps)
+- - Bow (Fire arrows at enemies, or attach a rope to a spot)
+- Create the possibility of premade structures in the mines?
+- Hazards in the mine?
+- - Monsters
+- - Lava
+- - Water
+- - Falling Boulders - Fall if nothing is below them
+- Fluid Physics
+- - Liquid moves to the lowest point 
+- - Fractional liquid portions in a tile, set the air tile glyph to the liquid portion
+
+The Ocean Update
+- Build and sail boats of varying types/sizes (with NPC crew as needed)
+- Sail to other islands or to the underwater city
+- Underwater city can only be accessed if you can breathe underwater
+- - Has fish swimming around, colorful plant life
+- - Undersea vents that you can use for smithing
+- Aquarium Activity
+- - Buy a tank, fill it with appropriate liquid for fish desired (maybe some fish that swim in lava/slime/whatever instead of water)
+- - - Variable size and shapes of tanks
+- - Place fish eggs into tank
+- - Fish hatch and then you can watch them swim around
+- - Must feed fish at regular intervals or they'll die
+- - Fish interact with eachother
+- - Fish happiness based on factors like being alone, being with others of its kind, tank decorations
+- - Tank decorations that the fish can interact with
+
+
+The Dream Update
+- Chance for nightmares or dreams
+- Dream world: A shifting, confusing environment you can explore.
+- Nightmare: Specific themes (being chased by a monster, run down an endless hallway). Conquering nightmares trains your Meditation skill
+- Missions only completable in dream world
+- Activities that you can only do in the dream world
+- Dreams only last for as long as you sleep - time ticks normally, and you wake up automatically at 6am / 9am at the end
+- Optionally choose to end the dream at any point and jump to morning
+
+
+The Social Update
+Cyberspace
+- Connect to official server, see other players walking around in it in real time
+- Opens in its own UI
+- Actual detailed humanoid character sprites and customization
+- Virtual currency you can only use in cyberspace
+- - Earn currency by playing minigames in cyberspace
+- - Spend currency to buy customization options, or order items that get sent to you in the "real" world
+- Chat feature with all players on the same map
+- Players can buy shops/homes/apartments and decorate them
+- Mega Man Battle Network style combat in "unsafe" zones vs virus-style enemies
+- Game zone where you can play board/card games against other players
+- Survey Zone - Answer surveys or vote in polls for currency
+
+
+
+The Magic Update
+- Spellcrafting for Magic
+- - Nouns and verbs
+- - Combine one of each, get a set effect
+- - Slightly modify the effect via parameters (limited by magic level)
+- - Save currently prepared spells to hotbar
+- - Costs energy to use magic
+- - Create and Destroy can only be used in dungeons or maps you own
+- - Verbs: Create, Destroy
+- Alchemy: Minigame that involves mixing/altering potions to reach specific values, then fire the potion to get a finished product
+- Demiplane: A portable environment the player can carry around with them
+- - Able to put NPCs and monsters in the demiplane if it's big enough?

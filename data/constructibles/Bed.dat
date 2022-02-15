@@ -15,6 +15,7 @@
   "ExpGranted": 30,
   "BlocksMove": false,
   "BlocksLOS": false,
+  "Furniture": true,
   "MaterialsNeeded": [
     {
       "Name": "Poplar Plank",

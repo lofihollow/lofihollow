@@ -55,7 +55,7 @@ namespace LofiHollow.Entities {
         public string FilletID = "";
 
         public ColoredString GetAppearance() {
-            return new ColoredString(((char) glyph).ToString(), new Color(colR, colG, colB), Color.Black);
+            return new ColoredString(glyph.AsString(), new Color(colR, colG, colB), Color.Black);
         }
     }
 }

@@ -2,9 +2,7 @@
 using SadRogue.Primitives;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.Entities {
     public class MonsterWrapper : Actor {
@@ -58,81 +56,6 @@ namespace LofiHollow.Entities {
                     }
                 }
             }
-        }
-
-
-        public void Update() {
-            Point oldPos = new(Position.X, Position.Y);
-
-            int distanceToNearest = 99;
-            Point targetPoint = new(-1, -1);
-            Actor defender = null;
-
-            if (GameLoop.World.Player.MapPos == MapPos) {
-                if (GameLoop.World.Player.CombatLevel < CombatLevel + monster.Confidence || monster.AlwaysAggro) {
-                    defender = GameLoop.World.Player;
-                    targetPoint = new Point(GameLoop.World.Player.Position.X, GameLoop.World.Player.Position.Y);
-                    distanceToNearest = GameLoop.World.maps[MapPos].MapPath.ShortestPath(Position.ToCoord(), targetPoint.ToCoord()).Length;
-                }
-            }
-
-            foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
-                if (kv.Value.MapPos == MapPos) {
-                    kv.Value.CalculateCombatLevel();
-                    if (kv.Value.CombatLevel < CombatLevel + monster.Confidence || monster.AlwaysAggro) { 
-                        int newDist = GameLoop.World.maps[MapPos].MapPath.ShortestPath(Position.ToCoord(), kv.Value.Position.ToCoord()).Length;
-                        if (newDist < distanceToNearest) {
-                            defender = kv.Value;
-                            targetPoint = new Point(kv.Value.Position.X, kv.Value.Position.Y);
-                            distanceToNearest = newDist;
-                        }
-                    }
-                }
-            }
-
-            if (distanceToNearest < 25 && distanceToNearest > 1) {
-                if (CurrentPath == null) {
-                    CurrentPath = GameLoop.World.maps[MapPos].MapPath.ShortestPath(Position.ToCoord(), targetPoint.ToCoord());
-                    pathPos = 0;
-                }
-
-                if (CurrentPath != null && targetPoint != new Point(-1, -1)) {
-                    if (TimeLastActed + (120) > SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                        return;
-                    }
-                    TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-
-
-                    if (CurrentPath.Length > pathPos) {
-                        GoRogue.Coord nextStep = CurrentPath.GetStep(pathPos);
-
-                        if (MoveTo(new Point(nextStep.X, nextStep.Y), MapPos))
-                            pathPos++;
-                    }
-
-                    Point currEnd = new(CurrentPath.End.X, CurrentPath.End.Y);
-
-                    if (targetPoint != currEnd) {
-                        CurrentPath = GameLoop.World.maps[MapPos].MapPath.ShortestPath(Position.ToCoord(), targetPoint.ToCoord());
-                        pathPos = 0;
-                    }
-                }
-
-                if (oldPos != Position) {
-                    GameLoop.SendMessageIfNeeded(new string[] { "moveMonster", monster.UniqueID, Position.X.ToString(), Position.Y.ToString(), MapPos.ToString() }, true, false);
-                }
-            } else if (distanceToNearest == 1) { // Already adjacent, make an attack
-                if (defender != null) {
-                    if (TimeLastActed + (120) > SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                        return;
-                    }
-                    TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-
-                    CommandManager.Attack(this, defender, true);
-                }
-            }
-
-            UpdatePosition();
         }
     }
 }

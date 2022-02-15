@@ -14,69 +14,74 @@
   "ItemTier": -1,
   "ItemCat": "Seed",
   "EquipSlot": -1,
-  "Properties": {
-    "Plant": {
-      "CurrentStage": 0,
-      "DayCounter": 0,
-      "GrowthSeason": "Spring",
-      "HarvestRevert": -1,
-      "ProduceName": "",
-      "RequiredLevel": 15,
-      "ExpOnHarvest": 60,
-      "ExpPerExtra": 5,
-      "ProducePerHarvestMin": 1,
-      "ProducePerHarvestMax": 1,
-      "ProduceIsSeed": false,
-      "WateredToday": false,
-      "Stages": [
-        {
-          "DaysToNext": 0,
-          "HarvestItem": "",
-          "ColorR": 110,
-          "ColorG": 66,
-          "ColorB": 33,
-          "Glyph": 291,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 2,
-          "HarvestItem": "",
-          "ColorR": 0,
-          "ColorG": 127,
-          "ColorB": 0,
-          "Glyph": 300,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 2,
-          "HarvestItem": "",
-          "ColorR": 0,
-          "ColorG": 127,
-          "ColorB": 0,
-          "Glyph": 301,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 0,
-          "HarvestItem": "lh:Cauliflower",
-          "ColorR": 255,
-          "ColorG": 255,
-          "ColorB": 255,
-          "Glyph": 302,
-          "Dec": {
-            "Glyph": 303,
-            "R": 0,
-            "G": 127,
-            "B": 0,
-            "A": 255
-          }
-        }
-      ]
-    }
-  },
   "Dec": null,
   "ForegroundR": 255,
   "ForegroundG": 255,
   "ForegroundB": 255,
-  "ItemGlyph": 290
+  "ItemGlyph": 290,
+  "Plant": {
+    "CurrentStage": 0,
+    "DayCounter": 0,
+    "GrowthSeason": "Spring",
+    "HarvestRevert": -1,
+    "ProduceName": "",
+    "RequiredLevel": 15,
+    "ExpOnHarvest": 60,
+    "ExpPerExtra": 5,
+    "ProducePerHarvestMin": 1,
+    "ProducePerHarvestMax": 1,
+    "ProduceIsSeed": false,
+    "WateredToday": false,
+    "Stages": [
+      {
+        "DaysToNext": 0,
+        "HarvestItem": "",
+        "ColorR": 110,
+        "ColorG": 66,
+        "ColorB": 33,
+        "Glyph": 291,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 2,
+        "HarvestItem": "",
+        "ColorR": 0,
+        "ColorG": 127,
+        "ColorB": 0,
+        "Glyph": 300,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 2,
+        "HarvestItem": "",
+        "ColorR": 0,
+        "ColorG": 127,
+        "ColorB": 0,
+        "Glyph": 301,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 0,
+        "HarvestItem": "lh:Cauliflower",
+        "ColorR": 255,
+        "ColorG": 255,
+        "ColorB": 255,
+        "Glyph": 302,
+        "Dec": {
+          "Glyph": 303,
+          "R": 0,
+          "G": 127,
+          "B": 0,
+          "A": 255
+        }
+      }
+    ]
+  },
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

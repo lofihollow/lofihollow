@@ -4,6 +4,10 @@ using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
 using LofiHollow.Managers;
+using LofiHollow.EntityData;
+using LofiHollow.DataTypes;
+using System.Linq;
+using Steamworks;
 
 namespace LofiHollow.Entities {
     [JsonObject(MemberSerialization.OptIn)]
@@ -64,6 +68,29 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public int DropsOnDeath = -1; // -1: Nothing, 0: Gold, 1: Items and Gold
 
+        [JsonProperty]
+        public Dictionary<string, OwnableLocation> OwnedLocations = new();
+
+        [JsonProperty]
+        public Apartment NoonbreezeApt;
+
+        [JsonProperty]
+        public string InApartment = "None";
+
+
+        public bool feed_funny1 = false;
+        public bool feed_funny2 = false;
+        public bool feed_funny3 = false;
+        public bool feed_meticulous1 = false;
+        public bool feed_meticulous2 = false;
+        public bool feed_ocd = false;
+        public bool feed_maturity = false;
+
+        public double DayStart = 0;
+
+        [JsonProperty]
+        public List<CSteamID> PartyMembers = new();
+
         public Player(Color foreground) : base(foreground, '@') {
             ActorGlyph = '@';
              
@@ -88,6 +115,19 @@ namespace LofiHollow.Entities {
             return false;
         }
 
+        public string KillFeed() {
+            string list = "";
+
+            List<ColoredString> kills = killList.ToList();
+
+            kills.Reverse();
+
+            for (int i = 0; i < kills.Count; i++) {
+                list += kills[i].String;
+            }
+
+            return list;
+        }
 
         public void PlayerDied() {
             if (MapPos == GameLoop.World.Player.MapPos && this != GameLoop.World.Player) {
@@ -203,9 +243,7 @@ namespace LofiHollow.Entities {
                             GameLoop.UIManager.Minigames.MineManager.LakeMine.SpawnItem(jadeWrap, MineDepth);
                     }
                 }
-            }
-
-            GameLoop.World.Player.UsePixelPositioning = false;
+            } 
 
             LivesRemaining--;
 
@@ -240,12 +278,12 @@ namespace LofiHollow.Entities {
 
                 if (GameLoop.NetworkManager != null) {
                     if (GameLoop.NetworkManager.isHost) {
-                        GameLoop.SendMessageIfNeeded(new string[] { "hostDead" }, true, false); 
+                        NetMsg hostDied = new("hostDead");
+                        GameLoop.SendMessageIfNeeded(hostDied, true, false); 
                     } else {
-                        GameLoop.SendMessageIfNeeded(new string[] { "outOfLives" }, false, true);
-                        GameLoop.NetworkManager.lobbyManager.DisconnectLobby(GameLoop.NetworkManager.lobbyID, (Discord.Result result) => {
-
-                        });
+                        NetMsg outOfLives = new("outOfLives");
+                        GameLoop.SendMessageIfNeeded(outOfLives, false, true);
+                        SteamMatchmaking.LeaveLobby((CSteamID) GameLoop.NetworkManager.currentLobby);
                     }
                 }
 
@@ -276,6 +314,42 @@ namespace LofiHollow.Entities {
 
             return 0;
         }
-        
+
+        public void CalculateCombatLevel() {
+            int Attack = Skills["Attack"].Level;
+            int Strength = Skills["Strength"].Level;
+            int Magic = Skills["Magic"].Level;
+            int Ranged = Skills["Ranged"].Level;
+            int Defense = Skills["Defense"].Level;
+            int Constitution = Skills["Constitution"].Level;
+
+            int CombatStat = Math.Max(Attack + Strength, Math.Max(Magic, Ranged));
+
+            CombatLevel = (int)Math.Floor((double)(((13 / 10) * CombatStat) + Defense + Constitution) / 4);
+        }
+
+        public void UpdateHP() { 
+            MaxHP = Skills["Constitution"].Level;
+            CurrentHP = MaxHP; 
+        }
+
+        public string GetDamageType() {
+            if (Equipment[0].Properties.ContainsKey("Stats")) {
+                Equipment Stats = Equipment[0].Properties.Get<Equipment>("Stats");
+                string[] types = Stats.DamageType.Split(",");
+
+                if (CombatMode == "Attack")
+                    return types[0];
+                if (CombatMode == "Strength")
+                    return types[1];
+                if (CombatMode == "Defense")
+                    return types[2];
+                if (CombatMode == "Balanced")
+                    return types[3];
+            }
+
+            return "Crush";
+        }
+
     }
 }

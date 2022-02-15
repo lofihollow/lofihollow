@@ -14,10 +14,17 @@
   "ItemTier": 80,
   "ItemCat": "Watering Can",
   "EquipSlot": -1,
-  "Properties": { },
   "Dec": null,
   "ForegroundR": 0,
   "ForegroundG": 168,
   "ForegroundB": 107,
-  "ItemGlyph": 328
+  "ItemGlyph": 328,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

@@ -14,38 +14,43 @@
   "ItemTier": -1,
   "ItemCat": "None",
   "EquipSlot": -1,
-  "Properties": {
-    "MonsterEgg": {
-      "HatchesInto": {
-        "Name": "Raccoon",
-        "Species": "Raccoon",
-        "Glyph": 114,
-        "ForeR": 110,
-        "ForeG": 66,
-        "ForeB": 33,
-        "Health": 100,
-        "Relationship": 0,
-        "Happiness": 0,
-        "Hunger": 0,
-        "HungerSpeed": 20,
-        "HappinessDecay": 5,
-        "AgeInDays": 0,
-        "DaysInStage": 0,
-        "CurrentStage": 0,
-        "Stages": [],
-        "RecurringDrop": "",
-        "DropHasQuality": false,
-        "MaxDropQuality": 0,
-        "DropMinQty": 1,
-        "DropMaxQty": 1,
-        "Eats": "Anything"
-      },
-      "DaysToHatch": 4
-    }
-  },
   "Dec": null,
   "ForegroundR": 255,
   "ForegroundG": 245,
   "ForegroundB": 196,
-  "ItemGlyph": 338
+  "ItemGlyph": 338,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": {
+    "HatchesInto": {
+      "Name": "Raccoon",
+      "Species": "Raccoon",
+      "Glyph": 114,
+      "ForeR": 110,
+      "ForeG": 66,
+      "ForeB": 33,
+      "Health": 100,
+      "Relationship": 0,
+      "Happiness": 0,
+      "Hunger": 0,
+      "HungerSpeed": 20,
+      "HappinessDecay": 5,
+      "AgeInDays": 0,
+      "DaysInStage": 0,
+      "CurrentStage": 0,
+      "Stages": [],
+      "RecurringDrop": "",
+      "DropHasQuality": false,
+      "MaxDropQuality": 0,
+      "DropMinQty": 1,
+      "DropMaxQty": 1,
+      "Eats": "Anything"
+    },
+    "DaysToHatch": 4
+  },
+  "MonsterFood": null,
+  "Heal": null
 }

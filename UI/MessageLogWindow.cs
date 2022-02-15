@@ -3,12 +3,13 @@ using SadConsole;
 using System;
 using SadRogue.Primitives;
 using SadConsole.UI;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.UI {
     public class MessageLogWindow : Window { 
         private static readonly int _maxLines = 100;
          
-        private readonly Queue<ColoredString> _lines;
+        private readonly Queue<DecoratedString> _lines;
          
         private SadConsole.Console _messageConsole;
         
@@ -17,7 +18,7 @@ namespace LofiHollow.UI {
         private int _windowBorderThickness = 2;
 
         public MessageLogWindow(int width, int height, string title) : base(width, height) {  
-            _lines = new Queue<ColoredString>();
+            _lines = new Queue<DecoratedString>();
             CanDrag = false;
             Title = title.Align(HorizontalAlignment.Center, Width, (char) 196);
 
@@ -45,7 +46,7 @@ namespace LofiHollow.UI {
 
         public void Add(string msg) {
             ColoredString message = new ColoredString(msg, Color.White, Color.Black);
-            _lines.Enqueue(message);
+            _lines.Enqueue(new DecoratedString(message));
 
             if (_lines.Count > _maxLines) {
                 _lines.Dequeue();
@@ -56,7 +57,7 @@ namespace LofiHollow.UI {
         }
 
         public void Add(ColoredString message) {
-            _lines.Enqueue(message);
+            _lines.Enqueue(new DecoratedString(message));
 
             if (_lines.Count > _maxLines) {
                 _lines.Dequeue();
@@ -64,6 +65,17 @@ namespace LofiHollow.UI {
 
             _messageConsole.Cursor.Position = new Point(0, _lines.Count - 1);
             _messageConsole.Cursor.Print(message + "\n");
+        }
+
+        public void Add(DecoratedString msg) {
+            _lines.Enqueue(msg);
+
+            if (_lines.Count > _maxLines) {
+                _lines.Dequeue();
+            }
+
+            _messageConsole.Cursor.Position = new Point(0, _lines.Count - 1);
+            _messageConsole.PrintDecorated(_messageConsole.Cursor.Position.X, _messageConsole.Cursor.Position.Y, msg);
         }
 
         public void Clear() {

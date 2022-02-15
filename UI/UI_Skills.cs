@@ -5,6 +5,7 @@ using SadConsole.UI;
 using SadRogue.Primitives;
 using System.Collections.Generic;
 using Key = SadConsole.Input.Keys;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.UI {
     public class UI_Skills {

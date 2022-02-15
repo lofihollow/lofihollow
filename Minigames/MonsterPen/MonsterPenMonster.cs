@@ -2,10 +2,8 @@
 using SadConsole;
 using SadRogue.Primitives;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic; 
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.Minigames {
     [JsonObject(MemberSerialization.OptOut)]
@@ -76,7 +74,7 @@ namespace LofiHollow.Minigames {
 
 
         public ColoredString Appearance() {
-            return new ColoredString(((char)Glyph).ToString(), new Color(ForeR, ForeG, ForeB), Color.Black);
+            return new ColoredString(Glyph.AsString(), new Color(ForeR, ForeG, ForeB), Color.Black);
         }
     }
 }

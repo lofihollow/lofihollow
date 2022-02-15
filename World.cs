@@ -1,5 +1,4 @@
-﻿using System;
-using SadConsole.Components;
+﻿using System; 
 using SadRogue.Primitives;
 using System.Collections.Generic;
 
@@ -12,25 +11,28 @@ using System.Linq;
 using LofiHollow.Minigames.Mining;
 using LofiHollow.EntityData;
 using LofiHollow.Missions;
+using LofiHollow.DataTypes;
+using Steamworks;
 
 namespace LofiHollow {
     public class World { 
-        public Dictionary<string, TileBase> tileLibrary = new();
+        public Dictionary<string, Tile> tileLibrary = new();
         public Dictionary<string, MineTile> mineTileLibrary = new();
         public Dictionary<string, Item> itemLibrary = new();
         public Dictionary<string, Monster> monsterLibrary = new();
         public Dictionary<Point3D, Map> maps = new();
         public Dictionary<string, Skill> skillLibrary = new();
-        public Dictionary<int, NPC> npcLibrary = new();
+        public Dictionary<string, NPC> npcLibrary = new();
         public Dictionary<string, FishDef> fishLibrary = new();
         public Dictionary<int, Constructible> constructibles = new();
         public Dictionary<int, CraftingRecipe> recipeLibrary = new();
         public Dictionary<string, Mission> missionLibrary = new();
+        public Dictionary<string, string> scriptLibrary = new();
 
         public List<Chapter> Chapters = new();
 
 
-        public Dictionary<long, Player> otherPlayers = new();
+        public Dictionary<CSteamID, Player> otherPlayers = new();
 
 
         public bool DoneInitializing = false;
@@ -49,6 +51,7 @@ namespace LofiHollow {
             LoadMineTiles();
             LoadCraftingRecipes();
             LoadMissionDefinitions();
+            LoadScripts();
         }
 
         public void InitPlayer() {
@@ -66,6 +69,18 @@ namespace LofiHollow {
                     GameLoop.UIManager.Sidebar.minimap.Add(pos, kv.Value);
                 }
             } 
+        }
+
+        public void LoadScripts() {
+            if (Directory.Exists("./data/scripts/")) {
+                string[] scriptFiles = Directory.GetFiles("./data/scripts/");
+
+                foreach (string fileName in scriptFiles) {
+                    string script = File.ReadAllText(fileName);
+                    string name = fileName.Split("/")[^1][0..^4];
+                    scriptLibrary.Add(name, script);
+                }
+            }
         }
 
         public void LoadItemDefinitions() {
@@ -181,7 +196,7 @@ namespace LofiHollow {
                 foreach (string fileName in tileFiles) {
                     string json = File.ReadAllText(fileName);
 
-                    TileBase tile = JsonConvert.DeserializeObject<TileBase>(json);
+                    Tile tile = JsonConvert.DeserializeObject<Tile>(json);
 
                     tileLibrary.Add(tile.FullName(), tile);
                 }
@@ -205,7 +220,8 @@ namespace LofiHollow {
                     string json = File.ReadAllText(fileName);
                     NPC npc = JsonConvert.DeserializeObject<NPC>(json);
 
-                    npcLibrary.Add(npc.npcID, npc);
+                    if (npc.Name != "")
+                        npcLibrary.Add(npc.Name, npc);
                 }
             }
 
@@ -241,11 +257,9 @@ namespace LofiHollow {
         }
 
         public bool LoadMapAt(Point3D mapPos, bool JustGiveBackMap = false) {
-            if (Directory.Exists("./data/maps/")) {
-                if (File.Exists("./data/maps/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat")) {
-                    string json = System.IO.File.ReadAllText("./data/maps/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat");
-                    Map map = JsonConvert.DeserializeObject<Map>(json);
-                     
+            if (Directory.Exists("./data/maps/" + mapPos.WorldArea + "/")) {
+                if (File.Exists("./data/maps/" + mapPos.WorldArea + "/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat.gz")) {
+                    Map map = Helper.DeserializeFromFileCompressed<Map>("./data/maps/" + mapPos.WorldArea + "/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat.gz");
                     if (!maps.ContainsKey(mapPos)) {
                         maps.Add(mapPos, map);
                     } else {
@@ -260,10 +274,23 @@ namespace LofiHollow {
             return false;
         }
 
+        public Map GetMap(Point3D mapPos) {
+            if (Directory.Exists("./data/maps/" + mapPos.WorldArea + "/")) {
+                if (File.Exists("./data/maps/" + mapPos.WorldArea + "/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat.gz")) {
+                    return Helper.DeserializeFromFileCompressed<Map>("./data/maps/" + mapPos.WorldArea + "/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat.gz");
+                }
+            }
+
+            if (maps.ContainsKey(mapPos))
+                return maps[mapPos];
+
+            return null;
+        }
+
         public Map UnchangedMap(Point3D mapPos) {
-            if (Directory.Exists("./data/maps/")) {
-                if (File.Exists("./data/maps/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat")) {
-                    string json = System.IO.File.ReadAllText("./data/maps/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat");
+            if (Directory.Exists("./data/maps/" + mapPos.WorldArea + "/")) {
+                if (File.Exists("./data/maps/" + mapPos.WorldArea + "/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat")) {
+                    string json = System.IO.File.ReadAllText("./data/maps/" + mapPos.WorldArea + "/" + mapPos.X + "," + mapPos.Y + "," + mapPos.Z + ".dat");
                     Map map = JsonConvert.DeserializeObject<Map>(json);
 
                     return map;
@@ -274,9 +301,9 @@ namespace LofiHollow {
         }
 
         public void LoadPlayerFarm() {
-            if (File.Exists("./saves/" + GameLoop.World.Player.Name + "/farm.dat")) {
-                string json = System.IO.File.ReadAllText("./saves/" + GameLoop.World.Player.Name + "/farm.dat");
-                Map map = JsonConvert.DeserializeObject<Map>(json);
+            string farmPath = "./saves/" + GameLoop.World.Player.Name + "/farm.dat.gz";
+            if (File.Exists(farmPath)) {  
+                Map map = Helper.DeserializeFromFileCompressed<Map>(farmPath);
 
                 Point3D farmPos = new(-1, 0, 0); 
 
@@ -303,34 +330,30 @@ namespace LofiHollow {
             }
         }
 
-        public static void SaveMapToFile(Map map, Point3D pos) {
-            string path = "./data/maps/" + pos.X + "," + pos.Y + "," + pos.Z + ".dat";
+        public void SaveMapToFile(Point3D pos) {
+            if (maps.ContainsKey(pos)) {
+                Map map = maps[pos];
 
-            using StreamWriter output = new(path); 
-            string jsonString = JsonConvert.SerializeObject(map, Formatting.Indented);
-            output.WriteLine(jsonString);
-            output.Close();
+                if (!Directory.Exists("./data/maps/" + pos.WorldArea + "/"))
+                    Directory.CreateDirectory("./data/maps/" + pos.WorldArea + "/");
+
+                string path = "./data/maps/" + pos.WorldArea + "/" + pos.X + "," + pos.Y + "," + pos.Z + ".dat.gz";
+                Helper.SerializeToFileCompressed(map, path);
+            }
         }
 
         public void SavePlayer() {
             System.IO.Directory.CreateDirectory("./saves/" + Player.Name + "/");
-            string path = "./saves/" + Player.Name + "/player.dat";
+            string path = "./saves/" + Player.Name + "/player.dat.gz";
+            Helper.SerializeToFileCompressed(Player, path);
 
-            using StreamWriter output = new(path);
-            string jsonString = JsonConvert.SerializeObject(Player, Formatting.Indented);
-            output.WriteLine(jsonString);
-            output.Close();
+            if (Player.OwnsFarm) {
+                string farmPath = "./saves/" + Player.Name + "/farm.dat.gz";
 
-            if (GameLoop.World.Player.OwnsFarm) {
-                string farmPath = "./saves/" + Player.Name + "/farm.dat";
+                if (!maps.ContainsKey(new(-1, 0, 0)))
+                    LoadMapAt(new(-1, 0, 0));
 
-                if (!GameLoop.World.maps.ContainsKey(new(-1, 0, 0)))
-                    GameLoop.World.LoadMapAt(new(-1, 0, 0));
-
-                using StreamWriter farmOutput = new(farmPath);
-                string farmJson = JsonConvert.SerializeObject(GameLoop.World.maps[new(-1, 0, 0)], Formatting.Indented);
-                farmOutput.WriteLine(farmJson);
-                output.Close();
+                Helper.SerializeToFileCompressed(maps[new(-1, 0, 0)], farmPath); 
             }
 
             if (GameLoop.SingleOrHosting()) {
@@ -360,8 +383,8 @@ namespace LofiHollow {
 
                     string[] name = fileName.Split("/");
 
-                    if (name[^1] == "player.dat") {
-                        Player = JsonConvert.DeserializeObject<Player>(json);
+                    if (name[^1] == "player.dat.gz") {
+                        Player = Helper.DeserializeFromFileCompressed<Player>(fileName);
                     }
 
                     if (name[^1] == "time.dat") {
@@ -392,9 +415,15 @@ namespace LofiHollow {
 
             GameLoop.UIManager.Photo.PopulateJobList();
 
+            Player.UsePixelPositioning = true; 
             DoneInitializing = true;
-            GameLoop.UIManager.Map.LoadMap(Player.MapPos);
-         //   GameLoop.UIManager.Map.EntityRenderer.Add(Player); 
+
+            Player.DayStart = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+
+            Map map = Helper.ResolveMap(Player.MapPos); 
+            if (map != null) {
+                GameLoop.UIManager.Map.LoadMap(map);
+            } 
         }
 
 
@@ -436,6 +465,7 @@ namespace LofiHollow {
             Player.MapPos = new(3, 1, 0);
             Player.Name = "Player";
 
+            Player.UsePixelPositioning = true;
 
             GameLoop.UIManager.Map.LoadMap(Player.MapPos);
           //  GameLoop.UIManager.Map.EntityRenderer.Add(Player);

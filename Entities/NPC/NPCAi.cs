@@ -1,4 +1,4 @@
-﻿ 
+﻿using LofiHollow.DataTypes;
 using Newtonsoft.Json;
 using SadRogue.Primitives;
 using System;
@@ -172,19 +172,25 @@ namespace LofiHollow.Entities.NPC {
 
                 if (destination.X == npc.MapPos.X && destination.Y == npc.MapPos.Y && destination.Z != npc.MapPos.Z) { 
                     // Right XY, wrong elevation
-                    if (npc.Position == pos || GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(npc.Position.ToCoord(), pos.ToCoord()) == null) { // At the right spot on the wrong level or couldn't path to the right spot, find the nearest staircase
-                        int distanceToFound = 100;
-                        string findName = destination.Z > npc.MapPos.Z ? "Up Stairs" : "Down Stairs";
+                    if (npc.Position == pos) {
+                        Map map = Helper.ResolveMap(npc.MapPos);
 
-                        for (int x = 0; x < GameLoop.MapWidth; x++) {
-                            for (int y = 0; y < GameLoop.MapHeight; y++) {
-                                if (destination.Z != npc.MapPos.Z) {
-                                    if (GameLoop.World.maps[npc.MapPos].GetTile(new Point(x, y)).Name == findName) { 
-                                        int distance = GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(npc.Position.ToCoord(), new GoRogue.Coord(x, y)).LengthWithStart;
-                                        if (distance < distanceToFound) {
-                                            distanceToFound = distance;
-                                            edgeX = x;
-                                            edgeY = y;
+                        if (map != null) {
+                            if (map.MapPath.ShortestPath(npc.Position.ToCoord(), pos.ToCoord()) == null) { // At the right spot on the wrong level or couldn't path to the right spot, find the nearest staircase
+                                int distanceToFound = 100;
+                                string findName = destination.Z > npc.MapPos.Z ? "Up Stairs" : "Down Stairs";
+
+                                for (int x = 0; x < GameLoop.MapWidth; x++) {
+                                    for (int y = 0; y < GameLoop.MapHeight; y++) {
+                                        if (destination.Z != npc.MapPos.Z) {
+                                            if (map.GetTile(new Point(x, y)).Name == findName) {
+                                                int distance = map.MapPath.ShortestPath(npc.Position.ToCoord(), new GoRogue.Coord(x, y)).LengthWithStart;
+                                                if (distance < distanceToFound) {
+                                                    distanceToFound = distance;
+                                                    edgeX = x;
+                                                    edgeY = y;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -198,11 +204,10 @@ namespace LofiHollow.Entities.NPC {
             }
 
             if (CurrentPath == null) {
-                if (!GameLoop.World.maps.ContainsKey(npc.MapPos))
-                    GameLoop.World.LoadMapAt(npc.MapPos);
+                Map map = Helper.ResolveMap(npc.MapPos);
 
-                if (GameLoop.World.maps.ContainsKey(npc.MapPos)) {
-                    CurrentPath = GameLoop.World.maps[npc.MapPos].MapPath.ShortestPath(npc.Position.ToCoord(), new GoRogue.Coord(edgeX, edgeY));
+                if (map != null) {
+                    CurrentPath = map.MapPath.ShortestPath(npc.Position.ToCoord(), new GoRogue.Coord(edgeX, edgeY));
                     pathPos = 0;
                 }
             }
@@ -249,14 +254,18 @@ namespace LofiHollow.Entities.NPC {
                         recentlyMovedMaps = true;
                     }
 
-                    if (GameLoop.World.maps[npc.MapPos].GetTile(npc.Position).Name == "Up Stairs" && !recentlyMovedMaps) {
-                        npc.MoveTo(new Point(npc.Position.X, npc.Position.Y), npc.MapPos + new Point3D(0, 0, 1));
-                        recentlyMovedMaps = true;
-                    }
+                    Map map = Helper.ResolveMap(npc.MapPos);
 
-                    if (GameLoop.World.maps[npc.MapPos].GetTile(npc.Position).Name == "Down Stairs" && !recentlyMovedMaps) {
-                        npc.MoveTo(new Point(npc.Position.X, npc.Position.Y), npc.MapPos + new Point3D(0, 0, -1));
-                        recentlyMovedMaps = true;
+                    if (map != null) {
+                        if (map.GetTile(npc.Position).Name == "Up Stairs" && !recentlyMovedMaps) {
+                            npc.MoveTo(new Point(npc.Position.X, npc.Position.Y), npc.MapPos + new Point3D(0, 0, 1));
+                            recentlyMovedMaps = true;
+                        }
+
+                        if (map.GetTile(npc.Position).Name == "Down Stairs" && !recentlyMovedMaps) {
+                            npc.MoveTo(new Point(npc.Position.X, npc.Position.Y), npc.MapPos + new Point3D(0, 0, -1));
+                            recentlyMovedMaps = true;
+                        }
                     }
 
                     if (recentlyMovedMaps) {

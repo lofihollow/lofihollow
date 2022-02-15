@@ -14,72 +14,77 @@
   "ItemTier": -1,
   "ItemCat": "Seed",
   "EquipSlot": -1,
-  "Properties": {
-    "Plant": {
-      "CurrentStage": 0,
-      "DayCounter": 0,
-      "GrowthSeason": "Any",
-      "HarvestRevert": -1,
-      "ProduceName": "",
-      "RequiredLevel": 80,
-      "ExpOnHarvest": 100,
-      "ExpPerExtra": 5,
-      "ProducePerHarvestMin": 1,
-      "ProducePerHarvestMax": 1,
-      "ProduceIsSeed": false,
-      "WateredToday": false,
-      "Stages": [
-        {
-          "DaysToNext": 0,
-          "HarvestItem": "",
-          "ColorR": 110,
-          "ColorG": 66,
-          "ColorB": 33,
-          "Glyph": 291,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 3,
-          "HarvestItem": "",
-          "ColorR": 0,
-          "ColorG": 127,
-          "ColorB": 0,
-          "Glyph": 311,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 2,
-          "HarvestItem": "",
-          "ColorR": 0,
-          "ColorG": 127,
-          "ColorB": 0,
-          "Glyph": 312,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 3,
-          "HarvestItem": "",
-          "ColorR": 0,
-          "ColorG": 127,
-          "ColorB": 0,
-          "Glyph": 313,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 0,
-          "HarvestItem": "lh:Flax",
-          "ColorR": 0,
-          "ColorG": 183,
-          "ColorB": 235,
-          "Glyph": 314,
-          "Dec": null
-        }
-      ]
-    }
-  },
   "Dec": null,
   "ForegroundR": 253,
   "ForegroundG": 200,
   "ForegroundB": 21,
-  "ItemGlyph": 290
+  "ItemGlyph": 290,
+  "Plant": {
+    "CurrentStage": 0,
+    "DayCounter": 0,
+    "GrowthSeason": "Any",
+    "HarvestRevert": -1,
+    "ProduceName": "",
+    "RequiredLevel": 80,
+    "ExpOnHarvest": 100,
+    "ExpPerExtra": 5,
+    "ProducePerHarvestMin": 1,
+    "ProducePerHarvestMax": 1,
+    "ProduceIsSeed": false,
+    "WateredToday": false,
+    "Stages": [
+      {
+        "DaysToNext": 0,
+        "HarvestItem": "",
+        "ColorR": 110,
+        "ColorG": 66,
+        "ColorB": 33,
+        "Glyph": 291,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 3,
+        "HarvestItem": "",
+        "ColorR": 0,
+        "ColorG": 127,
+        "ColorB": 0,
+        "Glyph": 311,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 2,
+        "HarvestItem": "",
+        "ColorR": 0,
+        "ColorG": 127,
+        "ColorB": 0,
+        "Glyph": 312,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 3,
+        "HarvestItem": "",
+        "ColorR": 0,
+        "ColorG": 127,
+        "ColorB": 0,
+        "Glyph": 313,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 0,
+        "HarvestItem": "lh:Flax",
+        "ColorR": 0,
+        "ColorG": 183,
+        "ColorB": 235,
+        "Glyph": 314,
+        "Dec": null
+      }
+    ]
+  },
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

@@ -1,12 +1,9 @@
-﻿using LofiHollow.Entities;
-using LofiHollow.EntityData;
+﻿using LofiHollow.Entities; 
 using LofiHollow.Managers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.EntityData {
     [JsonObject(MemberSerialization.OptIn)]

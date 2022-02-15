@@ -5,7 +5,9 @@ using SadConsole.Input;
 using SadRogue.Primitives;
 using System.Collections.Generic;
 using System.Linq;
-using Key = SadConsole.Input.Keys; 
+using Key = SadConsole.Input.Keys;
+using LofiHollow.DataTypes;
+using Steamworks;
 
 namespace LofiHollow.Managers {
     public class MineManager {
@@ -55,20 +57,14 @@ namespace LofiHollow.Managers {
         public void SyncMiningEntities(Mine CurrentMine) {
             if (CurrentMine != null) {
                 GameLoop.UIManager.Minigames.MinigameConsole.ForceRendererRefresh = true;
-                MiningEntities.RemoveAll();
-
-                if (GameLoop.World.Player.ScreenAppearance == null)
-                    GameLoop.World.Player.UpdateAppearance();
+                MiningEntities.RemoveAll(); 
                 MiningEntities.Add(GameLoop.World.Player);
 
                 foreach (Entity entity in CurrentMine.Levels[GameLoop.World.Player.MineDepth].Entities.Items) {
                     MiningEntities.Add(entity);
                 }
 
-                foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
-                    if (kv.Value.ScreenAppearance == null)
-                        kv.Value.UpdateAppearance();
-
+                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) { 
                     if (kv.Value.MineLocation == GameLoop.World.Player.MineLocation && kv.Value.MineDepth == GameLoop.World.Player.MineDepth) {
                         MiningEntities.Add(kv.Value);
                     }
@@ -92,11 +88,10 @@ namespace LofiHollow.Managers {
                     CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(position.X, position.Y)).Unshade();
                 }
 
-                foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
+                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
                     if (kv.Value.MineLocation == GameLoop.World.Player.MineLocation && kv.Value.MineDepth == GameLoop.World.Player.MineDepth) {
                         if (MiningFOV.CurrentFOV.Contains(new GoRogue.Coord(kv.Value.Position.X / 12, kv.Value.Position.Y / 12))) {
-                            MiningEntities.Add(kv.Value);
-                            kv.Value.UsePixelPositioning = true;
+                            MiningEntities.Add(kv.Value); 
                         } else {
                             MiningEntities.Remove(kv.Value);
                         }
@@ -163,7 +158,11 @@ namespace LofiHollow.Managers {
                 if (!CollisionLeft(GameLoop.World.Player, CurrentMine.Levels[GameLoop.World.Player.MineDepth])) {
                     bool moved = CurrentMine.MovePlayerTo(GameLoop.World.Player, GameLoop.World.Player.MineDepth, GameLoop.World.Player.Position + new Point(-2, 0), false);
                     if (moved) {
-                        GameLoop.SendMessageIfNeeded(new string[] { "updatePlayerMine", GameLoop.World.Player.Position.X.ToString(), GameLoop.World.Player.Position.Y.ToString(), GameLoop.World.Player.MineLocation, GameLoop.World.Player.MineDepth.ToString() }, false, true);
+                        NetMsg updatePlayerMine = new("updatePlayerMine");
+                        updatePlayerMine.SetPos(GameLoop.World.Player.Position);
+                        updatePlayerMine.MiscInt = GameLoop.World.Player.MineDepth;
+                        updatePlayerMine.MiscString1 = GameLoop.World.Player.MineLocation;
+                        GameLoop.SendMessageIfNeeded(updatePlayerMine, false, true);
                     }
                 }
             }
@@ -172,7 +171,11 @@ namespace LofiHollow.Managers {
                 if (!CollisionRight(GameLoop.World.Player, CurrentMine.Levels[GameLoop.World.Player.MineDepth])) {
                     bool moved = CurrentMine.MovePlayerTo(GameLoop.World.Player, GameLoop.World.Player.MineDepth, GameLoop.World.Player.Position + new Point(2, 0), false);
                     if (moved) {
-                        GameLoop.SendMessageIfNeeded(new string[] { "updatePlayerMine", GameLoop.World.Player.Position.X.ToString(), GameLoop.World.Player.Position.Y.ToString(), GameLoop.World.Player.MineLocation, GameLoop.World.Player.MineDepth.ToString() }, false, true);
+                        NetMsg updatePlayerMine = new("updatePlayerMine");
+                        updatePlayerMine.SetPos(GameLoop.World.Player.Position);
+                        updatePlayerMine.MiscInt = GameLoop.World.Player.MineDepth;
+                        updatePlayerMine.MiscString1 = GameLoop.World.Player.MineLocation;
+                        GameLoop.SendMessageIfNeeded(updatePlayerMine, false, true);
                     }
                 }
             }
@@ -182,7 +185,11 @@ namespace LofiHollow.Managers {
                     bool moved = CurrentMine.MovePlayerTo(GameLoop.World.Player, GameLoop.World.Player.MineDepth, GameLoop.World.Player.Position + new Point(0, 2), false);
                     Flying = true;
                     if (moved) {
-                        GameLoop.SendMessageIfNeeded(new string[] { "updatePlayerMine", GameLoop.World.Player.Position.X.ToString(), GameLoop.World.Player.Position.Y.ToString(), GameLoop.World.Player.MineLocation, GameLoop.World.Player.MineDepth.ToString() }, false, true);
+                        NetMsg updatePlayerMine = new("updatePlayerMine");
+                        updatePlayerMine.SetPos(GameLoop.World.Player.Position);
+                        updatePlayerMine.MiscInt = GameLoop.World.Player.MineDepth;
+                        updatePlayerMine.MiscString1 = GameLoop.World.Player.MineLocation;
+                        GameLoop.SendMessageIfNeeded(updatePlayerMine, false, true);
                     }
                 }
             }
@@ -192,7 +199,11 @@ namespace LofiHollow.Managers {
                     bool moved = CurrentMine.MovePlayerTo(GameLoop.World.Player, GameLoop.World.Player.MineDepth, GameLoop.World.Player.Position + new Point(0, -2), false);
                     Flying = true;
                     if (moved) {
-                        GameLoop.SendMessageIfNeeded(new string[] { "updatePlayerMine", GameLoop.World.Player.Position.X.ToString(), GameLoop.World.Player.Position.Y.ToString(), GameLoop.World.Player.MineLocation, GameLoop.World.Player.MineDepth.ToString() }, false, true);
+                        NetMsg updatePlayerMine = new("updatePlayerMine");
+                        updatePlayerMine.SetPos(GameLoop.World.Player.Position);
+                        updatePlayerMine.MiscInt = GameLoop.World.Player.MineDepth;
+                        updatePlayerMine.MiscString1 = GameLoop.World.Player.MineLocation;
+                        GameLoop.SendMessageIfNeeded(updatePlayerMine, false, true);
                     }
                 }
             }
@@ -211,8 +222,7 @@ namespace LofiHollow.Managers {
 
             if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemComma)) {
                 if (GameLoop.World.Player.Position / 12 == new Point(35, 4) || GameLoop.World.Player.Position / 12 == new Point(34, 4) || GameLoop.World.Player.Position / 12 == new Point(36, 4)) {
-                    GameLoop.UIManager.selectedMenu = "None"; 
-                    GameLoop.World.Player.UsePixelPositioning = false;
+                    GameLoop.UIManager.selectedMenu = "None";  
                     GameLoop.World.Player.Position = GameLoop.World.Player.MineEnteredAt;
                     GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 }
@@ -322,7 +332,11 @@ namespace LofiHollow.Managers {
             }
 
             if (oldPos != GameLoop.World.Player.Position) {
-                GameLoop.SendMessageIfNeeded(new string[] { "updatePlayerMine", GameLoop.World.Player.Position.X.ToString(), GameLoop.World.Player.Position.Y.ToString(), GameLoop.World.Player.MineLocation, GameLoop.World.Player.MineDepth.ToString() }, false, true);
+                NetMsg updatePlayerMine = new("updatePlayerMine");
+                updatePlayerMine.SetPos(GameLoop.World.Player.Position);
+                updatePlayerMine.MiscInt = GameLoop.World.Player.MineDepth;
+                updatePlayerMine.MiscString1 = GameLoop.World.Player.MineLocation;
+                GameLoop.SendMessageIfNeeded(updatePlayerMine, false, true);
             }
 
             foreach (Entity ent in CurrentMine.Levels[player.MineDepth].Entities.Items) {
@@ -345,9 +359,7 @@ namespace LofiHollow.Managers {
         }
 
         public void MiningSetup(string loc) {
-            GameLoop.World.Player.Position = new Point(35 * 12, 4 * 12);
-            GameLoop.World.Player.UsePixelPositioning = true;
-
+            GameLoop.World.Player.Position = new Point(35 * 12, 4 * 12); 
             MiningEntities = new SadConsole.Entities.Renderer();
             GameLoop.UIManager.Minigames.MinigameConsole.SadComponents.Add(MiningEntities);
             if (loc == "Mountain") {
@@ -359,7 +371,10 @@ namespace LofiHollow.Managers {
                 SyncMiningEntities(MountainMine);
                  
                 if (!MountainMine.SyncedFromHost) {
-                    GameLoop.SendMessageIfNeeded(new string[] { "requestMine", "Mountain", "0" }, false, false); 
+                    NetMsg requestMine = new("requestMine");
+                    requestMine.MiscString1 = "Mountain";
+                    requestMine.MiscInt = 0;
+                    GameLoop.SendMessageIfNeeded(requestMine, false, false); 
                 } 
             }
 
@@ -371,8 +386,11 @@ namespace LofiHollow.Managers {
                 MiningFOV = new GoRogue.FOV(LakeMine.Levels[GameLoop.World.Player.MineDepth].MapFOV);
                 SyncMiningEntities(LakeMine);
                  
-                if (!LakeMine.SyncedFromHost) { 
-                    GameLoop.SendMessageIfNeeded(new string[] { "requestMine", "Lake", "0" }, false, false); 
+                if (!LakeMine.SyncedFromHost) {
+                    NetMsg requestMine = new("requestMine");
+                    requestMine.MiscString1 = "Lake";
+                    requestMine.MiscInt = 0;
+                    GameLoop.SendMessageIfNeeded(requestMine, false, false);
                 } 
             }
 

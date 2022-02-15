@@ -1,5 +1,6 @@
 ﻿using SadConsole;
 using SadRogue.Primitives;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.Entities {
     public class ItemWrapper : Entity {
@@ -28,7 +29,7 @@ namespace LofiHollow.Entities {
         }
 
         public ColoredString AsColoredGlyph() {
-            ColoredString output = new(((char) item.ItemGlyph).ToString(), new Color(item.ForegroundR, item.ForegroundG, item.ForegroundB, CurrentAlpha), Color.Transparent);
+            ColoredString output = new(item.ItemGlyph.AsString(), new Color(item.ForegroundR, item.ForegroundG, item.ForegroundB, CurrentAlpha), Color.Transparent);
             return output;
         }
 

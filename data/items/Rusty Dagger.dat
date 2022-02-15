@@ -14,28 +14,17 @@
   "ItemTier": -1,
   "ItemCat": "Weapon",
   "EquipSlot": 0,
-  "Properties": {
-    "Equipment": {
-      "DamageType": "Stab,Stab,Slash,Stab",
-      "CombatType": "Melee",
-      "WeaponTier": 0,
-      "ArmorVsSlash": 0,
-      "ArmorVsStab": 0,
-      "ArmorVsCrush": 0,
-      "ArmorVsRange": 0,
-      "ArmorVsMagic": 1,
-      "StabBonus": 4,
-      "SlashBonus": 2,
-      "CrushBonus": -4,
-      "RangeBonus": 0,
-      "MagicBonus": 1,
-      "StrengthBonus": 3,
-      "Reach": 1
-    }
-  },
   "Dec": null,
   "ForegroundR": 183,
   "ForegroundG": 65,
   "ForegroundB": 14,
-  "ItemGlyph": 20
+  "ItemGlyph": 20,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

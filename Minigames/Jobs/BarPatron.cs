@@ -27,24 +27,24 @@ namespace LofiHollow.Minigames.Jobs {
 
         public string GetDrink() {
             if (DesiredDrink == "Beer")
-                return ((char)340).ToString();
+                return 340.AsString();
             if (DesiredDrink == "Wine")
-                return ((char)341).ToString();
+                return 341.AsString();
             if (DesiredDrink == "Whiskey")
-                return ((char)342).ToString();
+                return 342.AsString();
             if (DesiredDrink == "Martini")
-                return ((char)343).ToString();
-            return ((char)340).ToString();
+                return 343.AsString();
+            return 340.AsString();
         }
 
         public ColoredString Mood() {
             if (Happiness > 7)
-                return new ColoredString(((char)344).ToString(), Color.Cyan, Color.Black);
+                return new ColoredString(344.AsString(), Color.Cyan, Color.Black);
             if (Happiness > 4)
-                return new ColoredString(((char)345).ToString(), Color.Green, Color.Black);
+                return new ColoredString(345.AsString(), Color.Green, Color.Black);
             if (Happiness > 1)
-                return new ColoredString(((char)346).ToString(), Color.Yellow, Color.Black);
-            return new ColoredString(((char)347).ToString(), Color.Red, Color.Black);
+                return new ColoredString(346.AsString(), Color.Yellow, Color.Black);
+            return new ColoredString(347.AsString(), Color.Red, Color.Black);
         }
 
         public bool CheckDrink(string front) {

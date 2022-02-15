@@ -8,8 +8,6 @@ namespace LofiHollow.EntityData {
         [JsonProperty]
         public string Owner = ""; // which NPC owns the tile, if any
         [JsonProperty]
-        public int OwnerID = -1;
-        [JsonProperty]
         public int RelationshipUnlock = 0; // how much relationship with the owner unlocks the tile at any time
         [JsonProperty]
         public int MissionUnlock = -1; // which completed mission, if any, results in the lock being open always
@@ -30,15 +28,6 @@ namespace LofiHollow.EntityData {
         [JsonProperty]
         public bool OpenBlocksMove = false;
 
-        public void UpdateOwner() { 
-            if (OwnerID == -1)
-                Owner = "";
-            else {
-                if (GameLoop.World.npcLibrary.ContainsKey(OwnerID)) {
-                    Owner = GameLoop.World.npcLibrary[OwnerID].Name;
-                }
-            }
-        }
         
 
         public bool CanOpen() {

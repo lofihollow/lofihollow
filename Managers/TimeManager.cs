@@ -2,12 +2,10 @@
 using LofiHollow.Entities.NPC;
 using Newtonsoft.Json;
 using SadConsole;
-using SadRogue.Primitives;
-using System;
+using SadRogue.Primitives; 
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LofiHollow.DataTypes;
+using Steamworks;
 
 namespace LofiHollow.Managers {
     [JsonObject(MemberSerialization.OptIn)]
@@ -67,19 +65,36 @@ namespace LofiHollow.Managers {
                 GameLoop.UIManager.AddMsg(new ColoredString("You sleep through the night.", Color.Lime, Color.Black));
             }
 
-            GameLoop.SendMessageIfNeeded(new string[] { "newDay", passedOut.ToString() }, false, false);
+            NetMsg newDay = new("newDay");
+            newDay.Flag = passedOut;
+            GameLoop.SendMessageIfNeeded(newDay, false, false);
 
             GameLoop.World.Player.Sleeping = false;
             GameLoop.World.Player.CurrentHP = GameLoop.World.Player.MaxHP;
             GameLoop.World.Player.CurrentStamina = GameLoop.World.Player.MaxStamina;
 
-            foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
+            foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
                 kv.Value.CurrentHP = kv.Value.MaxHP;
                 kv.Value.CurrentStamina = kv.Value.MaxStamina;
                 kv.Value.Sleeping = false;
             } 
 
             GameLoop.UIManager.Photo.PopulateJobList();
+
+            if (GameLoop.World.Player.NoonbreezeApt != null) {
+                GameLoop.World.Player.NoonbreezeApt.DaysLeft--;
+
+                if (GameLoop.World.Player.NoonbreezeApt.DaysLeft == 0) {
+                    GameLoop.UIManager.AddMsg("This is your last day of rent, pay for another month!");
+                }
+            }
+
+            GameLoop.World.Player.feed_funny1 = false;
+            GameLoop.World.Player.feed_funny2 = false;
+            GameLoop.World.Player.feed_funny3 = false;
+            GameLoop.World.Player.feed_meticulous1 = false;
+            GameLoop.World.Player.feed_meticulous2 = false;
+            GameLoop.World.Player.feed_ocd = false;
 
             GameLoop.World.SavePlayer();
         }
@@ -92,8 +107,12 @@ namespace LofiHollow.Managers {
                 Minutes = 0;
 
                 if (GameLoop.World.Player.MineLocation == "None") {
-                    if (GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(GameLoop.World.Player.Position).Name == "Bed") {
-                        GameLoop.UIManager.AddMsg(new ColoredString("Press " + ((char)12) + " while standing on a bed to sleep.", Color.Yellow, Color.Black));
+                    Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+                    Point cellPos = GameLoop.World.Player.Position.ToCell();
+                    if (map != null) {
+                        if (map.GetTile(cellPos).Name == "Bed") {
+                            GameLoop.UIManager.AddMsg(new ColoredString("Press " + ((char)12) + " while standing on a bed to sleep.", Color.Yellow, Color.Black));
+                        }
                     }
                 }
 
@@ -130,7 +149,7 @@ namespace LofiHollow.Managers {
                 if (GameLoop.World.Player.Sleeping)
                     sleepCount++;
 
-                foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
+                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
                     totalPlayers++;
                     if (kv.Value.Sleeping)
                         sleepCount++;
@@ -155,13 +174,13 @@ namespace LofiHollow.Managers {
                 }
             }
 
-            string time = JsonConvert.SerializeObject(this, Formatting.Indented);
-            GameLoop.SendMessageIfNeeded(new string[] { "time", time.ToString() }, false, false);
+            NetMsg timeUpdate = new("time", this.ToByteArray()); 
+            GameLoop.SendMessageIfNeeded(timeUpdate, false, false);
         }
 
 
         public void DailyUpdates() {
-            foreach (KeyValuePair<int, NPC> kv in GameLoop.World.npcLibrary) {
+            foreach (KeyValuePair<string, NPC> kv in GameLoop.World.npcLibrary) {
                 kv.Value.ReceivedGiftToday = false;
             }
 
@@ -169,7 +188,7 @@ namespace LofiHollow.Managers {
                 GameLoop.World.LoadMapAt(new Point3D(-1, 0, 0));
 
             for (int i = 0; i < GameLoop.World.maps[new Point3D(-1, 0, 0)].Tiles.Length; i++) {
-                TileBase tile = GameLoop.World.maps[new Point3D(-1, 0, 0)].Tiles[i];
+                Tile tile = GameLoop.World.maps[new Point3D(-1, 0, 0)].Tiles[i];
 
                 if (tile.Plant != null) {
                     tile.Plant.DayUpdate();
@@ -177,7 +196,9 @@ namespace LofiHollow.Managers {
                     int x = i % GameLoop.MapWidth;
                     int y = i / GameLoop.MapWidth;
 
-                    GameLoop.SendMessageIfNeeded(new string[] { "updateTile", x.ToString(), y.ToString(), "-1;0;0" }, false, false); 
+                    NetMsg updateTile = new("updateTile");
+                    updateTile.SetFullPos(new Point(x, y), new Point3D(-1, 0, 0));
+                    GameLoop.SendMessageIfNeeded(updateTile, false, false); 
                 }
             }
 
@@ -185,7 +206,7 @@ namespace LofiHollow.Managers {
             GameLoop.World.Player.MapsClearedToday = 0;
             GameLoop.World.Player.killList.Clear();
 
-            foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
+            foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
                 kv.Value.MapsClearedToday = 0;
             }
 

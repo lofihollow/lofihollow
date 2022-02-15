@@ -7,29 +7,47 @@ using SadConsole;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using LofiHollow.EntityData;
+using LofiHollow.DataTypes;
+using Steamworks;
 
 namespace LofiHollow.Managers {
     public class CommandManager {
         public CommandManager() { } 
 
         public static bool MoveActorBy(Actor actor, Point position) {
+            Point3D oldMap = actor.MapPos;
             bool moved = actor.MoveBy(position);
             if (moved) {
-                GameLoop.SendMessageIfNeeded(new string[] { "movePlayer", actor.Position.X.ToString(), actor.Position.Y.ToString(), actor.MapPos.ToString()}, false, true);
-                
+                NetMsg movePlayer = new("movePlayer");
+                movePlayer.SetFullPos(actor.Position, actor.MapPos);
+                GameLoop.SendMessageIfNeeded(movePlayer, false, true);
+
+                if (oldMap != actor.MapPos) {
+                    NetMsg reqMap = new("fullMap");
+                    reqMap.SetMap(actor.MapPos);
+                    GameLoop.SendMessageIfNeeded(reqMap, false, false, 0);
+                }
+
 
                 if (actor is Player player) {
                     if (player.Sleeping) {
                         GameLoop.UIManager.AddMsg(new ColoredString("You decide not to sleep yet.", Color.Green, Color.Black));
                         GameLoop.World.Player.Sleeping = false;
-                        GameLoop.SendMessageIfNeeded(new string[] { "sleep", "false" }, false, true); 
+                        NetMsg sleep = new("sleep");
+                        sleep.Flag = false;
+                        GameLoop.SendMessageIfNeeded(sleep, false, true);
                     }
-                }
 
-                if (actor.ScreenAppearance == null) {
-                    actor.UpdateAppearance(); 
-                }
-                actor.UpdatePosition();
+                    Map map = Helper.ResolveMap(player.MapPos);
+
+                    if (map != null) {
+                        if (map.GetTile(player.Position.ToCell()).TeleportTile != null) {
+                            TeleportTile tele = map.GetTile(player.Position.ToCell()).TeleportTile;
+                            player.MoveTo(tele.Pos * 12, tele.MapPos);
+                            GameLoop.UIManager.AddMsg("Tried to teleport");
+                        }
+                    }
+                } 
             }
 
             
@@ -40,12 +58,17 @@ namespace LofiHollow.Managers {
 
         public static bool MoveActorTo(Actor actor, Point position, Point3D mapPos) {
             bool moved = actor.MoveTo(position, mapPos);
-
+            Point3D oldMap = actor.MapPos;
             if (moved) {
-                if (actor.ScreenAppearance == null) {
-                    actor.UpdateAppearance();
-                }
-                actor.UpdatePosition();
+                NetMsg movePlayer = new("movePlayer");
+                movePlayer.SetFullPos(actor.Position, actor.MapPos);
+                GameLoop.SendMessageIfNeeded(movePlayer, false, true);
+
+                if (oldMap != actor.MapPos) {
+                    NetMsg reqMap = new("fullMap");
+                    reqMap.SetMap(actor.MapPos);
+                    GameLoop.SendMessageIfNeeded(reqMap, false, false, 0);
+                } 
             }
 
             return moved;
@@ -67,61 +90,68 @@ namespace LofiHollow.Managers {
         }
 
         public static void SendItem(ItemWrapper wrap) {
-            string json = JsonConvert.SerializeObject(wrap, Formatting.Indented);
-            GameLoop.SendMessageIfNeeded(new string[] { "spawnItem", json }, false, false);
+            NetMsg spawnItem = new("spawnItem", wrap.item.ToByteArray());
+            spawnItem.SetFullPos(wrap.Position, wrap.MapPos);
+            GameLoop.SendMessageIfNeeded(spawnItem, false, false);
         }
 
         public static void SpawnItem(ItemWrapper item) {
-            if (!GameLoop.World.maps.ContainsKey(item.MapPos))
-                GameLoop.World.LoadMapAt(item.MapPos);
+            Map map = Helper.ResolveMap(item.MapPos);
 
-            GameLoop.World.maps[item.MapPos].Add(item);
-
-            GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[GameLoop.World.Player.MapPos]);
-        }
-
-        public static void SendPickup(ItemWrapper item) {
-            string json = JsonConvert.SerializeObject(item, Formatting.Indented);
-            GameLoop.SendMessageIfNeeded(new string[] { "destroyItem", json }, false, false);
-        }
-
-        public static void DestroyItem(ItemWrapper item) {
-            if (!GameLoop.World.maps.ContainsKey(item.MapPos))
-                GameLoop.World.LoadMapAt(item.MapPos);
-
-            ItemWrapper localCopy = GameLoop.World.maps[item.MapPos].GetEntityAt<ItemWrapper>(item.Position, item.Name);
-            if (localCopy != null) {
-                GameLoop.UIManager.Map.EntityRenderer.Remove(localCopy);
-                GameLoop.World.maps[item.MapPos].Entities.Remove(localCopy); 
+            if (map != null) {
+                map.Add(item); 
+                GameLoop.UIManager.Map.SyncMapEntities(map);
             }
+        }
 
-            GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[GameLoop.World.Player.MapPos]);
+        public static void SendPickup(ItemWrapper wrap) {
+            NetMsg sendPickup = new("destroyItem", wrap.item.ToByteArray());
+            sendPickup.SetFullPos(wrap.Position, wrap.MapPos); 
+            GameLoop.SendMessageIfNeeded(sendPickup, false, false);
+        }
+
+        public static void DestroyItem(ItemWrapper item) { 
+            Map map = Helper.ResolveMap(item.MapPos);
+
+            if (map != null) {
+                ItemWrapper localCopy = map.GetEntityAt<ItemWrapper>(item.Position, item.Name);
+                if (localCopy != null) {
+                    GameLoop.UIManager.Map.EntityRenderer.Remove(localCopy);
+                    map.Entities.Remove(localCopy);
+                }
+
+                GameLoop.UIManager.Map.SyncMapEntities(map);
+            }
         }
 
         public static void PickupItem(Player actor) {
-            ItemWrapper wrap = GameLoop.World.maps[actor.MapPos].GetEntityAt<ItemWrapper>(actor.Position);
-            if (wrap != null) {
-                for (int i = 0; i < actor.Inventory.Length; i++) {
-                    if (actor.Inventory[i].StacksWith(wrap.item)) {
-                        actor.Inventory[i].ItemQuantity++;
+            Map map = Helper.ResolveMap(actor.MapPos);
 
-                        DestroyItem(wrap);
-                        SendPickup(wrap);
-                        MissionManager.CheckHasItems();
-                        return;
+            if (map != null) {
+                ItemWrapper wrap = map.GetEntityAt<ItemWrapper>(actor.Position);
+                if (wrap != null) {
+                    for (int i = 0; i < actor.Inventory.Length; i++) {
+                        if (actor.Inventory[i].StacksWith(wrap.item)) {
+                            actor.Inventory[i].ItemQuantity++;
+
+                            DestroyItem(wrap);
+                            SendPickup(wrap);
+                            MissionManager.CheckHasItems();
+                            return;
+                        }
+                    }
+
+                    for (int i = 0; i < actor.Inventory.Length; i++) {
+                        if (actor.Inventory[i].Name == "(EMPTY)") {
+                            actor.Inventory[i] = wrap.item;
+                            DestroyItem(wrap);
+                            SendPickup(wrap);
+                            MissionManager.CheckHasItems();
+                            break;
+                        }
                     }
                 }
-
-                for (int i = 0; i < actor.Inventory.Length; i++) {
-                    if (actor.Inventory[i].Name == "(EMPTY)") {
-                        actor.Inventory[i] = wrap.item;
-                        DestroyItem(wrap);
-                        SendPickup(wrap);
-                        MissionManager.CheckHasItems();
-                        break;
-                    }
-                }
-            } 
+            }
         }
 
         public static void AddItemToInv(Player actor, Item item) { 
@@ -211,8 +241,11 @@ namespace LofiHollow.Managers {
             return returnID;
         }
 
-        public static void SendMonster(MonsterWrapper wrap) { 
-            GameLoop.SendMessageIfNeeded(new string[] { "spawnMonster", wrap.monster.FullName(), wrap.MapPos.ToString(), wrap.Position.X.ToString(), wrap.Position.Y.ToString() }, false, false); 
+        public static void SendMonster(MonsterWrapper wrap) {
+            NetMsg spawnMon = new("spawnMonster");
+            spawnMon.MiscString1 = wrap.monster.FullName();
+            spawnMon.SetFullPos(wrap.Position, wrap.MapPos);
+            GameLoop.SendMessageIfNeeded(spawnMon, false, false); 
         }
 
 
@@ -225,11 +258,11 @@ namespace LofiHollow.Managers {
 
                 wrap.UpdateAppearance();
                 if (wrap.MapPos == GameLoop.World.Player.MapPos) {
-                    //  GameLoop.UIManager.Map.EntityRenderer.Add(monster);
-                    if (wrap.ScreenAppearance == null)
-                        wrap.UpdateAppearance();
-                    GameLoop.UIManager.Map.MapConsole.Children.Add(wrap.ScreenAppearance);
-                    GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[GameLoop.World.Player.MapPos]);
+                    Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+
+                    if (map != null) {
+                        GameLoop.UIManager.Map.SyncMapEntities(map);
+                    }
                 }
             } else {
                 GameLoop.UIManager.AddMsg("Monster ID not found: " + name);
@@ -262,10 +295,10 @@ namespace LofiHollow.Managers {
             }
         }
 
-        public static void DamagePlayer(long id, int damage, string battleString, string color) {
+        public static void DamagePlayer(CSteamID id, int damage, string battleString, string color) {
             Color hitColor = color == "Green" ? Color.Green : color == "Red" ? Color.Red : Color.White;
             if (!GameLoop.World.otherPlayers.ContainsKey(id)) {
-                if (GameLoop.NetworkManager.ownID == id) { 
+                if (SteamUser.GetSteamID() == id) { 
                     GameLoop.UIManager.AddMsg(new ColoredString(battleString, hitColor, Color.Black));
                     GameLoop.World.Player.TakeDamage(damage);
                 } else {
@@ -279,84 +312,114 @@ namespace LofiHollow.Managers {
             }
         }
 
+        public static int PlayerDamage(Player play, int targetDef) {
+            play.CalculateCombatLevel();
+            int pow = play.Equipment[0].Properties.ContainsKey("Stats") ? play.Equipment[0].Properties.Get<Equipment>("Stats").WeaponTier : 10;
+            int str = play.Skills["Strength"].Level;
+            int damage = ((((((2 * play.CombatLevel) / 5) + 2) * pow * (str / targetDef)) / 50) + 2);
 
+            bool crit = GameLoop.rand.Next(20) == 0 ? true : false;
 
-        public static void Attack(Actor attacker, Actor defender, bool melee) {
-            if (attacker == GameLoop.World.Player || defender == GameLoop.World.Player) {
-                string damageType = melee ? attacker.GetDamageType() : "Range";
-                int attackRoll = attacker.AttackRoll(damageType);
-                int defRoll = defender.DefenceRoll(damageType);
+            if (crit)
+                damage *= 2;
 
+            return damage;
+        }
 
+        // Player attacks a monster
+        public static void Attack(Player attacker, MonsterWrapper defender) {
+            string damageType = attacker.GetDamageType(); 
+            int acc = (int) Math.Floor((attacker.Skills["Attack"].Level / 2f) + 50); 
+            int attackRoll = GameLoop.rand.Next(100) + 1;
 
-                int newDamage = 0;
+            ColoredString battleString;
+            string battleColor = "White";
 
-                float hitChance;
+            if (attackRoll < acc) {
+                int damage = PlayerDamage(attacker, defender.monster.Defense);
 
-                if (attackRoll > defRoll) {
-                    hitChance = 1 - ((defRoll + 2f) / (2f * (attackRoll + 1f)));
+                if (damage < 0)
+                    damage = 0;
+
+                if (damage > 0) {
+                    battleString = new ColoredString(attacker.Name + " dealt " + damage + " damage to " + defender.monster.Name); 
+                    attacker.CombatExp(damage);
                 } else {
-                    hitChance = attackRoll / (2f * (defRoll + 1f));
+                    battleString = new ColoredString(attacker.Name + " hit " + defender.monster.Name + " but dealt no damage!");
                 }
 
-                GameLoop.UIManager.AddMsg(attackRoll + " vs " + defRoll + " (" + hitChance + ")");
+                defender.TakeDamage(damage);
+                 
+                NetMsg damageMon = new("damageMonster");
+                damageMon.MiscInt = damage; 
+                damageMon.MiscInt2 = GameLoop.UIManager.Combat.Current.CombatID;
+                damageMon.MiscString1 = defender.monster.UniqueID;
+                damageMon.MiscString2 = battleString.String;
+                damageMon.MiscString3 = battleColor;
+                GameLoop.SendMessageIfNeeded(damageMon, false, false);
+            } else {
+                battleString = new ColoredString(attacker.Name + " attacked " + defender.monster.Name + " but missed!");
+            }
 
-                hitChance *= 100;
-
-                int roll = GameLoop.rand.Next(100) + 1;
-
-                ColoredString battleString;
-                string battleColor = "White";
-
-                if (roll < hitChance) {
-                    newDamage = attacker.DamageRoll(damageType); 
-                     
-                    if (newDamage < 0)
-                        newDamage = 0; 
-
-                    if (newDamage > 0) {
-                        battleString = attacker.GetAppearance() + new ColoredString(" " + newDamage + " " + ((char) 20) + " ", Color.Red, Color.Black) + defender.GetAppearance();
-                    } else {
-                        battleString = attacker.GetAppearance() + new ColoredString(" 0 " + ((char) 20) + " ", Color.White, Color.Black) + defender.GetAppearance();
-                    }
-
-
-                    if (attacker is Player && newDamage > 0) {
-                        attacker.CombatExp(newDamage);
-                        if (!((MonsterWrapper) defender).monster.AlwaysAggro) {
-                            ((MonsterWrapper)defender).monster.AlwaysAggro = true;
-                        }
-                    }
-                } else {
-                    battleString = attacker.GetAppearance() + new ColoredString(" 0 " + ((char)20) + " ", Color.White, Color.Black) + defender.GetAppearance();
-                }
-
-                if (defender is MonsterWrapper mon) {
-                    GameLoop.SendMessageIfNeeded(new string[] { "damageMonster", mon.MapPos.ToString(), newDamage.ToString(), battleString.String, battleColor }, false, false);
-                } else if (defender is Player player) {
-                    if (player == GameLoop.World.Player) {
-                        GameLoop.SendMessageIfNeeded(new string[] { "damagePlayer", newDamage.ToString(), battleString.String, battleColor }, false, true);
-                    } else {
-                        foreach (KeyValuePair<long, Player> kv in GameLoop.World.otherPlayers) {
-                            if (player == kv.Value) {
-                                GameLoop.SendMessageIfNeeded(new string[] { "damagePlayer", kv.Key.ToString(), newDamage.ToString(), battleString.String, battleColor }, false, false);
-                                break;
-                            }
-                        }
+            if (defender.CurrentHP <= 0) { 
+                attacker.killList.Push(defender.monster.GetAppearance());
+                if (GameLoop.World.Player.KillFeed().Contains("lol")) {
+                    GameLoop.SteamManager.UnlockAchievement("FEED_FUNNY1");
+                    if (!GameLoop.World.Player.feed_funny1) {
+                        GameLoop.UIManager.AddMsg("Achievement: Funny Business (" + Helper.TimeSinceDayStart() + ")");
+                        GameLoop.World.Player.feed_funny1 = true;
                     }
                 }
 
-                if (attacker.MapPos == GameLoop.World.Player.MapPos)
-                    GameLoop.UIManager.BattleMsg(battleString);
-
-                defender.TakeDamage(newDamage);
-
-                if (defender.CurrentHP <= 0) {
-                    if (defender is Monster) { 
-                        ((Player)attacker).killList.Push(defender.GetAppearance());
-                        MissionManager.Increment("Kill", defender.Name, 1);
+                if (GameLoop.World.Player.KillFeed().Contains("lmao")) {
+                    GameLoop.SteamManager.UnlockAchievement("FEED_FUNNY2");
+                    if (!GameLoop.World.Player.feed_funny2) {
+                        GameLoop.UIManager.AddMsg("Achievement: Funnier Business (" + Helper.TimeSinceDayStart() + ")");
+                        GameLoop.World.Player.feed_funny2 = true;
                     }
                 }
+
+                if (GameLoop.World.Player.KillFeed().Contains("lmfao")) {
+                    GameLoop.SteamManager.UnlockAchievement("FEED_FUNNY3");
+                    if (!GameLoop.World.Player.feed_funny3) {
+                        GameLoop.UIManager.AddMsg("Achievement: Funniest Business (" + Helper.TimeSinceDayStart() + ")");
+                        GameLoop.World.Player.feed_funny3 = true;
+                    }
+                }
+
+                if (GameLoop.World.Player.KillFeed().Contains("boobs")) {
+                    GameLoop.SteamManager.UnlockAchievement("FEED_MATURITY");
+                    if (!GameLoop.World.Player.feed_maturity) {
+                        GameLoop.UIManager.AddMsg("Achievement: Maturity (" + Helper.TimeSinceDayStart() + ")");
+                        GameLoop.World.Player.feed_maturity = true;
+                    }
+                }
+
+                if (GameLoop.World.Player.KillFeed().Contains("abcdefghijklmnopqrstuvwxyz")) {
+                    GameLoop.SteamManager.UnlockAchievement("FEED_METICULOUS1");
+                    if (!GameLoop.World.Player.feed_meticulous1) {
+                        GameLoop.UIManager.AddMsg("Achievement: Meticulous (" + Helper.TimeSinceDayStart() + ")");
+                        GameLoop.World.Player.feed_meticulous1 = true;
+                    }
+                }
+
+                if (GameLoop.World.Player.KillFeed().Contains("ABCDEFGHIJKLMNOPQRSTUVWXYZ")) {
+                    GameLoop.SteamManager.UnlockAchievement("FEED_METICULOUS2");
+                    if (!GameLoop.World.Player.feed_meticulous2) {
+                        GameLoop.UIManager.AddMsg("Achievement: METICULOUS (" + Helper.TimeSinceDayStart() + ")");
+                        GameLoop.World.Player.feed_meticulous2 = true;
+                    }
+                }
+
+                if (GameLoop.World.Player.KillFeed().Contains("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")) {
+                    GameLoop.SteamManager.UnlockAchievement("FEED_OCD");
+                    if (!GameLoop.World.Player.feed_ocd) {
+                        GameLoop.UIManager.AddMsg("Achievement: Obsessive and Compulsive (" + Helper.TimeSinceDayStart() + ")");
+                        GameLoop.World.Player.feed_ocd = true;
+                    }
+                }
+
+                MissionManager.Increment("Kill", defender.monster.Name, 1); 
             }
         }
     }

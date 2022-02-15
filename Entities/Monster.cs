@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LofiHollow.DataTypes;
 using LofiHollow.Managers;
 using LofiHollow.Minigames;
 using Newtonsoft.Json;
@@ -19,37 +20,33 @@ namespace LofiHollow.Entities {
         public string UniqueID;
 
         [JsonProperty]
-        public int MonConstitution = 1;
+        public int Health = 1;
         [JsonProperty]
-        public int MonAttack = 1;
+        public int Speed = 1;
         [JsonProperty]
-        public int MonStrength = 1;
+        public int Attack = 1;
         [JsonProperty]
-        public int MonDefense = 1;
+        public int Defense = 1; 
         [JsonProperty]
-        public int MonMagic = 1;
+        public int MAttack = 1;
         [JsonProperty]
-        public int MonRanged = 1;
+        public int MDefense = 1;
 
         [JsonProperty]
-        public string CombatType = "";
+        public int MinLevel = 1;
         [JsonProperty]
-        public string DamageType = "Crush";
+        public int MaxLevel = 99;
+
         [JsonProperty]
-        public string SpecificWeakness = "";
+        public string StatGrowths = ""; 
+
+        [JsonProperty]
+        public List<string> Types = new();
         [JsonProperty]
         public string SpawnLocation = "";
 
         [JsonProperty]
-        public int Confidence = 0;
-
-        [JsonProperty]
-        public bool AlwaysAggro = false;
-
-        [JsonProperty]
-        public bool CanDropEgg = false;
-        [JsonProperty]
-        public Egg EggData;
+        public List<string> MoveList = new();
 
         [JsonProperty]
         public List<string> DropTable = new();
@@ -63,8 +60,7 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public int ForegroundA = 255;
         [JsonProperty]
-        public int ActorGlyph = 0;
-
+        public int ActorGlyph = 0;  
 
         [JsonConstructor]
         public Monster() { 
@@ -77,16 +73,8 @@ namespace LofiHollow.Entities {
             }
         }
 
-        public int CalculateCombatLevel() {
-            int combatStat = Math.Max(MonAttack +MonStrength, Math.Max(2 * MonMagic, 2 * MonRanged));
-
-            int CombatLevel = (int)Math.Floor((double)(((13 / 10) * combatStat) + MonDefense + MonConstitution) / 4);
-
-            return CombatLevel;
-        }
-
         public ColoredString GetAppearance() {
-            return new ColoredString(((char)ActorGlyph).ToString(), new Color(ForegroundR, ForegroundG, ForegroundB, ForegroundA), Color.Black);
+            return new ColoredString(ActorGlyph.AsString(), new Color(ForegroundR, ForegroundG, ForegroundB, ForegroundA), Color.Black);
         }
 
         public void SetAll(Monster temp) { 
@@ -95,21 +83,22 @@ namespace LofiHollow.Entities {
             Name = temp.Name;
             Package = temp.Package;
 
-            MonConstitution = temp.MonConstitution;
-            MonAttack = temp.MonAttack;
-            MonStrength = temp.MonStrength;
-            MonDefense = temp.MonDefense;
-            MonMagic = temp.MonMagic;
-            MonRanged = temp.MonRanged;
+            Speed = temp.Speed;
+            Attack = temp.Attack;
+            Defense = temp.Defense;
+            Health = temp.Health;
+            MAttack = temp.MAttack;
+            MDefense = temp.MDefense;
+            StatGrowths = temp.StatGrowths;
 
-            CombatType = temp.CombatType;
-            SpecificWeakness = temp.SpecificWeakness;
-            DamageType = temp.DamageType;
+            MinLevel = temp.MinLevel;
+            MaxLevel = temp.MaxLevel;
+
+            Types = temp.Types;
             SpawnLocation = temp.SpawnLocation;
-
-            CanDropEgg = temp.CanDropEgg;
-            EggData = temp.EggData;
-
+            MoveList = temp.MoveList;
+            DropTable = temp.DropTable;
+             
             ForegroundR = temp.ForegroundR;
             ForegroundG = temp.ForegroundG;
             ForegroundB = temp.ForegroundB;

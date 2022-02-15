@@ -1,4 +1,4 @@
-﻿using LofiHollow.Entities;
+﻿using LofiHollow.DataTypes;
 using LofiHollow.Managers;
 using SadConsole;
 using SadConsole.Input;

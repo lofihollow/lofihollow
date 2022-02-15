@@ -14,7 +14,6 @@
   "ItemTier": 1,
   "ItemCat": "Pickaxe",
   "EquipSlot": -1,
-  "Properties": {},
   "Dec": {
     "Glyph": 322,
     "R": 183,
@@ -25,5 +24,13 @@
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph": 288
+  "ItemGlyph": 288,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

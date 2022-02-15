@@ -14,14 +14,6 @@
   "ItemTier": 60,
   "ItemCat": "Hammer",
   "EquipSlot": -1,
-  "Properties": {
-    "Tool": [
-      {
-        "Property": "Hammer",
-        "Tier": 60
-      }
-    ]
-  },
   "Dec": {
     "Glyph": 329,
     "R": 42,
@@ -32,5 +24,18 @@
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph": 288
+  "ItemGlyph": 288,
+  "Plant": null,
+  "Tool": [
+    {
+      "Property": "Hammer",
+      "Tier": 60
+    }
+  ],
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

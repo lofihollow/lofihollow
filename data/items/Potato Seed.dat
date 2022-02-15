@@ -14,69 +14,74 @@
   "ItemTier": -1,
   "ItemCat": "Seed",
   "EquipSlot": -1,
-  "Properties": {
-    "Plant": {
-      "CurrentStage": 0,
-      "DayCounter": 0,
-      "GrowthSeason": "Spring",
-      "HarvestRevert": -1,
-      "ProduceName": "",
-      "RequiredLevel": 0,
-      "ExpOnHarvest": 20,
-      "ExpPerExtra": 5,
-      "ProducePerHarvestMin": 1,
-      "ProducePerHarvestMax": 3,
-      "ProduceIsSeed": true,
-      "WateredToday": false,
-      "Stages": [
-        {
-          "DaysToNext": 0,
-          "HarvestItem": "",
-          "ColorR": 110,
-          "ColorG": 66,
-          "ColorB": 33,
-          "Glyph": 291,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 3,
-          "HarvestItem": "",
-          "ColorR": 0,
-          "ColorG": 127,
-          "ColorB": 0,
-          "Glyph": 292,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 2,
-          "HarvestItem": "",
-          "ColorR": 0,
-          "ColorG": 127,
-          "ColorB": 0,
-          "Glyph": 293,
-          "Dec": null
-        },
-        {
-          "DaysToNext": 0,
-          "HarvestItem": "lh:Potato",
-          "ColorR": 0,
-          "ColorG": 127,
-          "ColorB": 0,
-          "Glyph": 294,
-          "Dec": {
-            "Glyph": 295,
-            "R": 110,
-            "G": 66,
-            "B": 33,
-            "A": 255
-          }
-        }
-      ]
-    }
-  },
   "Dec": null,
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph": 290
+  "ItemGlyph": 290,
+  "Plant": {
+    "CurrentStage": 0,
+    "DayCounter": 0,
+    "GrowthSeason": "Spring",
+    "HarvestRevert": -1,
+    "ProduceName": "",
+    "RequiredLevel": 0,
+    "ExpOnHarvest": 20,
+    "ExpPerExtra": 5,
+    "ProducePerHarvestMin": 1,
+    "ProducePerHarvestMax": 3,
+    "ProduceIsSeed": true,
+    "WateredToday": false,
+    "Stages": [
+      {
+        "DaysToNext": 0,
+        "HarvestItem": "",
+        "ColorR": 110,
+        "ColorG": 66,
+        "ColorB": 33,
+        "Glyph": 291,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 3,
+        "HarvestItem": "",
+        "ColorR": 0,
+        "ColorG": 127,
+        "ColorB": 0,
+        "Glyph": 292,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 2,
+        "HarvestItem": "",
+        "ColorR": 0,
+        "ColorG": 127,
+        "ColorB": 0,
+        "Glyph": 293,
+        "Dec": null
+      },
+      {
+        "DaysToNext": 0,
+        "HarvestItem": "lh:Potato",
+        "ColorR": 0,
+        "ColorG": 127,
+        "ColorB": 0,
+        "Glyph": 294,
+        "Dec": {
+          "Glyph": 295,
+          "R": 110,
+          "G": 66,
+          "B": 33,
+          "A": 255
+        }
+      }
+    ]
+  },
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

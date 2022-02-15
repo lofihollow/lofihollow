@@ -1,12 +1,11 @@
-﻿using LofiHollow.Entities;
-using LofiHollow.Managers;
-using Newtonsoft.Json;
+﻿using LofiHollow.Managers; 
 using SadConsole;
 using SadConsole.Input;
 using SadConsole.UI;
 using SadRogue.Primitives;
 using LofiHollow.EntityData;
 using Key = SadConsole.Input.Keys;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.UI {
     public class UI_Container {
@@ -64,9 +63,9 @@ namespace LofiHollow.UI {
 
                 ContainerConsole.Print(2, i + 2, Helper.HoverColoredString(qty + CurrentContainer.Items[i].Name, mousePos.X < 36 && mousePos.Y == i+2));
 
-                ContainerConsole.Print(35, i + 2, Helper.HoverColoredString(((char)12).ToString(), mousePos == new Point(35, i + 2)));
-                ContainerConsole.Print(33, i + 2, Helper.HoverColoredString(((char)25).ToString(), mousePos == new Point(33, i + 2)));
-                ContainerConsole.Print(31, i + 2, Helper.HoverColoredString(((char)49).ToString(), mousePos == new Point(31, i + 2)));
+                ContainerConsole.Print(35, i + 2, Helper.HoverColoredString(12.AsString(), mousePos == new Point(35, i + 2)));
+                ContainerConsole.Print(33, i + 2, Helper.HoverColoredString(25.AsString(), mousePos == new Point(33, i + 2)));
+                ContainerConsole.Print(31, i + 2, Helper.HoverColoredString(49.AsString(), mousePos == new Point(31, i + 2)));
                 ContainerConsole.Print(30, i + 2, "|");
             }
 
@@ -74,9 +73,9 @@ namespace LofiHollow.UI {
                 string qty = "";
                 if (GameLoop.World.Player.Inventory[i].ItemQuantity > 1)
                     qty = GameLoop.World.Player.Inventory[i].ItemQuantity + "x ";
-                ContainerConsole.Print(37, i + 2, Helper.HoverColoredString(((char)11).ToString(), mousePos == new Point(37, i + 2)));
-                ContainerConsole.Print(39, i + 2, Helper.HoverColoredString(((char)25).ToString(), mousePos == new Point(39, i + 2)));
-                ContainerConsole.Print(41, i + 2, Helper.HoverColoredString(((char)49).ToString(), mousePos == new Point(41, i + 2)));
+                ContainerConsole.Print(37, i + 2, Helper.HoverColoredString(11.AsString(), mousePos == new Point(37, i + 2)));
+                ContainerConsole.Print(39, i + 2, Helper.HoverColoredString(25.AsString(), mousePos == new Point(39, i + 2)));
+                ContainerConsole.Print(41, i + 2, Helper.HoverColoredString(49.AsString(), mousePos == new Point(41, i + 2)));
                 ContainerConsole.Print(42, i + 2, "|");
                 ContainerConsole.Print(43, i + 2, GameLoop.World.Player.Inventory[i].AsColoredGlyph());
 
@@ -201,8 +200,9 @@ namespace LofiHollow.UI {
             }
 
             if (updateChest) {
-                string json =  JsonConvert.SerializeObject(CurrentContainer, Formatting.Indented);
-                GameLoop.SendMessageIfNeeded(new string[] { "updateChest", ContainerPosition.X.ToString(), ContainerPosition.Y.ToString(), GameLoop.World.Player.MapPos.ToString(), json }, false, false);
+                NetMsg updateContainer = new("updateChest", CurrentContainer.ToByteArray());
+                updateContainer.SetFullPos(ContainerPosition, GameLoop.World.Player.MapPos);
+                GameLoop.SendMessageIfNeeded(updateContainer, false, false);
             }
         }
 

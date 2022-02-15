@@ -3,7 +3,8 @@ using Newtonsoft.Json;
 using SadConsole;
 using SadConsole.Input;
 using SadRogue.Primitives; 
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.Minigames.Mining {
     [JsonObject(MemberSerialization.OptIn)]
@@ -35,9 +36,12 @@ namespace LofiHollow.Minigames.Mining {
             }
         }
 
-        public void SendItem(ItemWrapper item, int depth) {
-            string json = JsonConvert.SerializeObject(item, Formatting.Indented);
-            GameLoop.SendMessageIfNeeded(new string[] { "mineItem", Location, depth.ToString(), json }, false, false);
+        public void SendItem(ItemWrapper wrap, int depth) {
+            NetMsg mineItem = new("mineItem", wrap.item.ToByteArray());
+            mineItem.SetPos(wrap.Position);
+            mineItem.MiscString1 = Location;
+            mineItem.MiscInt = depth;
+            GameLoop.SendMessageIfNeeded(mineItem, false, false);
         }  
 
         public void PickupItem(Player player) {
@@ -97,9 +101,12 @@ namespace LofiHollow.Minigames.Mining {
             }
         }
 
-        public void SendPickup(ItemWrapper item, int Depth) {
-            string json = JsonConvert.SerializeObject(item, Formatting.Indented);
-            GameLoop.SendMessageIfNeeded(new string[] { "mineDestroy", Location, Depth.ToString(), json }, false, false); 
+        public void SendPickup(ItemWrapper wrap, int Depth) {
+            NetMsg mineDestroy = new("mineDestroy", wrap.item.ToByteArray());
+            mineDestroy.SetPos(wrap.Position);
+            mineDestroy.MiscString1 = Location;
+            mineDestroy.MiscInt = Depth;
+            GameLoop.SendMessageIfNeeded(mineDestroy, false, false); 
         }
 
         public void DestroyItem(ItemWrapper wrap, int Depth) {
@@ -161,8 +168,11 @@ namespace LofiHollow.Minigames.Mining {
                             GameLoop.SoundManager.PlaySound("mineHit");
                         }
 
-                        string json = JsonConvert.SerializeObject(Levels[player.MineDepth].GetTile(breakPos), Formatting.Indented);
-                        GameLoop.SendMessageIfNeeded(new string[] { "updateMine", Location, player.MineDepth.ToString(), breakPos.X.ToString(), breakPos.Y.ToString(), json }, false, false);
+                        NetMsg updateMine = new("updateMine", Levels[player.MineDepth].GetTile(breakPos).ToByteArray());
+                        updateMine.MiscInt = player.MineDepth;
+                        updateMine.MiscString1 = Location;
+                        updateMine.SetPos(breakPos);
+                        GameLoop.SendMessageIfNeeded(updateMine, false, false);
                   
                         return true;
                     } else {

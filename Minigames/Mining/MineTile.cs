@@ -130,7 +130,7 @@ namespace LofiHollow.Minigames.Mining {
 
         public ColoredString GetAppearance() {
             UpdateAppearance();
-            return new ColoredString(((char)Glyph).ToString(), Foreground, Background);
+            return new ColoredString(Glyph.AsString(), Foreground, Background);
         }
 
         public CellDecorator Decorator() {

@@ -1,17 +1,28 @@
 { 
   "Name": "Rat",
+  "Package": "lh",
   "CurrentHP": 10,
   "MaxHP": 10,
   "SizeMod": 0, 
-  "MonConstitution": 10,
-  "MonAttack": 2,
-  "MonStrength": 2,
-  "MonDefense": 2,
-  "MonMagic": 0,
-  "MonRanged": 0, 
+  "Health": 10,
+  "Speed": 2,
+  "Attack": 2,
+  "Defense": 2,
+  "MAttack": 0,
+  "MDefense": 0, 
+  "MinLevel": 1,
+  "MaxLevel": 5,
+  "StatGrowths": "2,2,2,2,0,0",
+  "SpawnLocation": "Plains",
+  "Types": [
+	"Wood"
+  ],
+  "MoveList": [
+	"1,Bite"
+  ],
   "DropTable": [ ],
   "ForegroundR": 200,
   "ForegroundG": 200,
-  "ForegroundB": 255,
+  "ForegroundB": 200,
   "ActorGlyph": 114
 }

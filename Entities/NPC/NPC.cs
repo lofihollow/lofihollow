@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SadRogue.Primitives;
-using System;
+using SadRogue.Primitives; 
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.Entities.NPC {
     [JsonObject(MemberSerialization.OptIn)]
@@ -83,7 +81,10 @@ namespace LofiHollow.Entities.NPC {
             AI.MoveTowardsNode(GameLoop.World.Player.Clock.GetCurrentTime(), this);
 
             if (oldPos != Position) {
-                GameLoop.SendMessageIfNeeded(new string[] { "moveNPC", npcID.ToString(), Position.X.ToString(), Position.Y.ToString(), MapPos.ToString() }, true, false);
+                NetMsg moveNPC = new("moveNPC");
+                moveNPC.SetFullPos(Position, MapPos);
+                moveNPC.MiscString1 = Name;
+                GameLoop.SendMessageIfNeeded(moveNPC, true, false);
             }
         }
 

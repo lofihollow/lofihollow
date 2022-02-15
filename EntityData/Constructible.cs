@@ -47,6 +47,9 @@ namespace LofiHollow.EntityData {
         public bool BlocksLOS = false;
 
         [JsonProperty]
+        public bool Furniture = false;
+
+        [JsonProperty]
         public Container Container;
 
         [JsonProperty]
@@ -54,7 +57,7 @@ namespace LofiHollow.EntityData {
 
 
         public ColoredString Appearance() {
-            ColoredString output = new(((char)Glyph).ToString(), new Color(ForegroundR, ForegroundG, ForegroundB), Color.Black);
+            ColoredString output = new(Glyph.AsString(), new Color(ForegroundR, ForegroundG, ForegroundB), Color.Black);
 
             if (Dec != null) {
                 CellDecorator[] dec = new CellDecorator[1];

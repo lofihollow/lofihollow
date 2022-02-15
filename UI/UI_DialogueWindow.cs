@@ -9,6 +9,7 @@ using SadRogue.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LofiHollow.DataTypes;
 
 
 namespace LofiHollow.UI {
@@ -549,12 +550,14 @@ namespace LofiHollow.UI {
                                     dialogueLatest = DialogueNPC.GiftResponses[reaction];
                                 else
                                     dialogueLatest = "Error - No response for " + reaction + " gift.";
+                                GameLoop.SteamManager.CountSocials();
                             } else if (diff >= 10) {
                                 string reaction = DialogueNPC.ReactGift("-3");
                                 if (DialogueNPC.GiftResponses.ContainsKey(reaction))
                                     dialogueLatest = DialogueNPC.GiftResponses[reaction];
                                 else
                                     dialogueLatest = "Error - No response for " + reaction + " gift.";
+                                GameLoop.SteamManager.CountSocials();
                             }
 
 
@@ -729,6 +732,7 @@ namespace LofiHollow.UI {
                                 dialogueLatest = DialogueNPC.GiftResponses[reaction];
                             else
                                 dialogueLatest = "Error - No response for " + reaction + " gift.";
+                            GameLoop.SteamManager.CountSocials();
                         }
                     }
                 } else if (dialogueOption == "None") {
@@ -760,6 +764,7 @@ namespace LofiHollow.UI {
                                 dialogueLatest = chatParts[1];
                                 GameLoop.World.Player.MetNPCs[DialogueNPC.Name] += Int32.Parse(chatParts[0]);
                                 DialogueNPC.UpdateChitChats();
+                                GameLoop.SteamManager.CountSocials();
                             }
                         }
                     } else if (mousePos.Y == DialogueConsole.Height - 15) { // Give item

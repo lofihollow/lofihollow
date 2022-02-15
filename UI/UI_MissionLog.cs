@@ -44,9 +44,9 @@ namespace LofiHollow.UI {
             string CurrentChapterName = GameLoop.World.Chapters.Count > CurrentChapter && CurrentChapter >= 0 ? GameLoop.World.Chapters[CurrentChapter].Name : "ERROR";
 
             if (CurrentChapter > 0)
-                MissionConsole.Print(1, 1, Helper.HoverColoredString(((char)11).ToString(), mousePos == new Point(1, 1)));
+                MissionConsole.Print(1, 1, Helper.HoverColoredString(11.AsString(), mousePos == new Point(1, 1)));
             if (CurrentChapter + 1 < GameLoop.World.Chapters.Count)
-                MissionConsole.Print(67, 1, Helper.HoverColoredString(((char)12).ToString(), mousePos == new Point(67, 1)));
+                MissionConsole.Print(67, 1, Helper.HoverColoredString(12.AsString(), mousePos == new Point(67, 1)));
             MissionConsole.Print(3, 1, ("Chapter " + (CurrentChapter + 1) + ": " + CurrentChapterName).Align(HorizontalAlignment.Center, 64));
             MissionConsole.Print(69, 0, Helper.HoverColoredString("X", mousePos == new Point(69, 0)));
             MissionConsole.DrawLine(new Point(0, 2), new Point(69, 2), 196, Color.White);

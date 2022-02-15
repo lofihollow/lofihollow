@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System; 
+using LofiHollow.DataTypes;
 
 namespace LofiHollow.Entities {
     [JsonObject(MemberSerialization.OptIn)]
@@ -23,6 +20,7 @@ namespace LofiHollow.Entities {
 
         [JsonConstructor]
         public FishingLure() : base(Color.White, Color.Transparent, '*') {
+            UsePixelPositioning = true;
         }
 
 
@@ -55,12 +53,16 @@ namespace LofiHollow.Entities {
             } else if (!FishOnHook) {
                 Effect = null;
                 if (Position != new Point(-1, -1) && xVelocity == 0 && yVelocity == 0) {
-                    TileBase tile = GameLoop.World.maps[GameLoop.World.Player.MapPos].GetTile(Position);
-                    if (tile.Name == "Water" || tile.Name == "Shallow Water") {
-                        if (GameLoop.rand.Next(100) == 1) {
-                            FishOnHook = true;
-                            GameLoop.UIManager.AddMsg(new ColoredString("Something is on the hook!", Color.Yellow, Color.Black));
-                            TimeHooked = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                    Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+                    Point cellPos = Position.ToCell();
+                    if (map != null) {
+                        Tile tile = map.GetTile(cellPos);
+                        if (tile.Name == "Water" || tile.Name == "Shallow Water") {
+                            if (GameLoop.rand.Next(100) == 1) {
+                                FishOnHook = true;
+                                GameLoop.UIManager.AddMsg(new ColoredString("Something is on the hook!", Color.Yellow, Color.Black));
+                                TimeHooked = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                            }
                         }
                     }
                 }

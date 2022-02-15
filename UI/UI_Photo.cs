@@ -105,7 +105,7 @@ namespace LofiHollow.UI {
                     int index = GameLoop.rand.Next(GameLoop.World.monsterLibrary.Count);
                     targetName = GameLoop.World.monsterLibrary.ElementAt(index).Value.Name; 
                     app = GameLoop.World.monsterLibrary.ElementAt(index).Value.GetAppearance();
-                    rewardAmount = GameLoop.rand.Next(GameLoop.World.monsterLibrary.ElementAt(index).Value.CalculateCombatLevel()) + 2;
+                    rewardAmount = GameLoop.rand.Next(GameLoop.World.monsterLibrary.ElementAt(index).Value.MinLevel) + 2;
                 }
 
                 PhotoJob newJob = new(app, dec, targetName, targetType, rewardAmount);
@@ -119,16 +119,16 @@ namespace LofiHollow.UI {
             if (!ShowingBoard) {
                 if (CurrentPhoto != null && CurrentPhoto.tiles != null) { 
                     PhotoConsole.Fill(Color.White, Color.Black, 32); 
-                    PhotoConsole.Print(26, 0, ((char)350).ToString(), Color.Lime);
+                    PhotoConsole.Print(26, 0, 350.AsString(), Color.Lime);
                     PhotoConsole.Print(0, 1, CurrentPhoto.PhotoName.Align(HorizontalAlignment.Center, 29));
                     PhotoConsole.DrawLine(new Point(4, 3), new Point(24, 3), 196, Color.White);
                     PhotoConsole.DrawLine(new Point(4, 25), new Point(24, 25), 196, Color.White);
                     PhotoConsole.DrawLine(new Point(3, 4), new Point(3, 24), 179, Color.White);
                     PhotoConsole.DrawLine(new Point(25, 4), new Point(25, 24), 179, Color.White);
-                    PhotoConsole.Print(3, 3, ((char)218).ToString());
-                    PhotoConsole.Print(3, 25, ((char)192).ToString());
-                    PhotoConsole.Print(25, 3, ((char)191).ToString());
-                    PhotoConsole.Print(25, 25, ((char)217).ToString());
+                    PhotoConsole.Print(3, 3, 218.AsString());
+                    PhotoConsole.Print(3, 25, 192.AsString());
+                    PhotoConsole.Print(25, 3, 191.AsString());
+                    PhotoConsole.Print(25, 25, 217.AsString());
 
                     if (mousePos.X >= 10 && mousePos.Y >= 10 && mousePos.X < 19 && mousePos.Y < 19) {
                         bool foundEnt = false;

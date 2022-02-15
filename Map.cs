@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using LofiHollow.EntityData;
 using System.Collections.Generic;
 using LofiHollow.Managers;
+using LofiHollow.DataTypes;
 
 namespace LofiHollow {
     [JsonObject(MemberSerialization.OptIn)]
@@ -15,7 +16,7 @@ namespace LofiHollow {
         [JsonProperty]
         public int MaximumMonsters = 0;
         [JsonProperty]
-        public TileBase[] Tiles;
+        public Tile[] Tiles;
         [JsonProperty]
         public int Width;
         [JsonProperty]
@@ -34,19 +35,39 @@ namespace LofiHollow {
         public GoRogue.MapViews.LambdaMapView<bool> MapFOV;
         public GoRogue.MapViews.LambdaMapView<double> LightRes;
 
-
+        [JsonConstructor]
         public Map(int width, int height) {
             Width = width;
             Height = height;
-            Tiles = new TileBase[width * height];
+            Tiles = new Tile[width * height];
 
             for (int i = 0; i < Tiles.Length; i++) {
-                Tiles[i] = new TileBase(); 
+                Tiles[i] = new Tile(); 
             }
 
             Entities = new GoRogue.MultiSpatialMap<Entity>();
 
             var MapView = new GoRogue.MapViews.LambdaMapView<bool>(width, height, pos => IsTileWalkable(new Point(pos.X, pos.Y)));
+            MapFOV = new GoRogue.MapViews.LambdaMapView<bool>(GameLoop.MapWidth, GameLoop.MapHeight, pos => BlockingLOS(new Point(pos.X, pos.Y)));
+            MapPath = new GoRogue.Pathing.FastAStar(MapView, GoRogue.Distance.CHEBYSHEV);
+
+            LightRes = new GoRogue.MapViews.LambdaMapView<double>(GameLoop.MapWidth, GameLoop.MapHeight, pos => GetLightRes(new Point(pos.X, pos.Y)));
+        }
+
+        public Map(Map other) {
+            Width = other.Width;
+            Height = other.Height;
+            Tiles = new Tile[Width * Height];
+
+            for (int i = 0; i < other.Tiles.Length; i++) {
+                Tiles[i] = new(other.Tiles[i]);
+            }
+
+            MinimapTile = new(other.MinimapTile);
+
+            Entities = new GoRogue.MultiSpatialMap<Entity>();
+
+            var MapView = new GoRogue.MapViews.LambdaMapView<bool>(Width, Height, pos => IsTileWalkable(new Point(pos.X, pos.Y)));
             MapFOV = new GoRogue.MapViews.LambdaMapView<bool>(GameLoop.MapWidth, GameLoop.MapHeight, pos => BlockingLOS(new Point(pos.X, pos.Y)));
             MapPath = new GoRogue.Pathing.FastAStar(MapView, GoRogue.Distance.CHEBYSHEV);
 
@@ -91,8 +112,10 @@ namespace LofiHollow {
 
                 Tiles[location.Y * Width + location.X].Lock.Closed = !Tiles[location.Y * Width + location.X].Lock.Closed;
                 Tiles[location.Y * Width + location.X].LightBlocked = Tiles[location.Y * Width + location.X].IsBlockingLOS ? 1 : 0;
-                string serialized = JsonConvert.SerializeObject(Tiles[location.Y * Width + location.X], Formatting.Indented);
-                GameLoop.SendMessageIfNeeded(new string[] { "updateTile", location.X.ToString(), location.Y.ToString(), mapPos.ToString(), serialized}, false, false);
+               
+                NetMsg updateTile = new("updateTile", Tiles[location.Y * Width + location.X].ToByteArray());
+                updateTile.SetFullPos(location, mapPos);
+                GameLoop.SendMessageIfNeeded(updateTile, false, false);
 
                 GameLoop.SoundManager.PlaySound("door");
 
@@ -124,11 +147,11 @@ namespace LofiHollow {
             return Entities.GetItems(location.ToCoord()).OfType<T>().FirstOrDefault();
         }
 
-        public TileBase GetTile(Point location) {
+        public Tile GetTile(Point location) {
             return Tiles[location.ToIndex(GameLoop.MapWidth)];
         }
 
-        public void SetTile(Point location, TileBase tile) {
+        public void SetTile(Point location, Tile tile) {
            Tiles[location.ToIndex(GameLoop.MapWidth)] = tile;
         }
 

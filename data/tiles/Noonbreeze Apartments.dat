@@ -1,0 +1,20 @@
+{
+  "Name": "Noonbreeze Apartments",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "MiscString": "Apartments,Noonbreeze,,",
+  "ForegroundR": 255,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "TileGlyph": 62,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null,
+  "TeleportTile": null
+}

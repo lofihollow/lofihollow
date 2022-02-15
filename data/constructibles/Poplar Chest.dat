@@ -10,6 +10,7 @@
   "ExpGranted": 30,
   "BlocksMove": true,
   "BlocksLOS": false,
+  "Furniture": true,
   "Container": {
 	"Capacity": 9,
 	"Name": "Poplar Chest",

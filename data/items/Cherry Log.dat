@@ -14,27 +14,32 @@
   "ItemTier": -1,
   "ItemCat": "None",
   "EquipSlot": -1,
-  "Properties": {
-    "Craft": [
-      {
-        "Property": "Fuel",
-        "Tier": 1,
-        "Quantity": 1,
-        "Stacks": false,
-        "CountsAsMultiple": true
-      },
-      {
-        "Property": "Wood",
-        "Tier": 70,
-        "Quantity": 1,
-        "Stacks": false,
-        "CountsAsMultiple": false
-      }
-    ]
-  },
   "Dec": null,
   "ForegroundR": 140,
   "ForegroundG": 96,
   "ForegroundB": 63,
-  "ItemGlyph": 330
+  "ItemGlyph": 330,
+  "Plant": null,
+  "Tool": null,
+  "Craft": [
+    {
+      "Property": "Fuel",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": false,
+      "CountsAsMultiple": true
+    },
+    {
+      "Property": "Wood",
+      "Tier": 70,
+      "Quantity": 1,
+      "Stacks": false,
+      "CountsAsMultiple": false
+    }
+  ],
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

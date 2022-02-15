@@ -2,7 +2,7 @@
 using SadConsole;
 using Console = SadConsole.Console;
 using SadRogue.Primitives;
-using Microsoft.Xna.Framework.Graphics;
+using LofiHollow.DataTypes;
 
 
 using LofiHollow.UI;
@@ -11,6 +11,7 @@ using LofiHollow.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Steamworks;
 
 namespace LofiHollow {
     class GameLoop {
@@ -24,6 +25,8 @@ namespace LofiHollow {
         public static CommandManager CommandManager;
         public static NetworkManager NetworkManager;
         public static SoundManager SoundManager;
+        public static ScriptManager ScriptManager;
+        public static SteamManager SteamManager;
 
 
         public static Random rand;
@@ -46,7 +49,7 @@ namespace LofiHollow {
 
         private static void Update(object sender, GameHost e) {
             if (UIManager != null) {
-                if (NetworkManager == null || NetworkManager.lobbyManager == null || NetworkManager.isHost) {
+                if (NetworkManager == null || NetworkManager.isHost) {
                     if (World.Player.Clock != null) {
                         World.Player.TimeLastTicked++;
                         if (World.Player.TimeLastTicked >= 60) {
@@ -56,47 +59,30 @@ namespace LofiHollow {
                     }
                 }
 
-                SoundManager.PickMusic();
-
-                List<Point3D> UpdatedMaps = new();
-
-                if (World.maps[World.Player.MapPos].Entities.Count > 0) {
-                    var entities = World.maps[World.Player.MapPos].Entities.Items.ToList();
-                    foreach (Entity ent in entities) {
-                        if (ent is MonsterWrapper mon) {
-                            mon.Update();
-                        }
-                    } 
-
-                    UpdatedMaps.Add(World.Player.MapPos);
-                }
-                 
-                foreach (KeyValuePair<long, Player> kv in World.otherPlayers) {
-                    if (!UpdatedMaps.Contains(kv.Value.MapPos)) {
-                        if (World.maps.ContainsKey(kv.Value.MapPos)) {
-                            if (World.maps[kv.Value.MapPos].Entities.Count > 0) {
-                                foreach (Entity ent in World.maps[kv.Value.MapPos].Entities.Items) {
-                                    if (ent is MonsterWrapper mon) {
-                                        mon.Update();
-                                    }
-                                }
-                                UpdatedMaps.Add(kv.Value.MapPos);
-                            }
-                        }
-                    }
-                } 
-
-                UpdatedMaps.Clear(); 
+                SoundManager.PickMusic(); 
             }
 
             if (SoundManager != null)
                 SoundManager.UpdateSounds();
 
-            
+            if (UIManager != null && UIManager.DevConsole != null && UIManager.DevConsole.DevWindow.IsVisible) {
+                UIManager.DevConsole.RenderDevConsole();
+                UIManager.DevConsole.DevConsoleInput();
+            }
+
+            if (GameHost.Instance.Keyboard.IsKeyReleased(SadConsole.Input.Keys.OemTilde)) {
+                UIManager.DevConsole.Toggle();
+            }
+
+            if (SteamManager != null) {
+                SteamManager.Update();
+            }
         }
 
         private static void Init() { 
             rand = new Random();
+            SteamManager = new SteamManager();
+            SteamManager.Start();
             World = new World();
             UIManager = new UIManager();
             UIManager.Init();
@@ -104,6 +90,7 @@ namespace LofiHollow {
             
             CommandManager = new CommandManager(); 
             SoundManager = new SoundManager();
+            ScriptManager = new ScriptManager();
 
             //  World.LoadExistingMaps();
             World.LoadMapAt(new Point3D(1, 3, 0));
@@ -114,9 +101,9 @@ namespace LofiHollow {
 
         public static bool CheckFlag(string flag) {
             if (flag == "farm") {
-                if ((NetworkManager != null && NetworkManager.lobbyManager != null && NetworkManager.isHost) || (NetworkManager == null)) {
+                if ((NetworkManager != null && NetworkManager.isHost) || (NetworkManager == null)) {
                     return World.Player.OwnsFarm;
-                } else if (NetworkManager != null && NetworkManager.lobbyManager != null && !NetworkManager.isHost) {
+                } else if (NetworkManager != null && !NetworkManager.isHost) {
                     return NetworkManager.HostOwnsFarm;
                 }
             }
@@ -131,25 +118,21 @@ namespace LofiHollow {
             return NetworkManager.isHost;
         }
 
-        public static void SendMessageIfNeeded(string[] messagePieces, bool OnlyIfHost, bool AddOwnID, long OnlyToID = -1) {
-            if (NetworkManager != null && NetworkManager.lobbyManager != null) {
+        public static void SendMessageIfNeeded(NetMsg msg, bool OnlyIfHost, bool AddOwnID, ulong OnlyToID = 0) {
+            if (NetworkManager != null) {
                 if (!OnlyIfHost || (OnlyIfHost && NetworkManager.isHost)) {
-                    string msg = "";
+                    if (AddOwnID)
+                        msg.senderID = Steamworks.SteamUser.GetSteamID();
 
-                    for (int i = 0; i < messagePieces.Length; i++) {
-                        msg += messagePieces[i] + ";";
-
-                        if (i == 0 && AddOwnID)
-                            msg += NetworkManager.ownID + ";";
-                    } 
-
-                    if (OnlyToID == -1) {
+                    if (OnlyToID == 0) {
                         NetworkManager.BroadcastMsg(msg);
-                    } else if (OnlyToID == 0) {
-                        var lobbyOwnerId = NetworkManager.lobbyManager.GetLobby(NetworkManager.lobbyID).OwnerId;
-                        NetworkManager.lobbyManager.SendNetworkMessage(NetworkManager.lobbyID, lobbyOwnerId, 0, Encoding.UTF8.GetBytes(msg));
+                    } else if (OnlyToID == 1) {
+                        var lobbyOwnerId = SteamMatchmaking.GetLobbyOwner((CSteamID) NetworkManager.currentLobby);
+                        msg.recipient = lobbyOwnerId;
+                        NetworkManager.BroadcastMsg(msg); 
                     } else {
-                        NetworkManager.lobbyManager.SendNetworkMessage(NetworkManager.lobbyID, OnlyToID, 0, Encoding.UTF8.GetBytes(msg));
+                        msg.recipient = (CSteamID) OnlyToID;
+                        NetworkManager.BroadcastMsg(msg); 
                     }
                 }
             }

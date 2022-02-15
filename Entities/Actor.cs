@@ -6,8 +6,10 @@ using SadConsole;
 using SadRogue.Primitives;
 using LofiHollow.EntityData;
 using System.Text;
-using LofiHollow.UI;
+using LofiHollow.DataTypes;
 using LofiHollow.Managers;
+using LofiHollow.DataTypes;
+
 
 namespace LofiHollow.Entities {
     [JsonObject(MemberSerialization.OptIn)]
@@ -21,8 +23,7 @@ namespace LofiHollow.Entities {
         public int CurrentStamina = 100;
         [JsonProperty]
         public int MaxStamina = 100;
-
-        public SadConsole.Console ScreenAppearance;
+         
 
 
         [JsonProperty]
@@ -67,29 +68,6 @@ namespace LofiHollow.Entities {
             Appearance.Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
             Appearance.Background = new Color(0, 0, 0, 50);
             Appearance.Glyph = ActorGlyph;
-
-            if (SizeMod <= 0) {
-                ScreenAppearance = new(1, 1);
-
-                if (SizeMod <= -1)
-                    ScreenAppearance.FontSize = new Point(6, 6);
-
-
-                ScreenAppearance.Print(0, 0, new ColoredString(Appearance));
-            }
-
-            if (SizeMod >= 1) {
-                int newSize = SizeMod + 1;
-                ScreenAppearance = new(1, 1);
-                ScreenAppearance.FontSize = new Point(12 * newSize, 12 * newSize); 
-                
-                ScreenAppearance.Print(0, 0, new ColoredString(Appearance));
-            }
-
-            if (SizeMod != 0)
-                ScreenAppearance.UsePixelPositioning = true;
-
-            UpdatePosition();
         }
 
         public void SwitchMeleeMode() {
@@ -119,14 +97,7 @@ namespace LofiHollow.Entities {
             }
 
             Skills["Constitution"].GrantExp(damage * 2);
-        }
-        
-        public void UpdatePosition() {
-            if (ScreenAppearance.UsePixelPositioning)
-                ScreenAppearance.Position = new Point(Position.X * 12, Position.Y * 12);
-            else
-                ScreenAppearance.Position = Position;
-        }
+        } 
 
         protected Actor(Color foreground, int glyph) : base(foreground, Color.Transparent, glyph) {
             Appearance.Foreground = foreground; 
@@ -142,200 +113,7 @@ namespace LofiHollow.Entities {
         }
 
         public ColoredString GetAppearance() {
-            return new ColoredString(Appearance.GlyphCharacter.ToString(), Appearance.Foreground, Color.Transparent);
-        }
-
-        public void CalculateCombatLevel() {
-            if (this is MonsterWrapper mon) { 
-                int combatStat = Math.Max(mon.monster.MonAttack + mon.monster.MonStrength, Math.Max(2 * mon.monster.MonMagic, 2 * mon.monster.MonRanged));
-
-                CombatLevel = (int) Math.Floor((double) (((13 / 10) * combatStat) + mon.monster.MonDefense + mon.monster.MonConstitution) / 4);
-            } else {
-                int Attack = Skills["Attack"].Level;
-                int Strength = Skills["Strength"].Level;
-                int Magic = Skills["Magic"].Level;
-                int Ranged = Skills["Ranged"].Level;
-                int Defense = Skills["Defense"].Level;
-                int Constitution = Skills["Constitution"].Level;
-
-                int CombatStat = Math.Max(Attack + Strength, Math.Max(Magic, Ranged));
-
-                CombatLevel = (int)Math.Floor((double)(((13 / 10) * CombatStat) + Defense + Constitution) / 4);
-            }
-        }
-
-        public void UpdateHP() {
-            if (this is Player) {
-                MaxHP = Skills["Constitution"].Level;
-                CurrentHP = MaxHP;
-            } else {
-                var mon = (MonsterWrapper)this;
-                MaxHP = mon.monster.MonConstitution;
-                CurrentHP = MaxHP;
-            }
-        }
-
-        public int EffectiveAttackLevel(string damageType) {
-            int effectiveAttackLevel = 0;
-            if (damageType == "Crush" || damageType == "Slash" || damageType == "Stab") { 
-                if (this is Player)
-                    effectiveAttackLevel = Skills["Attack"].Level;
-                else {
-                    var mon = (MonsterWrapper)this;
-                    effectiveAttackLevel = mon.monster.MonAttack;
-                }
-
-                if (CombatMode == "Attack")
-                    effectiveAttackLevel += 3;
-                if (CombatMode == "Balanced")
-                    effectiveAttackLevel += 1;
-
-                effectiveAttackLevel += 8;
-            }
-
-            return effectiveAttackLevel;
-        }
-         
-        public int AttackRoll(string type) {
-            int StyleBonus = 0;
-
-            if (this is Player play) {
-                for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
-                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
-
-                        if (type == "Slash")
-                            StyleBonus += Stats.SlashBonus;
-                        if (type == "Stab")
-                            StyleBonus += Stats.StabBonus;
-                        if (type == "Crush")
-                            StyleBonus += Stats.CrushBonus;
-                        if (type == "Range")
-                            StyleBonus += Stats.RangeBonus;
-                        if (type == "Magic")
-                            StyleBonus += Stats.MagicBonus;
-                    }
-                }
-            }
-
-            return EffectiveAttackLevel(type) * (StyleBonus + 64);
-        }
-
-
-        public int DefenceRoll(string damageType) {
-            int effectiveDefenseLevel = 0;
-            if (damageType == "Crush" || damageType == "Slash" || damageType == "Stab") { 
-                if (this is Player)
-                    effectiveDefenseLevel = Skills["Defense"].Level;
-                else {
-                    var mon = (MonsterWrapper)this;
-                    effectiveDefenseLevel = mon.monster.MonDefense;
-                }
-
-                if (CombatMode == "Defense")
-                    effectiveDefenseLevel += 3;
-                if (CombatMode == "Balanced")
-                    effectiveDefenseLevel += 1;
-
-                effectiveDefenseLevel += 8;
-            }
-
-
-            int TotalDefenseBonus = 0;
-
-            if (this is Player play) {
-                for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
-                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
-                        if (damageType == "Slash")
-                            TotalDefenseBonus += Stats.ArmorVsSlash;
-                        if (damageType == "Stab")
-                            TotalDefenseBonus += Stats.ArmorVsStab;
-                        if (damageType == "Crush")
-                            TotalDefenseBonus += Stats.ArmorVsCrush;
-                        if (damageType == "Range")
-                            TotalDefenseBonus += Stats.ArmorVsRange;
-                        if (damageType == "Magic")
-                            TotalDefenseBonus += Stats.ArmorVsMagic;
-                    }
-                }
-            }
-
-            if (this is Player) {
-                return effectiveDefenseLevel * (TotalDefenseBonus + 64);
-            } else {
-                var mon = (MonsterWrapper)this;
-                return (mon.monster.MonDefense + 9) * (TotalDefenseBonus + 64);
-            }
-        }
-
-        public int DamageRoll(string damageType) {
-            int effectiveStrength = 0;
-            if (damageType == "Crush" || damageType == "Slash" || damageType == "Stab") {
-                
-
-                if (this is Player)
-                    effectiveStrength = Skills["Strength"].Level;
-                else {
-                    var mon = (MonsterWrapper)this;
-                    effectiveStrength = mon.monster.MonStrength;
-                }
-
-                if (CombatMode == "Strength")
-                    effectiveStrength += 3;
-                if (CombatMode == "Balanced")
-                    effectiveStrength += 1;
-
-                effectiveStrength += 8;
-            }
-
-            int TotalStrengthBonus = 0;
-
-            if (this is Player play) {
-                for (int i = 0; i < play.Equipment.Length; i++) {
-                    if (play.Equipment[i].Properties.ContainsKey("Stats")) {
-                        Equipment Stats = play.Equipment[i].Properties.Get<Equipment>("Stats");
-                        if (damageType == "Slash")
-                            TotalStrengthBonus += Stats.StrengthBonus;
-                        if (damageType == "Stab")
-                            TotalStrengthBonus += Stats.StrengthBonus;
-                        if (damageType == "Crush")
-                            TotalStrengthBonus += Stats.StrengthBonus;
-                        if (damageType == "Range")
-                            TotalStrengthBonus += Stats.RangeBonus;
-                        if (damageType == "Magic")
-                            TotalStrengthBonus += Stats.MagicBonus;
-                    }
-                }
-            }
-
-            int maxDamage = (int) Math.Floor((double)(((effectiveStrength * (TotalStrengthBonus + 64)) + 320) / 640));
-
-            if (maxDamage > 1) {
-                return (GameLoop.rand.Next(maxDamage) + 1);
-            } 
-
-            return 1;
-        }
-
-        public string GetDamageType() {
-            if (this is Player play) {
-                if (play.Equipment[0].Properties.ContainsKey("Stats")) {
-                    Equipment Stats = play.Equipment[0].Properties.Get<Equipment>("Stats");
-                    string[] types = Stats.DamageType.Split(",");
-
-                    if (CombatMode == "Attack")
-                        return types[0];
-                    if (CombatMode == "Strength")
-                        return types[1];
-                    if (CombatMode == "Defense")
-                        return types[2];
-                    if (CombatMode == "Balanced")
-                        return types[3];
-                }
-            }
-
-            return "Crush";
+            return new ColoredString(ActorGlyph.AsString(), Appearance.Foreground, Color.Transparent);
         }
 
         public int TakeDamage(int damage) {
@@ -359,28 +137,15 @@ namespace LofiHollow.Entities {
         }
 
         public bool MoveBy(Point positionChange) {
-            int AgilityLevel = 0;
-            if (TimeLastActed + (120 - (AgilityLevel)) > SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                return false;
-            }
+            Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
 
-            TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-
-            if (GameLoop.World.maps.TryGetValue(MapPos, out Map map)) {
-                Point newPosition = Position + positionChange;
+            if (map != null) {
+                Point newPositionPreDiv = Position + positionChange;
+                Point newPosition = newPositionPreDiv.ToCell();
                 if (newPosition.Y < 0 && GameLoop.World.maps.ContainsKey(MapPos - new Point3D(0, -1, 0)) && GameLoop.World.maps[MapPos - new Point3D(0, -1, 0)].MinimapTile.name == "Desert") {
                     GameLoop.UIManager.AddMsg("There's dangerous sandstorms that way, best not go there for now.");
                     return false;
                 }
-
-
-                if (GameLoop.World.maps[MapPos].GetEntityAt<MonsterWrapper>(newPosition) != null) {
-                    MonsterWrapper monster = GameLoop.World.maps[MapPos].GetEntityAt<MonsterWrapper>(newPosition);
-
-                    CommandManager.Attack(this, monster, true);
-                    return false;
-                }
-
 
                 // Interact with skilling tiles
                 if (this is Player play) {
@@ -398,6 +163,10 @@ namespace LofiHollow.Entities {
                             } else if (split[0] == "Minigame") {
                                 if (split[1] == "Bartending") {
                                     GameLoop.UIManager.Minigames.ToggleMinigame("Bartending");
+                                }
+                            } else if (split[0] == "Apartments") {
+                                if (split[1] == "Noonbreeze") {
+                                    GameLoop.UIManager.Teleport.Toggle("Noonbreeze Apartments");
                                 }
                             }
                         }
@@ -446,9 +215,11 @@ namespace LofiHollow.Entities {
                     }
                 }
 
+                Point CurrentPos = Position.ToCell();
+
                 // Slope movement (UP slope)
-                if (map.GetTile(Position).Name == "Up Slope" && positionChange == new Point(0, -1)) {
-                    if (!map.IsTileWalkable(Position + positionChange)) {
+                if (map.GetTile(CurrentPos).Name == "Up Slope" && positionChange == new Point(0, -1)) {
+                    if (!map.IsTileWalkable(newPosition)) {
                         // This is an up slope, move up a map instead of up on the current map
                         if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(0, 0, 1))) { GameLoop.World.CreateMap(MapPos + new Point3D(0, 0, 1)); }
                         MapPos += new Point3D(0, 0, 1);
@@ -461,8 +232,8 @@ namespace LofiHollow.Entities {
                 }
 
                 // Slope movement (DOWN slope)
-                if (map.GetTile(Position).Name == "Down Slope" && positionChange == new Point(0, 1)) {
-                    if (!map.IsTileWalkable(Position + positionChange)) {
+                if (map.GetTile(CurrentPos).Name == "Down Slope" && positionChange == new Point(0, 1)) {
+                    if (!map.IsTileWalkable(newPosition)) {
                         // This is an up slope, move up a map instead of up on the current map
                         if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(0, 0, 1))) { GameLoop.World.CreateMap(MapPos + new Point3D(0, 0, 1)); }
                         MapPos += new Point3D(0, 0, 1);
@@ -475,8 +246,8 @@ namespace LofiHollow.Entities {
                 }
 
                 // Slope movement (LEFT slope)
-                if (map.GetTile(Position).Name == "Left Slope" && positionChange == new Point(-1, 0)) {
-                    if (!map.IsTileWalkable(Position + positionChange)) {
+                if (map.GetTile(CurrentPos).Name == "Left Slope" && positionChange == new Point(-1, 0)) {
+                    if (!map.IsTileWalkable(newPosition)) {
                         // This is an up slope, move up a map instead of up on the current map
                         if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(0, 0, 1))) { GameLoop.World.CreateMap(MapPos + new Point3D(0, 0, 1)); }
                         MapPos += new Point3D(0, 0, 1);
@@ -489,8 +260,8 @@ namespace LofiHollow.Entities {
                 }
 
                 // Slope movement (RIGHT slope)
-                if (map.GetTile(Position).Name == "Right Slope" && positionChange == new Point(1, 0)) {
-                    if (!map.IsTileWalkable(Position + positionChange)) {
+                if (map.GetTile(CurrentPos).Name == "Right Slope" && positionChange == new Point(1, 0)) {
+                    if (!map.IsTileWalkable(newPosition)) {
                         // This is an up slope, move up a map instead of up on the current map
                         if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(0, 0, 1))) { GameLoop.World.CreateMap(MapPos + new Point3D(0, 0, 1)); }
                         MapPos += new Point3D(0, 0, 1);
@@ -511,7 +282,7 @@ namespace LofiHollow.Entities {
                     if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(-1, 0, 0))) { GameLoop.World.CreateMap(MapPos + new Point3D(-1, 0, 0)); }
 
                     MapPos += new Point3D(-1, 0, 0);
-                    Position = new Point(GameLoop.MapWidth - 1, newPosition.Y);
+                    Position = new Point(GameLoop.MapWidth - 1, newPosition.Y) * 12;
                     movedMaps = true;
                 }
 
@@ -520,7 +291,7 @@ namespace LofiHollow.Entities {
                     if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(1, 0, 0))) { GameLoop.World.CreateMap(MapPos + new Point3D(1, 0, 0)); }
 
                     MapPos += new Point3D(1, 0, 0);
-                    Position = new Point(0, newPosition.Y);
+                    Position = new Point(0, newPosition.Y) * 12;
                     movedMaps = true;
                 }
 
@@ -529,7 +300,7 @@ namespace LofiHollow.Entities {
                     if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(0, -1, 0))) { GameLoop.World.CreateMap(MapPos + new Point3D(0, -1, 0)); }
 
                     MapPos += new Point3D(0, -1, 0);
-                    Position = new Point(newPosition.X, GameLoop.MapHeight - 1);
+                    Position = new Point(newPosition.X, GameLoop.MapHeight - 1) * 12;
                     movedMaps = true;
                 }
 
@@ -538,20 +309,21 @@ namespace LofiHollow.Entities {
                     if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(0, 1, 0))) { GameLoop.World.CreateMap(MapPos + new Point3D(0, 1, 0)); }
 
                     MapPos += new Point3D(0, 1, 0);
-                    Position = new Point(newPosition.X, 0);
+                    Position = new Point(newPosition.X, 0) * 12;
                     movedMaps = true;
                 }
 
                 if (movedMaps && ID == GameLoop.World.Player.ID) {
-                    GameLoop.UIManager.Map.LoadMap(MapPos);
-                    GameLoop.SendMessageIfNeeded(new string[] { "requestEntities", GameLoop.World.Player.MapPos.ToString() }, false, false, 0);
-                    
-                    GameLoop.World.maps[GameLoop.World.Player.MapPos].Entities.Clear(); 
+                    GameLoop.UIManager.Map.LoadMap(MapPos); 
 
                     if (GameLoop.SingleOrHosting()) {
                         if (!GameLoop.World.Player.VisitedMaps.Contains(MapPos)) {
-                            GameLoop.World.maps[MapPos].PopulateMonsters(MapPos);
-                            GameLoop.World.Player.VisitedMaps.Add(MapPos);
+                            Map mapData = Helper.ResolveMap(MapPos);
+
+                            if (map != null) {
+                                mapData.PopulateMonsters(MapPos);
+                                GameLoop.World.Player.VisitedMaps.Add(MapPos);
+                            }
                         }
                     }
 
@@ -585,11 +357,11 @@ namespace LofiHollow.Entities {
                         }
                     }
 
-                    if (map.IsTileWalkable(Position + positionChange)) {
+                    if (map.IsTileWalkable(newPosition)) {
                         // if there's an NPC here, initiate dialogue
                         if (ID == GameLoop.World.Player.ID) {
-                            for (int i = 0; i < GameLoop.World.npcLibrary.Count; i++) {
-                                NPC.NPC npc = GameLoop.World.npcLibrary[i];
+                            foreach (KeyValuePair<string, NPC.NPC> kv in GameLoop.World.npcLibrary) {
+                                NPC.NPC npc = kv.Value;
                                 if (npc.Position == newPosition && npc.MapPos == MapPos) {
                                     GameLoop.UIManager.DialogueWindow.SetupDialogue(npc); 
 
@@ -599,9 +371,9 @@ namespace LofiHollow.Entities {
                                 }
                             }
 
-                            TileBase tile = map.GetTile(Position + positionChange);
+                            Tile tile = map.GetTile(newPosition);
                             if (tile.Name == "Sign") {
-                                GameLoop.UIManager.SignText(Position + positionChange, MapPos);
+                                GameLoop.UIManager.SignText(newPosition, MapPos);
                                 return true;
                             }
                         }
@@ -614,24 +386,35 @@ namespace LofiHollow.Entities {
             return false;
         }
 
+        public bool FlexibleMapMove(Point newPosition, Point3D mapLoc, Map map) {
+            Position = newPosition; 
+            MapPos = mapLoc;
+            GameLoop.UIManager.Map.LoadMap(map);
+
+            NetMsg movePlayer = new("movePlayer");
+            movePlayer.SetFullPos(Position, MapPos);
+            GameLoop.SendMessageIfNeeded(movePlayer, false, true);
+             
+            NetMsg reqMap = new("fullMap");
+            reqMap.SetMap(MapPos);
+            GameLoop.SendMessageIfNeeded(reqMap, false, false, 0); 
+
+            return true;
+        }
+
         public bool MoveTo(Point newPosition, Point3D mapLoc) { 
             bool movedMaps = false;
-            if (!GameLoop.World.maps.ContainsKey(mapLoc)) { GameLoop.World.CreateMap(mapLoc); }
 
-            if (GameLoop.World.maps[mapLoc].IsTileWalkable(newPosition)) {
-                Position = newPosition;
+            Map map = Helper.ResolveMap(mapLoc);
 
-                if (ScreenAppearance == null) {
-                    UpdateAppearance();
-                }
+            if (map != null) {
+                Position = newPosition; 
 
-                ScreenAppearance.Position = newPosition;
-
-                if (MapPos != mapLoc) { movedMaps = true; } 
+                if (MapPos != mapLoc) { movedMaps = true; }
                 MapPos = mapLoc;
 
                 if (movedMaps && ID == GameLoop.World.Player.ID) {
-                    GameLoop.UIManager.Map.LoadMap(MapPos);
+                    GameLoop.UIManager.Map.LoadMap(map);
                 }
             }
 
@@ -639,20 +422,24 @@ namespace LofiHollow.Entities {
         } 
 
         public void Death(bool drops = true) {
-            GameLoop.World.maps[MapPos].Remove(this);
-            if (MapPos == GameLoop.World.Player.MapPos) {
-                GameLoop.UIManager.Map.EntityRenderer.Remove(this);
-                GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[MapPos]);
-                GameLoop.UIManager.AddMsg(this.Name + " died.");
-            } 
+            Map map = Helper.ResolveMap(MapPos);
 
-            if (drops && this is MonsterWrapper wrap)
-                wrap.SpawnDrops();
+            if (map != null) {
+                map.Remove(this);
+                if (MapPos == GameLoop.World.Player.MapPos) {
+                    GameLoop.UIManager.Map.EntityRenderer.Remove(this);
+                    GameLoop.UIManager.Map.SyncMapEntities(map);
+                    GameLoop.UIManager.AddMsg(this.Name + " died.");
+                }
 
-            GameLoop.World.maps[MapPos].SpawnedMonsters--;
+                if (drops && this is MonsterWrapper wrap)
+                    wrap.SpawnDrops();
 
-            if (GameLoop.World.maps[MapPos].SpawnedMonsters == 0) {
-                GameLoop.World.Player.MapsClearedToday++; 
+                map.SpawnedMonsters--;
+
+                if (map.SpawnedMonsters == 0) {
+                    GameLoop.World.Player.MapsClearedToday++;
+                }
             }
         }
 

@@ -14,17 +14,22 @@
   "ItemTier": -1,
   "ItemCat": "None",
   "EquipSlot": -1,
-  "Properties": {
-    "Tool": [
-      {
-        "Property": "Grinding",
-        "Tier": 1
-      }
-    ]
-  },
   "Dec": null,
   "ForegroundR": 100,
   "ForegroundG": 100,
   "ForegroundB": 100,
-  "ItemGlyph": 333
+  "ItemGlyph": 333,
+  "Plant": null,
+  "Tool": [
+    {
+      "Property": "Grinding",
+      "Tier": 1
+    }
+  ],
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }

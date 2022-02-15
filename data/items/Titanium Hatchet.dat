@@ -14,7 +14,6 @@
   "ItemTier": 80,
   "ItemCat": "Hatchet",
   "EquipSlot": -1,
-  "Properties": { },
   "Dec": {
     "Glyph": 287,
     "R": 0,
@@ -25,5 +24,13 @@
   "ForegroundR": 110,
   "ForegroundG": 66,
   "ForegroundB": 33,
-  "ItemGlyph": 21
+  "ItemGlyph": 21,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
 }
