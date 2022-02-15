@@ -152,8 +152,7 @@ namespace LofiHollow.Managers {
 			 
 			if (Data.Length > 0) {
 				NetMsg msg = Data.FromByteArray<NetMsg>();
-				 
-				GameLoop.UIManager.AddMsg(msg.ident);
+				
 				if (msg.recipient != CSteamID.Nil && msg.recipient != ownID)
 					return;
 				 
@@ -164,7 +163,11 @@ namespace LofiHollow.Managers {
 						newPlayer.UsePixelPositioning = true;
 						if (!GameLoop.World.otherPlayers.ContainsKey(msg.senderID)) {
 							GameLoop.World.otherPlayers.Add(msg.senderID, newPlayer);
-							GameLoop.UIManager.Map.SyncMapEntities(GameLoop.World.maps[GameLoop.World.Player.MapPos]);
+
+							Map currMap = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+
+							if (currMap != null)
+								GameLoop.UIManager.Map.SyncMapEntities(currMap);
 						}
 						break;
 					case "hostFlags":
@@ -561,7 +564,7 @@ namespace LofiHollow.Managers {
 						}
 						break;
 					default:
-						GameLoop.UIManager.AddMsg(msg.ident);
+						GameLoop.UIManager.AddMsg("Message not found: " + msg.ident);
 						break;
 				}
 			}
@@ -578,10 +581,7 @@ namespace LofiHollow.Managers {
 
 		public void BroadcastMsg(NetMsg msg) { 
 			byte[] message = msg.ToByteArray();
-			SteamMatchmaking.SendLobbyChatMsg((CSteamID)currentLobby, message, message.Length);
-
-
-			GameLoop.UIManager.AddMsg("Sending: " + msg.ident);
+			SteamMatchmaking.SendLobbyChatMsg((CSteamID)currentLobby, message, message.Length); 
 		}
 
 		public static string GetRoomCode() {
