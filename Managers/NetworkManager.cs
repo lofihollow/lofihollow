@@ -81,9 +81,11 @@ namespace LofiHollow.Managers {
 					currentLobby = (ulong) lobbyID;
 
 					NetMsg register = new("registerPlayer", GameLoop.World.Player.ToByteArray());
+					register.senderID = ownID;
 					BroadcastMsg(register);
 
 					NetMsg sendJoin = new("sendJoinData");
+					sendJoin.senderID = ownID;
 					BroadcastMsg(sendJoin);
 
 					GameLoop.UIManager.clientAndConnected = false;
@@ -92,6 +94,7 @@ namespace LofiHollow.Managers {
 
 					NetMsg requestEnts = new("requestEntities");
 					requestEnts.SetMap(GameLoop.World.Player.MapPos);
+					requestEnts.senderID = ownID;
 					byte[] req = requestEnts.ToByteArray();
 					Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
 					if (map != null)
@@ -145,10 +148,10 @@ namespace LofiHollow.Managers {
 			if ((CSteamID)result.m_ulSteamIDUser == SteamUser.GetSteamID())
 				return;
 
-			CSteamID sender;
+			CSteamID senderA;
 			byte[] Data = new byte[32768];
 			EChatEntryType ChatEntryType;
-			int ret = SteamMatchmaking.GetLobbyChatEntry((CSteamID)result.m_ulSteamIDLobby, (int)result.m_iChatID, out sender, Data, Data.Length, out ChatEntryType);
+			int ret = SteamMatchmaking.GetLobbyChatEntry((CSteamID)result.m_ulSteamIDLobby, (int)result.m_iChatID, out senderA, Data, Data.Length, out ChatEntryType);
 			 
 			if (Data.Length > 0) {
 				NetMsg msg = Data.FromByteArray<NetMsg>();
@@ -169,6 +172,8 @@ namespace LofiHollow.Managers {
 							if (currMap != null)
 								GameLoop.UIManager.Map.SyncMapEntities(currMap);
 						}
+
+						GameLoop.UIManager.AddMsg("Created player w/ ID " + msg.senderID);
 						break;
 					case "hostFlags":
 						if (msg.MiscString1 == "farm")
@@ -208,8 +213,8 @@ namespace LofiHollow.Managers {
 					case "registerPlayer":
 						Player player = msg.data.FromByteArray<Player>();
 						player.UsePixelPositioning = true;
-						if (!GameLoop.World.otherPlayers.ContainsKey(sender)) {
-							GameLoop.World.otherPlayers.Add(sender, player);
+						if (!GameLoop.World.otherPlayers.ContainsKey(msg.senderID)) {
+							GameLoop.World.otherPlayers.Add(msg.senderID, player);
 
 							Map regmap = Helper.ResolveMap(GameLoop.World.Player.MapPos);
 							if (regmap != null) {
@@ -507,28 +512,28 @@ namespace LofiHollow.Managers {
 						GameLoop.UIManager.Combat.Current = msg.data.FromByteArray<Combat>();
 						break;
 					case "fullPlayer":
-						if (GameLoop.World.otherPlayers.ContainsKey(sender))
-							GameLoop.World.otherPlayers[sender] = msg.data.FromByteArray<Player>();
+						if (GameLoop.World.otherPlayers.ContainsKey(msg.senderID))
+							GameLoop.World.otherPlayers[msg.senderID] = msg.data.FromByteArray<Player>();
 						else
-							GameLoop.World.otherPlayers.Add(sender, msg.data.FromByteArray<Player>());
+							GameLoop.World.otherPlayers.Add(msg.senderID, msg.data.FromByteArray<Player>());
 						break;
 					case "sendJoinData":
 						foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
 							NetMsg createPlayer = new("createPlayer", kv.Value.ToByteArray());
 							createPlayer.senderID = kv.Key;
-							createPlayer.recipient = sender;
+							createPlayer.recipient = msg.senderID;
 							BroadcastMsg(createPlayer);
 						} 
 
 						NetMsg createHost = new("createPlayer", GameLoop.World.Player.ToByteArray());
 						createHost.senderID = ownID;
-						createHost.recipient = sender;
+						createHost.recipient = msg.senderID;
 						BroadcastMsg(createHost);
 
 						NetMsg farmFlag = new("hostFlags");
 						farmFlag.MiscString1 = "farm";
 						farmFlag.Flag = GameLoop.World.Player.OwnsFarm;
-						farmFlag.recipient = sender;
+						farmFlag.recipient = msg.senderID;
 						BroadcastMsg(farmFlag);
 
 						if (GameLoop.World.Player.OwnsFarm) {
@@ -553,7 +558,7 @@ namespace LofiHollow.Managers {
 							NetMsg moveNPC = new("moveNPC");
 							moveNPC.MiscString1 = kv.Key;
 							moveNPC.SetFullPos(kv.Value.Position, kv.Value.MapPos);
-							moveNPC.recipient = sender;
+							moveNPC.recipient = msg.senderID;
 							BroadcastMsg(moveNPC);
 						}
 
@@ -575,7 +580,7 @@ namespace LofiHollow.Managers {
 
 		public bool HostOwnsFarm = false;
 
-		public NetworkManager(bool second = false) {
+		public NetworkManager() {
 			Start();
 		}
 

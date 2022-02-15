@@ -404,14 +404,12 @@ namespace LofiHollow.UI {
                         // Singleplayer
                     } else if (mousePos.Y == 2) {
                         // Host Immediately
-                        GameLoop.NetworkManager = new NetworkManager(true);
-                        // GameLoop.NetworkManager.CreateLobby();
+                        GameLoop.NetworkManager = new NetworkManager();
                         GameLoop.NetworkManager.SteamLobby();
                     } else if (mousePos.Y == 4 && mousePos.X >= 8 && mousePos.X <= 13) {
                         // Join game
                         if (LobbyCode.Length == 6) {
-                            GameLoop.NetworkManager = new NetworkManager(false);
-                            //   GameLoop.NetworkManager.SearchLobbiesAndJoin(LobbyCode);
+                            GameLoop.NetworkManager = new NetworkManager();
                             GameLoop.NetworkManager.JoinSteamLobby(LobbyCode);
                         } else {
                             joinError = "Enter lobby code first";
