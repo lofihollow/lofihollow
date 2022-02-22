@@ -45,8 +45,8 @@ namespace LofiHollow.UI {
 
         public bool HasPhotoOf(Player play, string targetName, string type) {
             for (int i = 0; i < play.Inventory.Length; i++) {
-                if (play.Inventory[i].Properties.ContainsKey("Photo")) {
-                    Photo photo = play.Inventory[i].Properties.Get<Photo>("Photo");
+                if (play.Inventory[i].Photo != null) {
+                    Photo photo = play.Inventory[i].Photo;
 
                     if (photo.Contains(targetName, type)) {
                         return true;
@@ -59,8 +59,8 @@ namespace LofiHollow.UI {
 
         public void ConsumePhoto(Player play, string targetName, string type, int reward) {
             for (int i = 0; i < play.Inventory.Length; i++) {
-                if (play.Inventory[i].Properties.ContainsKey("Photo")) {
-                    Photo photo = play.Inventory[i].Properties.Get<Photo>("Photo");
+                if (play.Inventory[i].Photo != null) {
+                    Photo photo = play.Inventory[i].Photo;
                     if (photo.Contains(targetName, type)) {
                         CommandManager.RemoveOneItem(play, i);
                         play.CopperCoins += reward;

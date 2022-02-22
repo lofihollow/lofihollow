@@ -32,6 +32,8 @@ namespace LofiHollow.UI {
         public UI_Security Security;
         public UI_ScriptMini ScriptMini;
         public UI_Combat Combat;
+        public UI_Feedback Feedback;
+        public UI_ArtifactMaker ArtMaker;
           
         public SadConsole.Console SignConsole;
         public Window SignWindow; 
@@ -54,7 +56,6 @@ namespace LofiHollow.UI {
         public void AddMsg(string msg) { Map.MessageLog.Add(msg); }
         public void AddMsg(ColoredString msg) { Map.MessageLog.Add(msg); }
         public void AddMsg(DecoratedString msg) { Map.MessageLog.Add(msg); }
-        public void BattleMsg(ColoredString msg) { Sidebar.BattleLog.Add(msg); }
 
         public override void Update(TimeSpan timeElapsed) {
             if (clientAndConnected) {
@@ -107,7 +108,16 @@ namespace LofiHollow.UI {
                     } else if (selectedMenu == "Combat") {
                         Combat.RenderCombat();
                         Combat.CombatInput();
-                    } else {
+                    }
+                    else if (selectedMenu == "Feedback") {
+                        Feedback.RenderFeedback();
+                        Feedback.FeedbackInput();
+                    }
+                    else if (selectedMenu == "ArtMaker") {
+                        ArtMaker.RenderArtifactMaker();
+                        ArtMaker.ArtifactMakerInput();
+                    }
+                    else {
                         if (selectedMenu != "Dialogue") {
                             if (selectedMenu == "Sign")
                                 RenderSign();
@@ -153,7 +163,9 @@ namespace LofiHollow.UI {
             Security = new UI_Security(72, 42, "Security Panel");
             DevConsole = new UI_DevConsole(72, 42, "DEV CONSOLE");
             ScriptMini = new UI_ScriptMini(72, 42, "");
-            Combat = new UI_Combat(72, 42, ""); 
+            Combat = new UI_Combat(72, 42, "");
+            Feedback = new UI_Feedback(72, 42, "");
+            ArtMaker = new UI_ArtifactMaker(72, 42, "");
 
             UseMouse = true;
             selectedMenu = "MainMenu";
@@ -175,58 +187,90 @@ namespace LofiHollow.UI {
                         CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(1, 0, 0));
                     }
                 } else {
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) {
-                        if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -4));
-                            RunTicks++;
+                    if (GameLoop.World.Player.TimeLastActed + (80) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
+                        if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) {
+                            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
+                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1));
+                                RunTicks++;
 
-                            if (RunTicks > 60) {
-                                GameLoop.World.Player.ExpendStamina(1);
-                                RunTicks = 0;
-                            }
-                        } else
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -2));
-                        Map.UpdateVision();
-                    }
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) {
-                        if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 4));
-                            RunTicks++;
+                                if (RunTicks > 5) {
+                                    GameLoop.World.Player.ExpendStamina(1);
+                                    RunTicks = 0;
+                                }
 
-                            if (RunTicks > 60) {
-                                GameLoop.World.Player.ExpendStamina(1);
-                                RunTicks = 0;
+                                GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                                Map.UpdateVision();
                             }
-                        } else
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 2));
-                        Map.UpdateVision();
-                    }
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) {
-                        if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-4, 0));
-                            RunTicks++;
+                        }
+                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) {
+                            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
+                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
+                                RunTicks++;
 
-                            if (RunTicks > 60) {
-                                GameLoop.World.Player.ExpendStamina(1);
-                                RunTicks = 0; 
-                            }
-                        } else
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-2, 0));
-                        Map.UpdateVision();
-                    }
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.D)) {
-                        if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(4, 0));
-                            RunTicks++;
+                                if (RunTicks > 5) {
+                                    GameLoop.World.Player.ExpendStamina(1);
+                                    RunTicks = 0;
+                                }
 
-                            if (RunTicks > 60) {
-                                GameLoop.World.Player.ExpendStamina(1);
-                                RunTicks = 0;
+                                GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                                Map.UpdateVision();
                             }
-                        } else
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(2, 0));
-                        Map.UpdateVision();
+                        }
+                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) {
+                            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
+                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
+                                RunTicks++;
+
+                                if (RunTicks > 5) {
+                                    GameLoop.World.Player.ExpendStamina(1);
+                                    RunTicks = 0;
+                                }
+
+                                GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                                Map.UpdateVision();
+                            }
+                        }
+                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D)) {
+                            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
+                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
+                                RunTicks++;
+
+                                if (RunTicks > 5) {
+                                    GameLoop.World.Player.ExpendStamina(1);
+                                    RunTicks = 0;
+                                }
+
+                                GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                                Map.UpdateVision();
+                            }
+                        }
                     }
+
+                    if (GameLoop.World.Player.TimeLastActed + (120) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
+
+                        if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) {
+                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1)); 
+                            GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                            Map.UpdateVision();
+                        }
+                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) { 
+                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
+                            GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                            Map.UpdateVision();
+                        }
+                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) { 
+                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
+                            GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                            Map.UpdateVision();
+                        }
+                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D)) { 
+                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
+                            GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                            Map.UpdateVision();
+                        }
+                    }
+
+
                     if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemPeriod)) {
                         Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
 
@@ -298,16 +342,22 @@ namespace LofiHollow.UI {
                     GameLoop.World.SaveMapToFile(GameLoop.World.Player.MapPos);
                 }
 
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F8)) {
+                    Feedback.Toggle();
+                }
+
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F3)) {
-                    //    Combat.Toggle();
-                    //    Combat.StartCombat("Plains", 1);
-                    AddMsg(GameLoop.NetworkManager.LobbyCode);
+                    // Combat.Toggle();
+                    // Combat.StartCombat("Plains", 1);
+
+                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Copper Spade"));
                 }
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F2)) {
-                    foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
-                        GameLoop.World.Player.PartyMembers.Add(kv.Key);
-                    }
+                    /* foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                         GameLoop.World.Player.PartyMembers.Add(kv.Key);
+                     } */
+                    // CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Copper SoulCam")); 
                 }
 
 
@@ -404,7 +454,7 @@ namespace LofiHollow.UI {
 
             if (MapLoc == new Point3D(0, 1, 0)) { // Town Center
                 if (locInMap == new Point(31, 9)) { signText = "Tom's Bar"; }
-                else if (locInMap == new Point(21, 9)) { signText = "Blacksmith||Weekdays 9am to 5pm|Closed Weekends"; } 
+                else if (locInMap == new Point(21, 9)) { signText = "Blacksmith"; } 
                 else if (locInMap == new Point(12, 20)) { signText = "Jasper's General Goods"; } 
                 else if (locInMap == new Point(21, 30)) { signText = "Adventure Guild"; }
                 else if (locInMap == new Point(29, 30)) { signText = "Emerose's Apothecary"; } 
@@ -425,13 +475,17 @@ namespace LofiHollow.UI {
                 else if (locInMap == new Point(21, 24)) { signText = "Clinic"; }
                 else if (locInMap == new Point(28, 25)) { signText = "Courier's Guild"; }
                 else if (locInMap == new Point(59, 24)) { signText = "Merchant's Guild"; }
-                else if (locInMap == new Point(43, 15)) { signText = "Town Hall"; }
+                else if (locInMap == new Point(37, 5)) { signText = "Town Hall"; }
+                else if (locInMap == new Point(21, 20)) { signText = "Maple's Hardware"; }
+                else if (locInMap == new Point(43, 15)) { signText = "Meat Cute"; }
+                else if (locInMap == new Point(37, 15)) { signText = "The Inn"; }
+                else if (locInMap == new Point(59, 19)) { signText = "Noonbreeze Apartments"; }
                 else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + ") has no text."); }
             }
             
             else if (MapLoc == new Point3D(-3, 1, 0)) { signText = "North -- Lake|West -- Mountain Cave|East -- Noonbreeze"; }
             else if (MapLoc == new Point3D(-3, -1, 0)) { signText = "Fisherman's Cabin"; } 
-            else if (MapLoc == new Point3D(-5, 1, 0)) { signText = "Mountain Tunnel||Under Construction"; } 
+            else if (MapLoc == new Point3D(-5, 1, 0)) { signText = "Mountain Tunnel||Under Construction"; }
             else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + "), map (" + MapLoc.X + "," + MapLoc.Y + "," + MapLoc.Z + ")"); }
         }
 

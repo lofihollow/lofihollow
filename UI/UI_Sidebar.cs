@@ -16,8 +16,7 @@ using LofiHollow.DataTypes;
 namespace LofiHollow.UI {
     public class UI_Sidebar {
         public Window SidebarWindow;
-        public SadConsole.Console SidebarConsole; 
-        public MessageLogWindow BattleLog;
+        public SadConsole.Console SidebarConsole;  
 
         public int tileIndex = 0;
         public int monIndex = 0;
@@ -52,13 +51,7 @@ namespace LofiHollow.UI {
 
             SidebarWindow.Show();
 
-            SidebarWindow.IsVisible = false;
-
-            BattleLog = new MessageLogWindow(18, 11, "Combat");
-            SidebarWindow.Children.Add(BattleLog);
-            BattleLog.Show();
-            BattleLog.Position = new Point(0, 0);
-            BattleLog.IsVisible = false;
+            SidebarWindow.IsVisible = false; 
         }
 
         public void SidebarInput() { 
@@ -81,14 +74,6 @@ namespace LofiHollow.UI {
             Point sidebarMouse = new MouseScreenObjectState(SidebarConsole, GameHost.Instance.Mouse).CellPosition;
             if (sidebarMouse.X > 0) { // Clicked in Sidebar
                 if (GameHost.Instance.Mouse.LeftClicked) {
-                    if (sidebarMouse.Y >= 48) {
-                        int slot = sidebarMouse.Y - 48;
-                        if (slot >= 0 && slot <= 9)
-                            CommandManager.UnequipItem(GameLoop.World.Player, slot);
-                    }
-
-                    
-
                     if (sidebarMouse.X < 12) {
                         if (sidebarMouse.Y == 13) {
                             if (GameLoop.World.Player.CopperCoins > 0) { 
@@ -421,38 +406,30 @@ namespace LofiHollow.UI {
                     ColoredString goldString = new("GP:" + GameLoop.World.Player.GoldCoins, Color.Yellow, Color.Black);
                     ColoredString JadeString = new("JP:" + GameLoop.World.Player.JadeCoins, new Color(0, 168, 107), Color.Black);
 
-                    SidebarConsole.Print(0, 13, copperString);
-                    SidebarConsole.Print(0, 14, silverString);
-                    SidebarConsole.Print(13, 13, goldString);
-                    SidebarConsole.Print(13, 14, JadeString);
+                    SidebarConsole.Print(0, 0, copperString);
+                    SidebarConsole.Print(0, 1, silverString);
+                    SidebarConsole.Print(0, 2, goldString);
+                    SidebarConsole.Print(0, 3, JadeString);
 
-                    SidebarConsole.DrawLine(new Point(0, 15), new Point(25, 15), (char)196, Color.White, Color.Black);
+                    SidebarConsole.Print(0, 5, new ColoredString(3.AsString(), Color.Red, Color.Black));
+                    SidebarConsole.Print(1, 5, new ColoredString((GameLoop.World.Player.CurrentHP + "/" + GameLoop.World.Player.MaxHP).Align(HorizontalAlignment.Right, 5), Color.Red, Color.Black));
 
+                    SidebarConsole.Print(0, 6, new ColoredString(175.AsString(), Color.Lime, Color.Black));
+                    SidebarConsole.Print(1, 6, new ColoredString((GameLoop.World.Player.CurrentStamina + "/" + GameLoop.World.Player.MaxStamina).Align(HorizontalAlignment.Right, 7), Color.Lime, Color.Black));
 
-
-                    int y = 16;
-
-                    SidebarConsole.Print(0, y, new ColoredString(3.AsString(), Color.Red, Color.Black));
-                    SidebarConsole.Print(1, y, new ColoredString((GameLoop.World.Player.CurrentHP + "/" + GameLoop.World.Player.MaxHP).Align(HorizontalAlignment.Right, 5), Color.Red, Color.Black));
-
-                    SidebarConsole.Print(8, y, new ColoredString(175.AsString(), Color.Lime, Color.Black));
-                    SidebarConsole.Print(9, y, new ColoredString((GameLoop.World.Player.CurrentStamina + "/" + GameLoop.World.Player.MaxStamina).Align(HorizontalAlignment.Right, 7), Color.Lime, Color.Black));
 
                     GameLoop.World.Player.CalculateCombatLevel();
-                    SidebarConsole.Print(0, y + 1, "Combat Lv: " + GameLoop.World.Player.CombatLevel);
-                    SidebarConsole.Print(0, y + 2, "Mode: " + GameLoop.World.Player.CombatMode);
-                    SidebarConsole.Print(0, y + 3, "Damage: " + GameLoop.World.Player.GetDamageType());
+                    SidebarConsole.Print(0, 8, "Combat Level: " + GameLoop.World.Player.CombatLevel);
 
                     if (GameLoop.World.Player.Clock != null) {
-                        SidebarConsole.Print(18, y, time);
-                        SidebarConsole.Print(24, y++, GameLoop.World.Player.Clock.AM ? "AM" : "PM");
-                        SidebarConsole.Print(18, y++, (months[GameLoop.World.Player.Clock.Month - 1] + " " + GameLoop.World.Player.Clock.Day).Align(HorizontalAlignment.Right, 8));
-                        SidebarConsole.Print(19, y++, ("Year " + GameLoop.World.Player.Clock.Year).Align(HorizontalAlignment.Right, 7));
+                        SidebarConsole.Print(8, 0, time);
+                        SidebarConsole.Print(14, 0, GameLoop.World.Player.Clock.AM ? "AM" : "PM");
+                        SidebarConsole.Print(8, 1, (months[GameLoop.World.Player.Clock.Month - 1] + " " + GameLoop.World.Player.Clock.Day).Align(HorizontalAlignment.Right, 8));
+                        SidebarConsole.Print(9, 2, ("Year " + GameLoop.World.Player.Clock.Year).Align(HorizontalAlignment.Right, 7));
                     }
 
-                    SidebarConsole.DrawLine(new Point(0, y), new Point(25, y), 196, Color.White, Color.Black);
-                    y++;
 
+                    int y = 14;   
                     SidebarConsole.Print(0, y++, "Mouse-Look");
                     Point mouseOverMap = new MouseScreenObjectState(GameLoop.UIManager.Map.MapConsole, GameHost.Instance.Mouse).CellPosition;
                     if (mouseOverMap.X >= 0 && mouseOverMap.Y >= 0 && mouseOverMap.X <= GameLoop.MapWidth && mouseOverMap.Y <= GameLoop.MapHeight) {
@@ -468,12 +445,24 @@ namespace LofiHollow.UI {
                                 y++;
 
                                 if (map.GetTile(mouseOverMap).Container == null) {
-                                    SidebarConsole.Print(0, y++, "Monsters");
-                                    List<MonsterWrapper> MonstersOnTile = map.GetAllEntities<MonsterWrapper>(mouseOverMap);
+                                    SidebarConsole.Print(0, y++, "People");
+                                    List<Actor> PeopleOnTile = new();
 
-                                    if (MonstersOnTile != null && MonstersOnTile.Count > 0) {
-                                        for (int i = 0; i < MonstersOnTile.Count; i++) {
-                                            SidebarConsole.Print(0, y++, MonstersOnTile[i].GetAppearance() + new ColoredString(" " + MonstersOnTile[i].Name, Color.White, Color.Black));
+                                    foreach (KeyValuePair<string, NPC> kv in GameLoop.World.npcLibrary) {
+                                        if (kv.Value.Position == mouseOverMap && kv.Value.MapPos == GameLoop.World.Player.MapPos) {
+                                            PeopleOnTile.Add(kv.Value);
+                                        }
+                                    }
+
+                                    foreach (KeyValuePair<Steamworks.CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                                        if (kv.Value.Position == mouseOverMap && kv.Value.MapPos == GameLoop.World.Player.MapPos) {
+                                            PeopleOnTile.Add(kv.Value);
+                                        }
+                                    }
+
+                                    if (PeopleOnTile != null && PeopleOnTile.Count > 0) {
+                                        for (int i = 0; i < PeopleOnTile.Count; i++) {
+                                            SidebarConsole.Print(0, y++, PeopleOnTile[i].GetAppearance() + new ColoredString(" " + PeopleOnTile[i].Name, Color.White, Color.Black));
                                         }
                                     } else {
                                         SidebarConsole.Print(0, y++, new ColoredString(" (None)", Color.DarkSlateGray, Color.Black));
@@ -537,7 +526,7 @@ namespace LofiHollow.UI {
                             }
                         }
                     } 
-                    y = 35;
+                    y = 34;
 
                     SidebarConsole.DrawLine(new Point(0, y), new Point(25, y), (char)196, Color.White, Color.Black);
                     y++;
@@ -558,9 +547,19 @@ namespace LofiHollow.UI {
                             LetterGrade = new ColoredString(" [") + item.LetterGrade() + new ColoredString("]");
 
 
-                        if (!item.IsStackable || (item.IsStackable && item.ItemQuantity == 1))
-                            SidebarConsole.Print(3, y, new ColoredString(item.Name, i == hotbarSelect ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.TransparentBlack) + LetterGrade);
-                        else
+                        if (!item.IsStackable || (item.IsStackable && item.ItemQuantity == 1)) { 
+                            if (item.ItemCat == "Soul") {
+                                string name = item.Name;
+                                if (item.SoulPhoto != null) {
+                                    name += " (" + item.SoulPhoto.Name() + ")";
+                                } 
+
+                                SidebarConsole.Print(3, y, new ColoredString(name, i == hotbarSelect ? Color.Yellow : Color.White, Color.TransparentBlack)); 
+                            }
+                            else {
+                                SidebarConsole.Print(3, y, new ColoredString(item.Name, i == hotbarSelect ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.TransparentBlack) + LetterGrade);
+                            }
+                        } else
                             SidebarConsole.Print(3, y, new ColoredString(("(" + item.ItemQuantity + ") " + item.Name), i == hotbarSelect ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.TransparentBlack) + LetterGrade);
 
                         if (i == hotbarSelect && item.ItemCat == "Fishing Rod") {
@@ -592,7 +591,7 @@ namespace LofiHollow.UI {
                     SidebarConsole.Print(0, y, "Equipment");
                     y++;
 
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 11; i++) {
                         Item item = GameLoop.World.Player.Equipment[i];
                           
                         SidebarConsole.Print(0, y, "|");
@@ -600,11 +599,30 @@ namespace LofiHollow.UI {
                         if (item.Dec != null) {
                             SidebarConsole.SetDecorator(1, y, 1, new CellDecorator(new Color(item.Dec.R, item.Dec.G, item.Dec.B), item.Dec.Glyph, Mirror.None));
                         }
-                        SidebarConsole.Print(3, y, new ColoredString(item.Name, mousePos.Y == y ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.TransparentBlack));
+
+                        if (item.ItemCat == "Soul") {
+                            string name = item.Name;
+                            if (item.SoulPhoto != null) {
+                                name += " (" + item.SoulPhoto.Name() + ")";
+                            }
+
+                            SidebarConsole.PrintClickable(3, y, new ColoredString(name, mousePos.Y == y ? Color.Yellow : Color.White, Color.TransparentBlack), SidebarClick, "Unequip," + i);
+                        }
+                        else {
+                            SidebarConsole.PrintClickable(3, y, new ColoredString(item.Name, mousePos.Y == y ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.TransparentBlack), SidebarClick, "Unequip," + i);
+                        }
+
                         y++;
                     }
                 }
             }
+        }
+
+        public void SidebarClick(string ID) {
+            if (ID.Contains("Unequip")) {
+                int slot = Int32.Parse(ID.Split(",")[1]);
+                CommandManager.UnequipItem(GameLoop.World.Player, slot);
+            } 
         }
     }
 }

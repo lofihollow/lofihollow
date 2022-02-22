@@ -93,7 +93,7 @@ namespace LofiHollow.EntityData {
                     Plant plant = new(this);
                     plant.CurrentStage = 0;
                     plant.DayCounter = 0;
-                    produce.Properties.Add("Plant", plant);
+                    produce.Plant = plant;
                 }
 
 

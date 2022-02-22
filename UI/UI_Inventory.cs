@@ -53,7 +53,17 @@ namespace LofiHollow.UI {
                         InventoryConsole.SetDecorator(0, i+1, 1, new CellDecorator(new Color(item.Dec.R, item.Dec.G, item.Dec.B), item.Dec.Glyph, Mirror.None));
                     }
                     if (!item.IsStackable || (item.IsStackable && item.ItemQuantity == 1))
-                        InventoryConsole.Print(2, i + 1, new ColoredString(item.Name, invMoveIndex == i ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.Black) + LetterGrade);
+                        if (item.ItemCat == "Soul") {
+                            string name = item.Name;
+                            if (item.SoulPhoto != null) {
+                                name += " (" + item.SoulPhoto.Name() + ")";
+                            }
+
+                            InventoryConsole.Print(2, i + 1, new ColoredString(name, invMoveIndex == i ? Color.Yellow : Color.White, Color.Black));
+                        }
+                        else {
+                            InventoryConsole.Print(2, i + 1, new ColoredString(item.Name, invMoveIndex == i ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.Black) + LetterGrade);
+                        }
                     else
                         InventoryConsole.Print(2, i + 1, new ColoredString(("(" + item.ItemQuantity + ") " + item.Name), invMoveIndex == i ? Color.Yellow : item.Name == "(EMPTY)" ? Color.DarkSlateGray : Color.White, Color.Black) + LetterGrade);
 

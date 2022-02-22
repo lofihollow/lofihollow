@@ -397,7 +397,6 @@ namespace LofiHollow.UI {
                         MainMenuWindow.IsVisible = false;
                         GameLoop.UIManager.Map.MapWindow.IsVisible = true;
                         GameLoop.UIManager.Map.MessageLog.IsVisible = true;
-                        GameLoop.UIManager.Sidebar.BattleLog.IsVisible = true;
                         GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
                         GameLoop.UIManager.selectedMenu = "None";
 

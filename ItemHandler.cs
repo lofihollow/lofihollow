@@ -3,6 +3,7 @@ using LofiHollow.Entities;
 using LofiHollow.Entities.NPC;
 using LofiHollow.EntityData;
 using LofiHollow.Managers;
+using LofiHollow.Minigames.Archaeology;
 using LofiHollow.Minigames.Photo;
 using LofiHollow.UI;
 using SadConsole;
@@ -66,6 +67,26 @@ namespace LofiHollow {
                         GameLoop.UIManager.AddMsg(new ColoredString("You need to buy this land from the town hall first.", Color.Red, Color.Black));
                     } else if (GameLoop.World.Player.MapPos != new Point3D(-1, 0, 0)) {
                         GameLoop.UIManager.AddMsg(new ColoredString("You probably shouldn't do that here.", Color.Red, Color.Black));
+                    }
+                }
+
+                if (item.ItemCat == "Spade") {
+                    if (tile.Name == "Relic Spot") {
+                        List<ArchArtifact> possible = new();
+
+                        foreach(KeyValuePair<string, ArchArtifact> kv in GameLoop.World.artifactLibrary) {
+                            if (kv.Value.Location == "Any" || kv.Value.Location.Contains(map.MinimapTile.name)) {
+                                possible.Add(kv.Value);
+                            }
+                        }
+
+                        ArchArtifact rand = possible[GameLoop.rand.Next(possible.Count)];
+
+                        Item artItem = new("lh:Unknown Relic");
+                        artItem.Artifact = rand;
+                        artItem.Artifact.SetStats(artItem);
+                        CommandManager.AddItemToInv(GameLoop.World.Player, artItem);
+                        map.SetTile(Pos, new Tile("lh:Grass"));
                     }
                 }
 
@@ -402,16 +423,15 @@ namespace LofiHollow {
                     data.DayTaken = GameLoop.World.Player.Clock.Day;
                     data.MinutesTaken = GameLoop.World.Player.Clock.GetCurrentTime();
 
-                    if (!photo.Properties.ContainsKey("Photo"))
-                        photo.Properties.Add("Photo", data);
+                    photo.Photo = data;
 
                     CommandManager.AddItemToInv(GameLoop.World.Player, photo);
                     GameLoop.SoundManager.PlaySound("camera");
 
                 }
 
-                if (item.Properties.ContainsKey("Photo")) { // Used Photo
-                    Photo photo = item.Properties.Get<Photo>("Photo");
+                if (item.Photo != null) { // Used Photo
+                    Photo photo = item.Photo;
                     GameLoop.UIManager.Photo.CurrentPhoto = photo;
                     GameLoop.UIManager.selectedMenu = "Photo";
                     GameLoop.UIManager.Photo.ShowingBoard = false;
@@ -513,8 +533,8 @@ namespace LofiHollow {
                         }
                     }
 
-                    if (item.Properties.ContainsKey("Plant") && !Harvesting) { // Clicked with a seed
-                        Plant plant = item.Properties.Get<Plant>("Plant");
+                    if (item.Plant != null && !Harvesting) { // Clicked with a seed
+                        Plant plant = item.Plant;
                         if (distance < 5) {
                             if (tile.Name == "Tilled Dirt") {
                                 if (MapPos == new Point3D(-1, 0, 0) && GameLoop.CheckFlag("farm")) {

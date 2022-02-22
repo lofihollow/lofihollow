@@ -34,7 +34,7 @@ namespace LofiHollow.DataTypes {
         [JsonProperty]
         public double LightBlocked = 0.0;
         [JsonProperty]
-        public bool ExposedToSky = false;
+        public bool ExposedToSky = true;
         [JsonProperty]
         public Light EmitsLight;
 
@@ -76,6 +76,10 @@ namespace LofiHollow.DataTypes {
 
 
         public Tile(Tile other) {
+            SetAll(other);
+        }
+
+        public void SetAll(Tile other) {
             IsBlockingMove = other.IsBlockingMove;
             IsBlockingLOS = other.IsBlockingLOS;
             Name = other.Name;
@@ -106,31 +110,7 @@ namespace LofiHollow.DataTypes {
         public Tile(string name) {
             if (GameLoop.World.tileLibrary.ContainsKey(name)) {
                 Tile other = GameLoop.World.tileLibrary[name];
-                IsBlockingMove = other.IsBlockingMove;
-                IsBlockingLOS = other.IsBlockingLOS;
-                Name = other.Name;
-                Package = other.Package; 
-
-                ForegroundR = other.ForegroundR;
-                ForegroundG = other.ForegroundG;
-                ForegroundB = other.ForegroundB;
-                TileGlyph = other.TileGlyph;
-                SkillableTile = other.SkillableTile;
-
-                MiscString = other.MiscString;
-
-                Dec = other.Dec;
-                Lock = other.Lock;
-                Plant = other.Plant;
-                Container = other.Container;
-                TeleportTile = other.TeleportTile;
-
-                LightBlocked = other.LightBlocked;
-                ExposedToSky = other.ExposedToSky;
-                EmitsLight = other.EmitsLight;
-
-                Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
-                Glyph = TileGlyph;
+                SetAll(other);
             }
         } 
 

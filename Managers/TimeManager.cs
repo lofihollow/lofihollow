@@ -33,15 +33,8 @@ namespace LofiHollow.Managers {
 
         public bool IsItThisDay(int month, int day) { return (Month == month && Day == day); }
 
-        public int GetCurrentTime() {
-            int total = Minutes + (Hours * 60);
-
-            if (!AM && Hours != 12 || (AM && Hours == 12) || (AM && Hours == 1) || (AM && Hours == 2))
-                total += (12 * 60);
-            if ((AM && Hours == 1) || (AM && Hours == 2))
-                total += (12 * 60);
-
-            return total;
+        public int GetCurrentTime() { 
+            return Minutes + (Hours * 60);
         }
 
         public static string MinutesToTime(int minutes) {
@@ -108,7 +101,7 @@ namespace LofiHollow.Managers {
 
                 if (GameLoop.World.Player.MineLocation == "None") {
                     Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
-                    Point cellPos = GameLoop.World.Player.Position.ToCell();
+                    Point cellPos = GameLoop.World.Player.Position;
                     if (map != null) {
                         if (map.GetTile(cellPos).Name == "Bed") {
                             GameLoop.UIManager.AddMsg(new ColoredString("Press " + ((char)12) + " while standing on a bed to sleep.", Color.Yellow, Color.Black));
@@ -116,7 +109,7 @@ namespace LofiHollow.Managers {
                     }
                 }
 
-                if (Hours == 12) {
+                if (Hours == 12 || Hours == 24) {
                     AM = !AM;
                     if (AM) {
                         Day++;
@@ -132,13 +125,10 @@ namespace LofiHollow.Managers {
                         }
                     }
                 }
-                if (Hours > 12) {
-                    Hours = 1;
-                }
             }
 
             bool tickedDay = false;
-            if (Hours == 2 && AM) { // Time to pass out
+            if (Hours == 26 && AM) { // Time to pass out
                 NextDay(true);
                 tickedDay = true;
             }
@@ -214,9 +204,6 @@ namespace LofiHollow.Managers {
             GameLoop.UIManager.Minigames.MineManager.LakeMine = new("Lake");
                
             GameLoop.UIManager.Map.LoadMap(GameLoop.World.Player.MapPos);
-
-
-            GameLoop.UIManager.Minigames.MonsterPenManager.DailyUpdate();
         }
     }
 }

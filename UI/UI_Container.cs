@@ -6,6 +6,7 @@ using SadRogue.Primitives;
 using LofiHollow.EntityData;
 using Key = SadConsole.Input.Keys;
 using LofiHollow.DataTypes;
+using System;
 
 namespace LofiHollow.UI {
     public class UI_Container {
@@ -61,11 +62,21 @@ namespace LofiHollow.UI {
                 else
                     ContainerConsole.ClearDecorators(0, i + 2, 1);
 
-                ContainerConsole.Print(2, i + 2, Helper.HoverColoredString(qty + CurrentContainer.Items[i].Name, mousePos.X < 36 && mousePos.Y == i+2));
+                if (CurrentContainer.Items[i].ItemCat == "Soul") {
+                    string name = CurrentContainer.Items[i].Name;
+                    if (CurrentContainer.Items[i].SoulPhoto != null) {
+                        name += " (" + CurrentContainer.Items[i].SoulPhoto.Name() + ")";
+                    }
 
-                ContainerConsole.Print(35, i + 2, Helper.HoverColoredString(12.AsString(), mousePos == new Point(35, i + 2)));
-                ContainerConsole.Print(33, i + 2, Helper.HoverColoredString(25.AsString(), mousePos == new Point(33, i + 2)));
-                ContainerConsole.Print(31, i + 2, Helper.HoverColoredString(49.AsString(), mousePos == new Point(31, i + 2)));
+                    ContainerConsole.Print(2, i + 2, Helper.HoverColoredString(qty + name, mousePos.X < 36 && mousePos.Y == i + 2));
+                }
+                else {
+                    ContainerConsole.Print(2, i + 2, Helper.HoverColoredString(qty + CurrentContainer.Items[i].Name, mousePos.X < 36 && mousePos.Y == i + 2));
+                }
+
+                ContainerConsole.PrintClickable(35, i + 2, 12.AsString(), ContainerClicks, "MoveAllContainer," + (i));
+                ContainerConsole.PrintClickable(33, i + 2, 25.AsString(), ContainerClicks, "MoveHalfContainer," + (i));
+                ContainerConsole.PrintClickable(31, i + 2, 49.AsString(), ContainerClicks, "Move1Container," + (i)); 
                 ContainerConsole.Print(30, i + 2, "|");
             }
 
@@ -73,9 +84,9 @@ namespace LofiHollow.UI {
                 string qty = "";
                 if (GameLoop.World.Player.Inventory[i].ItemQuantity > 1)
                     qty = GameLoop.World.Player.Inventory[i].ItemQuantity + "x ";
-                ContainerConsole.Print(37, i + 2, Helper.HoverColoredString(11.AsString(), mousePos == new Point(37, i + 2)));
-                ContainerConsole.Print(39, i + 2, Helper.HoverColoredString(25.AsString(), mousePos == new Point(39, i + 2)));
-                ContainerConsole.Print(41, i + 2, Helper.HoverColoredString(49.AsString(), mousePos == new Point(41, i + 2)));
+                ContainerConsole.PrintClickable(37, i + 2, 11.AsString(), ContainerClicks, "MoveAllInventory," + (i));
+                ContainerConsole.PrintClickable(39, i + 2, 25.AsString(), ContainerClicks, "MoveHalfInventory," + (i));
+                ContainerConsole.PrintClickable(41, i + 2, 49.AsString(), ContainerClicks, "Move1Inventory," + (i)); 
                 ContainerConsole.Print(42, i + 2, "|");
                 ContainerConsole.Print(43, i + 2, GameLoop.World.Player.Inventory[i].AsColoredGlyph());
 
@@ -83,15 +94,23 @@ namespace LofiHollow.UI {
                     ContainerConsole.SetDecorator(43, i + 2, 1, GameLoop.World.Player.Inventory[i].GetDecorator());
                 else
                     ContainerConsole.ClearDecorators(43, i + 2, 1);
+                if (GameLoop.World.Player.Inventory[i].ItemCat == "Soul") {
+                    string name = GameLoop.World.Player.Inventory[i].Name;
+                    if (GameLoop.World.Player.Inventory[i].SoulPhoto != null) {
+                        name += " (" + GameLoop.World.Player.Inventory[i].SoulPhoto.Name() + ")";
+                    }
 
-                ContainerConsole.Print(45, i + 2, Helper.HoverColoredString(qty + GameLoop.World.Player.Inventory[i].Name, mousePos.X > 36 && mousePos.Y == i+2));
+                    ContainerConsole.Print(45, i + 2, Helper.HoverColoredString(qty + name, mousePos.X > 36 && mousePos.Y == i + 2));
+                }
+                else {
+                    ContainerConsole.Print(45, i + 2, Helper.HoverColoredString(qty + GameLoop.World.Player.Inventory[i].Name, mousePos.X > 36 && mousePos.Y == i + 2));
+                }
             }
 
-            ContainerConsole.Print(72, 0, Helper.HoverColoredString("X", mousePos == new Point(72, 0)));
+            ContainerConsole.PrintClickable(72, 0, "X", ContainerClicks, "Close,0");
         }
 
-        public void ContainerInput() {
-            Point mousePos = new MouseScreenObjectState(ContainerConsole, GameHost.Instance.Mouse).CellPosition;
+        public void ContainerInput() { 
             bool updateChest = false;
 
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
@@ -117,86 +136,70 @@ namespace LofiHollow.UI {
                 }
             }
 
-            if (GameHost.Instance.Mouse.LeftClicked) {
-                if (mousePos == new Point(72, 0)) {
-                    ToggleContainer();
-                    return;
+            if (updateChest) {
+                NetMsg updateContainer = new("updateChest", CurrentContainer.ToByteArray());
+                updateContainer.SetFullPos(ContainerPosition, GameLoop.World.Player.MapPos);
+                GameLoop.SendMessageIfNeeded(updateContainer, false, false);
+            }
+        }
+
+        public void ContainerClicks(string ID) {
+            string[] split = ID.Split(",");
+            int slot = Int32.Parse(split[1]);
+            bool updateChest = false;
+
+            if (split[0] == "MoveAllContainer") {
+                int qty = 1;
+                if (CurrentContainer.Items[slot].IsStackable)
+                    qty = CurrentContainer.Items[slot].ItemQuantity;
+                Item moved = CurrentContainer.Remove(slot, qty);
+                if (moved != null) {
+                    CommandManager.AddItemToInv(GameLoop.World.Player, moved);
+                    updateChest = true;
                 }
+            } else if (split[0] == "MoveHalfContainer") {
+                int qty = 1;
+                if (CurrentContainer.Items[slot].IsStackable && CurrentContainer.Items[slot].ItemQuantity > 1)
+                    qty = CurrentContainer.Items[slot].ItemQuantity / 2;
 
-                if (mousePos.X > 36) {
-                    if (mousePos.Y - 2 >= 0 && mousePos.Y - 2 <= GameLoop.World.Player.Inventory.Length) {
-                        int slot = mousePos.Y - 2;
-                        if (GameLoop.World.Player.Inventory[slot].Name != "(EMPTY)") {
-                            if (mousePos == new Point(37, slot + 2)) { // Move all from inventory to container
-                                if (CurrentContainer.Add(GameLoop.World.Player.Inventory[slot], GameLoop.World.Player.Inventory[slot].ItemQuantity)) {
-                                    GameLoop.World.Player.Inventory[slot].ItemQuantity = 0;
-                                    updateChest = true;
-                                }
-                            }
+                Item moved = CurrentContainer.Remove(slot, qty);
 
-                            if (mousePos == new Point(39, slot + 2)) { // Move half from inventory to container
-                                int half = 1;
-                                if (GameLoop.World.Player.Inventory[slot].ItemQuantity > 1)
-                                    half = GameLoop.World.Player.Inventory[slot].ItemQuantity / 2;
-
-                                if (CurrentContainer.Add(GameLoop.World.Player.Inventory[slot], half)) {
-                                    GameLoop.World.Player.Inventory[slot].ItemQuantity -= half;
-                                    updateChest = true;
-                                }
-                            }
-
-                            if (mousePos == new Point(41, slot + 2)) { // Move one from inventory to container 
-                                if (CurrentContainer.Add(GameLoop.World.Player.Inventory[slot], 1)) {
-                                    GameLoop.World.Player.Inventory[slot].ItemQuantity -= 1;
-                                    updateChest = true;
-                                }
-                            }
-
-                            if (GameLoop.World.Player.Inventory[slot].ItemQuantity <= 0) {
-                                GameLoop.World.Player.Inventory[slot] = new("lh:(EMPTY)");
-                            }
-                        }
-                    }
-                } else {
-                    if (mousePos.Y - 2 >= 0 && mousePos.Y - 2 <= CurrentContainer.Items.Count) {
-                        int slot = mousePos.Y - 2;
-                        if (mousePos == new Point(35, slot + 2)) { // Move all from inventory to container
-                            int qty = 1;
-                            if (CurrentContainer.Items[slot].IsStackable)
-                                qty = CurrentContainer.Items[slot].ItemQuantity;
-                            Item moved = CurrentContainer.Remove(slot, qty);
-                            if (moved != null) {
-                                CommandManager.AddItemToInv(GameLoop.World.Player, moved);
-                                updateChest = true;
-                            }
-                        }
-
-                        if (mousePos == new Point(33, slot + 2)) { // Move half from inventory to container
-                            int qty = 1;
-                            if (CurrentContainer.Items[slot].IsStackable && CurrentContainer.Items[slot].ItemQuantity > 1)
-                                qty = CurrentContainer.Items[slot].ItemQuantity / 2;
-
-                            Item moved = CurrentContainer.Remove(slot, qty);
-
-                            if (moved != null) {
-                                CommandManager.AddItemToInv(GameLoop.World.Player, moved);
-                                updateChest = true;
-                            }
-                        }
-
-                        if (mousePos == new Point(31, slot + 2)) { // Move one from inventory to container 
-                            Item moved = CurrentContainer.Remove(slot, 1);
-
-                            if (moved != null) {
-                                CommandManager.AddItemToInv(GameLoop.World.Player, moved);
-                                updateChest = true;
-                            }
-                        }
-                    }
+                if (moved != null) {
+                    CommandManager.AddItemToInv(GameLoop.World.Player, moved);
+                    updateChest = true;
                 }
+            } else if (split[0] == "Move1Container") {
+                Item moved = CurrentContainer.Remove(slot, 1);
 
+                if (moved != null) {
+                    CommandManager.AddItemToInv(GameLoop.World.Player, moved);
+                    updateChest = true;
+                }
+            } else if (split[0] == "MoveAllInventory") {
+                if (CurrentContainer.Add(GameLoop.World.Player.Inventory[slot], GameLoop.World.Player.Inventory[slot].ItemQuantity)) {
+                    GameLoop.World.Player.Inventory[slot].ItemQuantity = 0;
+                    updateChest = true;
+                }
+            } else if (split[0] == "MoveHalfInventory") {
+                int half = 1;
+                if (GameLoop.World.Player.Inventory[slot].ItemQuantity > 1)
+                    half = GameLoop.World.Player.Inventory[slot].ItemQuantity / 2;
 
-                
+                if (CurrentContainer.Add(GameLoop.World.Player.Inventory[slot], half)) {
+                    GameLoop.World.Player.Inventory[slot].ItemQuantity -= half;
+                    updateChest = true;
+                }
+            } else if (split[0] == "Move1Inventory") {
+                if (CurrentContainer.Add(GameLoop.World.Player.Inventory[slot], 1)) {
+                    GameLoop.World.Player.Inventory[slot].ItemQuantity -= 1;
+                    updateChest = true;
+                }
+            } else if (split[0] == "Close") {
+                ToggleContainer();
+            }
+
+            if (GameLoop.World.Player.Inventory[slot].ItemQuantity <= 0) {
+                GameLoop.World.Player.Inventory[slot] = new("lh:(EMPTY)");
             }
 
             if (updateChest) {

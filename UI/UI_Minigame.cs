@@ -17,8 +17,10 @@ namespace LofiHollow.UI {
 
         public MineManager MineManager;
         public FishingManager FishingManager;
-        public MonsterPenManager MonsterPenManager;
         public Bartending Bartending;
+        public Blacksmithing Blacksmithing;
+        public LightsOut LightsOut;
+        public FruitGathering FruitCatch;
 
         public UI_Minigame(int width, int height, string title) {
             MinigameWindow = new(width, height);
@@ -40,48 +42,32 @@ namespace LofiHollow.UI {
             MinigameWindow.IsVisible = false;
 
             MineManager = new();
-            FishingManager = new();
-            MonsterPenManager = new();
+            FishingManager = new(); 
             Bartending = new();
+            Blacksmithing = new();
+            LightsOut = new();
+            FruitCatch = new();
         }
 
 
         public void RenderMinigame() { 
             MinigameConsole.Clear();
 
-            if (CurrentGame == "Fishing") {
-                FishingManager.Render();
-            }
-
-            if (CurrentGame == "Mining") {
-                MineManager.Render();
-            }
-
-            if (CurrentGame == "Monster Pen") {
-                MonsterPenManager.Draw();
-            }
-
-            if (CurrentGame == "Bartending") {
-                Bartending.Draw();
-            }
+            if (CurrentGame == "Fishing") { FishingManager.Render(); } 
+            if (CurrentGame == "Mining") { MineManager.Render(); } 
+            if (CurrentGame == "Bartending") { Bartending.Draw(); } 
+            if (CurrentGame == "Blacksmithing") { Blacksmithing.Draw(); } 
+            if (CurrentGame == "LightsOut") { LightsOut.Draw(); } 
+            if (CurrentGame == "FruitCatch") { FruitCatch.Draw(); }
         }
 
         public void MinigameInput() {
-            if (CurrentGame == "Fishing") {
-                FishingManager.Input();
-            }
-
-            if (CurrentGame == "Mining") {
-                MineManager.Input();
-            }
-
-            if (CurrentGame == "Monster Pen") {
-                MonsterPenManager.Input();
-            }
-
-            if (CurrentGame == "Bartending") {
-                Bartending.Input();
-            }
+            if (CurrentGame == "Fishing") { FishingManager.Input(); } 
+            if (CurrentGame == "Mining") { MineManager.Input(); } 
+            if (CurrentGame == "Bartending") { Bartending.Input(); } 
+            if (CurrentGame == "Blacksmithing") { Blacksmithing.Input(); } 
+            if (CurrentGame == "LightsOut") { LightsOut.Input(); } 
+            if (CurrentGame == "FruitCatch") { FruitCatch.Input(); }
         } 
         public void ToggleMinigame(string which) {
             if (MinigameWindow.IsVisible) {
@@ -90,6 +76,7 @@ namespace LofiHollow.UI {
                 MinigameWindow.IsVisible = false;
                 GameLoop.UIManager.Map.MapConsole.IsFocused = true;
                 MinigameConsole.Children.Clear();
+                MinigameConsole.Clear();
             } else {
                 GameLoop.UIManager.selectedMenu = "Minigame";
                 MinigameWindow.IsVisible = true;

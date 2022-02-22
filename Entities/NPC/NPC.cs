@@ -13,6 +13,8 @@ namespace LofiHollow.Entities.NPC {
         public NPCAi AI;
         [JsonProperty]
         public string Occupation = "";
+        [JsonProperty]
+        public bool Animal = false;
 
         [JsonProperty]
         public int BirthMonth = 1;

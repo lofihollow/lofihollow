@@ -27,6 +27,7 @@ namespace LofiHollow {
         public static SoundManager SoundManager;
         public static ScriptManager ScriptManager;
         public static SteamManager SteamManager;
+        public static FirebaseManager FirebaseManager;
 
 
         public static Random rand;
@@ -86,6 +87,7 @@ namespace LofiHollow {
             World = new World();
             UIManager = new UIManager();
             UIManager.Init();
+            FirebaseManager = new();
 
             
             CommandManager = new CommandManager(); 

@@ -27,8 +27,8 @@ namespace LofiHollow.EntityData {
                 return true;
 
             for (int i = 0; i < act.Inventory.Length; i++) {
-                if (act.Inventory[i].Properties.ContainsKey("Tool")) {
-                    List<ToolData> tool = act.Inventory[i].Properties.GetList<ToolData>("Tool");
+                if (act.Inventory[i].Tool != null) {
+                    List<ToolData> tool = act.Inventory[i].Tool;
                     for (int j = 0; j < tool.Count; j++) {
                         if (tool[j].Property == Property && tool[j].Tier >= Tier) {
                             return true;

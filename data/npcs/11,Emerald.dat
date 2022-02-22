@@ -113,6 +113,7 @@
 	"ShopName": "Apothecary",
 	"WanderingVendor": false,
 	"Position": {
+		"WorldArea": "Overworld",
 		"X": 29,
 		"Y": 34
 	},
@@ -125,6 +126,7 @@
 	"BuyCategory": -2
   }, 
   "MapPos": {
+    "WorldArea": "Overworld",
     "X": 0,
     "Y": 1,
     "Z": 0

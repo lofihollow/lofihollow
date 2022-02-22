@@ -17,6 +17,9 @@
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="firebasekey.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="irrKlang.NET4">
       <HintPath>irrKlang.NET4.dll</HintPath>
     </Reference>
@@ -1126,6 +1129,11 @@
     <Content Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="firebasekey.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FireSharp" Version="2.0.4" />
+    <PackageReference Include="FireSharp.Serialization.JsonNet" Version="1.1.0" />
     <PackageReference Include="GoRogue" Version="2.6.4" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />

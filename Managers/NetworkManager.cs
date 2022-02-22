@@ -60,7 +60,6 @@ namespace LofiHollow.Managers {
 				GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
 				GameLoop.UIManager.Map.MapWindow.IsVisible = true;
 				GameLoop.UIManager.Map.MessageLog.IsVisible = true;
-				GameLoop.UIManager.Sidebar.BattleLog.IsVisible = true;
 				GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
 				GameLoop.UIManager.selectedMenu = "None";
 
@@ -108,7 +107,6 @@ namespace LofiHollow.Managers {
 					GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
 					GameLoop.UIManager.Map.MapWindow.IsVisible = true;
 					GameLoop.UIManager.Map.MessageLog.IsVisible = true;
-					GameLoop.UIManager.Sidebar.BattleLog.IsVisible = true;
 					GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
 					GameLoop.UIManager.selectedMenu = "None";
 				}
@@ -157,16 +155,13 @@ namespace LofiHollow.Managers {
 			if (Data.Length > 0) {
 				NetMsg msg = Data.FromByteArray<NetMsg>();
 
-				GameLoop.UIManager.AddMsg("Received: " + msg.ident);
-
 				if (msg.recipient != CSteamID.Nil && msg.recipient != ownID)
 					return;
 				 
 
 				switch (msg.ident) {
 					case "createPlayer":
-						Player newPlayer = msg.data.FromByteArray<Player>();
-						newPlayer.UsePixelPositioning = true;
+						Player newPlayer = msg.data.FromByteArray<Player>(); 
 						if (!GameLoop.World.otherPlayers.ContainsKey(msg.senderID)) {
 							GameLoop.World.otherPlayers.Add(msg.senderID, newPlayer);
 
@@ -212,8 +207,7 @@ namespace LofiHollow.Managers {
 
 						break;
 					case "registerPlayer":
-						Player player = msg.data.FromByteArray<Player>();
-						player.UsePixelPositioning = true;
+						Player player = msg.data.FromByteArray<Player>(); 
 						if (!GameLoop.World.otherPlayers.ContainsKey(msg.senderID)) {
 							GameLoop.World.otherPlayers.Add(msg.senderID, player);
 
@@ -554,9 +548,6 @@ namespace LofiHollow.Managers {
 									GameLoop.SendMessageIfNeeded(updateTile, false, false);
 								}
 							}
-
-							//	string hostFarm = "hostMap;farm;" + JsonConvert.SerializeObject(GameLoop.World.maps[new Point3D(-1, 0, 0)], Formatting.Indented);
-							//	lobbyManager.SendNetworkMessage(lobbyId, userId, 0, Encoding.UTF8.GetBytes(hostFarm));
 						}
 
 						foreach (KeyValuePair<string, NPC> kv in GameLoop.World.npcLibrary) {

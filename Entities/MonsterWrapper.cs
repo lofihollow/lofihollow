@@ -12,6 +12,7 @@ namespace LofiHollow.Entities {
         public bool UpdatePath = true;
         public int pathPos = 0;
         public int trackingLength = 5;
+        public int Level = 1;
 
         public MonsterWrapper(string name) : base(Color.Black, 32) {
             if (GameLoop.World.itemLibrary.ContainsKey(name)) {
@@ -30,28 +31,29 @@ namespace LofiHollow.Entities {
             Appearance.Glyph = monster.ActorGlyph;
         }
 
-        public void SpawnDrops() {
+        public void UpdateHP() {
+            MaxHP = monster.Health;
+            CurrentHP = MaxHP;
+        }
+
+        public void SpawnDrops(List<Item> drops) {
             for (int i = 0; i < monster.DropTable.Count; i++) {
                 string[] split = monster.DropTable[i].Split(";");
 
                 int roll = GameLoop.rand.Next(Int32.Parse(split[1]));
 
                 if (roll == 0) {
-                    ItemWrapper item = new(split[0]);
+                    Item item = new(split[0]);
 
-                    if (item.item.IsStackable) {
-                        item.item.ItemQuantity = GameLoop.rand.Next(Int32.Parse(split[2])) + 1;
-                        item.Position = Position;
-                        item.MapPos = MapPos;
-                        CommandManager.SpawnItem(item);
+                    if (item.IsStackable) {
+                        item.ItemQuantity = GameLoop.rand.Next(Int32.Parse(split[2])) + 1;
+                        drops.Add(item);
                     } else {
                         int qty = GameLoop.rand.Next(Int32.Parse(split[2])) + 1;
 
                         for (int j = 0; j < qty; j++) {
-                            ItemWrapper itemNonStack = new(split[0]);
-                            itemNonStack.Position = Position;
-                            itemNonStack.MapPos = MapPos;
-                            CommandManager.SpawnItem(itemNonStack);
+                            Item itemNonStack = new(split[0]);
+                            drops.Add(itemNonStack);
                         }
                     }
                 }

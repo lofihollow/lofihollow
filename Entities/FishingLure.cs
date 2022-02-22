@@ -19,9 +19,7 @@ namespace LofiHollow.Entities {
         public bool FishOnHook = false;
 
         [JsonConstructor]
-        public FishingLure() : base(Color.White, Color.Transparent, '*') {
-            UsePixelPositioning = true;
-        }
+        public FishingLure() : base(Color.White, Color.Transparent, '*') {  }
 
 
         public void SetVelocity (int x, int y) {
@@ -54,7 +52,7 @@ namespace LofiHollow.Entities {
                 Effect = null;
                 if (Position != new Point(-1, -1) && xVelocity == 0 && yVelocity == 0) {
                     Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
-                    Point cellPos = Position.ToCell();
+                    Point cellPos = Position;
                     if (map != null) {
                         Tile tile = map.GetTile(cellPos);
                         if (tile.Name == "Water" || tile.Name == "Shallow Water") {

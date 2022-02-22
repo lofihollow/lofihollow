@@ -6,6 +6,8 @@ using System.Runtime.Serialization;
 using LofiHollow.EntityData;
 using System.Collections.Generic;
 using LofiHollow.Minigames;
+using LofiHollow.Minigames.Photo;
+using LofiHollow.Minigames.Archaeology;
 
 namespace LofiHollow.DataTypes {
     [JsonObject(MemberSerialization.OptIn)]
@@ -38,6 +40,8 @@ namespace LofiHollow.DataTypes {
         public int ItemTier = -1;
         [JsonProperty]
         public string ItemCat = "";
+        [JsonProperty]
+        public string ItemSkill = "";
          
         [JsonProperty]
         public int EquipSlot = -1;
@@ -51,14 +55,28 @@ namespace LofiHollow.DataTypes {
         // 6: Feet
         // 7: Amulet
         // 8: Ring
-        // 9: Cape
-
-        [JsonProperty]
-        public Dictionary<string, object> Properties = new();
+        // 9: Cape 
+        // 10: Monster Soul
 
         [JsonProperty]
         public Decorator Dec;
 
+        [JsonProperty]
+        public Plant Plant;
+        [JsonProperty]
+        public Photo Photo;
+        [JsonProperty]
+        public SoulPhoto SoulPhoto;
+        [JsonProperty]
+        public List<ToolData> Tool;
+        [JsonProperty]
+        public List<CraftComponent> Craft;
+        [JsonProperty]
+        public Heal Heal;
+        [JsonProperty]
+        public Equipment Stats;
+        [JsonProperty]
+        public ArchArtifact Artifact;
 
         [JsonProperty]
         public int ForegroundR = 0;
@@ -99,8 +117,18 @@ namespace LofiHollow.DataTypes {
                 Durability = temp.Durability;
                 MaxDurability = temp.MaxDurability;
                 ItemTier = temp.ItemTier;
+                ItemSkill = temp.ItemSkill;
                  
                 Quality = temp.Quality;
+
+                Plant = temp.Plant;
+                Heal = temp.Heal;
+                Tool = temp.Tool;
+                Craft = temp.Craft;
+                Photo = temp.Photo;
+                SoulPhoto = temp.SoulPhoto;
+                Stats = temp.Stats;
+                Artifact = temp.Artifact;
 
                 ForegroundR = temp.ForegroundR; 
                 ForegroundG = temp.ForegroundG; 
@@ -108,9 +136,6 @@ namespace LofiHollow.DataTypes {
                 ItemGlyph = temp.ItemGlyph; 
                 Dec = temp.Dec;
 
-                foreach(KeyValuePair<string, object> kv in temp.Properties) {
-                    Properties.Add(kv.Key, kv.Value);
-                }
 
                 if (name == "lh:(EMPTY)") {
                     ItemQuantity = 0;
@@ -143,15 +168,20 @@ namespace LofiHollow.DataTypes {
             ForegroundB = temp.ForegroundB;
             ItemGlyph = temp.ItemGlyph;
             ItemTier = temp.ItemTier;
+            ItemSkill = temp.ItemSkill;
              
             Quality = temp.Quality;
 
             Dec = temp.Dec;
 
-            foreach (KeyValuePair<string, object> kv in temp.Properties) {
-                Properties.Add(kv.Key, kv.Value);
-            }
-
+            Plant = temp.Plant;
+            Heal = temp.Heal;
+            Tool = temp.Tool;
+            Craft = temp.Craft;
+            Photo = temp.Photo;
+            SoulPhoto = temp.SoulPhoto;
+            Stats = temp.Stats;
+            Artifact = temp.Artifact;
 
             if (Name == "(EMPTY)") {
                 ItemQuantity = 0;

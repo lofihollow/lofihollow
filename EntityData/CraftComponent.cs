@@ -38,8 +38,8 @@ namespace LofiHollow.EntityData {
             int heldTotal = 0;
             int Quality = 0;
             for (int i = 0; i < act.Inventory.Length; i++) {
-                if (act.Inventory[i].Properties.ContainsKey("Craft")) {
-                    List<CraftComponent> craft = act.Inventory[i].Properties.GetList<CraftComponent>("Craft");
+                if (act.Inventory[i].Craft != null) {
+                    List<CraftComponent> craft = act.Inventory[i].Craft;
                     for (int j = 0; j < craft.Count; j++) {
                         if (craft[j].Property == Property && craft[j].Tier >= Tier && (act.Inventory[i].Quality == 0 || act.Inventory[i].Quality >= MinQuality)) {
                             if (CountsAsMultiple)

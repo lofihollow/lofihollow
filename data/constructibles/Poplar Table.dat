@@ -1,0 +1,26 @@
+{ 
+  "Name": "Poplar Table",
+  "Materials": "8x Poplar Planks, 32x Copper Nails",
+  "Glyph": 274,
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "Dec": null,
+  "RequiredLevel": 1,
+  "ExpGranted": 10,
+  "BlocksMove": true,
+  "BlocksLOS": false,
+  "Furniture": true,
+  "MaterialsNeeded": [
+   {
+      "Name": "Poplar Plank",
+      "SubID": 0,
+      "ItemQuantity": 8
+    },
+	{
+      "Name": "Copper Nails",
+      "SubID": 0,
+      "ItemQuantity": 32
+    }
+  ]
+}

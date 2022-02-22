@@ -1,32 +1,34 @@
-﻿MINIMUM SHIPPABLE REQUIREMENTS
-- (DONE) Combat and levelling system implemented
-- (DONE) Inventory implemented
-- (SKIP FOR NOW) NPCs schedules
-- (DONE) NPC dialogue system (gifts, chitchat, missions)
-- (DONE) NPC shops 
-- (DONE) Save/Load game
-- (DONE) Main menu
+﻿MINIMUM SHIPPABLE REQUIREMENTS 
+- (SKIP FOR NOW) NPCs schedules 
 - Finish the main town
-- Double check all accessible overworld maps to make sure they're filled out properly
-- (DONE) Farming gameplay
+- Double check all accessible overworld maps to make sure they're filled out properly 
 - Add all the crops
 - Add some fish
-- Finish NPC dialogues
-- (DONE) Construction
-- (DONE) Achievements
+- Finish NPC dialogues 
+- Finish all the signs
+
+Current Playable Minigames: (4)
+- Fishing
+- Blacksmithing
+- Bartending
+- Mining
+- Lights Out
+
+Current Activities: (3)
+- Photography
+- Woodcutting
+- Construction
 
 
-(DONE) Monsters / Combat [First Sweep]
-(DONE) Multiplayer
-(DONE) Overworld combat
-(DONE) NPC Dialogue, Gifting, and Shops
-(DONE) Menu
-(DONE) UI
-(DONE) Saving/Loading
-(DONE) Construction
-(DONE) Mining
-(DONE) Crafting System
-(DONE) Rentable Apartments
+Archaeology
+- Make a skill for it
+- Gain experience by cleaning skills
+- Require a certain level to clean each artifact
+- Unlock new tools at set levels
+- Make artifact spots spawn in the world
+- Appropriately dirt-ify artifacts when you dig them up
+- Create a museum in town to display artifacts
+
 
 Demo Mode: Play as much as you want, but only up to level 5 in any skill.
  
@@ -45,8 +47,6 @@ Content Needs
 - Furniture: Carpets, chairs, tables, plant pots? Jukebox that lets you select what song plays
 
 
-Implement dyes that can change the color of tiles (in maps you can build in)
-
 Let players restrict access to containers
 Multiplayer Loading Screen: Connected, Received Host Farm, Received NPCs, Received entity data
 Make sure produce items have accurate-enough sprites
@@ -54,129 +54,43 @@ Make sure produce items have accurate-enough sprites
 
 Turn-Based Combat (again)
 - (DONE) Support multiple enemies and allies
-- Attack any enemy at will
-- Experience is split between all ally units
+- (DONE) Attack any enemy at will
 - Allow players to form a party, dragging them all into combats together if they're on the same map
 - Establish a turn order, have players act in that order and then all enemies
 - Player can tame monsters and use them in combat to fight enemies
-- Player can choose what they start combat with (just self, self + tamed monster, only tamed monster)
-- In multiplayer, each player only gets one unit in combats, but can choose what the unit is
-- Allow players to have a monster following them around in the overworld, visible to other players
-- Capture monsters by binding their spirit after killing them?
+- Player can choose what they start combat with (self or tamed monster)
+- (DONE) Allow players to have a monster following them around in the overworld, visible to other players
 - Monster Types:
 - - Elemental Types: Metal, Water, Wood, Fire, Earth
-- - Body Types: Digital, Spirit, Physical
 - - Energy Types: Kinetic, Magnetic, Thermal, Gravity, and Electric
 - - Physical Types?: Slash, Pierce, Blunt, 
 - - Food Types??: Salty, Sweet, Bitter, Sour, Umami, Cool, Hot
-
-
-Deckbuilder Combat
-- Place all combatants on a grid
-- Moves target specific squares or AoE, hitting all targets in the area
-- Customizable deck of cards that show up in random orders
-- Decks can be equipped like other equipment, extra deck boxes take up a slot each in your inventory
-- Cards can be taken out of decks as individual items and dropped/sold/traded
-- Cards acquired via combats, quests, shops, trading, or dungeons
-
-
+- - Digital Types: Meme, Virus, Firewall, 
+- - Dream/Spirit Types: Spirit, Dream, Nightmare
 
 Ways to earn money at the start
 - Adventurers Guild (job board with random assorted quests - kill, collect items)
 - Couriers guild deliveries
 - Photography jobs (capture photos of specific monsters or NPCs, bring them back)
-- Job minigames
-- - (DONE) Bartending
-- - Cafe - Overcooked?
-- - Apothecary?
-- - General store (store mode?)
-- - Clothier (randomly generated lines, follow them as accurately as possible for max points)
-- - Library (book sorting)
-- - Blacksmith
-
-Cafe Minigame
-- Restaurant has tables
-- Customers show up at door, you have to seat them at an empty table, happiness ticks down while they have to wait
-- After being seated, they wait a short period and then are ready to order
-- Have to visit the table to get their order and take it to the kitchen
-- Wait for food to complete then take it back to the table
-- After another short wait they finish eating and need the bill
-- Take the bill to their table, then they pay and leave, leaving the table dirty
-- Clean table and take dishes to the kitchen to free up the seat for more customers
 
 Photography
-- (DONE) Let players set the name of the photo, display it when you view the photo. Also save and display the date and time the photo was taken
-- (DONE) Capture monsters, NPCs, players, and items in the photos
-- (DONE) Rudimentary logic for determining whether or not something is in the photo
-- (DONE) Repeatable random missions to capture specific photos
-- Photo scoring system? Based on where it is in the frame and how many of the subject there are
-- - Centered: How close the entity is to the center of the frame
-- - Number: Amount of entities in the frame of the matching type
-- - Distance: How close to you the subject is
-- (DONE) Mouse-over to view tile/entity names while viewing photo
 - Limited film, each photo uses some up.
 - Photo album that you can insert photos into, combining multiple into a single item
-- (DONE) Show an indicator around the cursor for the area captured by a photo while holding a camera
+- Critters to photograph (butterflies, birds) instead of monsters
 
-
-Kaalista's Monster Pens
-- (DONE) Three slots that can hold a monster each
-- (DONE) Put monsters in there via finding eggs as drops from monsters
-- Make sure monsters can actually drop eggs
-- Have to take care of them by giving them food (specify what their diet is, player has to provide that kind of food)
-- When fully grown they provide drops the monster normally has, directly sold for a lump sum, or slaughtered and butchered
-- Collect items from the pens
-- Feed monster in pen using current hotbar item
-- Perform checks for deaths if needed
-- When the monster dies, leave behind a corpse in the pen
-- Monster breeding if two pens are filled and one is empty?
-- Minigames you can play with the monsters?
-- Have to clean up the pen regularly
+Soul Photography
+- Photography skill determines highest tier of Soul Camera you can use
+- Gain exp in skill by taking normal pictures or by capturing souls
+- (DONE) Have an equipped monster that follows you around
+- Make following monsters visible in multiplayer
+- If you have a monster equipped, automatically send it out when combats start instead of the player
+- Soul Cameras have limited film rolls, have to buy more when you run out. Both successful and failed captures use up the film
 
 
 Cooking
 - Flexible Ingredient tags: Fruit, Vegetable, Egg, Cooked Meat, Cooked Fish, Raw Meat, Raw Fish, Water, Oil, Flour
 - Cooking Tool Tags: Frying, Rolling, Cutting, Mixing, Grinding
 - Seasonings: Salt, Soy Sauce, Miso, Sugar, Cinnamon
-
-- Cooking Minigames
-- - Each recipe specifies which minigame you do. 
-- - If you succeed at the minigame your skill cap is increased by 1, if you fail it's reduced by 2. Skip the minigame for a 1 tier penalty
-- - Chopping: Alternate pressing two keys in a rhythm to chop as fast as possible
-- - Frying: Cube of meat that you can flip between spots on a grid, have to fry all sides equally without burning any or flipping it off the side
-- - - Meat comes in different sizes, you can choose when to add it but you have to get all the pieces cooked, and all pieces move at once
-- - - Thin meat like bacon that only has two sides
-- - Rolling: Rolling pin moves back and forth across the screen, player pressed a button to decide which side to apply pressure
-- - - Have to get all of it to the desired thickness
-- - - Rolling pin gets faster as time runs out
-
-
-Effects System
-- Effect Delivery Structure: Name, ID, Duration in (Game) Minutes, List of all effects
-- Effect Structure: Name, UI icon, UI RGB, Stat affected, modifier, 
-
-
-
-Skills still needing implementing:
-- Ranged 
-- Crafting (the actual crafting skill): Turn cotton, flax, wool into cloth. Other misc crafting stuff
-- Farming: Farming-related crafting recipes
-- Tinkering: A crafting skill focused on technologial creations
-
-
-Revamped Combat (for like the fifth time)
-- Make it so you just hold melee weapons in your hand, and an indicator appears on the side of you where your mouse is
-- Click to swing the weapon
-- Weapons have variable length that determines how many tiles the swipe hits
-
-Flexible tile properties
-
-
-Monster Corpses
-- Corpse data: Name, Blood type, Blood quantity, Hide type, Hide amount, Meat amount, Misc Materials, Butcher Exp
-- Material Structure: Name, ID (category), SubID (creature ID), RGBA values
-- Misc materials: Horn, Teeth, Hair
-- Butchering skill: Level + 1 as percent of each material received, level by butchering
 
 
 Farm Animals
@@ -192,19 +106,10 @@ Farm Animals
 - Pigs
 - Have to build a barn to have animals. Barn must be enclosed (solid walls and doors) and have one animal bed per animal
 
-
-
 Fishing 
 - Upgraded fishing rods should be more stress resistant or reel in fish faster
 - Make fishing rod lose durability when the line breaks, only let you fish if it has durability left 
-- Fill out the fishopedia with at least 1 unique fish per combination of zone, season, and time 
-- Zones: River, Beach, Lake
-- Seasons: Spring, Summer, Fall, Winter, Holiday
-- Times: Morning (before 11am), Day (11am - 5pm), Evening (5pm - 9pm), Night (9pm - 2am)
-- Level brackets: 1, 10, 20, 30, 40, 50, 60, 70, 80, 90
-- Total number of fish needed: 3 zones x 5 seasons x 4 times x 10 levels = 600. Also add 10 extra fish that show up everywhere
 - Have a visible Fish-o-pedia in-game that fills out with information on fish you've actually caught.
-- - Include a minimum caught weight, maximum caught weight, their value when sold, location info, and level requirement
 - Let other players in multiplayer see your lure when you cast it
 - Do a little effect in multiplayer when you/another play catches something
  
@@ -220,17 +125,11 @@ Quests / Story Missions?
 
 
 The Sound Effect-ening
-- (DONE) Door open/close
 - Combat swipes
 - Fishing
 - - Cast
 - - Reel in
-- (DONE) Watering Can
 - Harvesting crops
-- (DONE) Till ground
-- (DONE) Mining
-- - (DONE) Break block
-- (DONE) Minigames: generic success / fail sounds
 
 Mod Support
 - Implement the steam workshop
@@ -238,23 +137,12 @@ Mod Support
 - - (DONE) Display list of installed mods
 - - Button to switch to workshop view
 - - (DONE) Button to make a new mod
-- - - (DONE) Mod Object holds all the data a mod adds
-- - - (DONE) Constructibles
-- - - (DONE) Crafting Recipes
-- - - (DONE) Skills
-- - - (DONE) Fish
-- - - Items - Might have to be external
-- - - (DONE) Monsters
-- - - NPCs - Definitely have to be external, too much data for a good internal menu
-- - - Missions - Probably also external for the same reason
-- - - Maps
-- - - Tiles
-- - - Scripts - Have to be external
+- - - Change each tab to just explain all the fields and make people make the files all outside the game.
 - WIP Sandbox to make changes or upload to workshop
 - Browse workshop mods in-game
 - Add UI buttons to pack/unpack
 
-
+Move Phoebe, William
 
 Farming
 - Seeds: only plantable in the correct season and only if you have a high enough farming level
@@ -277,7 +165,7 @@ NPCs
 - - Zephyr (Tailor) (Placed)
 - - Sapphire (Bakery / Cafe) (Placed)
 - - William (Butcher) (Placed)
-- - Willow (Clinic)
+- - Willow (Clinic) (Placed)
 - - Ash (Innkeeper) (Placed)
 - - Anemone (Inn housekeeping) (Placed, Greetings)
 - - Slate (Cemetary groundskeeper)
@@ -306,35 +194,19 @@ NPCs
 - - - Coral (Worker) 
 - Phoebe (Pet / summon shop owner)
 
-NPC names are themed based on where they're from
-- Noonbreeze: Flowers (Jasmine, Indigo, Poppy, Rose)
-- Ocean region: Sealife (Kelp, Coral, Anemone)
-- Forest region: Trees (Oak, Ash, Willow, Cedar)
-- City region: Minerals  (Sapphire, Flint, Jasper, etc)
-- Desert region: Spices (Paprika, Saffron, Anise, Vanilla, Cinnamon, Caraway)
-
-
-
 Map 
 - Primary small town
-- - Adventurer's Guild (Gives kill tasks?)
 - - Apothecary (Sells potions and potion ingredients)
 - - General Store (Sells general goods - seeds, food)
-- - (DONE) Inn
 - - Cemetary (Graves that act like signs)
 - - Library (Bookcases act like signs?)
 - - Clinic (Pay for healing) 
-- - Cafe / Bakery
 - - Butcher (Buys meat from the player, sells common meats)
 - - Clothier (Sells cloth and clothing items)
 
 
 ====================
 FUTURE UPDATE TARGETS
-
-Minigame Leaderboards
-- Global
-- Locally connected
 
 
 Dumb Ideas that could be fun/funny:
@@ -360,9 +232,7 @@ Minigames
 - - Four In A Row
 - - Yacht Dice
 - - Gomoku
-- - Shogi
-- Job Minigames
-- - (DONE) Bartending (at Tom's Bar)
+- - Shogi 
 - Prop Hunt
 - Trouble in Terrorist Town?
 - Dead by Daylight clone (4v1, player on their own team plays as a monster)
@@ -372,7 +242,6 @@ Minigames
 - Quick Draw/fast reaction time? come up with a context
 - Horse Racing - Time button holds to avoid muddy spots and speed up on the track
 - Text Adventure System
-- Lights out
 - Water pipes flow thing?
 - Pinball
 
@@ -432,7 +301,13 @@ The Urban Update
 - Maybe buildings in city are facades rather than top-down, to make them more visually distinct
 - Lots of flavor buildings - Restaurants, shops, etc
 - Rentable apartment - have to pay a certain amount each month
-- Minigame jobs to earn money
+- Deckbuilder Combat
+- - Place all combatants on a grid
+- - Moves target specific squares or AoE, hitting all targets in the area
+- - Customizable deck of cards that show up in random orders
+- - Decks can be equipped like other equipment, extra deck boxes take up a slot each in your inventory
+- - Cards can be taken out of decks as individual items and dropped/sold/traded
+- - Cards acquired via combats, quests, shops, trading, or dungeons
 
 
 
@@ -530,5 +405,49 @@ The Magic Update
 - - Create and Destroy can only be used in dungeons or maps you own
 - - Verbs: Create, Destroy
 - Alchemy: Minigame that involves mixing/altering potions to reach specific values, then fire the potion to get a finished product
+ - Effects System
+- - Effect Delivery Structure: Name, ID, Duration in (Game) Minutes, List of all effects
+- - Effect Structure: Name, UI icon, UI RGB, Stat affected, modifier, 
+ - Monster Corpses
+- - Corpse data: Name, Blood type, Blood quantity, Hide type, Hide amount, Meat amount, Misc Materials, Butcher Exp
+- - Material Structure: Name, ID (category), SubID (creature ID), RGBA values
+- - Misc materials: Horn, Teeth, Hair
+- - Butchering skill: Level + 1 as percent of each material received, level by butchering
 - Demiplane: A portable environment the player can carry around with them
 - - Able to put NPCs and monsters in the demiplane if it's big enough?
+
+
+
+Creepypasta Update
+- Backrooms
+- Sanity meter?
+- Blinking mechanic
+- Enemies that only move while you can't see them
+- Change field of vision into a cone that follows the mouse
+
+
+
+The Jobs Update 
+- Cooking Minigames
+- - Each recipe specifies which minigame you do. 
+- - If you succeed at the minigame your skill cap is increased by 1, if you fail it's reduced by 2. Skip the minigame for a 1 tier penalty
+- - Chopping: Alternate pressing two keys in a rhythm to chop as fast as possible
+- - Frying: Cube of meat that you can flip between spots on a grid, have to fry all sides equally without burning any or flipping it off the side
+- - - Meat comes in different sizes, you can choose when to add it but you have to get all the pieces cooked, and all pieces move at once
+- - - Thin meat like bacon that only has two sides
+- - Rolling: Rolling pin moves back and forth across the screen, player pressed a button to decide which side to apply pressure
+- - - Have to get all of it to the desired thickness
+- - - Rolling pin gets faster as time runs out
+- Cafe Minigame
+- - Restaurant has tables
+- - Customers show up at door, you have to seat them at an empty table, happiness ticks down while they have to wait
+- - After being seated, they wait a short period and then are ready to order
+- - Have to visit the table to get their order and take it to the kitchen
+- - Wait for food to complete then take it back to the table
+- - After another short wait they finish eating and need the bill
+- - Take the bill to their table, then they pay and leave, leaving the table dirty
+- - Clean table and take dishes to the kitchen to free up the seat for more customers
+- Apothecary?
+- General store (store mode?)
+- Clothier (randomly generated lines, follow them as accurately as possible for max points)
+- Library (book sorting) 

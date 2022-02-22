@@ -38,6 +38,9 @@ namespace LofiHollow.Entities {
         public int MaxLevel = 99;
 
         [JsonProperty]
+        public int CaptureRate = 45;
+
+        [JsonProperty]
         public string StatGrowths = ""; 
 
         [JsonProperty]
@@ -77,6 +80,10 @@ namespace LofiHollow.Entities {
             return new ColoredString(ActorGlyph.AsString(), new Color(ForegroundR, ForegroundG, ForegroundB, ForegroundA), Color.Black);
         }
 
+        public CellDecorator AsDecorator() {
+            return new CellDecorator(new Color(ForegroundR, ForegroundG, ForegroundB, ForegroundA), ActorGlyph, Mirror.Horizontal);
+        }
+
         public void SetAll(Monster temp) { 
             UniqueID = Guid.NewGuid().ToString("N");
 
@@ -93,6 +100,7 @@ namespace LofiHollow.Entities {
 
             MinLevel = temp.MinLevel;
             MaxLevel = temp.MaxLevel;
+            CaptureRate = temp.CaptureRate;
 
             Types = temp.Types;
             SpawnLocation = temp.SpawnLocation;

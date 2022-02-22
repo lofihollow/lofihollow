@@ -140,8 +140,7 @@ namespace LofiHollow.Entities {
             Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
 
             if (map != null) {
-                Point newPositionPreDiv = Position + positionChange;
-                Point newPosition = newPositionPreDiv.ToCell();
+                Point newPosition = Position + positionChange; 
                 if (newPosition.Y < 0 && GameLoop.World.maps.ContainsKey(MapPos - new Point3D(0, -1, 0)) && GameLoop.World.maps[MapPos - new Point3D(0, -1, 0)].MinimapTile.name == "Desert") {
                     GameLoop.UIManager.AddMsg("There's dangerous sandstorms that way, best not go there for now.");
                     return false;
@@ -157,13 +156,8 @@ namespace LofiHollow.Entities {
                                     GameLoop.UIManager.Crafting.SetupCrafting(split[1], split[2], Int32.Parse(split[3]));
                                 else
                                     GameLoop.UIManager.Crafting.SetupCrafting(split[1], "None", 1);
-                            } else if (split[0] == "Monster Pen") { 
-                                GameLoop.UIManager.Minigames.MonsterPenManager.Setup(Int32.Parse(split[1]));
-                                GameLoop.UIManager.Minigames.ToggleMinigame("Monster Pen");
-                            } else if (split[0] == "Minigame") {
-                                if (split[1] == "Bartending") {
-                                    GameLoop.UIManager.Minigames.ToggleMinigame("Bartending");
-                                }
+                            } else if (split[0] == "Minigame") { 
+                                 GameLoop.UIManager.Minigames.ToggleMinigame(split[1]); 
                             } else if (split[0] == "Apartments") {
                                 if (split[1] == "Noonbreeze") {
                                     GameLoop.UIManager.Teleport.Toggle("Noonbreeze Apartments");
@@ -215,7 +209,7 @@ namespace LofiHollow.Entities {
                     }
                 }
 
-                Point CurrentPos = Position.ToCell();
+                Point CurrentPos = Position;
 
                 // Slope movement (UP slope)
                 if (map.GetTile(CurrentPos).Name == "Up Slope" && positionChange == new Point(0, -1)) {
@@ -282,7 +276,7 @@ namespace LofiHollow.Entities {
                     if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(-1, 0, 0))) { GameLoop.World.CreateMap(MapPos + new Point3D(-1, 0, 0)); }
 
                     MapPos += new Point3D(-1, 0, 0);
-                    Position = new Point(GameLoop.MapWidth - 1, newPosition.Y) * 12;
+                    Position = new Point(GameLoop.MapWidth - 1, newPosition.Y);
                     movedMaps = true;
                 }
 
@@ -291,7 +285,7 @@ namespace LofiHollow.Entities {
                     if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(1, 0, 0))) { GameLoop.World.CreateMap(MapPos + new Point3D(1, 0, 0)); }
 
                     MapPos += new Point3D(1, 0, 0);
-                    Position = new Point(0, newPosition.Y) * 12;
+                    Position = new Point(0, newPosition.Y);
                     movedMaps = true;
                 }
 
@@ -300,7 +294,7 @@ namespace LofiHollow.Entities {
                     if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(0, -1, 0))) { GameLoop.World.CreateMap(MapPos + new Point3D(0, -1, 0)); }
 
                     MapPos += new Point3D(0, -1, 0);
-                    Position = new Point(newPosition.X, GameLoop.MapHeight - 1) * 12;
+                    Position = new Point(newPosition.X, GameLoop.MapHeight - 1);
                     movedMaps = true;
                 }
 
@@ -309,7 +303,7 @@ namespace LofiHollow.Entities {
                     if (!GameLoop.World.maps.ContainsKey(MapPos + new Point3D(0, 1, 0))) { GameLoop.World.CreateMap(MapPos + new Point3D(0, 1, 0)); }
 
                     MapPos += new Point3D(0, 1, 0);
-                    Position = new Point(newPosition.X, 0) * 12;
+                    Position = new Point(newPosition.X, 0);
                     movedMaps = true;
                 }
 
@@ -431,9 +425,6 @@ namespace LofiHollow.Entities {
                     GameLoop.UIManager.Map.SyncMapEntities(map);
                     GameLoop.UIManager.AddMsg(this.Name + " died.");
                 }
-
-                if (drops && this is MonsterWrapper wrap)
-                    wrap.SpawnDrops();
 
                 map.SpawnedMonsters--;
 

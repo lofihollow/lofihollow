@@ -13,6 +13,7 @@ using LofiHollow.EntityData;
 using LofiHollow.Missions;
 using LofiHollow.DataTypes;
 using Steamworks;
+using LofiHollow.Minigames.Archaeology;
 
 namespace LofiHollow {
     public class World { 
@@ -28,6 +29,7 @@ namespace LofiHollow {
         public Dictionary<int, CraftingRecipe> recipeLibrary = new();
         public Dictionary<string, Mission> missionLibrary = new();
         public Dictionary<string, string> scriptLibrary = new();
+        public Dictionary<string, ArchArtifact> artifactLibrary = new();
 
         public List<Chapter> Chapters = new();
 
@@ -52,6 +54,7 @@ namespace LofiHollow {
             LoadCraftingRecipes();
             LoadMissionDefinitions();
             LoadScripts();
+            LoadArtifacts();
         }
 
         public void InitPlayer() {
@@ -79,6 +82,18 @@ namespace LofiHollow {
                     string script = File.ReadAllText(fileName);
                     string name = fileName.Split("/")[^1][0..^4];
                     scriptLibrary.Add(name, script);
+                }
+            }
+        }
+
+        public void LoadArtifacts() {
+            if (Directory.Exists("./data/artifacts/")) {
+                string[] itemFiles = Directory.GetFiles("./data/artifacts/");
+
+                foreach (string fileName in itemFiles) {
+                    string json = File.ReadAllText(fileName);
+                    ArchArtifact item = JsonConvert.DeserializeObject<ArchArtifact>(json);
+                    artifactLibrary.Add(item.FullName(), item);
                 }
             }
         }
@@ -363,13 +378,6 @@ namespace LofiHollow {
                 string timeJson = JsonConvert.SerializeObject(GameLoop.World.Player.Clock, Formatting.Indented);
                 timeOutput.WriteLine(timeJson);
                 timeOutput.Close();
-
-                string monsterPens = "./saves/" + Player.Name + "/monsterPens.dat";
-
-                using StreamWriter monsterOutput = new(monsterPens);
-                string monsterJson = JsonConvert.SerializeObject(GameLoop.UIManager.Minigames.MonsterPenManager, Formatting.Indented);
-                monsterOutput.WriteLine(monsterJson);
-                monsterOutput.Close();
             }
         }
 
@@ -389,10 +397,6 @@ namespace LofiHollow {
 
                     if (name[^1] == "time.dat") {
                         Player.Clock = JsonConvert.DeserializeObject<TimeManager>(json);
-                    }
-
-                    if (name[^1] == "monsterPens.dat") {
-                        GameLoop.UIManager.Minigames.MonsterPenManager = JsonConvert.DeserializeObject<MonsterPenManager>(json);
                     }
                 }
             }
@@ -415,8 +419,8 @@ namespace LofiHollow {
 
             GameLoop.UIManager.Photo.PopulateJobList();
 
-            Player.UsePixelPositioning = true; 
             DoneInitializing = true;
+
 
             Player.DayStart = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
 
@@ -463,9 +467,7 @@ namespace LofiHollow {
             Player = new(Color.Yellow);
             Player.Position = new(25, 25);
             Player.MapPos = new(3, 1, 0);
-            Player.Name = "Player";
-
-            Player.UsePixelPositioning = true;
+            Player.Name = "Player"; 
 
             GameLoop.UIManager.Map.LoadMap(Player.MapPos);
           //  GameLoop.UIManager.Map.EntityRenderer.Add(Player);

@@ -18,13 +18,13 @@
   "SkillableTile": null,
   "TeleportTile": {
 	"Pos": {
-	  "X": 53,
-	  "Y": 17
+	  "X": 65,
+	  "Y": 13
 	},
 	"MapPos": {
 	  "WorldArea": "Overworld",
 	  "X": 1,
-	  "Y": 0,
+	  "Y": 1,
 	  "Z": 0
 	}
   }

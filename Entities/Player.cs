@@ -84,7 +84,7 @@ namespace LofiHollow.Entities {
         public bool feed_meticulous1 = false;
         public bool feed_meticulous2 = false;
         public bool feed_ocd = false;
-        public bool feed_maturity = false;
+        public bool feed_maturity = false; 
 
         public double DayStart = 0;
 
@@ -94,7 +94,7 @@ namespace LofiHollow.Entities {
         public Player(Color foreground) : base(foreground, '@') {
             ActorGlyph = '@';
              
-            Equipment = new Item[10];
+            Equipment = new Item[11];
             for (int i = 0; i < Equipment.Length; i++) {
                 Equipment[i] = new Item("lh:(EMPTY)");
             }
@@ -294,7 +294,6 @@ namespace LofiHollow.Entities {
                 GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = true;
                 GameLoop.UIManager.Map.MapWindow.IsVisible = false;
                 GameLoop.UIManager.Map.MessageLog.IsVisible = false;
-                GameLoop.UIManager.Sidebar.BattleLog.IsVisible = false;
                 GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = false;
                 GameLoop.UIManager.MainMenu.NameBox.Text = "";
 
@@ -304,6 +303,22 @@ namespace LofiHollow.Entities {
                 GameLoop.World.CreatePlayer();
 
             }
+        }
+
+        public int HighestToolTier(string Category) {
+            int highest = 0;
+
+            for (int i = 0; i < Inventory.Length; i++) {
+                if (Inventory[i].ItemCat == Category) {
+                    if (Inventory[i].ItemTier > highest) {
+                        if (Skills.ContainsKey(Inventory[i].ItemSkill) && Skills[Inventory[i].ItemSkill].Level >= Inventory[i].ItemTier) {
+                            highest = Inventory[i].ItemTier;
+                        }
+                    }
+                }
+            }
+
+            return highest;
         }
 
 
@@ -334,9 +349,8 @@ namespace LofiHollow.Entities {
         }
 
         public string GetDamageType() {
-            if (Equipment[0].Properties.ContainsKey("Stats")) {
-                Equipment Stats = Equipment[0].Properties.Get<Equipment>("Stats");
-                string[] types = Stats.DamageType.Split(",");
+            if (Equipment[0].Stats != null) {
+                string[] types = Equipment[0].Stats.DamageType.Split(",");
 
                 if (CombatMode == "Attack")
                     return types[0];
@@ -348,7 +362,7 @@ namespace LofiHollow.Entities {
                     return types[3];
             }
 
-            return "Crush";
+            return "Physical";
         }
 
     }

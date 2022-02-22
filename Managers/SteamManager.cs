@@ -1,11 +1,53 @@
-﻿using Steamworks;
+﻿using LofiHollow.DataTypes;
+using Steamworks;
 using System.Collections.Generic;
 
 namespace LofiHollow.Managers {
     public class SteamManager {
         public bool Initialized = false;
+
+        protected CallResult<LeaderboardFindResult_t> BlacksmithingFind = new CallResult<LeaderboardFindResult_t>();
+        protected CallResult<LeaderboardScoreUploaded_t> m_uploadResult = new CallResult<LeaderboardScoreUploaded_t>();
+        protected CallResult<LeaderboardScoresDownloaded_t> m_blacksmithDownload = new CallResult<LeaderboardScoresDownloaded_t>();
+
+        public SteamLeaderboard_t BlacksmithingLeaderboard;
+
+        public HighscoreResult MostRecentResult;
+        public List<LeaderboardSlot> GlobalLeader = new();
+
         public void Start() {
             Initialized = SteamAPI.Init();
+
+            if (Initialized) {
+                SteamAPICall_t hSteamAPICall = SteamUserStats.FindLeaderboard("Blacksmithing");
+                BlacksmithingFind.Set(hSteamAPICall, FindBlacksmithingLB);
+            }
+        }
+
+        private void FindBlacksmithingLB(LeaderboardFindResult_t pCallback, bool failure) {
+            if (pCallback.m_bLeaderboardFound == 0) {
+                // Leaderboard couldn't be found
+                return;
+            } else {
+                BlacksmithingLeaderboard = pCallback.m_hSteamLeaderboard;
+            }
+        }
+
+        private void OnLeaderboardUploadResult(LeaderboardScoreUploaded_t pCallback, bool failure) {
+            MostRecentResult = new(pCallback.m_bSuccess, pCallback.m_nGlobalRankNew, pCallback.m_nGlobalRankPrevious, pCallback.m_nScore, pCallback.m_bScoreChanged); 
+        }
+
+        private void OnLeaderboardDownloadResult(LeaderboardScoresDownloaded_t pCallback, bool failure) {
+            GlobalLeader.Clear();
+
+            for (int i = 0; i < pCallback.m_cEntryCount; i++) {
+                SteamUserStats.GetDownloadedLeaderboardEntry(pCallback.m_hSteamLeaderboardEntries, i, out LeaderboardEntry_t entry, null, 0);
+                LeaderboardSlot newSlot = new();
+                newSlot.Rank = entry.m_nGlobalRank;
+                newSlot.Score = entry.m_nScore;
+                newSlot.Name = SteamFriends.GetFriendPersonaName(entry.m_steamIDUser);
+                GlobalLeader.Add(newSlot);
+            }
         }
 
         public void Update() {
@@ -24,6 +66,20 @@ namespace LofiHollow.Managers {
             }
 
             return false;
+        }
+
+        public HighscoreResult PostHighscore(string leaderboardName, int score) {
+            if (Initialized) {
+                if (leaderboardName == "Blacksmithing") {
+                    SteamAPICall_t hSteamAPICall = SteamUserStats.UploadLeaderboardScore(BlacksmithingLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodKeepBest, score, null, 0);
+                    m_uploadResult.Set(hSteamAPICall, OnLeaderboardUploadResult);
+
+                    SteamAPICall_t hDownloadCall = SteamUserStats.DownloadLeaderboardEntries(BlacksmithingLeaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, 0, 10);
+                    m_blacksmithDownload.Set(hDownloadCall, OnLeaderboardDownloadResult);
+                }
+            }
+
+            return null;
         }
 
         public bool UnlockAchievement(string ID) {

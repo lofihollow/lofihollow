@@ -7,7 +7,7 @@
   "ForegroundG": 66,
   "ForegroundB": 33,
   "Dec": null,
-  "RequiredLevel": 5,
+  "RequiredLevel": 1,
   "ExpGranted": 40,
   "BlocksMove": true,
   "BlocksLOS": true,

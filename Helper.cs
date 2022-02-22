@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.Text;
 using LofiHollow.DataTypes;
 using Steamworks;
+using SadConsole.Input;
 
 namespace LofiHollow {
     public static class Helper {
@@ -74,6 +75,10 @@ namespace LofiHollow {
                     break;
                 case 11:
                     qual = 172.AsString();
+                    col = Color.White;
+                    break;
+                case -1:
+                    qual = "???";
                     col = Color.White;
                     break;
                 default:
@@ -287,15 +292,15 @@ namespace LofiHollow {
             return new GoRogue.Coord(instance.X, instance.Y);
         }
 
-        public static Point ToCell(this Point instance) {
-            return instance / 12;
+        public static Point ToPoint(this GoRogue.Coord instance) {
+            return new Point(instance.X, instance.Y);
         }
     }
 
     public static class MiscExtensions {
         public static string AsString(this int instance) {
             return ((char)instance).ToString();
-        }
+        } 
 
         public static void PrintDecorated(this SadConsole.Console instance, int x, int y, DecoratedString str) {
             instance.Print(x, y, str.Text);
@@ -303,6 +308,32 @@ namespace LofiHollow {
             if (str.Decorators != null) {
                 for (int i = 0; i < str.Decorators.Length; i++) {
                     instance.AddDecorator(x + i, y, 1, str.Decorators[i]);
+                }
+            }
+        }
+
+        public static void PrintClickable(this SadConsole.Console instance, int x, int y, string str, Action<string> OnClick, string ID) {
+            Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition; 
+            int length = str.Length;
+
+            instance.Print(x, y, str, mousePos.X >= x && mousePos.X <= x + length && mousePos.Y == y ? Color.Yellow : Color.White);
+
+            if (GameHost.Instance.Mouse.LeftClicked) {
+                if (mousePos.X >= x && mousePos.X <= x + length && mousePos.Y == y) {
+                    OnClick(ID);
+                }
+            }
+        }
+
+        public static void PrintClickable(this SadConsole.Console instance, int x, int y, ColoredString str, Action<string> OnClick, string ID) {
+            Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition;
+            int length = str.Length;
+
+            instance.Print(x, y, str);
+
+            if (GameHost.Instance.Mouse.LeftClicked) {
+                if (mousePos.X >= x && mousePos.X <= x + length && mousePos.Y == y) {
+                    OnClick(ID);
                 }
             }
         }

@@ -16,16 +16,24 @@ namespace LofiHollow.Managers {
 
         public static bool MoveActorBy(Actor actor, Point position) {
             Point3D oldMap = actor.MapPos;
+            Point oldPos = actor.Position;
             bool moved = actor.MoveBy(position);
             if (moved) {
                 NetMsg movePlayer = new("movePlayer");
                 movePlayer.SetFullPos(actor.Position, actor.MapPos);
                 GameLoop.SendMessageIfNeeded(movePlayer, false, true);
-
+                if (actor is Player play && play.Equipment[10].Name != "(EMPTY)") {
+                    play.Equipment[10].SoulPhoto.Position = oldPos;
+                }
+                    
                 if (oldMap != actor.MapPos) {
                     NetMsg reqMap = new("fullMap");
                     reqMap.SetMap(actor.MapPos);
                     GameLoop.SendMessageIfNeeded(reqMap, false, false, 0);
+
+                    if (actor is Player playa && playa.Equipment[10].Name != "(EMPTY)") {
+                        playa.Equipment[10].SoulPhoto.Position = playa.Position;
+                    }
                 }
 
 
@@ -41,10 +49,9 @@ namespace LofiHollow.Managers {
                     Map map = Helper.ResolveMap(player.MapPos);
 
                     if (map != null) {
-                        if (map.GetTile(player.Position.ToCell()).TeleportTile != null) {
-                            TeleportTile tele = map.GetTile(player.Position.ToCell()).TeleportTile;
-                            player.MoveTo(tele.Pos * 12, tele.MapPos);
-                            GameLoop.UIManager.AddMsg("Tried to teleport");
+                        if (map.GetTile(player.Position).TeleportTile != null) {
+                            TeleportTile tele = map.GetTile(player.Position).TeleportTile;
+                            player.MoveTo(tele.Pos, tele.MapPos); 
                         }
                     }
                 } 
@@ -180,8 +187,8 @@ namespace LofiHollow.Managers {
         }
 
         public static string UseItem(Actor actor, Item item) {
-            if (item.Properties.ContainsKey("Heal")) {
-                Heal heal = item.Properties.Get<Heal>("Heal");
+            if (item.Heal != null) {
+                Heal heal = item.Heal;
                 if (actor.CurrentHP != actor.MaxHP) {
                     int healAmount = GoRogue.DiceNotation.Dice.Roll(heal.HealAmount);
 
@@ -198,29 +205,25 @@ namespace LofiHollow.Managers {
             }
 
             return "f|Item usage not implemented.";
-        }
+        } 
 
         public static void EquipItem(Player actor, int slot, Item item) {
             if (actor.Inventory.Length > slot && slot >= 0) {
 
-                if (item.EquipSlot >= 0 && item.EquipSlot <= 6) {
+                if (item.EquipSlot >= 0 && item.EquipSlot <= 10) {
                     Item temp = actor.Equipment[item.EquipSlot];
                     actor.Equipment[item.EquipSlot] = item;
                     actor.Inventory[slot] = temp;
-                } 
+                }
             }
         }
 
         public static void UnequipItem(Player actor, int slot) {
-            if (slot >= 0 && slot <= 15) {
+            if (slot >= 0 && slot <= 10) {
                 if (actor.Equipment[slot].Name != "(EMPTY)") {
-                    for (int i = 0; i < actor.Inventory.Length; i++) {
-                        if (actor.Inventory[i].Name == "(EMPTY)") {
-                            actor.Inventory[i] = actor.Equipment[slot];
-                            actor.Equipment[slot] = new Item("lh:(EMPTY)");
-                        }
-                    }
-                }
+                    AddItemToInv(actor, actor.Equipment[slot]); 
+                    actor.Equipment[slot] = new Item("lh:(EMPTY)"); 
+                } 
             }
         }
 
@@ -314,7 +317,7 @@ namespace LofiHollow.Managers {
 
         public static int PlayerDamage(Player play, int targetDef) {
             play.CalculateCombatLevel();
-            int pow = play.Equipment[0].Properties.ContainsKey("Stats") ? play.Equipment[0].Properties.Get<Equipment>("Stats").WeaponTier : 10;
+            int pow = play.Equipment[0].Stats != null ? play.Equipment[0].Stats.WeaponTier : 10;
             int str = play.Skills["Strength"].Level;
             int damage = ((((((2 * play.CombatLevel) / 5) + 2) * pow * (str / targetDef)) / 50) + 2);
 
@@ -327,7 +330,7 @@ namespace LofiHollow.Managers {
         }
 
         // Player attacks a monster
-        public static void Attack(Player attacker, MonsterWrapper defender) {
+        public static ColoredString Attack(Player attacker, MonsterWrapper defender) {
             string damageType = attacker.GetDamageType(); 
             int acc = (int) Math.Floor((attacker.Skills["Attack"].Level / 2f) + 50); 
             int attackRoll = GameLoop.rand.Next(100) + 1;
@@ -363,6 +366,9 @@ namespace LofiHollow.Managers {
 
             if (defender.CurrentHP <= 0) { 
                 attacker.killList.Push(defender.monster.GetAppearance());
+
+
+
                 if (GameLoop.World.Player.KillFeed().Contains("lol")) {
                     GameLoop.SteamManager.UnlockAchievement("FEED_FUNNY1");
                     if (!GameLoop.World.Player.feed_funny1) {
@@ -421,6 +427,8 @@ namespace LofiHollow.Managers {
 
                 MissionManager.Increment("Kill", defender.monster.Name, 1); 
             }
+
+            return battleString;
         }
     }
 }

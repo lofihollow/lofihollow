@@ -14,9 +14,7 @@
     "Birthday": null,
 	"Default": {
       "Nodes": [
-		  "555;0;1;0;20;20",
-		  "565;0;1;0;30;20",
-		  "600;0;1;0;40;20"
+		  "555;0;1;0;15;26"
       ],
       "NextNodeTime": 0,
       "CurrentNode": 0
@@ -110,26 +108,13 @@
   "DislikedGiftIDs": [],
   "LikedGiftIDs": [],
   "LovedGiftIDs": [],
-  "Shop": {
-	"ShopName": "Cobalt's Goods",
-	"WanderingVendor": true,
-	"Position": {
-		"X": 0,
-		"Y": 0
-	},
-	"MapPos": {
-		"X": 0,
-		"Y": 0,
-		"Z": 0
-	},
-	"SoldItems": [3, 6, 36],
-	"BuyCategory": 1
-  },
+  "Shop": null,
   "CopperCoins": 0,
   "SilverCoins": 0,
   "GoldCoins": 0,
   "PlatinumCoins": 0,
   "MapPos": {
+	"WorldArea": "Overworld",
     "X": 0,
     "Y": 1,
     "Z": 0
@@ -156,8 +141,8 @@
   "ChildrenLocked": true,
   "Components": [],
   "Position": {
-    "X": 20,
-    "Y": 20
+    "X": 15,
+    "Y": 26
   },
   "Name": "Cobalt",
   "ZIndex": 0,
