@@ -1,0 +1,94 @@
+{
+  "Name": "Lord Whiskers",
+  "Package": "lh",
+  "Occupation": "Library Cat",
+  "Animal": true,
+  "AI": {
+    "SpringNormal": { },
+    "SpringRain": { },
+    "SummerNormal": { },
+    "SummerRain": { },
+    "FallNormal": { },
+    "FallRain": { },
+    "WinterNormal": { },
+    "WinterSnow": { },
+    "Holiday": { },
+    "Birthday": { },
+	"Default": {
+      "Nodes": [
+		  "540;0;1;0;12;31"
+      ],
+      "NextNodeTime": 0,
+      "CurrentNode": 0
+    }
+  },
+  "BirthMonth": 1,
+  "BirthDay": 1,
+  "Introduction": "Lord Whiskers, the library cat, is lying around lazily between the stacks of books.",
+  "Greetings": {
+	"Nemesis": "Lord Whiskers tries to claw you, but you nimbly dodge.",
+	"Hate": "Lord Whiskers hisses at you.",
+	"Unfriendly": "Lord Whiskers licks himself, ignoring your presence.",
+	"Dislike": "Lord Whiskers pretends not to notice you.",
+	"Neutral": "Lord Whiskers ignores you.",
+	"Like": "Lord Whiskers tilts his head when you approach.",
+	"Friendly": "Lord Whiskers looks at you and meows.",
+	"Close Friend": "Lord Whiskers rolls over on his stomach and purrs.",
+	"Best Friend": "Lord Whiskers meows and rubs against your legs."
+  },
+  "Farewells": {
+	"Nemesis": "Lord Whiskers tries to claw you again, but you avoid the attack.",
+	"Hate": "Lord Whiskers hisses at you as you leave.",
+	"Unfriendly": "Lord Whiskers watches you leave. He almost looks happy to see you go.",
+	"Dislike": "Lord Whiskers goes back to sleep.",
+	"Neutral": "Lord Whiskers doesn't seem to notice you leaving.",
+	"Like": "Lord Whiskers meows and follows you for a bit before going back to his bed.",
+	"Friendly": "Lord Whiskers meows for more pets as you leave.",
+	"Close Friend": "Lord Whiskers rolls around in front of you, trying to entice you into staying.",
+	"Best Friend": "Lord Whiskers follows you to the door, rubbing against your legs as you go."
+  },
+  "ChitChats": { 
+	"(Pat)": "-1~Lord Whiskers hisses.",
+	"(Scratch Belly)": "2~Lord Whiskers purrs happily.",
+	"(Brush)": "1~Lord Whiskers purrs as you brush out his fur.", 
+	"(Hiss)": "0~Lord Whiskers is confused by you hissing at him.",
+	"(Talk about problems)": "0~Lord Whiskers doesn't seem to understand, but you feel better."
+  },
+  "GiftResponses": {
+	"Hated": "",
+	"Disliked": "",
+	"Neutral": "",
+	"Liked": "",
+	"Loved": ""
+  },
+  "HatedGiftIDs": [],
+  "DislikedGiftIDs": [],
+  "LikedGiftIDs": [],
+  "LovedGiftIDs": [],
+  "Shop": { }, 
+  "MapPos": {
+    "WorldArea": "Overworld",
+    "X": 0,
+    "Y": 1,
+    "Z": 0
+  },
+  "Position": {
+    "X": 12,
+    "Y": 31
+  },
+  "Skills": {},
+  "ForegroundR": 255,
+  "ForegroundG": 215,
+  "ForegroundB": 0,
+  "ActorGlyph": 102, 
+  "Children": [],
+  "ChildrenLocked": true,
+  "Components": [],
+  "ZIndex": 0,
+  "IsVisible": true,
+  "IsEnabled": true,
+  "FocusedMode": 0,
+  "IsExclusiveMouse": false,
+  "UseKeyboard": true,
+  "UseMouse": true
+}

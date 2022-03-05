@@ -43,11 +43,11 @@ namespace LofiHollow.Managers {
             for (int x = 0; x < 70; x++) {
                 for (int y = 0; y < 40; y++) {
                     if (CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(x, y)).Visible) {
-                        GameLoop.UIManager.Minigames.MinigameConsole.Print(x, y, CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(x, y)).GetAppearance());
+                        GameLoop.UIManager.Minigames.Con.Print(x, y, CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(x, y)).GetAppearance());
                         if (CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(x, y)).Dec != null) {
-                            GameLoop.UIManager.Minigames.MinigameConsole.SetDecorator(x, y, 1, CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(x, y)).Decorator());
+                            GameLoop.UIManager.Minigames.Con.SetDecorator(x, y, 1, CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(x, y)).Decorator());
                         } else {
-                            GameLoop.UIManager.Minigames.MinigameConsole.ClearDecorators(x, y, 1);
+                            GameLoop.UIManager.Minigames.Con.ClearDecorators(x, y, 1);
                         }
                     }
                 }
@@ -56,17 +56,20 @@ namespace LofiHollow.Managers {
 
         public void SyncMiningEntities(Mine CurrentMine) {
             if (CurrentMine != null) {
-                GameLoop.UIManager.Minigames.MinigameConsole.ForceRendererRefresh = true;
+                GameLoop.UIManager.Minigames.Con.ForceRendererRefresh = true;
                 MiningEntities.RemoveAll(); 
                 MiningEntities.Add(GameLoop.World.Player);
+                GameLoop.World.Player.UsePixelPositioning = true;
 
                 foreach (Entity entity in CurrentMine.Levels[GameLoop.World.Player.MineDepth].Entities.Items) {
                     MiningEntities.Add(entity);
+                    entity.UsePixelPositioning = true;
                 }
 
                 foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) { 
                     if (kv.Value.MineLocation == GameLoop.World.Player.MineLocation && kv.Value.MineDepth == GameLoop.World.Player.MineDepth) {
                         MiningEntities.Add(kv.Value);
+                        kv.Value.UsePixelPositioning = true;
                     }
                 }
 
@@ -102,7 +105,7 @@ namespace LofiHollow.Managers {
 
 
         public void MiningInput(Mine CurrentMine) {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
 
             if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
                 if (GameLoop.UIManager.Sidebar.hotbarSelect + 1 < GameLoop.World.Player.Inventory.Length)
@@ -220,10 +223,11 @@ namespace LofiHollow.Managers {
                 CurrentMine.PickupItem(GameLoop.World.Player);
             }
 
-            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemComma)) {
+            if (GameLoop.EitherShift() && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemComma)) {
                 if (GameLoop.World.Player.Position / 12 == new Point(35, 4) || GameLoop.World.Player.Position / 12 == new Point(34, 4) || GameLoop.World.Player.Position / 12 == new Point(36, 4)) {
-                    GameLoop.UIManager.selectedMenu = "None";  
-                    GameLoop.World.Player.Position = GameLoop.World.Player.MineEnteredAt;
+                    GameLoop.UIManager.selectedMenu = "None";
+                    GameLoop.World.Player.UsePixelPositioning = false;
+                    GameLoop.World.Player.Position = GameLoop.World.Player.MineEnteredAt; 
                     GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 }
             }
@@ -359,9 +363,11 @@ namespace LofiHollow.Managers {
         }
 
         public void MiningSetup(string loc) {
-            GameLoop.World.Player.Position = new Point(35 * 12, 4 * 12); 
+            GameLoop.World.Player.Position = new Point(35 * 12, 4 * 12);
+            GameLoop.World.Player.UsePixelPositioning = true;
+
             MiningEntities = new SadConsole.Entities.Renderer();
-            GameLoop.UIManager.Minigames.MinigameConsole.SadComponents.Add(MiningEntities);
+            GameLoop.UIManager.Minigames.Con.SadComponents.Add(MiningEntities);
             if (loc == "Mountain") {
                 if (MountainMine == null)
                     MountainMine = new("Mountain");
@@ -394,8 +400,8 @@ namespace LofiHollow.Managers {
                 } 
             }
 
-            GameLoop.UIManager.Minigames.MinigameWindow.Title = loc + " Mine - Depth: 0";
-            GameLoop.UIManager.Minigames.MinigameWindow.TitleAlignment = SadConsole.HorizontalAlignment.Center;
+            GameLoop.UIManager.Minigames.Win.Title = loc + " Mine - Depth: 0";
+            GameLoop.UIManager.Minigames.Win.TitleAlignment = SadConsole.HorizontalAlignment.Center;
         }
     }
 }

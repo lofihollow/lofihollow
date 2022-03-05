@@ -39,7 +39,7 @@ namespace LofiHollow.DataTypes {
         public Light EmitsLight;
 
 
-        public int CurrentLight = 0;
+        public int CurrentLight = 255;
 
         [JsonProperty]
         public Decorator Dec;
@@ -56,9 +56,11 @@ namespace LofiHollow.DataTypes {
         [JsonProperty]
         public TeleportTile TeleportTile = null;
 
+        [JsonProperty]
+        public AnimalBed AnimalBed = null;
 
         [JsonProperty]
-        public SkillableTile SkillableTile = null;
+        public SkillableTile SkillableTile = null; 
 
         public bool DeconstructFlag = false;
 
@@ -102,6 +104,7 @@ namespace LofiHollow.DataTypes {
             LightBlocked = other.LightBlocked;
             ExposedToSky = other.ExposedToSky;
             EmitsLight = other.EmitsLight;
+            AnimalBed = other.AnimalBed;
 
             Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
             Glyph = TileGlyph;

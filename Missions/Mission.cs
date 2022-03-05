@@ -16,6 +16,10 @@ namespace LofiHollow.Missions {
 
         public List<MissionStage> Stages = new();
 
+        public string FullName() {
+            return Package + ":" + Name;
+        }
+
         public void SelectChoice(Response rep) {
             if (rep.GoToStage == -1) {
                 Stages[CurrentStage].CurrentDialogue = rep.LeadsToDialogue; 

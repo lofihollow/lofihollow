@@ -10,40 +10,19 @@ using System.IO;
 using NLua;
 
 namespace LofiHollow.UI {
-    public class UI_ScriptMini {
-        public SadConsole.Console ScriptConsole;
-        public Window ScriptWindow;
-
+    public class UI_ScriptMini : Lofi_UI {
         public string output = "";
         public Lua RunningScript;
         LuaFunction ScriptUpdate;
         LuaFunction ScriptInput;
 
-        public UI_ScriptMini(int width, int height, string title) {
-            ScriptWindow = new(width, height);
-            ScriptWindow.CanDrag = false;
-            ScriptWindow.Position = new(0, 0);
-
-            int invConWidth = width - 2;
-            int invConHeight = height - 2;
-
-            ScriptConsole = new(invConWidth, invConHeight);
-            ScriptConsole.Position = new(1, 1);
-            ScriptWindow.Title = title.Align(HorizontalAlignment.Center, invConWidth, (char)196);
+        public UI_ScriptMini(int width, int height, string title) : base(width, height, title, "ScriptMini") { }
 
 
-            ScriptWindow.Children.Add(ScriptConsole);
-            GameLoop.UIManager.Children.Add(ScriptWindow);
+        public override void Render() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
-            ScriptWindow.Show();
-            ScriptWindow.IsVisible = false;
-        }
-
-
-        public void RenderScriptMini() {
-            Point mousePos = new MouseScreenObjectState(ScriptConsole, GameHost.Instance.Mouse).CellPosition;
-
-            ScriptConsole.Clear();
+            Con.Clear();
 
             if (RunningScript != null) {
                 try {
@@ -55,8 +34,8 @@ namespace LofiHollow.UI {
                 
         }
 
-        public void ScriptMiniInput() {
-            Point mousePos = new MouseScreenObjectState(ScriptConsole, GameHost.Instance.Mouse).CellPosition;
+        public override void Input() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
                 Toggle("None");
             }
@@ -76,9 +55,9 @@ namespace LofiHollow.UI {
         } 
 
         public void Toggle(string scriptName) {
-            if (ScriptWindow.IsVisible) {
+            if (Win.IsVisible) {
                 GameLoop.UIManager.selectedMenu = "None";
-                ScriptWindow.IsVisible = false;
+                Win.IsVisible = false;
                 GameLoop.UIManager.Map.MapConsole.IsFocused = true;
                 RunningScript = null;
             } else {
@@ -91,8 +70,8 @@ namespace LofiHollow.UI {
                     ScriptUpdate = RunningScript["update"] as LuaFunction;
                     ScriptInput = RunningScript["input"] as LuaFunction;
 
-                    ScriptWindow.IsVisible = true;
-                    ScriptWindow.IsFocused = true;
+                    Win.IsVisible = true;
+                    Win.IsFocused = true;
                 }
             }
         }

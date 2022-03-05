@@ -1,0 +1,19 @@
+{
+  "Name": "Carpentry Job",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": false,
+  "MiscString": "Minigame,StackEm,,",
+  "ForegroundR": 110,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 352,
+  "LightBlocked": 0.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

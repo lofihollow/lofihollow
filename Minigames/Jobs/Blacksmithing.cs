@@ -44,8 +44,8 @@ namespace LofiHollow.Minigames.Jobs {
         }
 
         public override void Draw() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
-            Console Mini = GameLoop.UIManager.Minigames.MinigameConsole; 
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
+            Console Mini = GameLoop.UIManager.Minigames.Con; 
 
             if (Timer > 0) {
                 Mini.Print(0, 0, Timer.ToString().Align(HorizontalAlignment.Center, 70));
@@ -145,7 +145,7 @@ namespace LofiHollow.Minigames.Jobs {
         }
 
         public override void Input() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
                 Reset();
                 Close();

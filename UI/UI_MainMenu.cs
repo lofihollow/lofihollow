@@ -167,7 +167,8 @@ namespace LofiHollow.UI {
                 MenuConsole.Print(5, 4, Helper.HoverColoredString("Load Game", mousePos.Y == 4));
                 MenuConsole.Print(5, 6, Helper.HoverColoredString("  Mods", mousePos.Y == 6));
                 MenuConsole.Print(5, 18, Helper.HoverColoredString("  Quit ", mousePos.Y == 18));
-            } else if (GameLoop.UIManager.selectedMenu == "CharCreation") {
+            } 
+            else if (GameLoop.UIManager.selectedMenu == "CharCreation") {
                 MenuConsole.DrawBox(new Rectangle(0, 0, 50, 50), ShapeParameters.CreateStyledBoxFilled(ICellSurface.ConnectedLineThin, new ColoredGlyph(Color.White, Color.Black), new ColoredGlyph(Color.Black, Color.Black)));
 
                 int CreateX = 1;
@@ -216,7 +217,8 @@ namespace LofiHollow.UI {
 
 
                 MenuConsole.Print(2, MenuConsole.Height - 2, Helper.HoverColoredString("DONE", (mousePos.Y == MenuConsole.Height - 2 && mousePos.X <= 6 && mousePos.X >= 2)));
-            } else if (GameLoop.UIManager.selectedMenu == "LoadFile") {
+            } 
+            else if (GameLoop.UIManager.selectedMenu == "LoadFile") {
                 int fileSize = 5;
                 if (Names != null && Names.Length > 0) {
                     fileSize = Names.Length + 2;
@@ -233,7 +235,8 @@ namespace LofiHollow.UI {
                 }
 
                 MenuConsole.Print(1, 1 + fileSize - 3, Helper.HoverColoredString("[BACK]".Align(HorizontalAlignment.Center, 18), mousePos.Y == (1 + fileSize - 3)));
-            } else if (GameLoop.UIManager.selectedMenu == "ConnectOrHost") {
+            } 
+            else if (GameLoop.UIManager.selectedMenu == "ConnectOrHost") {
                 MenuConsole.DrawBox(new Rectangle(0, 0, 20, 10), ShapeParameters.CreateStyledBoxFilled(ICellSurface.ConnectedLineThin, new ColoredGlyph(Color.White, Color.Black), new ColoredGlyph(Color.Black, Color.Black)));
                 MenuConsole.Print(1, 1, Helper.HoverColoredString("Singleplayer", mousePos.Y == 1));
                 MenuConsole.Print(1, 2, Helper.HoverColoredString("Host and Play", mousePos.Y == 2));
@@ -337,7 +340,7 @@ namespace LofiHollow.UI {
                         System.Environment.Exit(0);
                     }
                 } else if (GameLoop.UIManager.selectedMenu == "CharCreation") {
-                    if (mousePos.Y == MenuConsole.Height - 2 && mousePos.X <= 6 && mousePos.X >= 2 && NameBox.EditingText != "") {
+                    if (mousePos.Y == MenuConsole.Height - 2 && mousePos.X <= 6 && mousePos.X >= 2 && NameBox.EditingText != "" && NameBox.Text != "") {
                         GameLoop.UIManager.selectedMenu = "ConnectOrHost";
 
                         RemakeMenu();

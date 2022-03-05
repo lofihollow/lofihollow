@@ -1,0 +1,8114 @@
+{
+  "Name": "Strange Triangle",
+  "Package": "",
+  "UnidentifiedName": "Triangular Relic",
+  "Location": "Any",
+  "BaseValue": 20,
+  "Weight": 1,
+  "BaseExp": 20,
+  "RequiredLevel": 0,
+  "TurnIntoItem": "",
+  "KeepArtifact": false,
+  "Tiles": [
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 57,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 47,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 95,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 58,
+      "ForeG": 167,
+      "ForeB": 57,
+      "Glyph": 92,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    },
+    {
+      "DirtPercent": 0,
+      "StonePercent": 0,
+      "ForeR": 0,
+      "ForeG": 0,
+      "ForeB": 0,
+      "Glyph": 32,
+      "Condition": 11
+    }
+  ]
+}

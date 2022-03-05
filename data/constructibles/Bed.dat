@@ -1,5 +1,6 @@
 {
   "Name": "Bed",
+  "Package": "lh",
   "Materials": "6x Poplar Planks, 24x Bronze Nails, 2x Cloth",
   "Glyph": 13,
   "ForegroundR": 171,

@@ -10,9 +10,7 @@ using System.IO;
 using Key = SadConsole.Input.Keys;
 
 namespace LofiHollow.UI {
-    public class UI_Help {
-        public SadConsole.Console HelpConsole;
-        public Window HelpWindow;
+    public class UI_Help : Lofi_UI{ 
         public string PreviousMenu = "";
         public string HelpMode = "None";
         public string[] Guide;
@@ -20,25 +18,7 @@ namespace LofiHollow.UI {
 
         public Dictionary<Rectangle, int> GuideHyperlinks = new();
 
-        public UI_Help(int width, int height, string title) {
-            HelpWindow = new(width, height);
-            HelpWindow.CanDrag = false;
-            HelpWindow.Position = new(11, 6);
-
-            int invConWidth = width - 2;
-            int invConHeight = height - 2;
-
-            HelpConsole = new(invConWidth, invConHeight);
-            HelpConsole.Position = new(1, 1);
-            HelpWindow.Title = title.Align(HorizontalAlignment.Center, invConWidth, (char)196);
-
-
-            HelpWindow.Children.Add(HelpConsole);
-            GameLoop.UIManager.Children.Add(HelpWindow);
-
-            HelpWindow.Show();
-            HelpWindow.IsVisible = false;
-
+        public UI_Help(int width, int height, string title) : base(width, height, title, "Help") {
             if (File.Exists("./data/guide.dat")) {
                 Guide = File.ReadAllLines("./data/guide.dat"); 
 
@@ -61,36 +41,56 @@ namespace LofiHollow.UI {
         }
 
 
-        public void RenderHelp() {
-            Point mousePos = new MouseScreenObjectState(HelpConsole, GameHost.Instance.Mouse).CellPosition;
+        public override void Render() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
-            HelpConsole.Clear(); 
+            Con.Clear(); 
              
             if (HelpMode == "Guide") {
                 if (Guide != null) {
                     for (int i = GuideTopIndex; i < Guide.Length && i < GuideTopIndex + 40; i++) {
-                        HelpConsole.Print(0, i - GuideTopIndex, Guide[i]);
+                        Con.Print(0, i - GuideTopIndex, Guide[i]);
                     }
 
 
                     foreach (KeyValuePair<Rectangle, int> kv in GuideHyperlinks) {
                         if (kv.Key.Y - GuideTopIndex >= 0 && kv.Key.Y - GuideTopIndex <= 40) { 
                             foreach (var pos in kv.Key.Positions()) {
-                                HelpConsole.SetForeground(pos.X, pos.Y - GuideTopIndex, Color.Cyan);
+                                Con.SetForeground(pos.X, pos.Y - GuideTopIndex, Color.Cyan);
                             } 
                         }
                     }
                 }
             } else if (HelpMode == "Hotkeys") {
-                HelpConsole.Print(0, 0, "Hotkeys");
+                Con.Print(0, 0, "Hotkeys");
+                Con.Print(0, 2, "W - Move Up");
+                Con.Print(0, 3, "S - Move Down");
+                Con.Print(0, 4, "A - Move Left");
+                Con.Print(0, 5, "D - Move Right");
+                Con.Print(0, 6, "SHIFT - Hold to Run");
+
+                Con.Print(0, 8, 12.AsString() + " - Move down stairs");
+                Con.Print(0, 9, 12.AsString() + " - Sleep (while on bed)");
+                Con.Print(0, 10, 11.AsString() + " - Move up stairs");
+
+                Con.Print(0, 12, "I - Open Inventory");
+                Con.Print(0, 13, "C - Open Crafting");
+                Con.Print(0, 14, "K - Open Skills");
+                Con.Print(0, 15, "Q - Open Quest Log");
+                Con.Print(0, 16, "W - Move Up");
+
+                Con.Print(0, 18, "` - Show Multiplayer Code (if hosting)");
+                Con.Print(0, 19, "? - Show this menu!");
+                Con.Print(0, 20, "F1 - Open up the Guide");
+                Con.Print(0, 21, "F8 - Open up the Feedback Menu");
             }
 
 
         }
 
-        public void HelpInput() {
-            Point mousePos = new MouseScreenObjectState(HelpConsole, GameHost.Instance.Mouse).CellPosition;
-            if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
+        public override void Input() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
+            if (GameHost.Instance.Keyboard.HasKeysPressed) {
                 ToggleHelp("None");
             }
 
@@ -122,18 +122,18 @@ namespace LofiHollow.UI {
 
 
         public void ToggleHelp(string mode) {
-            if (HelpWindow.IsVisible) {
+            if (Win.IsVisible) {
                 GameLoop.UIManager.selectedMenu = PreviousMenu;
-                HelpWindow.IsVisible = false;
+                Win.IsVisible = false;
                 GameLoop.UIManager.Map.MapConsole.IsFocused = true;
 
             } else {
-                HelpConsole.Clear();
+                Con.Clear();
                 PreviousMenu = GameLoop.UIManager.selectedMenu;
                 GameLoop.UIManager.selectedMenu = "Help";
                 GuideTopIndex = 0;
-                HelpWindow.IsVisible = true;
-                HelpWindow.IsFocused = true;
+                Win.IsVisible = true;
+                Win.IsFocused = true;
                 HelpMode = mode;
             }
         }

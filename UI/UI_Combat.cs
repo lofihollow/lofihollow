@@ -11,37 +11,14 @@ using System;
 using LofiHollow.Managers;
 
 namespace LofiHollow.UI {
-    public class UI_Combat {
-        public SadConsole.Console CombatConsole;
-        public Window CombatWindow;
-
+    public class UI_Combat : Lofi_UI {  
         public Combat Current;
         public int CurrentTarget = 0;
-        public int CurrentAllyTurn = 0;
-
-        public Stack<ColoredString> RecentCombatMsgs = new(5);
-
+        public int CurrentAllyTurn = 0; 
+        public Stack<ColoredString> RecentCombatMsgs = new(5); 
         public List<Item> Drops = new();
 
-        public UI_Combat(int width, int height, string title) {
-            CombatWindow = new(width, height);
-            CombatWindow.CanDrag = false;
-            CombatWindow.Position = new(11, 6);
-
-            int invConWidth = width - 2;
-            int invConHeight = height - 2;
-
-            CombatConsole = new(invConWidth, invConHeight);
-            CombatConsole.Position = new(1, 1);
-            CombatWindow.Title = title.Align(HorizontalAlignment.Center, invConWidth, (char)196);
-
-
-            CombatWindow.Children.Add(CombatConsole);
-            GameLoop.UIManager.Children.Add(CombatWindow);
-
-            CombatWindow.Show();
-            CombatWindow.IsVisible = false;
-        }
+        public UI_Combat(int width, int height, string title) : base(width, height, title, "Combat") { }
 
         public void StartCombat(string loc, int level) {
             Current = new();
@@ -121,58 +98,57 @@ namespace LofiHollow.UI {
             }
         }
 
-        public void RenderCombat() {
-            Point mousePos = new MouseScreenObjectState(CombatConsole, GameHost.Instance.Mouse).CellPosition; 
-            CombatConsole.Clear(); 
+        public override void Render() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
+            Con.Clear(); 
 
             if (Current != null) {
                 for (int i = 0; i < Current.Allies.Count; i++) {
                     if (Current.Allies[i].GetActor() != null && Current.Allies[i].GetActor() is Player play) {
-                        CombatConsole.Print(1, 1 + i, play.Name);
-
-                        CombatConsole.Print(15 + (i * 5), 27, play.GetAppearance());
+                        Con.Print(1, 1 + i, play.Name); 
+                        Con.Print(15 + (i * 5), 27, play.GetAppearance());
                     }
                 }
 
                 for (int i = 0; i < Current.Enemies.Count; i++) {
                     if (Current.Enemies[i].GetActor() != null && Current.Enemies[i].GetActor() is MonsterWrapper mon) {
-                        CombatConsole.Print(29, 1 + i, mon.monster.Name.Align(HorizontalAlignment.Right, 30), CurrentTarget == i ? Color.Yellow : Color.White);
+                        Con.Print(29, 1 + i, mon.monster.Name.Align(HorizontalAlignment.Right, 30), CurrentTarget == i ? Color.Yellow : Color.White);
 
                         int percent = (int) Math.Ceiling((double) ((double) mon.CurrentHP / (double) mon.MaxHP) * 10);
-                        CombatConsole.DrawLine(new Point(60, 1 + i), new Point(60 + percent, 1+i), 254, Color.Lime);
-                        CombatConsole.Print(65 - (5 * i), 27, mon.monster.GetAppearance());
+                        Con.DrawLine(new Point(60, 1 + i), new Point(60 + percent, 1+i), 254, Color.Lime);
+                        Con.Print(65 - (5 * i), 27, mon.monster.GetAppearance());
 
                         if (CurrentTarget == i) {
-                            CombatConsole.Print(65 - (5 * i), 23, "|");
-                            CombatConsole.Print(65 - (5 * i), 24, "|");
-                            CombatConsole.Print(65 - (5 * i), 25, "V");
+                            Con.Print(65 - (5 * i), 23, "|");
+                            Con.Print(65 - (5 * i), 24, "|");
+                            Con.Print(65 - (5 * i), 25, "V");
                         }
                     }
                 }
 
-                CombatConsole.DrawLine(new Point(0, 28), new Point(69, 28), 196, Color.Green); 
-                CombatConsole.DrawLine(new Point(0, 29), new Point(69, 29), 196, Color.White);
+                Con.DrawLine(new Point(0, 28), new Point(69, 28), 196, Color.Green);
+                Con.DrawLine(new Point(0, 29), new Point(69, 29), 196, Color.White);
 
                 if (GameLoop.NetworkManager == null || (GameLoop.NetworkManager != null && Current.Allies[CurrentAllyTurn].playerID == GameLoop.NetworkManager.ownID)) {
-                    CombatConsole.PrintClickable(1, 30, "Attack".Align(HorizontalAlignment.Center, 20), CombatClick, "attack");
-                    CombatConsole.PrintClickable(1, 32, "Change Stance".Align(HorizontalAlignment.Center, 20), CombatClick, "stance");
-                    CombatConsole.Print(1, 33, (GameLoop.World.Player.CombatMode + " (" + GameLoop.World.Player.GetDamageType() + ")").Align(HorizontalAlignment.Center, 20));
-                    CombatConsole.PrintClickable(1, 35, "Summon".Align(HorizontalAlignment.Center, 20), CombatClick, "summon");
+                    Con.PrintClickable(1, 30, "Attack".Align(HorizontalAlignment.Center, 20), UI_Clicks, "attack");
+                    Con.PrintClickable(1, 32, "Change Stance".Align(HorizontalAlignment.Center, 20), UI_Clicks, "stance");
+                    Con.Print(1, 33, (GameLoop.World.Player.CombatMode + " (" + GameLoop.World.Player.GetDamageType() + ")").Align(HorizontalAlignment.Center, 20));
+                    Con.PrintClickable(1, 35, "Summon".Align(HorizontalAlignment.Center, 20), UI_Clicks, "summon");
 
                     if (GameLoop.World.Player.HighestToolTier("SoulCamera") > 0)
-                        CombatConsole.PrintClickable(1, 37, "Soul Capture".Align(HorizontalAlignment.Center, 20), CombatClick, "soulphoto");
+                        Con.PrintClickable(1, 37, "Soul Capture".Align(HorizontalAlignment.Center, 20), UI_Clicks, "soulphoto");
                 }
 
-                CombatConsole.DrawLine(new Point(22, 30), new Point(22, 39), 179, Color.White);
+                Con.DrawLine(new Point(22, 30), new Point(22, 39), 179, Color.White);
 
                 for (int i = 0; i < RecentCombatMsgs.Count; i++) {
-                    CombatConsole.Print(23, 30 + i, RecentCombatMsgs.ElementAt(i));
+                    Con.Print(23, 30 + i, RecentCombatMsgs.ElementAt(i));
                 }
             }
         }
 
-        public void CombatInput() {
-            Point mousePos = new MouseScreenObjectState(CombatConsole, GameHost.Instance.Mouse).CellPosition;
+        public override void Input() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
                 Toggle();
             }
@@ -192,7 +168,7 @@ namespace LofiHollow.UI {
             }
         } 
 
-        public void CombatClick(string id) {
+        public override void UI_Clicks(string id) {
             if (id == "stance") {
                 GameLoop.World.Player.SwitchMeleeMode();
             }
@@ -299,18 +275,6 @@ namespace LofiHollow.UI {
                     Toggle();
                 }
             }
-        }
-
-        public void Toggle() {
-            if (CombatWindow.IsVisible) {
-                GameLoop.UIManager.selectedMenu = "None";
-                CombatWindow.IsVisible = false;
-                GameLoop.UIManager.Map.MapConsole.IsFocused = true;
-            } else {
-                GameLoop.UIManager.selectedMenu = "Combat"; 
-                CombatWindow.IsVisible = true;
-                CombatWindow.IsFocused = true;
-            }
-        }
+        } 
     }
 }

@@ -130,8 +130,8 @@ namespace LofiHollow.Minigames.Mining {
             player.Position = newPos;
             player.MineDepth = depth;
 
-            GameLoop.UIManager.Minigames.MinigameWindow.Title = Location + " Mine - Depth: " + (depth * -50);
-            GameLoop.UIManager.Minigames.MinigameWindow.TitleAlignment = SadConsole.HorizontalAlignment.Center;
+            GameLoop.UIManager.Minigames.Win.Title = Location + " Mine - Depth: " + (depth * -50);
+            GameLoop.UIManager.Minigames.Win.TitleAlignment = SadConsole.HorizontalAlignment.Center;
 
 
             if (refreshMap)

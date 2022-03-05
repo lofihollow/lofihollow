@@ -8,7 +8,7 @@ namespace LofiHollow.Entities.NPC {
     [JsonObject(MemberSerialization.OptIn)]
     public class NPC : Actor {
         [JsonProperty]
-        public int npcID;
+        public string Package;
         [JsonProperty]
         public NPCAi AI;
         [JsonProperty]
@@ -68,6 +68,10 @@ namespace LofiHollow.Entities.NPC {
             Appearance.Glyph = ActorGlyph; 
         }
 
+        public string FullName() {
+            return Package + ":" + Name;
+        }
+
         public void Update(bool newSchedule) {
             if (newSchedule || AI.Current == null) {
                 string season = GameLoop.World.Player.Clock.GetSeason();
@@ -118,7 +122,7 @@ namespace LofiHollow.Entities.NPC {
             if (PlayerOpinion <= 50)
                 return "Friendly";
 
-            if (PlayerOpinion <= 100)
+            if (PlayerOpinion < 100)
                 return "Close Friend";
 
             if (PlayerOpinion == 100)

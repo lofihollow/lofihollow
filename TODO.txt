@@ -1,33 +1,39 @@
-﻿MINIMUM SHIPPABLE REQUIREMENTS 
-- (SKIP FOR NOW) NPCs schedules 
-- Finish the main town
-- Double check all accessible overworld maps to make sure they're filled out properly 
-- Add all the crops
-- Add some fish
-- Finish NPC dialogues 
-- Finish all the signs
+﻿CURRENT TASK LIST
+- Fruit Catch Leaderboard
+- Make mouse-look show the tiles on lower z-levels instead of saying "space"
 
-Current Playable Minigames: (4)
+
+Current Playable Minigames: (8)
 - Fishing
 - Blacksmithing
 - Bartending
 - Mining
 - Lights Out
+- Fruit Catch
+- Relic Cleaning
+- Picross
 
-Current Activities: (3)
+Current Activities: (4)
 - Photography
 - Woodcutting
 - Construction
+- Archaeology
+
+
+Sliding Tile Puzzle minigame
+2048 puzzle clone as minigame
 
 
 Archaeology
-- Make a skill for it
-- Gain experience by cleaning skills
-- Require a certain level to clean each artifact
-- Unlock new tools at set levels
-- Make artifact spots spawn in the world
-- Appropriately dirt-ify artifacts when you dig them up
+- (DONE) Make a skill for it
+- (DONE) Gain experience by cleaning relics
+- (DONE) Require a certain level to clean some artifacts (from digsites?)
+- (DONE) Unlock new tools at set levels
+- (DONE) Make artifact spots spawn in the world
+- (DONE) Appropriately dirt-ify artifacts when you dig them up
 - Create a museum in town to display artifacts
+- (DONE) Attach the relic maker to the mod menu
+- Make like 20 relics to demonstrate
 
 
 Demo Mode: Play as much as you want, but only up to level 5 in any skill.
@@ -95,16 +101,21 @@ Cooking
 
 Farm Animals
 - Tools
-- - Brush: Improves relationship (Brushing minigame)
-- - Feed: Feeds animals
-- - Shears: Shear wool off sheep
+- - (DONE) Brush: Improves relationship (Brushing minigame)
+- - (DONE) Feed: Feeds animals
+- - (DONE) Shears: Shear wool off sheep
 - - Sponge: Clean animal (Cleaning minigame?)
-- - Add a butchering quality to knives, can be used to butcher any killed monster
-- Chickens - Lay eggs
-- Cows
-- Sheep - Can be sheared for wool
-- Pigs
-- Have to build a barn to have animals. Barn must be enclosed (solid walls and doors) and have one animal bed per animal
+- Chickens - Lay eggs at the start of each day
+- (DONE) Cows - Milkable (fix milk sprite)
+- (DONE) Sheep - Can be sheared for wool
+- (DONE) Pigs - Shearable for meat
+- (DONE) Cats and Dogs - No material benefit, just pets
+- - Add a few variants of cats/dogs
+- Allow capturing farm animals as soul photographs??
+- Animals leave poop around that has to be cleaned up
+- (DONE) Special pet bed that counts as furniture (can be placed in apartments while normal animal beds only on farm map)
+
+
 
 Fishing 
 - Upgraded fishing rods should be more stress resistant or reel in fish faster
@@ -141,8 +152,6 @@ Mod Support
 - WIP Sandbox to make changes or upload to workshop
 - Browse workshop mods in-game
 - Add UI buttons to pack/unpack
-
-Move Phoebe, William
 
 Farming
 - Seeds: only plantable in the correct season and only if you have a high enough farming level
@@ -192,18 +201,7 @@ NPCs
 - - - Cedar (Merchant)
 - - - Rose (Merchant)
 - - - Coral (Worker) 
-- Phoebe (Pet / summon shop owner)
-
-Map 
-- Primary small town
-- - Apothecary (Sells potions and potion ingredients)
-- - General Store (Sells general goods - seeds, food)
-- - Cemetary (Graves that act like signs)
-- - Library (Bookcases act like signs?)
-- - Clinic (Pay for healing) 
-- - Butcher (Buys meat from the player, sells common meats)
-- - Clothier (Sells cloth and clothing items)
-
+- Phoebe (Pet / summon shop owner) 
 
 ====================
 FUTURE UPDATE TARGETS
@@ -233,6 +231,11 @@ Minigames
 - - Yacht Dice
 - - Gomoku
 - - Shogi 
+- Casino Games?
+- - Roller Ball (skee-ball)
+- - Target shooting (Targets scroll across screen, fire arrows from bottom to try and hit the targets to earn points)
+- - Balloon shooting (ballons float up from bottom of screen, click on them before they float away to earn points)
+
 - Prop Hunt
 - Trouble in Terrorist Town?
 - Dead by Daylight clone (4v1, player on their own team plays as a monster)
@@ -244,20 +247,13 @@ Minigames
 - Text Adventure System
 - Water pipes flow thing?
 - Pinball
+- MonsterGrounds (name pending) - Grid of units, cards with commands to move them around on your turn. Play vs other players online, ranked queues?
 
 
 Conducts? - Keep a record of how many years/months/days you've gone without breaking the conduct
 - Vegan
 - Vegetarian
 - Pacifist (Never level up a combat stat)
-
-
-
-Cultivation
-- Also ability programming, but you can tie it to melee/ranged attacks
-- Trained via a meditation minigame with huge rewards every 10 levels.
-- Meditation minigame gives a base of 1 exp per cycle, increased in areas dense with spiritual energy
-- Skill is named "Meditation" until level 10, then changes to be named Cultivation after that
 
 
 
@@ -290,10 +286,13 @@ The Lore Update
 The Adventure Update
 - Unique puzzle mechanic for each dungeon
 - Boss fight at the end?
-- Tower dungeon
-- Lake dungeon
-- Tree-top forest
-- Dungeon underneath Noonbreeze
+- Sokoban Dungeon
+- Platformer Dungeon
+- Text Adventure Dungeon
+- Classic dungeon crawler RPG Dungeon (think Lands of Lore)
+- Point-and-click Adventure Dungeon
+- Roguelike dungeon (turn-based, tile-based, monsters roaming around)
+- Slay the Spire Dungeon (turn-based deckbuilder)
 
 
 The Urban Update
@@ -367,6 +366,9 @@ The Ocean Update
 - - Fish interact with eachother
 - - Fish happiness based on factors like being alone, being with others of its kind, tank decorations
 - - Tank decorations that the fish can interact with
+- - Variable liquid level
+- - Allow semi-aquatic pets in tanks (turtles, lizards, crabs, frogs)
+- Variable fish sizes, use a display like the artifacts
 
 
 The Dream Update
@@ -395,17 +397,15 @@ Cyberspace
 
 
 
-The Magic Update
-- Spellcrafting for Magic
-- - Nouns and verbs
-- - Combine one of each, get a set effect
-- - Slightly modify the effect via parameters (limited by magic level)
-- - Save currently prepared spells to hotbar
-- - Costs energy to use magic
-- - Create and Destroy can only be used in dungeons or maps you own
-- - Verbs: Create, Destroy
+The Cultivation Update
 - Alchemy: Minigame that involves mixing/altering potions to reach specific values, then fire the potion to get a finished product
- - Effects System
+- - Tons of procedurally generated plants/minerals/creature parts used for making potions
+- - Flexible recipe system - Specific things required for some, anything for others
+- - Variable efficacy: Alchemy skill determines how effective you can make elixirs, with most/low skill being very low efficacy
+- Physical Cultivation
+- - Meditate to improve self, able to grant bonuses to defense or attacks
+- - Foundation -> Core -> Nascent Soul -> Spirit Severing (or similar progression system)
+- Effects System
 - - Effect Delivery Structure: Name, ID, Duration in (Game) Minutes, List of all effects
 - - Effect Structure: Name, UI icon, UI RGB, Stat affected, modifier, 
  - Monster Corpses
@@ -424,6 +424,16 @@ Creepypasta Update
 - Blinking mechanic
 - Enemies that only move while you can't see them
 - Change field of vision into a cone that follows the mouse
+
+
+
+The Time Travel Update
+- A time machine that allows you to travel to future or past periods in time
+- Near-past: Near the founding of Noonbreeze
+- Near-future: Slightly more high-tech Noonbreeze area
+- Far-past: Dinosaurs?
+- Future: High-tech civ
+- Far-future: Largely uninhabited wasteland area
 
 
 

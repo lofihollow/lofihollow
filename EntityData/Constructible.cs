@@ -14,6 +14,8 @@ namespace LofiHollow.EntityData {
         [JsonProperty]
         public string Name = "";
         [JsonProperty]
+        public string Package = "";
+        [JsonProperty]
         public string Materials = "";
 
         [JsonProperty]
@@ -66,6 +68,10 @@ namespace LofiHollow.EntityData {
             }
 
             return output;
+        }
+
+        public string FullName() {
+            return Package + ":" + Name;
         }
     }
 }

@@ -1,6 +1,6 @@
 {
   "Name": "",
-  "npcID": 1,
+  "Package": "",
   "Occupation": "",
   "AI": {
     "SpringNormal": { },

@@ -1,5 +1,6 @@
 { 
   "Name": "Poplar Chair",
+  "Package": "lh",
   "Materials": "4x Poplar Planks, 16x Copper Nails",
   "Glyph": 273,
   "ForegroundR": 101,

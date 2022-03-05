@@ -9,47 +9,26 @@ using LofiHollow.DataTypes;
 using Steamworks;
 
 namespace LofiHollow.UI {
-    public class UI_Teleport {
-        public SadConsole.Console TeleportConsole;
-        public Window TeleportWindow;
-
+    public class UI_Teleport : Lofi_UI {
         public List<TeleportTarget> Targets = new();
 
-        public UI_Teleport(int width, int height, string title) {
-            TeleportWindow = new(width, height);
-            TeleportWindow.CanDrag = false;
-            TeleportWindow.Position = new(11, 6);
-
-            int invConWidth = width - 2;
-            int invConHeight = height - 2;
-
-            TeleportConsole = new(invConWidth, invConHeight);
-            TeleportConsole.Position = new(1, 1);
-            TeleportWindow.Title = title.Align(HorizontalAlignment.Center, invConWidth, (char)196);
+        public UI_Teleport(int width, int height, string title) : base(width, height, title, "Teleport") { }
 
 
-            TeleportWindow.Children.Add(TeleportConsole);
-            GameLoop.UIManager.Children.Add(TeleportWindow);
+        public override void Render() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
-            TeleportWindow.Show();
-            TeleportWindow.IsVisible = false;
-        }
+            Con.Clear();
 
-
-        public void RenderTeleports() {
-            Point mousePos = new MouseScreenObjectState(TeleportConsole, GameHost.Instance.Mouse).CellPosition;
-
-            TeleportConsole.Clear();
-
-            TeleportConsole.Print(0, 0, "Location".Align(HorizontalAlignment.Center, 40) + "|");
-            TeleportConsole.DrawLine(new Point(0, 1), new Point(69, 1), 196, Color.White);
+            Con.Print(0, 0, "Location".Align(HorizontalAlignment.Center, 40) + "|");
+            Con.DrawLine(new Point(0, 1), new Point(69, 1), 196, Color.White);
             for (int i = 0; i < Targets.Count; i++) {
-                TeleportConsole.Print(0, 2 + (i * 2), new ColoredString(Targets[i].Name.Align(HorizontalAlignment.Center, 40) + "|", Color.White, Color.Black) + new ColoredString(" [GO]", Targets[i].CanGo ? Color.Lime : Color.Red, Color.Black));
+                Con.Print(0, 2 + (i * 2), new ColoredString(Targets[i].Name.Align(HorizontalAlignment.Center, 40) + "|", Color.White, Color.Black) + new ColoredString(" [GO]", Targets[i].CanGo ? Color.Lime : Color.Red, Color.Black));
             }
         }
 
-        public void TeleportInput() {
-            Point mousePos = new MouseScreenObjectState(TeleportConsole, GameHost.Instance.Mouse).CellPosition;
+        public override void Input() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
                 Toggle("None");
             }
@@ -63,7 +42,7 @@ namespace LofiHollow.UI {
                             Map map = Helper.ResolveMap(Targets[slot].MapPos);
 
                             if (map != null && Targets[slot].CanGo) {
-                                GameLoop.World.Player.FlexibleMapMove(Targets[slot].Pos * 12, Targets[slot].MapPos, map);
+                                GameLoop.World.Player.FlexibleMapMove(Targets[slot].Pos, Targets[slot].MapPos, map);
                                 Toggle("None");
                             }
                         }
@@ -104,15 +83,15 @@ namespace LofiHollow.UI {
 
 
         public void Toggle(string where) {
-            if (TeleportWindow.IsVisible) {
+            if (Win.IsVisible) {
                 GameLoop.UIManager.selectedMenu = "None";
-                TeleportWindow.IsVisible = false;
+                Win.IsVisible = false;
                 GameLoop.UIManager.Map.MapConsole.IsFocused = true;
             } else {
                 GameLoop.UIManager.selectedMenu = "Teleport";
                 InitializeTeleports(where);
-                TeleportWindow.IsVisible = true;
-                TeleportWindow.IsFocused = true;
+                Win.IsVisible = true;
+                Win.IsFocused = true;
             }
         }
     }

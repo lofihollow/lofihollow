@@ -14,6 +14,7 @@ namespace LofiHollow.Managers {
         public double ReeledTime = 0;
         public double FishRunTime = 0;
         public int FishFightLeft = 0;
+        public int FishCalmLeft = 0;
 
         public void Render() {
             if (HookedFish != null) {
@@ -29,19 +30,51 @@ namespace LofiHollow.Managers {
 
 
         public void FishingDraw() {
-            GameLoop.UIManager.Minigames.MinigameConsole.DrawLine(new Point(0, 35), new Point(10, 35), 196, new Color(0, 127, 0));
-            GameLoop.UIManager.Minigames.MinigameConsole.DrawLine(new Point(11, 35), new Point(72, 35), '~', new Color(0, 94, 184));
-            GameLoop.UIManager.Minigames.MinigameConsole.Print(10, 34, GameLoop.World.Player.GetAppearance());
-            GameLoop.UIManager.Minigames.MinigameConsole.Print(11, 34, new ColoredString("/", new Color(110, 66, 33), Color.Black));
-            GameLoop.UIManager.Minigames.MinigameConsole.Print(12, 33, new ColoredString("/", new Color(110, 66, 33), Color.Black));
-            GameLoop.UIManager.Minigames.MinigameConsole.Print(13, 32, new ColoredString("/", new Color(110, 66, 33), Color.Black));
-            GameLoop.UIManager.Minigames.MinigameConsole.Print(FishDistance, 36, HookedFish.GetAppearance());
-            GameLoop.UIManager.Minigames.MinigameConsole.DrawLine(new Point(14, 32), new Point(FishDistance - 1, 36), '~', Color.White);
+            SadConsole.Console Mini = GameLoop.UIManager.Minigames.Con;
+            Mini.DrawLine(new Point(0, 35), new Point(10, 35), 196, new Color(0, 127, 0));
+            Mini.DrawLine(new Point(11, 35), new Point(72, 35), '~', new Color(0, 94, 184));
+            Mini.Print(10, 34, GameLoop.World.Player.GetAppearance());
+            Mini.Print(11, 34, new ColoredString("/", new Color(110, 66, 33), Color.Black));
+            Mini.Print(12, 33, new ColoredString("/", new Color(110, 66, 33), Color.Black));
+            Mini.Print(13, 32, new ColoredString("/", new Color(110, 66, 33), Color.Black));
+            Mini.Print(FishDistance, 36, HookedFish.GetAppearance());
+            Mini.DrawLine(new Point(14, 32), new Point(FishDistance - 1, 36), '~', Color.White);
 
-            GameLoop.UIManager.Minigames.MinigameConsole.Print(1, 1, "Line Stress: " + LineStress);
+            Mini.Print(1, 1, "Line Stress: " + LineStress);
+
+            if (FishFighting)
+                GameLoop.UIManager.Minigames.Con.Print(1, 2, "Fish is fighting!", Color.Red);
+            else
+                GameLoop.UIManager.Minigames.Con.Print(1, 2, "Reel now!", Color.Lime);
         }
 
         public void FishingInput() {
+            int fightChance = GameLoop.rand.Next(100) + 1;
+
+            if (FishRunTime + 100 <= SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) { 
+                FishRunTime = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                if (FishFightLeft > 0) {
+                    FishFightLeft--;
+                    if (FishFightLeft <= 0) {
+                        FishFighting = false;
+                        FishCalmLeft = HookedFish.FightLength / 2;
+                    }
+                } else if (FishCalmLeft > 0) {
+                    FishCalmLeft--;
+                }
+
+
+                if (FishFighting && !GameHost.Instance.Mouse.LeftButtonDown) { 
+                    FishDistance++;
+                }
+                else {
+                    if (fightChance < HookedFish.FightChance && FishCalmLeft == 0) {
+                        FishFighting = true;
+                        FishFightLeft = HookedFish.FightLength;
+                    }
+                }
+            }
+
             if (GameHost.Instance.Mouse.LeftButtonDown) {
                 if (ReeledTime + 100 > SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
                     return;
@@ -59,18 +92,6 @@ namespace LofiHollow.Managers {
                         LineStress = 0;
                 }
 
-                int fightChance = GameLoop.rand.Next(100) + 1;
-
-                if (fightChance < HookedFish.FightChance) {
-                    FishFighting = true;
-                    FishFightLeft = HookedFish.FightLength;
-                } else {
-                    FishFightLeft--;
-                    if (FishFightLeft <= 0) {
-                        FishFighting = false;
-                    }
-                }
-
                 if (FishDistance <= 13) {
                     FinishFishing(true);
                 }
@@ -79,21 +100,6 @@ namespace LofiHollow.Managers {
                     FinishFishing(false);
                 }
             } else {
-                int fightChance = GameLoop.rand.Next(100) + 1;
-
-                if (FishFighting) {
-                    if (FishRunTime + 100 > SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                        return;
-                    }
-                    FishRunTime = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-
-                    FishDistance++;
-                    FishFightLeft--;
-                } else if (fightChance < HookedFish.FightChance && !FishFighting) {
-                    FishFighting = true;
-                    FishFightLeft = HookedFish.FightLength;
-                }
-
                 if (FishDistance <= 13) {
                     FinishFishing(true);
                 }
@@ -104,11 +110,11 @@ namespace LofiHollow.Managers {
             }
         }
 
-        public void InitiateFishing(string Season, string Area, int CurrentTime, int FishingLevel) {
+        public void InitiateFishing(string Season, int CurrentTime, int FishingLevel, string WaterType) {
             List<FishDef> validFish = new();
 
             foreach (KeyValuePair<string, FishDef> kv in GameLoop.World.fishLibrary) {
-                if (kv.Value.CatchLocation.Contains(Area) || kv.Value.CatchLocation == "Any") {
+                if (kv.Value.CatchLocation.Contains(WaterType) || kv.Value.CatchLocation == "Any") {
                     if (kv.Value.Season.Contains(Season) || kv.Value.Season == "Any") {
                         if (kv.Value.EarliestTime < CurrentTime && kv.Value.LatestTime > CurrentTime) {
                             if (kv.Value.RequiredLevel <= FishingLevel) {
@@ -119,15 +125,26 @@ namespace LofiHollow.Managers {
                 }
             }
 
-            HookedFish = validFish[GameLoop.rand.Next(validFish.Count)]; 
-            FishDistance = 30;
-            LineStress = 0;
-            GameLoop.UIManager.Minigames.ToggleMinigame("Fishing");
+            if (validFish.Count > 0) {
+                HookedFish = validFish[GameLoop.rand.Next(validFish.Count)];
+                FishDistance = 30;
+                LineStress = 0;
+                GameLoop.UIManager.Minigames.ToggleMinigame("Fishing");
+            } else {
+                HookedFish = null;
+                GameLoop.UIManager.Map.MapConsole.ClearDecorators(GameLoop.UIManager.Sidebar.LocalLure.Position.X, GameLoop.UIManager.Sidebar.LocalLure.Position.Y, 1);
+                GameLoop.UIManager.Sidebar.LocalLure.Position = new Point(-1, -1);
+                GameLoop.UIManager.Sidebar.LocalLure.FishOnHook = false;
+                GameLoop.UIManager.Sidebar.LocalLure = new FishingLure();
+                GameLoop.UIManager.Minigames.CurrentGame = "None";
+
+                GameLoop.UIManager.AddMsg("You feel like nothing can be caught here.");
+            }
         }
 
         public void FinishFishing(bool success) {
             if (success) {
-                Item caughtFish = new(HookedFish.FishItemID);
+                Item caughtFish = new(HookedFish.FishItemID); 
 
                 int quality = GameLoop.rand.Next(HookedFish.MaxQuality) + 1;
                 int QualityCap = (int)Math.Floor((GameLoop.World.Player.Skills["Fishing"].Level + 1f) / 10f) + 1;
@@ -139,7 +156,7 @@ namespace LofiHollow.Managers {
                 GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 ColoredString caught = new("You caught a ", Color.Cyan, Color.Black);
                 caught += new ColoredString(HookedFish.Name, fore, Color.Black);
-                caught += new ColoredString(" !", Color.Cyan, Color.Black);
+                caught += new ColoredString("!", Color.Cyan, Color.Black);
 
                 GameLoop.UIManager.AddMsg(caught);
                 GameLoop.World.Player.Skills["Fishing"].GrantExp(HookedFish.GrantedExp);

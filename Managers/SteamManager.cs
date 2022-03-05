@@ -1,6 +1,7 @@
 ﻿using LofiHollow.DataTypes;
 using Steamworks;
 using System.Collections.Generic;
+using System.IO;
 
 namespace LofiHollow.Managers {
     public class SteamManager {
@@ -23,6 +24,7 @@ namespace LofiHollow.Managers {
                 BlacksmithingFind.Set(hSteamAPICall, FindBlacksmithingLB);
             }
         }
+        
 
         private void FindBlacksmithingLB(LeaderboardFindResult_t pCallback, bool failure) {
             if (pCallback.m_bLeaderboardFound == 0) {
@@ -66,6 +68,12 @@ namespace LofiHollow.Managers {
             }
 
             return false;
+        }
+
+        public void CreateWorkshopItem() {
+            if (Initialized) {
+                SteamAPICall_t CreateItem = SteamUGC.CreateItem(new AppId_t(1906540), EWorkshopFileType.k_EWorkshopFileTypeCommunity);
+            }
         }
 
         public HighscoreResult PostHighscore(string leaderboardName, int score) {

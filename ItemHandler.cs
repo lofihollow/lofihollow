@@ -42,6 +42,170 @@ namespace LofiHollow {
                     map.ToggleLock(Pos, MapPos);
                 }
 
+                if (item.ItemCat == "Inn Voucher") {
+                    GameLoop.World.Player.InnDays++;
+                    if (GameLoop.World.Player.InnDays == 1)
+                        GameLoop.UIManager.AddMsg(new ColoredString("You can sleep in the inn for a night!", Color.Lime, Color.Black));
+                    else
+                        GameLoop.UIManager.AddMsg(new ColoredString("You can sleep in the inn for " + GameLoop.World.Player.InnDays + " nights!", Color.Lime, Color.Black));
+                    ConsumeItem();
+                }
+
+                if (tile.AnimalBed == null && item.ItemCat == "AnimalBed") {
+                    if (Pos.X >= 1 && Pos.Y >= 1 && Pos.X < GameLoop.MapWidth && Pos.Y < GameLoop.MapHeight) {
+                        string location = map.MinimapTile.name;
+
+                        if (BuildManager.CanBuildHere(location, false)) {
+                            if (tile.Name.ToLower().Contains("floor") || tile.Name.ToLower().Contains("grass")) {
+                                map.GetTile(Pos).AnimalBed = new(Pos, GameLoop.World.Player.MapPos);
+                                map.GetTile(Pos).Name = "Animal Bed";
+                                map.GetTile(Pos).TileGlyph = 240;
+                                map.GetTile(Pos).ForegroundR = 165;
+                                map.GetTile(Pos).ForegroundG = 127;
+                                map.GetTile(Pos).ForegroundB = 0;
+                                map.GetTile(Pos).UpdateAppearance();
+                                ConsumeItem();
+
+                                NetMsg updateTile = new("updateTile", map.GetTile(Pos).ToByteArray());
+                                updateTile.SetFullPos(Pos, MapPos);
+                                GameLoop.SendMessageIfNeeded(updateTile, false, false);
+                            }
+                        }
+                    }
+                }
+
+                if (tile.AnimalBed == null && item.ItemCat == "PetBed") {
+                    if (Pos.X >= 1 && Pos.Y >= 1 && Pos.X < GameLoop.MapWidth && Pos.Y < GameLoop.MapHeight) {
+                        string location = map.MinimapTile.name;
+
+                        if (BuildManager.CanBuildHere(location, true)) {
+                            if (tile.Name.ToLower().Contains("floor") || tile.Name.ToLower().Contains("grass")) {
+                                map.GetTile(Pos).AnimalBed = new(Pos, GameLoop.World.Player.MapPos);
+                                map.GetTile(Pos).Name = "Pet Bed";
+                                map.GetTile(Pos).TileGlyph = 240;
+                                map.GetTile(Pos).ForegroundR = 134;
+                                map.GetTile(Pos).ForegroundG = 36;
+                                map.GetTile(Pos).ForegroundB = 42;
+                                map.GetTile(Pos).UpdateAppearance();
+                                ConsumeItem();
+
+                                NetMsg updateTile = new("updateTile", map.GetTile(Pos).ToByteArray());
+                                updateTile.SetFullPos(Pos, MapPos);
+                                GameLoop.SendMessageIfNeeded(updateTile, false, false);
+                            }
+                        }
+                    }
+                }
+
+                if (item.ItemCat == "Shears") {
+                    FarmAnimal animal = map.GetEntityAt<FarmAnimal>(Pos);
+                    if (animal != null) {
+                        if (animal.Shearable()) {
+                            animal.ShearedToday = true;
+                            CommandManager.AddItemToInv(GameLoop.World.Player, new(animal.ShearItem));
+
+                            Point bed = animal.RestSpot;
+                            NetMsg updateTile = new("updateTile", map.GetTile(bed).ToByteArray());
+                            updateTile.SetFullPos(bed, MapPos);
+                            GameLoop.SendMessageIfNeeded(updateTile, false, false);
+                        } else {
+                            if (animal.ShearItem == "")
+                                GameLoop.UIManager.AddMsg("The " + animal.Species + " can't be sheared.");
+                            else if (animal.ShearedToday)
+                                GameLoop.UIManager.AddMsg("You already sheared that " + animal.Species + " today!");
+                            else if (animal.Age < animal.AdultAge)
+                                GameLoop.UIManager.AddMsg("The " + animal.Species + " isn't old enough to be sheared.");
+                            else if (animal.Happiness < 50)
+                                GameLoop.UIManager.AddMsg("The " + animal.Species + " isn't happy enough to be sheared."); 
+                        }
+                    }
+                }
+
+                if (item.ItemCat == "MilkBucket") {
+                    FarmAnimal animal = map.GetEntityAt<FarmAnimal>(Pos);
+                    if (animal != null) {
+                        if (animal.Milkable()) {
+                            animal.MilkedToday = true;
+                            CommandManager.AddItemToInv(GameLoop.World.Player, new(animal.MilkItem));
+
+                            Point bed = animal.RestSpot;
+                            NetMsg updateTile = new("updateTile", map.GetTile(bed).ToByteArray());
+                            updateTile.SetFullPos(bed, MapPos);
+                            GameLoop.SendMessageIfNeeded(updateTile, false, false);
+                        }
+                        else {
+                            if (animal.MilkItem == "")
+                                GameLoop.UIManager.AddMsg("The " + animal.Species + " can't be milked.");
+                            else if (animal.MilkedToday)
+                                GameLoop.UIManager.AddMsg("You already milked that " + animal.Species + " today!");
+                            else if (animal.Age < animal.AdultAge)
+                                GameLoop.UIManager.AddMsg("The " + animal.Species + " isn't old enough to be milked.");
+                            else if (animal.Happiness < 50)
+                                GameLoop.UIManager.AddMsg("The " + animal.Species + " isn't happy enough to be milked.");
+                        }
+                    }
+                }
+
+                if (item.ItemCat == "Animal") {
+                    if (tile.AnimalBed != null && tile.AnimalBed.Animal == null && tile.Name == "Animal Bed") {
+                        map.GetTile(Pos).AnimalBed.Animal = item.SpawnAnimal.GetAnimal(Pos);
+                        map.GetTile(Pos).AnimalBed.SpawnAnimal();
+
+                        NetMsg updateTile = new("updateTile", map.GetTile(Pos).ToByteArray());
+                        updateTile.MiscString1 = "SpawnAnimal";
+                        updateTile.SetFullPos(Pos, MapPos);
+                        GameLoop.SendMessageIfNeeded(updateTile, false, false);
+
+                        ConsumeItem();
+                    } 
+                }
+
+                if (item.ItemCat == "Pet") {
+                    if (tile.AnimalBed != null && tile.AnimalBed.Animal == null && tile.Name == "Pet Bed") {
+                        map.GetTile(Pos).AnimalBed.Animal = item.SpawnAnimal.GetAnimal(Pos);
+                        map.GetTile(Pos).AnimalBed.SpawnAnimal();
+
+                        NetMsg updateTile = new("updateTile", map.GetTile(Pos).ToByteArray());
+                        updateTile.MiscString1 = "SpawnAnimal";
+                        updateTile.SetFullPos(Pos, MapPos);
+                        GameLoop.SendMessageIfNeeded(updateTile, false, false);
+
+                        ConsumeItem();
+                    } 
+                }
+
+                if (map.GetEntityAt<FarmAnimal>(Pos) != null) {
+                    FarmAnimal spot = map.GetEntityAt<FarmAnimal>(Pos);
+                    if (item.ItemCat == "NameTag" && item.Name != "Name Tag") {
+                        spot.Nickname = item.Name;
+                        spot.Name = spot.Nickname;
+                        GameLoop.UIManager.AddMsg(new ColoredString("You named the " + spot.Species + " '" + spot.Nickname + "'!", Color.Lime, Color.Black));
+                        ConsumeItem(); 
+                    }
+                    else if (item.ItemCat == "PetChow" && !spot.FedToday && spot.Pet) {
+                        spot.FedToday = true;
+                        if (spot.Nickname != spot.Species)
+                            GameLoop.UIManager.AddMsg(new ColoredString("You feed " + spot.Nickname + ". They seem content.", Color.Lime, Color.Black));
+                        else
+                            GameLoop.UIManager.AddMsg(new ColoredString("You feed the " + spot.Nickname + ". They seem content.", Color.Lime, Color.Black));
+                        ConsumeItem();
+                    }
+                    else if (item.ItemCat == "AnimalFeed" && !spot.FedToday && !spot.Pet) {
+                        spot.FedToday = true;
+                        if (spot.Nickname != spot.Species)
+                            GameLoop.UIManager.AddMsg(new ColoredString("You feed " + spot.Nickname + ". They seem content.", Color.Lime, Color.Black));
+                        else
+                            GameLoop.UIManager.AddMsg(new ColoredString("You feed the " + spot.Nickname + ". They seem content.", Color.Lime, Color.Black));
+                        ConsumeItem();
+                    }
+                    else if (item.ItemCat == "Brush" && !spot.BrushedToday) {
+                        spot.Brush();
+                    }
+                    else if (!spot.PattedToday) {
+                        spot.Pat();
+                    }
+                }
+
                 if (item.Name == "Copper Coin" && !GameLoop.UIManager.Sidebar.MadeCoinThisFrame) {
                     GameLoop.World.Player.CopperCoins++;
                     ConsumeItem();
@@ -80,14 +244,21 @@ namespace LofiHollow {
                             }
                         }
 
-                        ArchArtifact rand = possible[GameLoop.rand.Next(possible.Count)];
+                        ArchArtifact rand = new(possible[GameLoop.rand.Next(possible.Count)]); 
 
                         Item artItem = new("lh:Unknown Relic");
                         artItem.Artifact = rand;
                         artItem.Artifact.SetStats(artItem);
+                        artItem.Artifact.Dirtify(false);
+                        artItem.Artifact.Weather(7);
                         CommandManager.AddItemToInv(GameLoop.World.Player, artItem);
                         map.SetTile(Pos, new Tile("lh:Grass"));
                     }
+                }
+
+                if (item.Artifact != null && GameLoop.World.Player.Skills.ContainsKey("Archaeology") && GameLoop.World.Player.Skills["Archaeology"].Level >= item.Artifact.RequiredLevel) {
+                    GameLoop.UIManager.Minigames.ArchCleaning.Current = item;
+                    GameLoop.UIManager.Minigames.ToggleMinigame("ArchCleaning");
                 }
 
                 if (item.ItemCat == "Hammer") {
@@ -583,10 +754,12 @@ namespace LofiHollow {
                             GameLoop.World.Player.ExpendStamina(1);
                             wrap.Position = new Point(-1, -2);
                         } else if (GameLoop.UIManager.Sidebar.LocalLure.FishOnHook) {
+                            Tile tile = map.GetTile(Pos);
+
                             GameLoop.UIManager.Minigames.FishingManager.InitiateFishing(GameLoop.World.Player.Clock.GetSeason(),
-                            GameLoop.World.maps[GameLoop.World.Player.MapPos].MinimapTile.name,
                             GameLoop.World.Player.Clock.GetCurrentTime(),
-                            GameLoop.World.Player.Skills["Fishing"].Level);
+                            GameLoop.World.Player.Skills["Fishing"].Level,
+                            tile.MiscString);
                             GameLoop.World.Player.ExpendStamina(1);
                         } else {
                             GameLoop.UIManager.Map.MapConsole.ClearDecorators(GameLoop.UIManager.Sidebar.LocalLure.Position.X, GameLoop.UIManager.Sidebar.LocalLure.Position.Y, 1);
@@ -614,12 +787,50 @@ namespace LofiHollow {
         }
 
         public static void RightClickItem(Item item, Point Pos, Point3D MapPos, int distance) {
-            if (item.ItemCat == "Hammer") {
-                GameLoop.UIManager.Construction.ToggleConstruction();
-            }
+            Map map = Helper.ResolveMap(MapPos);
 
-            if (item.LeftClickScript != "") {
-                GameLoop.ScriptManager.SetupScript(item.RightClickScript);
+            if (map != null) {
+                Tile tile = map.GetTile(Pos);
+
+                if (tile != null) { 
+                    if (item.ItemCat == "Hammer") {
+                        GameLoop.UIManager.Construction.Toggle();
+                    }
+
+                    else if (item.Name == "(EMPTY)") { 
+                        if (tile.Name == "Pet Bed" && tile.AnimalBed != null && tile.AnimalBed.Animal != null) {
+                            map.Entities.Remove(tile.AnimalBed.Animal); 
+                            GameLoop.UIManager.Map.EntityRenderer.Remove(tile.AnimalBed.Animal);
+
+                            Item packed = tile.AnimalBed.Animal.ToItem("Pet");
+                            CommandManager.AddItemToInv(GameLoop.World.Player, packed);
+
+                            tile.AnimalBed.Animal = null;
+                            GameLoop.UIManager.Map.SyncMapEntities(map);
+                        }
+
+                        else if (tile.Name == "Animal Bed" && tile.AnimalBed != null && tile.AnimalBed.Animal != null) {
+                            map.Entities.Remove(tile.AnimalBed.Animal);
+                            GameLoop.UIManager.Map.EntityRenderer.Remove(tile.AnimalBed.Animal);
+                              
+                            Item packed = tile.AnimalBed.Animal.ToItem("Animal");
+                            
+                            CommandManager.AddItemToInv(GameLoop.World.Player, packed);
+
+                            tile.AnimalBed.Animal = null;
+                            GameLoop.UIManager.Map.SyncMapEntities(map);
+                        }
+                    } 
+
+                    else if (item.ItemCat == "NameTag") {
+                        GameLoop.UIManager.Nametag.Toggle();
+                        GameLoop.UIManager.Nametag.current = item;
+                    }
+
+                    else if (item.LeftClickScript != "") {
+                        GameLoop.ScriptManager.SetupScript(item.RightClickScript);
+                    }
+                }
             }
         } 
     }

@@ -55,18 +55,21 @@ namespace LofiHollow.UI {
         }
 
         public void SidebarInput() { 
+            
+            
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F11)) {
                 if (GameLoop.UIManager.selectedMenu == "Map Editor") {
                     GameLoop.UIManager.selectedMenu = "None";
                 } else {
                     GameLoop.UIManager.selectedMenu = "Map Editor";
                 }
-            }
+            } 
 
             if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
                 if (hotbarSelect + 1 < GameLoop.World.Player.Inventory.Length)
                     hotbarSelect++;
-            } else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
+            } 
+            else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
                 if (hotbarSelect > 0)
                     hotbarSelect--;
             }
@@ -422,8 +425,7 @@ namespace LofiHollow.UI {
                     SidebarConsole.Print(0, 8, "Combat Level: " + GameLoop.World.Player.CombatLevel);
 
                     if (GameLoop.World.Player.Clock != null) {
-                        SidebarConsole.Print(8, 0, time);
-                        SidebarConsole.Print(14, 0, GameLoop.World.Player.Clock.AM ? "AM" : "PM");
+                        SidebarConsole.Print(11, 0, time); 
                         SidebarConsole.Print(8, 1, (months[GameLoop.World.Player.Clock.Month - 1] + " " + GameLoop.World.Player.Clock.Day).Align(HorizontalAlignment.Right, 8));
                         SidebarConsole.Print(9, 2, ("Year " + GameLoop.World.Player.Clock.Year).Align(HorizontalAlignment.Right, 7));
                     }
@@ -457,6 +459,17 @@ namespace LofiHollow.UI {
                                     foreach (KeyValuePair<Steamworks.CSteamID, Player> kv in GameLoop.World.otherPlayers) {
                                         if (kv.Value.Position == mouseOverMap && kv.Value.MapPos == GameLoop.World.Player.MapPos) {
                                             PeopleOnTile.Add(kv.Value);
+                                        }
+                                    }
+
+                                    Map thisMap = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+                                    if (thisMap != null) {
+                                        foreach (Entity ent in thisMap.Entities.Items) {
+                                            if (ent is FarmAnimal ani) {
+                                                if (ani.Position == mouseOverMap) {
+                                                    PeopleOnTile.Add(ani); 
+                                                }
+                                            }
                                         }
                                     }
 

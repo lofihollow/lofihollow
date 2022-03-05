@@ -67,6 +67,7 @@ namespace LofiHollow.Minigames.Jobs {
             Score = 0;
             Timer = 61;
             DisplayingScore = false;
+            WrapUp();
         }
 
         public void Resync() {
@@ -75,9 +76,9 @@ namespace LofiHollow.Minigames.Jobs {
             for (int i = 0; i < drinks.Count; i++)
                 Renderer.Add(drinks[i]);
 
-            GameLoop.UIManager.Minigames.MinigameConsole.SadComponents.Remove(Renderer);
-            GameLoop.UIManager.Minigames.MinigameConsole.SadComponents.Add(Renderer);
-            GameLoop.UIManager.Minigames.MinigameConsole.ForceRendererRefresh = true;
+            GameLoop.UIManager.Minigames.Con.SadComponents.Remove(Renderer);
+            GameLoop.UIManager.Minigames.Con.SadComponents.Add(Renderer);
+            GameLoop.UIManager.Minigames.Con.ForceRendererRefresh = true;
         }
 
         public void WrapUp() { 
@@ -88,8 +89,8 @@ namespace LofiHollow.Minigames.Jobs {
         }
 
         public override void Draw() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
-            Console Mini = GameLoop.UIManager.Minigames.MinigameConsole;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
+            Console Mini = GameLoop.UIManager.Minigames.Con;
 
 
             Mini.Print(0, 0, Timer.ToString().Align(HorizontalAlignment.Center, 70));
@@ -120,8 +121,8 @@ namespace LofiHollow.Minigames.Jobs {
                     }
                 }
 
-                if (!GameLoop.UIManager.Minigames.MinigameConsole.SadComponents.Contains(Renderer))
-                    GameLoop.UIManager.Minigames.MinigameConsole.SadComponents.Add(Renderer);
+                if (!GameLoop.UIManager.Minigames.Con.SadComponents.Contains(Renderer))
+                    GameLoop.UIManager.Minigames.Con.SadComponents.Add(Renderer);
 
                 Mini.Print(48, 36, "POWER: [");
                 for (int i = 10; i > 0; i--) {
@@ -223,8 +224,9 @@ namespace LofiHollow.Minigames.Jobs {
         } 
 
         public override void Input() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
+                Reset();
                 Close();
             }
 

@@ -3,6 +3,7 @@ using SadConsole;
 using SadRogue.Primitives;
 using System; 
 using LofiHollow.DataTypes;
+using System.Collections.Generic;
 
 namespace LofiHollow.Entities {
     [JsonObject(MemberSerialization.OptIn)]
@@ -57,9 +58,39 @@ namespace LofiHollow.Entities {
                         Tile tile = map.GetTile(cellPos);
                         if (tile.Name == "Water" || tile.Name == "Shallow Water") {
                             if (GameLoop.rand.Next(100) == 1) {
-                                FishOnHook = true;
-                                GameLoop.UIManager.AddMsg(new ColoredString("Something is on the hook!", Color.Yellow, Color.Black));
-                                TimeHooked = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                                List<FishDef> validFish = new();
+                                string WaterType = tile.MiscString;
+                                string Season = GameLoop.World.Player.Clock.GetSeason();
+                                int CurrentTime = GameLoop.World.Player.Clock.GetCurrentTime();
+                                int FishingLevel = GameLoop.World.Player.Skills.ContainsKey("Fishing") ? GameLoop.World.Player.Skills["Fishing"].Level : 1;
+
+                                foreach (KeyValuePair<string, FishDef> kv in GameLoop.World.fishLibrary) {
+                                    if (kv.Value.CatchLocation.Contains(WaterType) || kv.Value.CatchLocation == "Any") {
+                                        if (kv.Value.Season.Contains(Season) || kv.Value.Season == "Any") {
+                                            if (kv.Value.EarliestTime < CurrentTime && kv.Value.LatestTime > CurrentTime) {
+                                                if (kv.Value.RequiredLevel <= FishingLevel) {
+                                                    validFish.Add(kv.Value);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (validFish.Count > 0) {
+                                    FishOnHook = true;
+                                    GameLoop.UIManager.AddMsg(new ColoredString("Something is on the hook!", Color.Yellow, Color.Black));
+                                    TimeHooked = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                                }
+                                else {
+                                    GameLoop.UIManager.Minigames.FishingManager.HookedFish = null;
+                                    GameLoop.UIManager.Map.MapConsole.ClearDecorators(GameLoop.UIManager.Sidebar.LocalLure.Position.X, GameLoop.UIManager.Sidebar.LocalLure.Position.Y, 1);
+                                    GameLoop.UIManager.Sidebar.LocalLure.Position = new Point(-1, -1);
+                                    GameLoop.UIManager.Sidebar.LocalLure.FishOnHook = false;
+                                    GameLoop.UIManager.Sidebar.LocalLure = new FishingLure();
+                                    GameLoop.UIManager.Minigames.CurrentGame = "None";
+
+                                    GameLoop.UIManager.AddMsg("You feel like nothing can be caught here.");
+                                }
                             }
                         }
                     }

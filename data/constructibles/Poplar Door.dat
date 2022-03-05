@@ -1,5 +1,6 @@
 {
   "Name": "Poplar Door",
+  "Package": "lh",
   "Materials": "2x Poplar Planks, 8x Copper Nails",
   "SpecialProps": "door",
   "Glyph": 24,

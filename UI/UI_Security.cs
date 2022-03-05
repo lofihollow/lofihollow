@@ -11,79 +11,58 @@ using System.Linq;
 using Steamworks;
 
 namespace LofiHollow.UI {
-    public class UI_Security {
-        public SadConsole.Console SecurityConsole;
-        public Window SecurityWindow;
-        public Apartment Current;
-
+    public class UI_Security : Lofi_UI { 
+        public Apartment Current; 
         public List<TeleportTarget> Targets = new();
 
-        public UI_Security(int width, int height, string title) {
-            SecurityWindow = new(width, height);
-            SecurityWindow.CanDrag = true;
-            SecurityWindow.Position = new(11, 6);
-
-            int invConWidth = width - 2;
-            int invConHeight = height - 2;
-
-            SecurityConsole = new(invConWidth, invConHeight);
-            SecurityConsole.Position = new(1, 1);
-            SecurityWindow.Title = title.Align(HorizontalAlignment.Center, invConWidth, (char)196);
+        public UI_Security(int width, int height, string title) : base(width, height, title, "Security") { }
 
 
-            SecurityWindow.Children.Add(SecurityConsole);
-            GameLoop.UIManager.Children.Add(SecurityWindow);
+        public override void Render() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
-            SecurityWindow.Show();
-            SecurityWindow.IsVisible = false;
-        }
-
-
-        public void RenderSecurity() {
-            Point mousePos = new MouseScreenObjectState(SecurityConsole, GameHost.Instance.Mouse).CellPosition;
-
-            SecurityConsole.Clear();
+            Con.Clear();
 
             if (Current != null) {
                 ColoredString whitelist = new ColoredString(4.AsString(), Color.Lime, Color.Black); 
                 if (!Current.Whitelist)
                     whitelist = new ColoredString("x", Color.Red, Color.Black);
-                SecurityConsole.Print(1, 0, "Whitelist: " + whitelist);
+                Con.Print(1, 0, "Whitelist: " + whitelist);
 
                 ColoredString guestsout = new ColoredString(4.AsString(), Color.Lime, Color.Black);
                 if (!Current.GuestsAllowedWhileOut)
                     guestsout = new ColoredString("x", Color.Red, Color.Black);
-                SecurityConsole.Print(20, 0, "Guests (while out): " + guestsout);
+                Con.Print(20, 0, "Guests (while out): " + guestsout);
 
                 ColoredString guestsin = new ColoredString(4.AsString(), Color.Lime, Color.Black);
                 if (!Current.GuestsAllowedWhileIn)
                     guestsin = new ColoredString("x", Color.Red, Color.Black);
-                SecurityConsole.Print(45, 0, "Guests (while home): " + guestsin);
+                Con.Print(45, 0, "Guests (while home): " + guestsin);
 
                 int y = 4;
 
-                SecurityConsole.Print(1, 2, "Connected Players");
+                Con.Print(1, 2, "Connected Players");
                 foreach(KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
                     if (!Current.AllowedGuests.Contains(kv.Key)) {
-                        SecurityConsole.Print(1, y, new ColoredString(kv.Value.Name.Align(HorizontalAlignment.Left, 20)) + Helper.HoverColoredString(12.AsString(), mousePos == new Point(21, y)));
+                        Con.Print(1, y, new ColoredString(kv.Value.Name.Align(HorizontalAlignment.Left, 20)) + Helper.HoverColoredString(12.AsString(), mousePos == new Point(21, y)));
                         y++;
                     }
                 }
 
-                SecurityConsole.DrawLine(new Point(0, 3), new Point(79, 3), 196, Color.White);
-                SecurityConsole.DrawLine(new Point(22, 2), new Point(22, 39), 179, Color.White);
+                Con.DrawLine(new Point(0, 3), new Point(79, 3), 196, Color.White);
+                Con.DrawLine(new Point(22, 2), new Point(22, 39), 179, Color.White);
 
-                SecurityConsole.Print(24, 2, "Guest List");
+                Con.Print(24, 2, "Guest List");
                 for (int i = 0; i < Current.AllowedGuests.Count; i++) {
                     string name = Helper.ResolveName(Current.AllowedGuests[i]);
-                    SecurityConsole.Print(23, 4 + i, 11.AsString(), mousePos == new Point(23, 4+i) ? Color.Yellow : Color.White);
-                    SecurityConsole.Print(25, 4 + i, name.Align(HorizontalAlignment.Left, 40));
+                    Con.Print(23, 4 + i, 11.AsString(), mousePos == new Point(23, 4+i) ? Color.Yellow : Color.White);
+                    Con.Print(25, 4 + i, name.Align(HorizontalAlignment.Left, 40));
                 }
             }
         }
 
-        public void SecurityInput() {
-            Point mousePos = new MouseScreenObjectState(SecurityConsole, GameHost.Instance.Mouse).CellPosition;
+        public override void Input() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
                 Toggle("None");
             }
@@ -131,9 +110,9 @@ namespace LofiHollow.UI {
         }
 
         public void Toggle(string which) {
-            if (SecurityWindow.IsVisible) {
+            if (Win.IsVisible) {
                 GameLoop.UIManager.selectedMenu = "None";
-                SecurityWindow.IsVisible = false;
+                Win.IsVisible = false;
                 GameLoop.UIManager.Map.MapConsole.IsFocused = true;
             } else {
                 GameLoop.UIManager.selectedMenu = "Security";
@@ -141,8 +120,8 @@ namespace LofiHollow.UI {
                 if (which == "Noonbreeze")
                     Current = GameLoop.World.Player.NoonbreezeApt;
 
-                SecurityWindow.IsVisible = true;
-                SecurityWindow.IsFocused = true;
+                Win.IsVisible = true;
+                Win.IsFocused = true;
             }
         }
     }

@@ -77,6 +77,8 @@ namespace LofiHollow.DataTypes {
         public Equipment Stats;
         [JsonProperty]
         public ArchArtifact Artifact;
+        [JsonProperty]
+        public SpawnAnimal SpawnAnimal;
 
         [JsonProperty]
         public int ForegroundR = 0;
@@ -129,6 +131,7 @@ namespace LofiHollow.DataTypes {
                 SoulPhoto = temp.SoulPhoto;
                 Stats = temp.Stats;
                 Artifact = temp.Artifact;
+                SpawnAnimal = temp.SpawnAnimal;
 
                 ForegroundR = temp.ForegroundR; 
                 ForegroundG = temp.ForegroundG; 
@@ -182,6 +185,7 @@ namespace LofiHollow.DataTypes {
             SoulPhoto = temp.SoulPhoto;
             Stats = temp.Stats;
             Artifact = temp.Artifact;
+            SpawnAnimal = temp.SpawnAnimal;
 
             if (Name == "(EMPTY)") {
                 ItemQuantity = 0;

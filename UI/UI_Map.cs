@@ -56,12 +56,11 @@ namespace LofiHollow.UI {
 
         }
 
-        public void LoadMap(Map map) {
+        public void LoadMap(Map map, bool tryRelic = true) {
             bool SpawnRelicSpot = false;
 
-            if (GameLoop.World.Player.MapPos.WorldArea == "Overworld") {
+            if (GameLoop.World.Player.MapPos.WorldArea == "Overworld" && tryRelic) {
                 SpawnRelicSpot = true;
-                GameLoop.UIManager.AddMsg("Can spawn relic");
             }
 
             for (int i = 0; i < map.Tiles.Length; i++) {
@@ -70,11 +69,10 @@ namespace LofiHollow.UI {
 
 
 
-                if (GameLoop.World.Player.MapPos.WorldArea == "Overworld" && SpawnRelicSpot && GameLoop.rand.Next(1000) == 0 && map.Tiles[i].Name == "Grass") {
+                if (GameLoop.World.Player.MapPos.WorldArea == "Overworld" && SpawnRelicSpot && GameLoop.rand.Next(10000) == 0 && map.Tiles[i].Name == "Grass") {
                     SpawnRelicSpot = false;
                     map.Tiles[i] = new("lh:Relic Spot");
-                    GameLoop.UIManager.AddMsg("Spawned relic");
-
+                    LoadMap(map, false);
                 }
             }
 
@@ -87,45 +85,11 @@ namespace LofiHollow.UI {
             SyncMapEntities(map);
         }
 
-        public void LoadMap(Point3D pos) { 
+        public void LoadMap(Point3D pos, bool tryRelic = true) { 
             Map map = Helper.ResolveMap(pos);
 
-            bool SpawnRelicSpot = false;
-
-            if (pos.WorldArea == "Overworld") {
-                SpawnRelicSpot = true;
-                GameLoop.UIManager.AddMsg("Can spawn relic");
-            }
-
             if (map != null) {
-                for (int i = 0; i < map.Tiles.Length; i++) {
-                    map.Tiles[i].Unshade();
-                    map.Tiles[i].IsVisible = false;
-
-
-                    if (map.Tiles[i].Plant != null) {
-                        if (!map.Tiles[i].Plant.WateredToday) {
-                            MapConsole.SetEffect(i, new CustomBlink(168, Color.Blue));
-                        }
-                    }
-                    else {
-                        MapConsole.SetEffect(i, null);
-                    }
-
-                    if (pos.WorldArea == "Overworld" && SpawnRelicSpot && GameLoop.rand.Next(1000) == 0 && map.Tiles[i].Name == "Grass") {
-                        SpawnRelicSpot = false;
-                        map.Tiles[i] = new("lh:Relic Spot");
-                        GameLoop.UIManager.AddMsg("Spawned relic");
-                    }
-                }
-
-                MapConsole.Surface = new CellSurface(GameLoop.MapWidth, GameLoop.MapHeight, map.Tiles);
-                MapWindow.Title = map.MinimapTile.name.Align(HorizontalAlignment.Center, GameLoop.MapWidth - 2, (char)196);
-
-
-                LightMap = new GoRogue.SenseMapping.SenseMap(map.LightRes);
-                LightMap.Calculate();
-                SyncMapEntities(map);
+                LoadMap(map, tryRelic);
             }
         }
 

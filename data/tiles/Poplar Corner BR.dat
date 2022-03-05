@@ -1,0 +1,19 @@
+{
+  "Name": "Poplar Wall BR",
+  "Package": "lh",
+  "IsBlockingMove": true,
+  "IsBlockingLOS": true,
+  "MiscString": "",
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "TileGlyph": 188,
+  "LightBlocked": 1.0,
+  "ExposedToSky": false,
+  "EmitsLight": null,
+  "Dec": null,
+  "Lock": null,
+  "Container": null,
+  "Plant": null,
+  "SkillableTile": null
+}

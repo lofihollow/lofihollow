@@ -137,7 +137,7 @@ namespace LofiHollow.Entities {
         }
 
         public bool MoveBy(Point positionChange) {
-            Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+            Map map = Helper.ResolveMap(MapPos);
 
             if (map != null) {
                 Point newPosition = Position + positionChange; 
@@ -442,8 +442,17 @@ namespace LofiHollow.Entities {
                         GameLoop.World.Player.Clock.NextDay(true);
                     } else {
                         GameLoop.UIManager.AddMsg(new ColoredString("You blacked out!", Color.Red, Color.Black));
-                        MoveTo(new Point(35, 6), new Point3D(0, 0, 0));
+                        MoveTo(new Point(18, 26), new Point3D(1, 1, 0));
                         CurrentStamina = 0;
+                        CurrentHP -= 10;
+                        if (CurrentHP <= 0) {
+                            if (this is Player play) {
+                                play.PlayerDied();
+                            }
+                            else {
+                                Death();
+                            }
+                        }
                     }
                 }
             }

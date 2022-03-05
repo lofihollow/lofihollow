@@ -6,6 +6,7 @@ using SadRogue.Primitives;
 using System.Collections.Generic;
 using LofiHollow.DataTypes;
 using Steamworks;
+using System;
 
 namespace LofiHollow.Managers {
     [JsonObject(MemberSerialization.OptIn)]
@@ -19,9 +20,7 @@ namespace LofiHollow.Managers {
         [JsonProperty]
         public int Day = 1;
         [JsonProperty]
-        public int Year = 1;
-        [JsonProperty]
-        public bool AM = true;
+        public int Year = 1; 
 
         public string GetSeason() {
             if (Month == 1) { return "Spring"; } 
@@ -45,15 +44,13 @@ namespace LofiHollow.Managers {
             DailyUpdates();
 
             if (passedOut) {
-                Hours = 9;
-                AM = true;
+                Hours = 9; 
                 Minutes = 0;
 
                 GameLoop.UIManager.AddMsg(new ColoredString("You passed out!", Color.Red, Color.Black));
             } else {
                 Hours = 6;
-                Minutes = 0;
-                AM = true;
+                Minutes = 0; 
 
                 GameLoop.UIManager.AddMsg(new ColoredString("You sleep through the night.", Color.Lime, Color.Black));
             }
@@ -63,8 +60,8 @@ namespace LofiHollow.Managers {
             GameLoop.SendMessageIfNeeded(newDay, false, false);
 
             GameLoop.World.Player.Sleeping = false;
-            GameLoop.World.Player.CurrentHP = GameLoop.World.Player.MaxHP;
-            GameLoop.World.Player.CurrentStamina = GameLoop.World.Player.MaxStamina;
+            GameLoop.World.Player.CurrentHP = passedOut ? GameLoop.World.Player.CurrentHP : GameLoop.World.Player.MaxHP;
+            GameLoop.World.Player.CurrentStamina = passedOut ? Math.Max(GameLoop.World.Player.CurrentStamina, GameLoop.World.Player.MaxStamina / 2) : GameLoop.World.Player.MaxStamina;
 
             foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
                 kv.Value.CurrentHP = kv.Value.MaxHP;
@@ -89,6 +86,124 @@ namespace LofiHollow.Managers {
             GameLoop.World.Player.feed_meticulous2 = false;
             GameLoop.World.Player.feed_ocd = false;
 
+            Map farm = Helper.ResolveMap(new Point3D("Overworld", -1, 0, 0));
+            List<FarmAnimal> died = new();
+
+            if (farm != null) {
+                foreach (Entity ent in farm.Entities.Items) {
+                    if (ent is FarmAnimal farmAnimal) {
+                        if (!farmAnimal.FedToday) {
+                            farmAnimal.Happiness -= 50;
+
+                            if (farmAnimal.Happiness <= 0) {
+                                farmAnimal.Happiness = 0;
+                                if (!farmAnimal.Sick) {
+                                    farmAnimal.Sick = true;
+                                } else {
+                                    if (GameLoop.rand.Next(2) == 1) {
+                                        died.Add(farmAnimal);
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (int i = 0; i < died.Count; i++) {
+                    farm.GetTile(died[i].RestSpot).AnimalBed.Animal = null;
+                    farm.Entities.Remove(died[i]);
+                    GameLoop.UIManager.Map.EntityRenderer.Remove(died[i]);
+                    GameLoop.UIManager.AddMsg(died[i].Nickname + " passed away due to sickness.");
+                }
+            }
+
+
+            if (GameLoop.World.Player.NoonbreezeApt != null) {
+                Map apt = GameLoop.World.Player.NoonbreezeApt.map;
+                List<FarmAnimal> aptDied = new();
+
+                if (apt != null) {
+                    foreach (Entity ent in apt.Entities.Items) {
+                        if (ent is FarmAnimal farmAnimal) {
+                            if (!farmAnimal.FedToday) {
+                                farmAnimal.Happiness -= 50;
+
+                                if (farmAnimal.Happiness <= 0) {
+                                    farmAnimal.Happiness = 0;
+                                    if (!farmAnimal.Sick) {
+                                        farmAnimal.Sick = true;
+                                    }
+                                    else {
+                                        if (GameLoop.rand.Next(2) == 1) {
+                                            aptDied.Add(farmAnimal);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < aptDied.Count; i++) {
+                        apt.GetTile(aptDied[i].RestSpot).AnimalBed.Animal = null;
+                        apt.Entities.Remove(aptDied[i]);
+                        GameLoop.UIManager.Map.EntityRenderer.Remove(aptDied[i]);
+                        GameLoop.UIManager.AddMsg(aptDied[i].Nickname + " passed away due to sickness.");
+                    }
+                }
+            }
+
+            foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                if (kv.Value.NoonbreezeApt != null) {
+                    Map apt = kv.Value.NoonbreezeApt.map;
+                    List<FarmAnimal> aptDied = new();
+
+                    if (apt != null) {
+                        foreach (Entity ent in apt.Entities.Items) {
+                            if (ent is FarmAnimal farmAnimal) {
+                                if (!farmAnimal.FedToday) {
+                                    farmAnimal.Happiness -= 50;
+
+                                    if (farmAnimal.Happiness <= 0) {
+                                        farmAnimal.Happiness = 0;
+                                        if (!farmAnimal.Sick) {
+                                            farmAnimal.Sick = true;
+                                        }
+                                        else {
+                                            if (GameLoop.rand.Next(2) == 1) {
+                                                aptDied.Add(farmAnimal);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < aptDied.Count; i++) {
+                            apt.GetTile(aptDied[i].RestSpot).AnimalBed.Animal = null;
+                            apt.Entities.Remove(aptDied[i]);
+                            GameLoop.UIManager.Map.EntityRenderer.Remove(aptDied[i]);
+                            GameLoop.UIManager.AddMsg(aptDied[i].Nickname + " passed away due to sickness.");
+                        }
+                    }
+                }
+            }
+
+
+
+            if (GameLoop.World.Player.MapPos == new Point3D("Overworld", 1, 1, 1)) {
+                if (GameLoop.World.Player.CheckRel("Ash") < 50 && GameLoop.World.Player.InnDays > 0) {
+                    GameLoop.World.Player.InnDays--;
+                    if (GameLoop.World.Player.InnDays == 1) {
+                        GameLoop.UIManager.AddMsg(new ColoredString("You can stay in the inn one more night.", Color.Green, Color.Black));
+                    } else if (GameLoop.World.Player.InnDays > 1) {
+                        GameLoop.UIManager.AddMsg(new ColoredString("You can stay in the inn " + GameLoop.World.Player.InnDays + " more nights.", Color.Green, Color.Black));
+                    }
+                }
+                else if (GameLoop.World.Player.CheckRel("Ash") >= 50) {
+                    GameLoop.World.Player.MetNPCs["Ash"] -= 10;
+                }
+            }
+
             GameLoop.World.SavePlayer();
         }
 
@@ -109,26 +224,31 @@ namespace LofiHollow.Managers {
                     }
                 }
 
-                if (Hours == 12 || Hours == 24) {
-                    AM = !AM;
-                    if (AM) {
-                        Day++;
+                if (Hours == 24) {
+                    GameLoop.UIManager.AddMsg(new ColoredString("You're getting a little tired.", Color.Yellow, Color.Black));
+                }
 
-                        if ((Day > 28 && Month < 5) || (Day > 7 && Month == 5)) {
-                            Day = 1;
-                            Month++;
+                if (Hours == 25) {
+                    GameLoop.UIManager.AddMsg(new ColoredString("You can't keep your eyes open much longer.", Color.Red, Color.Black));
+                }
 
-                            if (Month > 5) {
-                                Month = 1;
-                                Year++;
-                            }
+                if (Hours == 24) { 
+                    Day++;
+
+                    if ((Day > 28 && Month < 5) || (Day > 7 && Month == 5)) {
+                        Day = 1;
+                        Month++;
+
+                        if (Month > 5) {
+                            Month = 1;
+                            Year++;
                         }
-                    }
+                    } 
                 }
             }
 
             bool tickedDay = false;
-            if (Hours == 26 && AM) { // Time to pass out
+            if (Hours >= 26) { // Time to pass out
                 NextDay(true);
                 tickedDay = true;
             }
@@ -146,7 +266,7 @@ namespace LofiHollow.Managers {
                 }
 
                 if (sleepCount == totalPlayers) {
-                    if (!((Hours == 12 || Hours == 1 || Hours == 2) && AM)) {
+                    if (Hours < 24) {
                         Day++;
 
                         if ((Day > 28 && Month < 5) || (Day > 7 && Month == 5)) {

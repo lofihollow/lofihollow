@@ -1,5 +1,6 @@
 {
   "Name": "Poplar Chest",
+  "Package": "lh",
   "Materials": "4x Poplar Planks, 16x Copper Nails",
   "Glyph": 277,
   "ForegroundR": 101,

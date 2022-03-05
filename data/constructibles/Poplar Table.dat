@@ -1,5 +1,6 @@
 { 
   "Name": "Poplar Table",
+  "Package": "lh",
   "Materials": "8x Poplar Planks, 32x Copper Nails",
   "Glyph": 274,
   "ForegroundR": 101,

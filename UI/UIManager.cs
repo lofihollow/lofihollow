@@ -33,7 +33,9 @@ namespace LofiHollow.UI {
         public UI_ScriptMini ScriptMini;
         public UI_Combat Combat;
         public UI_Feedback Feedback;
-        public UI_ArtifactMaker ArtMaker;
+        public UI_Multiplayer Multiplayer;
+        public UI_Nametag Nametag;
+        public UI_Options Options;
           
         public SadConsole.Console SignConsole;
         public Window SignWindow; 
@@ -68,54 +70,66 @@ namespace LofiHollow.UI {
                     }
 
                     if (selectedMenu == "Inventory") {
-                        Inventory.RenderInventory();
-                        Inventory.InventoryInput();
+                        Inventory.Render();
+                        Inventory.Input();
                     } else if (selectedMenu == "Map Editor") {
                         Sidebar.MapEditorInput();
                     } else if (selectedMenu == "Skills") {
-                        Skills.RenderSkills();
-                        Skills.SkillInput();
+                        Skills.Render();
+                        Skills.Input();
                     } else if (selectedMenu == "Minigame") {
-                        Minigames.RenderMinigame();
-                        Minigames.MinigameInput();
+                        Minigames.Render();
+                        Minigames.Input();
                     } else if (selectedMenu == "Construction") {
-                        Construction.RenderConstruction();
-                        Construction.ConstructionInput();
+                        Construction.Render();
+                        Construction.Input();
                     } else if (selectedMenu == "Crafting") {
-                        Crafting.RenderCrafting();
-                        Crafting.CraftingInput();
+                        Crafting.Render();
+                        Crafting.Input();
                     } else if (selectedMenu == "Container") {
-                        Container.RenderContainer();
-                        Container.ContainerInput();
+                        Container.Render();
+                        Container.Input();
                     } else if (selectedMenu == "Help") {
-                        Help.RenderHelp();
-                        Help.HelpInput();
+                        Help.Render();
+                        Help.Input();
                     } else if (selectedMenu == "MissionLog") {
-                        MissionLog.RenderMissions();
-                        MissionLog.MissionInput();
+                        MissionLog.Render();
+                        MissionLog.Input();
                     } else if (selectedMenu == "Photo") {
-                        Photo.RenderPhoto();
-                        Photo.PhotoInput();
+                        Photo.Render();
+                        Photo.Input();
                     } else if (selectedMenu == "Teleport") {
-                        Teleport.RenderTeleports();
-                        Teleport.TeleportInput();
+                        Teleport.Render();
+                        Teleport.Input();
                     } else if (selectedMenu == "Security") {
-                        Security.RenderSecurity();
-                        Security.SecurityInput();
+                        Security.Render();
+                        Security.Input();
                     } else if (selectedMenu == "ScriptMini") {
-                        ScriptMini.RenderScriptMini();
-                        ScriptMini.ScriptMiniInput();
+                        ScriptMini.Render();
+                        ScriptMini.Input();
                     } else if (selectedMenu == "Combat") {
-                        Combat.RenderCombat();
-                        Combat.CombatInput();
+                        Combat.Render();
+                        Combat.Input();
                     }
                     else if (selectedMenu == "Feedback") {
-                        Feedback.RenderFeedback();
-                        Feedback.FeedbackInput();
+                        Feedback.Render();
+                        Feedback.Input();
+                    } 
+                    else if (selectedMenu == "Multiplayer") {
+                        Multiplayer.Render();
+                        Multiplayer.Input();
                     }
-                    else if (selectedMenu == "ArtMaker") {
-                        ArtMaker.RenderArtifactMaker();
-                        ArtMaker.ArtifactMakerInput();
+                    else if (selectedMenu == "Map Editor") {
+                        Sidebar.RenderSidebar();
+                        Sidebar.MapEditorInput();
+                    }
+                    else if (selectedMenu == "Nametag") {
+                        Nametag.Render();
+                        Nametag.Input();
+                    }
+                    else if (selectedMenu == "Options") {
+                        Options.Render();
+                        Options.Input();
                     }
                     else {
                         if (selectedMenu != "Dialogue") {
@@ -129,8 +143,8 @@ namespace LofiHollow.UI {
                             Map.UpdateNPCs();
 
                         } else {
-                            DialogueWindow.RenderDialogue();
-                            DialogueWindow.CaptureDialogueClicks();
+                            DialogueWindow.Render();
+                            DialogueWindow.Input();
                         }
                     }
 
@@ -165,227 +179,192 @@ namespace LofiHollow.UI {
             ScriptMini = new UI_ScriptMini(72, 42, "");
             Combat = new UI_Combat(72, 42, "");
             Feedback = new UI_Feedback(72, 42, "");
-            ArtMaker = new UI_ArtifactMaker(72, 42, "");
+            Multiplayer = new UI_Multiplayer(15, 7, "Lobby Code");
+            Nametag = new UI_Nametag(20, 5, "Name Tag");
+            Options = new UI_Options(72, 42, "Options");
 
             UseMouse = true;
             selectedMenu = "MainMenu";
         } 
 
         private void CheckKeyboard() {
-            if (selectedMenu != "Sign") { 
-                if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftControl)) {
-                    if (GameHost.Instance.Keyboard.IsKeyPressed(Key.W)) { 
-                        CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, -1, 0)); 
-                    }
-                    if (GameHost.Instance.Keyboard.IsKeyPressed(Key.S)) {
-                        CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 1, 0));
-                    }
-                    if (GameHost.Instance.Keyboard.IsKeyPressed(Key.A)) {
-                        CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(-1, 0, 0));
-                    }
-                    if (GameHost.Instance.Keyboard.IsKeyPressed(Key.D)) {
-                        CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(1, 0, 0));
-                    }
-                } else {
-                    if (GameLoop.World.Player.TimeLastActed + (80) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                        if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) {
-                            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
-                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1));
-                                RunTicks++;
+            if (selectedMenu != "Sign") {  
+                if (GameLoop.World.Player.TimeLastActed + (80) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W) && GameLoop.EitherShift()) { 
+                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1));
+                        RunTicks++;
 
-                                if (RunTicks > 5) {
-                                    GameLoop.World.Player.ExpendStamina(1);
-                                    RunTicks = 0;
-                                }
-
-                                GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                                Map.UpdateVision();
-                            }
+                        if (RunTicks > 5) {
+                            GameLoop.World.Player.ExpendStamina(1);
+                            RunTicks = 0;
                         }
-                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) {
-                            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
-                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
-                                RunTicks++;
 
-                                if (RunTicks > 5) {
-                                    GameLoop.World.Player.ExpendStamina(1);
-                                    RunTicks = 0;
-                                }
-
-                                GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                                Map.UpdateVision();
-                            }
-                        }
-                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) {
-                            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
-                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
-                                RunTicks++;
-
-                                if (RunTicks > 5) {
-                                    GameLoop.World.Player.ExpendStamina(1);
-                                    RunTicks = 0;
-                                }
-
-                                GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                                Map.UpdateVision();
-                            }
-                        }
-                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D)) {
-                            if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift)) {
-                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
-                                RunTicks++;
-
-                                if (RunTicks > 5) {
-                                    GameLoop.World.Player.ExpendStamina(1);
-                                    RunTicks = 0;
-                                }
-
-                                GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                                Map.UpdateVision();
-                            }
-                        }
+                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        Map.UpdateVision(); 
                     }
+                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S) && GameLoop.EitherShift()) { 
+                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
+                        RunTicks++;
 
-                    if (GameLoop.World.Player.TimeLastActed + (120) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
+                        if (RunTicks > 5) {
+                            GameLoop.World.Player.ExpendStamina(1);
+                            RunTicks = 0;
+                        }
 
-                        if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) {
-                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1)); 
-                            GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        Map.UpdateVision(); 
+                    }
+                    
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A) && GameLoop.EitherShift()) { 
+                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
+                        RunTicks++;
+
+                        if (RunTicks > 5) {
+                            GameLoop.World.Player.ExpendStamina(1);
+                            RunTicks = 0;
+                        }
+
+                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        Map.UpdateVision(); 
+                    }
+                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D) && GameLoop.EitherShift()) { 
+                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
+                        RunTicks++;
+
+                        if (RunTicks > 5) {
+                            GameLoop.World.Player.ExpendStamina(1);
+                            RunTicks = 0;
+                        }
+
+                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        Map.UpdateVision(); 
+                    }
+                }
+
+                if (GameLoop.World.Player.TimeLastActed + (120) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
+
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) {
+                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1)); 
+                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        Map.UpdateVision();
+                    }
+                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) { 
+                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
+                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        Map.UpdateVision();
+                    }
+                    
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) { 
+                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
+                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        Map.UpdateVision();
+                    }
+                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D)) { 
+                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
+                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
+                        Map.UpdateVision();
+                    }
+                }
+
+
+                if (GameLoop.EitherShift() && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemPeriod)) {
+                    Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+
+                    if (map != null) {
+                        if (map.GetTile(GameLoop.World.Player.Position).Name == "Down Stairs") {
+                            CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, -1));
                             Map.UpdateVision();
-                        }
-                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) { 
-                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
-                            GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                            Map.UpdateVision();
-                        }
-                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) { 
-                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
-                            GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                            Map.UpdateVision();
-                        }
-                        else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D)) { 
-                                CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
-                            GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                            Map.UpdateVision();
-                        }
-                    }
-
-
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemPeriod)) {
-                        Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
-
-                        if (map != null) {
-                            if (map.GetTile(GameLoop.World.Player.Position).Name == "Down Stairs") {
-                                CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, -1));
-                                Map.UpdateVision();
-                            } else if (map.GetTile(GameLoop.World.Player.Position).Name == "Mine Entrance") {
-                                selectedMenu = "Minigame";
-                                GameLoop.World.Player.MineEnteredAt = GameLoop.World.Player.Position;
-                                Minigames.MineManager.MiningSetup(map.GetTile(GameLoop.World.Player.Position).MiscString);
-                                if (GameLoop.SingleOrHosting())
-                                    Minigames.ToggleMinigame("Mining");
-                                else
-                                    AddMsg("Receiving mine data from host, please wait.");
-                            } else if (map.GetTile(GameLoop.World.Player.Position).Name == "Bed") {
-                                GameLoop.UIManager.AddMsg(new ColoredString("You lie down to sleep...", Color.Green, Color.Black));
+                        } else if (map.GetTile(GameLoop.World.Player.Position).Name == "Mine Entrance") {
+                            selectedMenu = "Minigame";
+                            GameLoop.World.Player.MineEnteredAt = GameLoop.World.Player.Position;
+                            Minigames.MineManager.MiningSetup(map.GetTile(GameLoop.World.Player.Position).MiscString);
+                            if (GameLoop.SingleOrHosting())
+                                Minigames.ToggleMinigame("Mining");
+                            else
+                                AddMsg("Receiving mine data from host, please wait.");
+                        } else if (map.GetTile(GameLoop.World.Player.Position).Name == "Bed") {
+                            if ((GameLoop.World.Player.MapPos == new Point3D("Overworld", -1, 0, 0) && GameLoop.CheckFlag("farm")) || BuildManager.CanBuildHere(map.MinimapTile.name, true)) {
+                                AddMsg(new ColoredString("You lie down to sleep...", Color.Green, Color.Black));
                                 GameLoop.World.Player.Sleeping = true;
 
                                 NetMsg sleep = new("sleep");
                                 sleep.Flag = true;
                                 GameLoop.SendMessageIfNeeded(sleep, false, true);
                             }
-                        }
-                    }
 
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemComma)) {
-                        Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos); 
-                        if (map != null) {
-                            if (map.GetTile(GameLoop.World.Player.Position).Name == "Up Stairs") {
-                                CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, 1));
-                                Map.UpdateVision();
+                            if (GameLoop.World.Player.MapPos == new Point3D("Overworld", 1, 1, 1)) {
+                                if (GameLoop.World.Player.InnDays > 0 || GameLoop.World.Player.CheckRel("Ash") >= 50) {
+                                    AddMsg(new ColoredString("You lie down to sleep...", Color.Green, Color.Black));
+                                    GameLoop.World.Player.Sleeping = true;
+
+                                    NetMsg sleep = new("sleep");
+                                    sleep.Flag = true;
+                                    GameLoop.SendMessageIfNeeded(sleep, false, true);
+                                } else {
+                                    AddMsg(new ColoredString("You should probably pay for the room first.", Color.Red, Color.Black));
+                                }
                             }
                         }
                     }
+                }
 
-                    if ((GameHost.Instance.Keyboard.IsKeyDown(Key.LeftShift) || (GameHost.Instance.Keyboard.IsKeyDown(Key.RightShift))) && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemQuestion)) {
-                        Help.ToggleHelp("Hotkeys");
-                        GameLoop.SoundManager.PlaySound("openGuide");
-                    }
-
-
-
-                    if (GameHost.Instance.Keyboard.IsKeyReleased(Key.I)) {
-                        Inventory.Toggle();
-                        GameLoop.SoundManager.PlaySound("openGuide");
-                    }
-
-                    if (GameHost.Instance.Keyboard.IsKeyReleased(Key.K)) {
-                        Skills.Toggle();
-                        GameLoop.SoundManager.PlaySound("openGuide");
-                    }
-
-                    if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Q)) {
-                        MissionLog.Toggle();
-                        GameLoop.SoundManager.PlaySound("openGuide");
-                    }
-
-                    if (GameHost.Instance.Keyboard.IsKeyReleased(Key.G)) {
-                        CommandManager.PickupItem(GameLoop.World.Player);
-                    }
-
-                    if (GameHost.Instance.Keyboard.IsKeyReleased(Key.C)) {
-                        Crafting.SetupCrafting("Crafting", "None", 1);
+                if (GameLoop.EitherShift() && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemComma)) {
+                    Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos); 
+                    if (map != null) {
+                        if (map.GetTile(GameLoop.World.Player.Position).Name == "Up Stairs") {
+                            CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, 1));
+                            Map.UpdateVision();
+                        }
                     }
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F9)) {
-                    GameLoop.World.SaveMapToFile(GameLoop.World.Player.MapPos);
+                if (GameLoop.EitherShift() && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemQuestion)) {
+                    Help.ToggleHelp("Hotkeys");
+                    GameLoop.SoundManager.PlaySound("openGuide");
                 }
+
+
+
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.I)) {
+                    Inventory.Toggle();
+                    GameLoop.SoundManager.PlaySound("openGuide");
+                }
+
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.K)) {
+                    Skills.Toggle();
+                    GameLoop.SoundManager.PlaySound("openGuide");
+                }
+
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Q)) {
+                    MissionLog.Toggle();
+                    GameLoop.SoundManager.PlaySound("openGuide");
+                }
+
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.G)) {
+                    CommandManager.PickupItem(GameLoop.World.Player);
+                }
+
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.C)) {
+                    Crafting.SetupCrafting("Crafting", "None", 1);
+                }  
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F8)) {
                     Feedback.Toggle();
-                }
-
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F3)) {
-                    // Combat.Toggle();
-                    // Combat.StartCombat("Plains", 1);
-
-                    CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Copper Spade"));
-                }
-
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F2)) {
-                    /* foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
-                         GameLoop.World.Player.PartyMembers.Add(kv.Key);
-                     } */
-                    // CommandManager.AddItemToInv(GameLoop.World.Player, new("lh:Copper SoulCam")); 
-                }
+                }  
 
 
                 if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F1)) {
                     Help.ToggleHelp("Guide");
                     GameLoop.SoundManager.PlaySound("openGuide");
-                }
-                
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F5)) {
-                    Map.LimitedVision = !Map.LimitedVision;
+                } 
 
-                    if (!Map.LimitedVision) {
-                        Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
-
-                        if (map != null) {
-                            for (int i = 0; i < map.Tiles.Length; i++) {
-                                map.Tiles[i].Unshade();
-                                map.Tiles[i].IsVisible = true;
-                            }
-                        }
-                    } else {
-                        Map.UpdateVision();
-                    }
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.OemTilde)) {
+                    Multiplayer.Toggle();
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Tab)) {
-                    GameLoop.World.Player.SwitchMeleeMode();
-                    AddMsg(new ColoredString("Switched melee to " + GameLoop.World.Player.CombatMode + ". (" + GameLoop.World.Player.GetDamageType() + ")", Color.Yellow, Color.Black));
+
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F2)) {
+                    Minigames.ToggleMinigame("StackEm");
                 }
             } else if (selectedMenu == "Sign") {
                 if (GameHost.Instance.Keyboard.HasKeysPressed) {
@@ -393,15 +372,7 @@ namespace LofiHollow.UI {
                     SignWindow.IsVisible = false;
                     Map.MapConsole.IsFocused = true;
                 }
-            }
-
-            if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F)) {
-                flying = !flying;
-            }
-
-            if (selectedMenu == "Map Editor") {
-                Sidebar.MapEditorInput();
-            }
+            } 
         }
 
         private void RenderSign() {
@@ -460,8 +431,8 @@ namespace LofiHollow.UI {
                 else if (locInMap == new Point(29, 30)) { signText = "Emerose's Apothecary"; } 
                 else if (locInMap == new Point(12, 24)) { signText = "Library"; }
                 else if (locInMap == new Point(6, 16)) { signText = "Zephyr's Textiles"; }
-                else if (locInMap == new Point(37, 7)) { signText = "Indigo -- Workshop"; }
-                else if (locInMap == new Point(49, 9)) { signText = "Indigo -- Residence"; }
+                else if (locInMap == new Point(37, 7)) { signText = "Pet Shop"; }
+                else if (locInMap == new Point(49, 9)) { signText = "Phoebe - Residence"; }
                 else {
                     AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + ") has no text.");
                 }
@@ -481,6 +452,11 @@ namespace LofiHollow.UI {
                 else if (locInMap == new Point(37, 15)) { signText = "The Inn"; }
                 else if (locInMap == new Point(59, 19)) { signText = "Noonbreeze Apartments"; }
                 else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + ") has no text."); }
+            }
+
+            else if (MapLoc == new Point3D("Overworld", 0, 0, 0)) {
+                if (locInMap == new Point(38,22)) { signText = "Noonbreeze Cemetary"; }
+                else if (locInMap == new Point(58, 9)) { signText = "Gravekeeper's House"; }
             }
             
             else if (MapLoc == new Point3D(-3, 1, 0)) { signText = "North -- Lake|West -- Mountain Cave|East -- Noonbreeze"; }

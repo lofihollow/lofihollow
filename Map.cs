@@ -152,7 +152,7 @@ namespace LofiHollow {
         }
 
         public void SetTile(Point location, Tile tile) {
-           Tiles[location.ToIndex(GameLoop.MapWidth)] = tile;
+            Tiles[location.ToIndex(GameLoop.MapWidth)] = tile; 
         }
 
         public void Remove(Entity entity) { 

@@ -39,9 +39,15 @@ namespace LofiHollow.Managers {
 		}
 
 		public void SteamLobby() {
-			SteamAPICall_t try_toHost = SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 8);
-			 
-        }
+			SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 8);
+
+
+			GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
+			GameLoop.UIManager.Map.MapWindow.IsVisible = true;
+			GameLoop.UIManager.Map.MessageLog.IsVisible = true;
+			GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
+			GameLoop.UIManager.selectedMenu = "None";
+		}
 
 		public void JoinSteamLobby(string roomcode) {
 			ownID = SteamUser.GetSteamID();
@@ -57,16 +63,13 @@ namespace LofiHollow.Managers {
 				currentLobby = result.m_ulSteamIDLobby;
 				ownID = SteamUser.GetSteamID();
 
-				GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
-				GameLoop.UIManager.Map.MapWindow.IsVisible = true;
-				GameLoop.UIManager.Map.MessageLog.IsVisible = true;
-				GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
-				GameLoop.UIManager.selectedMenu = "None";
-
 				isHost = true;
 
-				GameLoop.UIManager.AddMsg(new ColoredString("Created a lobby with code " + lobbyCode, Color.Green, Color.Black));
-			}
+				//GameLoop.UIManager.AddMsg(new ColoredString("Created a lobby with code " + lobbyCode, Color.Green, Color.Black));
+				GameLoop.UIManager.AddMsg(new ColoredString("Press ` (tilde) at any time to view multiplayer code.", Color.Green, Color.Black));
+			} else {
+				GameLoop.UIManager.MainMenu.joinError = result.m_eResult.ToString();
+            }
         }
 
 		public void OnGetLobbiesList(LobbyMatchList_t result) {
@@ -278,6 +281,10 @@ namespace LofiHollow.Managers {
 							} else {
 								tileMap.GetTile(msg.GetPos()).Shade();
 							}
+
+							if (msg.MiscString1 == "SpawnAnimal") {
+								tileMap.GetTile(msg.GetPos()).AnimalBed.SpawnAnimal();
+                            }
 						}
 						break;
 					case "updateMine":

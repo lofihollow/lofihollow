@@ -20,6 +20,9 @@
     <None Remove="firebasekey.json" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Facepunch.Steamworks.Win64">
+      <HintPath>Facepunch.Steamworks.Win64.dll</HintPath>
+    </Reference>
     <Reference Include="irrKlang.NET4">
       <HintPath>irrKlang.NET4.dll</HintPath>
     </Reference>
@@ -45,6 +48,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="discord_game_sdk.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Facepunch.Steamworks.Win64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\car.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="fonts\Cheepicus48.font">

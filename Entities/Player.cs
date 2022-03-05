@@ -77,6 +77,9 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public string InApartment = "None";
 
+        [JsonProperty]
+        public int InnDays = 0;
+
 
         public bool feed_funny1 = false;
         public bool feed_funny2 = false;
@@ -103,6 +106,14 @@ namespace LofiHollow.Entities {
 
             for (int i = 0; i < Inventory.Length; i++) {
                 Inventory[i] = new Item("lh:(EMPTY)");
+            }
+        }
+
+        public int CheckRel(string NPC) {
+            if (MetNPCs.ContainsKey(NPC)) {
+                return MetNPCs[NPC];
+            } else {
+                return 0;
             }
         }
 

@@ -206,7 +206,7 @@ namespace LofiHollow {
 
         const int BufferSize = 8192;
         static readonly Encoding DefaultEncoding = new UTF8Encoding(false);
-
+         
 
         public static void SerializeToFile(object value, string path, JsonSerializerSettings settings = null) {
             using StreamWriter output = new StreamWriter(path);
@@ -327,7 +327,7 @@ namespace LofiHollow {
 
         public static void PrintClickable(this SadConsole.Console instance, int x, int y, ColoredString str, Action<string> OnClick, string ID) {
             Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition;
-            int length = str.Length;
+            int length = str.Length - 1;
 
             instance.Print(x, y, str);
 

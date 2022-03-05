@@ -1,5 +1,6 @@
 { 
   "Name": "Poplar Wall",
+  "Package": "lh",
   "Materials": "10x Poplar Planks, 40x Copper Nails",
   "Glyph": 205,
   "ForegroundR": 101,

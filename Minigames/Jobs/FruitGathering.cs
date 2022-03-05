@@ -60,8 +60,8 @@ namespace LofiHollow.Minigames.Jobs {
         }
 
         public override void Draw() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
-            Console Mini = GameLoop.UIManager.Minigames.MinigameConsole;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
+            Console Mini = GameLoop.UIManager.Minigames.Con;
 
             if (Timer > 0) {
                 Mini.Print(0, 0, Timer.ToString().Align(HorizontalAlignment.Center, 70));
@@ -91,7 +91,7 @@ namespace LofiHollow.Minigames.Jobs {
                 }
 
                 if (Score > 0) {
-                    Mini.Print(0, 3, ("You earned " + (Score / 10) + " copper!").Align(HorizontalAlignment.Center, 70));
+                    Mini.Print(0, 3, ("You earned " + (Score / 2) + " copper!").Align(HorizontalAlignment.Center, 70));
                     Mini.Print(0, 38, ("[Press SPACE to close]").Align(HorizontalAlignment.Center, 70));
                 }
                 else {
@@ -105,7 +105,7 @@ namespace LofiHollow.Minigames.Jobs {
 
         }
         public override void Input() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
                 Reset();
                 Close();
@@ -123,7 +123,7 @@ namespace LofiHollow.Minigames.Jobs {
             }
             else {
                 if (GameHost.Instance.Keyboard.IsKeyPressed(Key.Space)) {
-                    GameLoop.World.Player.CopperCoins += (Score / 10);
+                    GameLoop.World.Player.CopperCoins += (Score / 2);
                     Reset();
                     GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 }

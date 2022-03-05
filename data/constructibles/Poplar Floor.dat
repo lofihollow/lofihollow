@@ -1,5 +1,6 @@
 { 
   "Name": "Poplar Floor",
+  "Package": "lh",
   "Materials": "2x Poplar Planks, 8x Copper Nails",
   "Glyph": 46,
   "ForegroundR": 101,

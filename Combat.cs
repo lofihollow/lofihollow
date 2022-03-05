@@ -1,11 +1,5 @@
 ﻿using LofiHollow.DataTypes;
-using LofiHollow.Entities;
-using Steamworks;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LofiHollow {
     public class Combat {

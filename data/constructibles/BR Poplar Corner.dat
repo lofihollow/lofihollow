@@ -1,5 +1,6 @@
 { 
   "Name": "Poplar Corner",
+  "Package": "lh",
   "Materials": "10x Poplar Planks, 40x Copper Nails",
   "Glyph": 188,
   "ForegroundR": 101,

@@ -9,55 +9,38 @@ using LofiHollow.DataTypes;
 using Steamworks;
 
 namespace LofiHollow.UI {
-    public class UI_Feedback {
-        public SadConsole.Console FeedbackConsole;
-        public Window FeedbackWindow;
-
+    public class UI_Feedback : Lofi_UI { 
         public Feedback current;
 
-        public UI_Feedback(int width, int height, string title) {
-            FeedbackWindow = new(width, height);
-            FeedbackWindow.CanDrag = false;
-            FeedbackWindow.Position = new(11, 6);
-
-            int invConWidth = width - 2;
-            int invConHeight = height - 2;
-
-            FeedbackConsole = new(invConWidth, invConHeight);
-            FeedbackConsole.Position = new(1, 1);
-            FeedbackWindow.Title = title.Align(HorizontalAlignment.Center, invConWidth, (char)196);
+        public UI_Feedback(int width, int height, string title) : base(width, height, title, "Feedback") { }
 
 
-            FeedbackWindow.Children.Add(FeedbackConsole);
-            GameLoop.UIManager.Children.Add(FeedbackWindow);
+        public override void Render() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
-            FeedbackWindow.Show();
-            FeedbackWindow.IsVisible = false;
+            if (current == null) {
+                current = new();
+            }
+
+            Con.Clear();
+
+            Con.Print(0, 1, "(1 is unhappy, 5 is happy)");
+            Con.Print(0, 0, "Mood:");
+            Con.PrintClickable(7, 0, new ColoredString("1", current.Mood == 1 ? Color.Red : Color.White, Color.Black), UI_Clicks, "Mood1");
+            Con.PrintClickable(9, 0, new ColoredString("2", current.Mood == 2 ? Color.Orange : Color.White, Color.Black), UI_Clicks, "Mood2");
+            Con.PrintClickable(11, 0, new ColoredString("3", current.Mood == 3 ? Color.Yellow : Color.White, Color.Black), UI_Clicks, "Mood3");
+            Con.PrintClickable(13, 0, new ColoredString("4", current.Mood == 4 ? Color.Lime : Color.White, Color.Black), UI_Clicks, "Mood4");
+            Con.PrintClickable(15, 0, new ColoredString("5", current.Mood == 5 ? Color.Cyan : Color.White, Color.Black), UI_Clicks, "Mood5");
+
+            Con.Print(0, 3, "Type to enter your feedback below: ");
+            Con.Print(0, 5, current.Message);
+
+            Con.PrintClickable(69, 0, "X", UI_Clicks, "Close");
+
+            Con.PrintClickable(64, 39, "SUBMIT", UI_Clicks, "Submit");
         }
 
-
-        public void RenderFeedback() {
-            Point mousePos = new MouseScreenObjectState(FeedbackConsole, GameHost.Instance.Mouse).CellPosition;
-
-            FeedbackConsole.Clear();
-
-            FeedbackConsole.Print(0, 1, "(1 is unhappy, 5 is happy)");
-            FeedbackConsole.Print(0, 0, "Mood:");
-            FeedbackConsole.PrintClickable(7, 0, new ColoredString("1", current.Mood == 1 ? Color.Red : Color.White, Color.Black), FeedbackClick, "Mood1");
-            FeedbackConsole.PrintClickable(9, 0, new ColoredString("2", current.Mood == 2 ? Color.Orange : Color.White, Color.Black), FeedbackClick, "Mood2");
-            FeedbackConsole.PrintClickable(11, 0, new ColoredString("3", current.Mood == 3 ? Color.Yellow : Color.White, Color.Black), FeedbackClick, "Mood3");
-            FeedbackConsole.PrintClickable(13, 0, new ColoredString("4", current.Mood == 4 ? Color.Lime : Color.White, Color.Black), FeedbackClick, "Mood4");
-            FeedbackConsole.PrintClickable(15, 0, new ColoredString("5", current.Mood == 5 ? Color.Cyan : Color.White, Color.Black), FeedbackClick, "Mood5");
-
-            FeedbackConsole.Print(0, 3, "Type to enter your feedback below: ");
-            FeedbackConsole.Print(0, 5, current.Message);
-
-            FeedbackConsole.PrintClickable(69, 0, "X", FeedbackClick, "Close");
-
-            FeedbackConsole.PrintClickable(64, 39, "SUBMIT", FeedbackClick, "Submit");
-        }
-
-        public void FeedbackClick(string ID) {
+        public override void UI_Clicks(string ID) {
             if (ID == "Mood1") { current.Mood = 1; }
             if (ID == "Mood2") { current.Mood = 2; }
             if (ID == "Mood3") { current.Mood = 3; }
@@ -66,20 +49,23 @@ namespace LofiHollow.UI {
 
             if (ID == "Submit") {
                 if (current.Message.Length > 0) {
-                    GameLoop.FirebaseManager.Push(current);
+                    GameLoop.FirebaseManager.Push(current); 
                     Toggle();
+                    current = null;
                 }
             }
 
             if (ID == "Close") {
                 Toggle();
+                current = null;
             }
         }
 
-        public void FeedbackInput() {
-            Point mousePos = new MouseScreenObjectState(FeedbackConsole, GameHost.Instance.Mouse).CellPosition;
-            if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
+        public override void Input() {
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
+            if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape) || GameHost.Instance.Keyboard.IsKeyReleased(Key.F8)) {
                 Toggle();
+                current = null;
             }
 
             if (current != null) { 
@@ -101,20 +87,6 @@ namespace LofiHollow.UI {
                     }
                 }
             }
-        } 
-        public void Toggle() {
-            if (FeedbackWindow.IsVisible) {
-                GameLoop.UIManager.selectedMenu = "None";
-                FeedbackWindow.IsVisible = false;
-                GameLoop.UIManager.Map.MapConsole.IsFocused = true;
-                current = null;
-            }
-            else {
-                GameLoop.UIManager.selectedMenu = "Feedback";
-                FeedbackWindow.IsVisible = true;
-                FeedbackWindow.IsFocused = true;
-                current = new();
-            }
-        }
+        }  
     }
 }

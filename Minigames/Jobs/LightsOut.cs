@@ -70,6 +70,7 @@ namespace LofiHollow.Minigames.Jobs {
             Timer = 61;
             DisplayingScore = false;
             PlayGrid.Clear();
+            Solved = false;
 
             for (int x = 0; x < 5; x++) {
                 for (int y = 0; y < 5; y++) {
@@ -85,8 +86,8 @@ namespace LofiHollow.Minigames.Jobs {
         }
 
         public override void Draw() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
-            Console Mini = GameLoop.UIManager.Minigames.MinigameConsole;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
+            Console Mini = GameLoop.UIManager.Minigames.Con;
 
             Color on = ColorblindMode ? Color.Cyan : Color.Lime;
             Color off = ColorblindMode ? Color.Yellow : Color.Red;
@@ -127,7 +128,7 @@ namespace LofiHollow.Minigames.Jobs {
                 }
 
                 if (Timer > 0) {
-                    Mini.Print(0, 3, ("You earned " + (Timer) + " copper!").Align(HorizontalAlignment.Center, 70));
+                    Mini.Print(0, 3, ("You earned " + (Timer / 2) + " copper!").Align(HorizontalAlignment.Center, 70));
                     Mini.Print(0, 38, ("[Press SPACE to close]").Align(HorizontalAlignment.Center, 70));
                 }
                 else {
@@ -151,7 +152,7 @@ namespace LofiHollow.Minigames.Jobs {
         } 
 
         public override void Input() {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.MinigameConsole, GameHost.Instance.Mouse).CellPosition;
+            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
                 Reset();
                 Close();
@@ -164,7 +165,7 @@ namespace LofiHollow.Minigames.Jobs {
             }
             else {
                 if (GameHost.Instance.Keyboard.IsKeyPressed(Key.Space)) {
-                    GameLoop.World.Player.CopperCoins += (Timer);
+                    GameLoop.World.Player.CopperCoins += (Timer / 2);
                     Reset();
                     GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 }

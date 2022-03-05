@@ -14,6 +14,7 @@ using LofiHollow.Missions;
 using LofiHollow.DataTypes;
 using Steamworks;
 using LofiHollow.Minigames.Archaeology;
+using LofiHollow.Minigames.Picross;
 
 namespace LofiHollow {
     public class World { 
@@ -31,6 +32,9 @@ namespace LofiHollow {
         public Dictionary<string, string> scriptLibrary = new();
         public Dictionary<string, ArchArtifact> artifactLibrary = new();
 
+        public Dictionary<string, PicrossPuzzle> picrossLibrary = new();
+
+
         public List<Chapter> Chapters = new();
 
 
@@ -46,7 +50,6 @@ namespace LofiHollow {
             LoadSkillDefinitions();
             LoadTileDefinitions();
             LoadItemDefinitions();
-            LoadFishDefinitions();
             LoadMonsterDefinitions();
             LoadNPCDefinitions();
             LoadConstructibles();
@@ -55,6 +58,9 @@ namespace LofiHollow {
             LoadMissionDefinitions();
             LoadScripts();
             LoadArtifacts();
+            LoadPicross();
+
+            LoadAllMods();
         }
 
         public void InitPlayer() {
@@ -72,6 +78,81 @@ namespace LofiHollow {
                     GameLoop.UIManager.Sidebar.minimap.Add(pos, kv.Value);
                 }
             } 
+        }
+
+        public void LoadAllMods() {
+            if (Directory.Exists("./mods/")) {
+                string[] modFiles = Directory.GetFiles("./mods/");
+
+
+                foreach (string fileName in modFiles) { 
+                    Mod mod = Helper.DeserializeFromFileCompressed<Mod>(fileName); 
+
+                    if (mod.Enabled) {
+                        for (int i = 0; i < mod.ModArtifacts.Count; i++) { 
+                            if (!artifactLibrary.ContainsKey(mod.ModArtifacts[i].FullName()))
+                                artifactLibrary.Add(mod.ModArtifacts[i].FullName(), mod.ModArtifacts[i]);
+                        }
+
+                        for (int i = 0; i < mod.ModConstructs.Count; i++) {  
+                            constructibles.Add(constructibles.Count, mod.ModConstructs[i]);
+                        }
+
+                        SortConstructibles();
+
+                        for (int i = 0; i < mod.ModItems.Count; i++) {
+                            if (!itemLibrary.ContainsKey(mod.ModItems[i].FullName()))
+                                itemLibrary.Add(mod.ModItems[i].FullName(), mod.ModItems[i]);
+                        }
+
+                        for (int i = 0; i < mod.ModMissions.Count; i++) {
+                            if (!missionLibrary.ContainsKey(mod.ModMissions[i].FullName()))
+                                missionLibrary.Add(mod.ModMissions[i].FullName(), mod.ModMissions[i]);
+                        }
+
+                        for (int i = 0; i < mod.ModMonsters.Count; i++) {
+                            if (!monsterLibrary.ContainsKey(mod.ModMonsters[i].FullName()))
+                                monsterLibrary.Add(mod.ModMonsters[i].FullName(), mod.ModMonsters[i]);
+                        }
+
+                        for (int i = 0; i < mod.ModNPCs.Count; i++) {
+                            if (!npcLibrary.ContainsKey(mod.ModNPCs[i].FullName()))
+                                npcLibrary.Add(mod.ModNPCs[i].FullName(), mod.ModNPCs[i]);
+                        }
+
+                        for (int i = 0; i < mod.ModRecipes.Count; i++) { 
+                            recipeLibrary.Add(recipeLibrary.Count, mod.ModRecipes[i]);
+                        }
+
+                        SortRecipes();
+
+                        for (int i = 0; i < mod.ModSkills.Count; i++) {
+                            if (!skillLibrary.ContainsKey(mod.ModSkills[i].Name))
+                                skillLibrary.Add(mod.ModSkills[i].Name, mod.ModSkills[i]);
+                        }
+
+                        for (int i = 0; i < mod.ModTiles.Count; i++) {
+                            if (!tileLibrary.ContainsKey(mod.ModTiles[i].FullName()))
+                                tileLibrary.Add(mod.ModTiles[i].FullName(), mod.ModTiles[i]);
+                        }
+
+                        for (int i = 0; i < mod.ModPicross.Count; i++) {
+                            if (!picrossLibrary.ContainsKey(mod.ModPicross[i].FullName()))
+                                picrossLibrary.Add(mod.ModPicross[i].FullName(), mod.ModPicross[i]);
+                        }
+
+                        for (int i = 0; i < mod.ModScripts.Count; i++) {
+                            if (!scriptLibrary.ContainsKey(mod.ModScripts[i].Name))
+                                scriptLibrary.Add(mod.ModScripts[i].Name, mod.ModScripts[i].Script);
+                        }
+
+                        for (int i = 0; i < mod.ModMaps.Count; i++) {
+                            if (!maps.ContainsKey(mod.ModMaps[i].MapPos))
+                                maps.Add(mod.ModMaps[i].MapPos, mod.ModMaps[i].Map);
+                        }
+                    }
+                }
+            }
         }
 
         public void LoadScripts() {
@@ -98,6 +179,18 @@ namespace LofiHollow {
             }
         }
 
+        public void LoadPicross() {
+            if (Directory.Exists("./data/picross/")) {
+                string[] itemFiles = Directory.GetFiles("./data/picross/");
+
+                foreach (string fileName in itemFiles) {
+                    string json = File.ReadAllText(fileName);
+                    PicrossPuzzle item = JsonConvert.DeserializeObject<PicrossPuzzle>(json);
+                    picrossLibrary.Add(item.Package + ":" + item.Name, item);
+                }
+            }
+        }
+
         public void LoadItemDefinitions() {
             if (Directory.Exists("./data/items/")) {
                 string[] itemFiles = Directory.GetFiles("./data/items/");
@@ -110,18 +203,274 @@ namespace LofiHollow {
             } 
         }
 
-        public void LoadFishDefinitions() {
-            if (Directory.Exists("./data/fish/")) {
-                string[] tileFiles = Directory.GetFiles("./data/fish/");
+        public void GenerateAllFish() {
+            while (fishLibrary.Count < 300) {
+                FishDef newFish = GenerateFish();
 
-                foreach (string fileName in tileFiles) {
-                    string json = File.ReadAllText(fileName);
+                if (!fishLibrary.ContainsKey(newFish.FullName())) {
+                    fishLibrary.Add(newFish.FullName(), newFish);
 
-                    FishDef fish = JsonConvert.DeserializeObject<FishDef>(json);
+                    Item fishItem = new("lh:Raw Fish");
+                    fishItem.ForegroundR = newFish.colR;
+                    fishItem.ForegroundG = newFish.colG;
+                    fishItem.ForegroundB = newFish.colB;
+                    fishItem.ItemGlyph = newFish.glyph;
+                    
 
-                    fishLibrary.Add(fish.PackageID + ":" + fish.Name, fish);
+                    fishItem.Name = newFish.FishItemID.Split(":")[1];
+                    fishItem.Package = "lh";
+                    fishItem.AverageValue = 5;
+
+                    if (!itemLibrary.ContainsKey(fishItem.FullName()))
+                        itemLibrary.Add(fishItem.FullName(), fishItem);
                 }
-            } 
+            }
+        }
+
+        public FishDef GenerateFish() {
+            string[] Locations = { "Freshwater", "Saltwater", "Brackish", "Any" };
+            string[] Seasons = { "Spring", "Summer", "Fall", "Winter", "Holiday", "Any" };
+            
+            List<FishColor> Colors = new(); 
+            Colors.Add(new("Black", new Color(30, 30, 30, 255)));
+            Colors.Add(new("Blackfin", new Color(30, 30, 30, 200)));
+            Colors.Add(new("Blacktip", new Color(40, 40, 40, 255)));
+            Colors.Add(new("Blue", new Color(0, 0, 128)));
+            Colors.Add(new("Bluefin", new Color(0, 0, 192)));
+            Colors.Add(new("Bluntnose", Color.Gray));
+            Colors.Add(new("Bobtail", Color.Gray));
+            Colors.Add(new("Bonnethead", Color.Gray));
+            Colors.Add(new("Bonytail", Color.LightGray));
+            Colors.Add(new("Bonytongue", Color.LightGray));
+            Colors.Add(new("Bristlenose", Color.Gray));
+            Colors.Add(new("Broadband", Color.Gray));
+            Colors.Add(new("Bronze", new Color(176, 141, 87)));
+            Colors.Add(new("Brown", Color.Brown));
+            Colors.Add(new("Bullhead", Color.Firebrick));
+            Colors.Add(new("Cateye", Color.Yellow));
+            Colors.Add(new("Central", Color.Gray));
+            Colors.Add(new("Chain", Color.DarkGray));
+            Colors.Add(new("Channel", Color.Gray));
+            Colors.Add(new("Cherry", Color.AnsiRedBright));
+            Colors.Add(new("Climbing", Color.Gray));
+            Colors.Add(new("Collard", Color.Gray));
+            Colors.Add(new("Cownose", Color.White));
+            Colors.Add(new("Daggertooth", Color.Gray));
+            Colors.Add(new("Dogteeth", Color.Gray));
+            Colors.Add(new("Duckbill", Color.Gray));
+            Colors.Add(new("Dusky", new Color(80, 80, 80)));
+            Colors.Add(new("Elephantnose", Color.Gray));
+            Colors.Add(new("Ember", Color.DarkRed));
+            Colors.Add(new("Emerald", Color.Lime));
+            Colors.Add(new("Fathead", Color.Gray));
+            Colors.Add(new("Finback", Color.Gray));
+            Colors.Add(new("Fire", Color.AnsiRed));
+            Colors.Add(new("Flabby", Color.Gray));
+            Colors.Add(new("Flagfin", Color.Gray));
+            Colors.Add(new("Flagtail", Color.Gray));
+            Colors.Add(new("Four-eyed", Color.Gray));
+            Colors.Add(new("Frilled", Color.Gray));
+            Colors.Add(new("Frogmouth", Color.Green));
+            Colors.Add(new("Glass", Color.Cyan.SetAlpha(128)));
+            Colors.Add(new("Glowlight", Color.Lime.SetAlpha(128)));
+            Colors.Add(new("Golden", Color.Gold));
+            Colors.Add(new("Goldeye", Color.Gold));
+            Colors.Add(new("Gray", Color.Gray));
+            Colors.Add(new("Green", Color.Green));
+            Colors.Add(new("Greenspotted", Color.Green));
+            Colors.Add(new("Hammerhead", Color.Gray));
+            Colors.Add(new("Hardhead", Color.Gray));
+            Colors.Add(new("Harelip", Color.Gray));
+            Colors.Add(new("Horned", Color.Gray));
+            Colors.Add(new("Jellynose", Color.Pink));
+            Colors.Add(new("Lefteye", Color.Gray));
+            Colors.Add(new("Lemon", Color.Yellow));
+            Colors.Add(new("Lined", Color.Gray));
+            Colors.Add(new("Long Neck", Color.Gray));
+            Colors.Add(new("Long-Whisker", Color.Gray));
+            Colors.Add(new("Longfin", Color.Gray));
+            Colors.Add(new("Longjaw", Color.Gray));
+            Colors.Add(new("Longnose", Color.Gray));
+            Colors.Add(new("Loosejaw", Color.Gray));
+            Colors.Add(new("Loweye", Color.Gray));
+            Colors.Add(new("Mailcheek", Color.Gray));
+            Colors.Add(new("Megamouth", Color.Gray));
+            Colors.Add(new("Monkeyface", Color.Brown));
+            Colors.Add(new("Mustache", Color.Brown));
+            Colors.Add(new("Mustard", Color.Yellow));
+            Colors.Add(new("Nakedback", Color.Gray));
+            Colors.Add(new("Neon", Color.Cyan));
+            Colors.Add(new("Olive", Color.Olive));
+            Colors.Add(new("Orange", Color.Orange));
+            Colors.Add(new("Pancake", Color.Beige));
+            Colors.Add(new("Paradise", Color.SkyBlue));
+            Colors.Add(new("Parasitic", Color.ForestGreen));
+            Colors.Add(new("Pearl", new Color(234, 224, 200)));
+            Colors.Add(new("Peppered", Color.DarkGray));
+            Colors.Add(new("Prickleback", Color.Gray));
+            Colors.Add(new("Prickly", Color.Gray));
+            Colors.Add(new("Razorback", Color.Gray));
+            Colors.Add(new("Red", Color.Red));
+            Colors.Add(new("Redfin", Color.Red));
+            Colors.Add(new("Redlip", Color.Red));
+            Colors.Add(new("Redmouth", Color.Red));
+            Colors.Add(new("Redtooth", Color.Red));
+            Colors.Add(new("Ribbon", Color.Pink));
+            Colors.Add(new("Ridgehead", Color.Gray));
+            Colors.Add(new("River", Color.LightBlue));
+            Colors.Add(new("Rock", Color.Gray));
+            Colors.Add(new("Sand", Color.PaleGoldenrod));
+            Colors.Add(new("Sandbar", Color.PaleGoldenrod));
+            Colors.Add(new("Sawtail", Color.Gray));
+            Colors.Add(new("Sharpnose", Color.Gray));
+            Colors.Add(new("Sheepshead", Color.White));
+            Colors.Add(new("Shortfin", Color.Gray));
+            Colors.Add(new("Silver", Color.Silver));
+            Colors.Add(new("Silverside", Color.Silver));
+            Colors.Add(new("Sixgill", Color.Gray));
+            Colors.Add(new("Slender", Color.Gray));
+            Colors.Add(new("Slickhead", Color.Gray));
+            Colors.Add(new("Slimehead", Color.Lime.SetAlpha(128)));
+            Colors.Add(new("Slimy", Color.Lime.SetAlpha(128)));
+            Colors.Add(new("Slipmouth", Color.Gray));
+            Colors.Add(new("Smalleye", Color.Gray));
+            Colors.Add(new("Smallmouth", Color.Gray));
+            Colors.Add(new("Smalltooth", Color.Gray));
+            Colors.Add(new("Smooth", Color.Gray));
+            Colors.Add(new("Snakehead", Color.Green));
+            Colors.Add(new("Spotted", Color.Gray));
+            Colors.Add(new("Squarehead", Color.Gray));
+            Colors.Add(new("Squaretail", Color.Gray));
+            Colors.Add(new("Starry", Color.Purple));
+            Colors.Add(new("Striped", Color.White));
+            Colors.Add(new("Temperate", Color.Gray));
+            Colors.Add(new("Thorny", Color.Green));
+            Colors.Add(new("Thread-tail", Color.Gray));
+            Colors.Add(new("Three spot", Color.Gray));
+            Colors.Add(new("Threespine", Color.Gray));
+            Colors.Add(new("Tidewater", Color.SeaGreen));
+            Colors.Add(new("Top", Color.Gray));
+            Colors.Add(new("Torrent", Color.LightBlue));
+            Colors.Add(new("Tube", Color.Gray));
+            Colors.Add(new("Upside-down", Color.Gray));
+            Colors.Add(new("Velvet", Color.Purple));
+            Colors.Add(new("Vermillion", Color.Magenta));
+            Colors.Add(new("Warty", Color.Green));
+            Colors.Add(new("Whiptail", Color.Gray));
+            Colors.Add(new("White", Color.White));
+            Colors.Add(new("White tip", Color.White));
+            Colors.Add(new("X-ray", Color.Green.SetAlpha(60)));
+            Colors.Add(new("Yellow", Color.Yellow));
+            Colors.Add(new("Yellow-edge", Color.Yellow));
+            Colors.Add(new("Yellow-eye", Color.Yellow));
+            Colors.Add(new("Yellow-head", Color.Yellow));
+            Colors.Add(new("Yellowback", Color.Yellow));
+            Colors.Add(new("Yellowbelly", Color.Yellow));
+            Colors.Add(new("Yellowfin", Color.Yellow));
+            Colors.Add(new("Zebra", Color.White));
+
+
+
+
+
+            List<FishTime> Times = new();
+            Times.Add(new("Morning", 360, 540));
+            Times.Add(new("Late Morning", 540, 720));
+            Times.Add(new("Afternoon", 720, 1080));
+            Times.Add(new("Evening", 1080, 1320));
+            Times.Add(new("Night", 1320, 1560));
+            Times.Add(new("Day", 540, 1080));
+            Times.Add(new("Any", 360, 1560));
+
+            List<FishSpecies> Species = new();
+            Species.Add(new("Anchovy", 'a'));
+            Species.Add(new("Bass", 'b'));
+            Species.Add(new("Catfish", 'c'));
+            Species.Add(new("Dogfish", 'd'));
+            Species.Add(new("Eel", 'e'));
+            Species.Add(new("Flounder", 'f'));
+            Species.Add(new("Guppy", 'g'));
+            Species.Add(new("Herring", 'h'));
+            Species.Add(new("Icefish", 'i'));
+            Species.Add(new("Jewelfish", 'j'));
+            Species.Add(new("Koi", 'k'));
+            Species.Add(new("Lobster", 'l'));
+            Species.Add(new("Mackerel", 'm'));
+            Species.Add(new("Needlefish", 'n'));
+            Species.Add(new("Octopus", 'o'));
+            Species.Add(new("Perch", 'p'));
+            Species.Add(new("Quillback", 'q'));
+            Species.Add(new("Rockfish", 'r'));
+            Species.Add(new("Salmon", 's'));
+            Species.Add(new("Trout", 't'));
+            Species.Add(new("Unicorn Fish", 'u'));
+            Species.Add(new("Viperfish", 'v'));
+            Species.Add(new("Walleye", 'w'));
+            Species.Add(new("Xenofish", 'x'));
+            Species.Add(new("Yellowfish", 'y'));
+            Species.Add(new("Zebrafish", 'z'));
+
+            Species.Add(new("Angelfish", 'A'));
+            Species.Add(new("Barracuda", 'B'));
+            Species.Add(new("Carp", 'C'));
+            Species.Add(new("Dolphin", 'D'));
+            Species.Add(new("Emberling", 'E'));
+            Species.Add(new("Frog", 'F'));
+            Species.Add(new("Grouper", 'G'));
+            Species.Add(new("Halibut", 'H'));
+            Species.Add(new("Infrafish", 'I'));
+            Species.Add(new("Jawfish", 'J'));
+            Species.Add(new("Knifejaw", 'K'));
+            Species.Add(new("Lionfish", 'L'));
+            Species.Add(new("Marlin", 'M'));
+            Species.Add(new("Noodlefish", 'N'));
+            Species.Add(new("Oarfish", 'O'));
+            Species.Add(new("Pollock", 'P'));
+            Species.Add(new("Queenfish", 'Q'));
+            Species.Add(new("Ray", 'R'));
+            Species.Add(new("Shark", 'S'));
+            Species.Add(new("Tuna", 'T'));
+            Species.Add(new("Undulator", 'U'));
+            Species.Add(new("Velvetfish", 'V'));
+            Species.Add(new("Whale", 'W'));
+            Species.Add(new("Xylocarp", 'X'));
+            Species.Add(new("Yellowfin", 'Y'));
+            Species.Add(new("Zebra Loach", 'Z'));
+             
+
+            FishDef fish = new();
+
+            fish.CatchLocation = Locations[GameLoop.rand.Next(Locations.Length)];
+            fish.Season = Seasons[GameLoop.rand.Next(Seasons.Length)];
+
+            FishColor col = Colors[GameLoop.rand.Next(Colors.Count)];
+            fish.colR = col.R;
+            fish.colG = col.G;
+            fish.colB = col.B;
+            fish.colA = col.A;
+
+            FishTime time = Times[GameLoop.rand.Next(Times.Count)];
+            fish.EarliestTime = time.StartTime;
+            fish.LatestTime = time.EndTime;
+
+            FishSpecies spec = Species[GameLoop.rand.Next(Species.Count)];
+            fish.glyph = spec.Glyph;
+
+
+            fish.Strength = GameLoop.rand.Next(10);
+            fish.MaxQuality = 11;
+            fish.FightChance = (GameLoop.rand.Next(9) + 1) * 10;
+            fish.FightLength = (GameLoop.rand.Next(10) + 1) * 10;
+            fish.FilletID = "lh:Fish Fillet";
+            fish.RequiredLevel = GameLoop.rand.Next(10) * 10;
+            fish.GrantedExp = Math.Max(10, fish.RequiredLevel + 10);
+
+            fish.Name = col.Name + " " + spec.Name;
+            fish.PackageID = "lh";
+            fish.FishItemID = "lh:Raw " + spec.Name;
+
+
+            return fish;
         }
 
         public void LoadConstructibles() {
@@ -143,6 +492,38 @@ namespace LofiHollow {
                 for (int i = 0; i < sorted.Count; i++) {
                     constructibles.Add(i, sorted[i]);
                 }
+            }
+        }
+
+        public void SortConstructibles() {
+            List<Constructible> presort = new();
+
+            foreach (KeyValuePair<int, Constructible> kv in constructibles) {
+                presort.Add(kv.Value);
+            }
+             
+            constructibles.Clear();
+
+            List<Constructible> sorted = presort.OrderBy(o => o.RequiredLevel).ThenBy(o => o.Name).ToList();
+
+            for (int i = 0; i < sorted.Count; i++) {
+                constructibles.Add(i, sorted[i]);
+            }
+        }
+
+        public void SortRecipes() {
+            List<CraftingRecipe> presort = new();
+
+            foreach (KeyValuePair<int, CraftingRecipe> kv in recipeLibrary) {
+                presort.Add(kv.Value);
+            }
+
+            recipeLibrary.Clear();
+
+            List<CraftingRecipe> sorted = presort.OrderBy(o => o.RequiredLevel).ThenBy(o => o.Name).ToList();
+
+            for (int i = 0; i < sorted.Count; i++) {
+                recipeLibrary.Add(i, sorted[i]);
             }
         }
 
@@ -236,7 +617,7 @@ namespace LofiHollow {
                     NPC npc = JsonConvert.DeserializeObject<NPC>(json);
 
                     if (npc.Name != "")
-                        npcLibrary.Add(npc.Name, npc);
+                        npcLibrary.Add(npc.FullName(), npc);
                 }
             }
 
@@ -334,6 +715,10 @@ namespace LofiHollow {
                             map.Tiles[i].IsBlockingLOS = map.Tiles[i].Lock.ClosedBlocksLOS;
                         }
                     }
+
+                    if (map.Tiles[i].AnimalBed != null) {
+                        map.Tiles[i].AnimalBed.SpawnAnimal();
+                    }
                 }
 
 
@@ -378,6 +763,16 @@ namespace LofiHollow {
                 string timeJson = JsonConvert.SerializeObject(GameLoop.World.Player.Clock, Formatting.Indented);
                 timeOutput.WriteLine(timeJson);
                 timeOutput.Close();
+
+                 
+                string fishPath = "./saves/" + Player.Name + "/fish.gz";
+
+                List<FishDef> allFish = new();
+                foreach (KeyValuePair<string, FishDef> kv in fishLibrary) {
+                    allFish.Add(kv.Value);
+                }
+
+                Helper.SerializeToFileCompressed(allFish, fishPath);
             }
         }
 
@@ -393,10 +788,56 @@ namespace LofiHollow {
 
                     if (name[^1] == "player.dat.gz") {
                         Player = Helper.DeserializeFromFileCompressed<Player>(fileName);
+
+                        if (Player.NoonbreezeApt != null) {
+                            Map map = Player.NoonbreezeApt.map;
+                            for (int i = 0; i < map.Tiles.Length; i++) {
+                                if (map.Tiles[i].Lock != null) {
+                                    if (!map.Tiles[i].Lock.Closed) {
+                                        map.Tiles[i].Glyph = map.Tiles[i].Lock.OpenedGlyph;
+                                        map.Tiles[i].IsBlockingMove = map.Tiles[i].Lock.OpenBlocksMove;
+                                        map.Tiles[i].IsBlockingLOS = false;
+                                    }
+                                    else {
+                                        map.Tiles[i].Glyph = map.Tiles[i].Lock.ClosedGlyph;
+                                        map.Tiles[i].IsBlockingMove = true;
+                                        map.Tiles[i].IsBlockingLOS = map.Tiles[i].Lock.ClosedBlocksLOS;
+                                    }
+                                }
+
+                                if (Player.NoonbreezeApt.map.Tiles[i].AnimalBed != null) {
+                                    Player.NoonbreezeApt.map.Tiles[i].AnimalBed.SpawnAnimal();
+                                }
+                            }
+                        }
                     }
 
                     if (name[^1] == "time.dat") {
                         Player.Clock = JsonConvert.DeserializeObject<TimeManager>(json);
+                    }
+
+                    if (name[^1] == "fish.gz") {
+                        List<FishDef> allFish = Helper.DeserializeFromFileCompressed<List<FishDef>>(fileName);
+                        fishLibrary = new();
+
+                        foreach (FishDef fish in allFish) {
+                            fishLibrary.Add(fish.FullName(), fish);
+
+                            Item fishItem = new("lh:Raw Fish");
+
+                            string[] split = fish.FishItemID.Split(":");
+                            fishItem.ForegroundR = fish.colR;
+                            fishItem.ForegroundG = fish.colG;
+                            fishItem.ForegroundB = fish.colB;
+                            fishItem.ItemGlyph = fish.glyph;
+                            fishItem.Name = split[1];
+                            fishItem.Package = split[0];
+                            fishItem.AverageValue = fish.RequiredLevel / 2;
+
+                            if (!itemLibrary.ContainsKey(fishItem.FullName())) {
+                                itemLibrary.Add(fishItem.FullName(), fishItem);
+                            }
+                        }
                     }
                 }
             }
@@ -424,9 +865,11 @@ namespace LofiHollow {
 
             Player.DayStart = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
 
-            Map map = Helper.ResolveMap(Player.MapPos); 
-            if (map != null) {
-                GameLoop.UIManager.Map.LoadMap(map);
+            Map currentMap = Helper.ResolveMap(Player.MapPos); 
+            if (currentMap != null) {
+                GameLoop.UIManager.Map.LoadMap(currentMap);
+                GameLoop.UIManager.Map.UpdateVision();
+                GameLoop.UIManager.Map.RenderOverlays();
             } 
         }
 
@@ -474,8 +917,7 @@ namespace LofiHollow {
             Player.ZIndex = 10;
 
             Player.MaxHP = 0;
-            Player.CurrentHP = Player.MaxHP;
-            
+            Player.CurrentHP = Player.MaxHP; 
         }
 
         public void FreshStart() {
@@ -495,12 +937,15 @@ namespace LofiHollow {
 
             foreach (KeyValuePair<string, Mission> kv in missionLibrary) {
                 Player.MissionLog.Add(kv.Key, kv.Value);
-            }
+            } 
+
+            GenerateAllFish();
 
             SavePlayer();
             LoadPlayer(Player.Name);
 
             GameLoop.UIManager.AddMsg("Press F1 for help at any time, or ? to view hotkeys.");
+
         }
     }
 }

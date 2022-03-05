@@ -4,7 +4,7 @@ using SadRogue.Primitives;
 namespace LofiHollow {
     public class ScriptInterface {
         public void Draw(int x, int y, string s) {
-            GameLoop.UIManager.ScriptMini.ScriptConsole.Print(x, y, s);
+            GameLoop.UIManager.ScriptMini.Con.Print(x, y, s);
         }
 
         public void Draw(int x, int y, string s, int preset) {
@@ -28,15 +28,15 @@ namespace LofiHollow {
                 case 15: col = Color.White; break;
             }
 
-            GameLoop.UIManager.ScriptMini.ScriptConsole.Print(x, y, s, col);
+            GameLoop.UIManager.ScriptMini.Con.Print(x, y, s, col);
         }
 
         public void Draw(int x, int y, string s, int r, int g, int b) {
-            GameLoop.UIManager.ScriptMini.ScriptConsole.Print(x, y, s, new Color(r, g, b));
+            GameLoop.UIManager.ScriptMini.Con.Print(x, y, s, new Color(r, g, b));
         }
 
         public void Draw(int x, int y, string s, int r, int g, int b, int a) {
-            GameLoop.UIManager.ScriptMini.ScriptConsole.Print(x, y, s, new Color(r, g, b, a));
+            GameLoop.UIManager.ScriptMini.Con.Print(x, y, s, new Color(r, g, b, a));
         }
 
         public void StartMinigame(string scriptName) {
