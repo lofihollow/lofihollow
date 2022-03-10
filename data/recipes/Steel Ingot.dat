@@ -7,14 +7,12 @@
   "ExpGranted": 80,
   "SpecificMaterials": [
     {
-      "Name": "lh:Iron Chunk",
-      "SubID": 0,
+      "ID": "lh:Iron Chunk", 
       "ItemQuantity": 1,
       "Stacks": true
     },
 	{
-      "Name": "lh:Coal",
-      "SubID": 0,
+      "ID": "lh:Coal", 
       "ItemQuantity": 1,
       "Stacks": true
     }

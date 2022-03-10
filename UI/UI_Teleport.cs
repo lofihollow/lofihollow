@@ -67,7 +67,7 @@ namespace LofiHollow.UI {
                     Targets.Add(ownApt);
                 }
 
-                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                     if (kv.Value.NoonbreezeApt != null) {
                         TeleportTarget theirApt = new();
                         theirApt.Name = kv.Value.NoonbreezeApt.map.MinimapTile.name;

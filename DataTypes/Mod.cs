@@ -12,9 +12,7 @@ namespace LofiHollow.DataTypes {
     public class Mod {
         public bool Enabled = true;
 
-        public string Name = "";
-        public string Package = "";
-
+        public ModMetadata Metadata = new();
 
         public List<Constructible> ModConstructs = new();
         public List<CraftingRecipe> ModRecipes = new();

@@ -9,7 +9,7 @@ namespace LofiHollow.EntityData {
     [JsonObject(MemberSerialization.OptIn)]
     public class CraftingRecipe {
         [JsonProperty]
-        public string Name = "";
+        public string Name = ""; 
         [JsonProperty]
         public string FinishedID = "";
         [JsonProperty]
@@ -32,6 +32,7 @@ namespace LofiHollow.EntityData {
         public List<CraftComponent> GenericMaterials = new();
         [JsonProperty]
         public List<ToolData> RequiredTools = new();
+         
 
         public void Craft(Player act, int quantity, int MinQuality) {
             if (ActorCanCraft(act, Skill, quantity, MinQuality) > -1) {
@@ -44,7 +45,7 @@ namespace LofiHollow.EntityData {
                 for (int i = 0; i < SpecificMaterials.Count; i++) {
                     int quantityLeft = SpecificMaterials[i].ItemQuantity * quantity;
                     for (int j = 0; j < act.Inventory.Length; j++) {
-                        if (act.Inventory[j].FullName() == SpecificMaterials[i].Name) {
+                        if (act.Inventory[j].FullName() == SpecificMaterials[i].ID) {
                             if (act.Inventory[i].Quality == 0 || act.Inventory[i].Quality >= MinQuality) {
                                 if (act.Inventory[j].ItemQuantity > quantityLeft) {
                                     act.Inventory[j].ItemQuantity -= quantityLeft;
@@ -57,13 +58,13 @@ namespace LofiHollow.EntityData {
                                     if (act.Inventory[j].Quality > individualQuality)
                                         individualQuality = act.Inventory[j].Quality;
                                     TotalWeight += act.Inventory[j].Weight;
-                                    act.Inventory[j] = new("lh:(EMPTY)"); 
+                                    act.Inventory[j] = Item.Copy("lh:(EMPTY)"); 
                                 } else {
                                     quantityLeft -= act.Inventory[j].ItemQuantity;
                                     if (act.Inventory[j].Quality > individualQuality)
                                         individualQuality = act.Inventory[j].Quality;
                                     TotalWeight += act.Inventory[j].Weight;
-                                    act.Inventory[j] = new("lh:(EMPTY)");
+                                    act.Inventory[j] = Item.Copy("lh:(EMPTY)");
                                 }
                             }
                         }
@@ -163,7 +164,7 @@ namespace LofiHollow.EntityData {
 
                     for (int j = 0; j < GameLoop.World.Player.Inventory.Length; j++) {
                         if (GameLoop.World.Player.Inventory[j].ItemQuantity <= 0) { 
-                            act.Inventory[j] = new("lh:(EMPTY)");
+                            act.Inventory[j] = Item.Copy("lh:(EMPTY)");
                         }
                     }
                 }
@@ -174,7 +175,7 @@ namespace LofiHollow.EntityData {
                 if (TotalQuality > 0)
                     TotalIngredientQuality = (int) Math.Floor(TotalQuality / TotalItems); 
 
-                Item finished = new(FinishedID); 
+                Item finished = Item.Copy(FinishedID); 
 
                 int Qty;
 
@@ -191,7 +192,7 @@ namespace LofiHollow.EntityData {
                     CommandManager.AddItemToInv(act, finished);
                 } else {
                     for (int i = 0; i < Qty; i++) {
-                        Item one = new(finished);
+                        Item one = Item.Copy(finished);
                         one.Quality = Math.Min(TotalIngredientQuality, QualityCap);
                         CommandManager.AddItemToInv(act, one);
                     }

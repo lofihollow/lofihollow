@@ -80,7 +80,7 @@ namespace LofiHollow.UI {
                     rewardAmount = GameLoop.rand.Next(8) + 2;
                 } else {
                     int index = GameLoop.rand.Next(GameLoop.World.monsterLibrary.Count);
-                    targetName = GameLoop.World.monsterLibrary.ElementAt(index).Value.Name; 
+                    targetName = GameLoop.World.monsterLibrary.ElementAt(index).Value.Species; 
                     app = GameLoop.World.monsterLibrary.ElementAt(index).Value.GetAppearance();
                     rewardAmount = GameLoop.rand.Next(GameLoop.World.monsterLibrary.ElementAt(index).Value.MinLevel) + 2;
                 }

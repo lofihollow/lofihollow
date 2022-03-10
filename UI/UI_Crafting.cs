@@ -66,7 +66,7 @@ namespace LofiHollow.UI {
 
             if (CurrentSkillRecipes.Count > selectedIndex) {
                 CraftingRecipe current = CurrentSkillRecipes[selectedIndex];
-                Item finished = new(current.FinishedID);
+                Item finished = Item.Copy(current.FinishedID);
                 int QualityCap = (int)Math.Floor((GameLoop.World.Player.Skills[CurrentSkill].Level + 1f) / 10f) + 1;
 
                 int canCraft = current.ActorCanCraft(GameLoop.World.Player, CurrentSkill, craftingQuantity, MinimumQuality);
@@ -109,7 +109,7 @@ namespace LofiHollow.UI {
                     if (!hasTool)
                         check = new ColoredString("x", Color.Red, Color.Black);
 
-                    Item specific = new(current.SpecificMaterials[i].Name);
+                    Item specific = Item.Copy(current.SpecificMaterials[i].ID);
 
                     Con.Print(26, 31 + i, new ColoredString((current.SpecificMaterials[i].ItemQuantity * craftingQuantity) + "x " + specific.Name + ": ") + check);
                 }

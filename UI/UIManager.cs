@@ -61,7 +61,7 @@ namespace LofiHollow.UI {
 
         public override void Update(TimeSpan timeElapsed) {
             if (clientAndConnected) {
-                if (MainMenu.MainMenuWindow.IsVisible) {
+                if (MainMenu.MainMenuWindow.IsVisible && selectedMenu != "Minigame") {
                     MainMenu.RenderMainMenu();
                     MainMenu.CaptureMainMenuClicks();
                 } else {
@@ -330,7 +330,8 @@ namespace LofiHollow.UI {
                     GameLoop.SoundManager.PlaySound("openGuide");
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.K)) {
+                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.K)) { 
+                    GameLoop.SteamManager.PullSkillBoards();
                     Skills.Toggle();
                     GameLoop.SoundManager.PlaySound("openGuide");
                 }
@@ -353,7 +354,7 @@ namespace LofiHollow.UI {
                 }  
 
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F1)) {
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F1)) {
                     Help.ToggleHelp("Guide");
                     GameLoop.SoundManager.PlaySound("openGuide");
                 } 
@@ -362,9 +363,14 @@ namespace LofiHollow.UI {
                     Multiplayer.Toggle();
                 }
 
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.Escape)) {
+                    Options.Toggle();
+                }
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F2)) {
-                    Minigames.ToggleMinigame("StackEm");
+
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F2)) {
+                    Combat.Toggle();
+                    Combat.StartCombat("Plains", 5);
                 }
             } else if (selectedMenu == "Sign") {
                 if (GameHost.Instance.Keyboard.HasKeysPressed) {

@@ -14,6 +14,8 @@ namespace LofiHollow.UI {
     public class UI_Minigame : Lofi_UI { 
         public string CurrentGame = "None";
 
+        public string PreviousMenuScreen = "";
+
         public MineManager MineManager;
         public FishingManager FishingManager;
         public Bartending Bartending;
@@ -23,32 +25,79 @@ namespace LofiHollow.UI {
         public ArchCleaning ArchCleaning;
         public Picross Picross;
         public StackEm StackEm;
+        public Minesweeper Minesweeper;
+        public NumberCombo NumberCombo;
 
-        public UI_Minigame(int width, int height, string title) : base(width, height, title, "Minigame") {
-            MineManager = new();
-            FishingManager = new(); 
-            Bartending = new();
-            Blacksmithing = new();
-            LightsOut = new();
-            FruitCatch = new();
-            ArchCleaning = new();
-            Picross = new();
-            StackEm = new();
-        }
+        public UI_Minigame(int width, int height, string title) : base(width, height, title, "Minigame") {  }
 
 
         public override void Render() { 
             Con.Clear();
 
-            if (CurrentGame == "Fishing") { FishingManager.Render(); } 
-            else if (CurrentGame == "Mining") { MineManager.Render(); } 
-            else if (CurrentGame == "Bartending") { Bartending.Draw(); } 
-            else if (CurrentGame == "Blacksmithing") { Blacksmithing.Draw(); } 
-            else if (CurrentGame == "LightsOut") { LightsOut.Draw(); } 
-            else if (CurrentGame == "FruitCatch") { FruitCatch.Draw(); }
-            else if (CurrentGame == "ArchCleaning") { ArchCleaning.Draw(); }
-            else if (CurrentGame == "Picross") { Picross.Draw(); }
-            else if (CurrentGame == "StackEm") { StackEm.Draw(); }
+            if (CurrentGame == "Fishing") {
+                if (FishingManager == null)
+                    FishingManager = new();
+                FishingManager.Render(); 
+            }
+            else if (CurrentGame == "Mining") {
+                if (MineManager == null)
+                    MineManager = new();
+                MineManager.Render(); 
+            }
+
+            else if (CurrentGame == "Bartending") {
+                if (Bartending == null)
+                    Bartending = new();
+                Bartending.Draw(); 
+            }
+
+            else if (CurrentGame == "Blacksmithing") {
+                if (Blacksmithing == null)
+                    Blacksmithing = new();
+                Blacksmithing.Draw(); 
+            }
+
+            else if (CurrentGame == "LightsOut") {
+                if (LightsOut == null)
+                    LightsOut = new();
+                LightsOut.Draw();
+            }
+
+            else if (CurrentGame == "FruitCatch") {
+                if (FruitCatch == null)
+                    FruitCatch = new();
+                FruitCatch.Draw(); 
+            }
+
+            else if (CurrentGame == "ArchCleaning") {
+                if (ArchCleaning == null)
+                    ArchCleaning = new();
+                ArchCleaning.Draw(); 
+            }
+
+            else if (CurrentGame == "Picross") {
+                if (Picross == null)
+                    Picross = new();
+                Picross.Draw(); 
+            }
+
+            else if (CurrentGame == "StackEm") {
+                if (StackEm == null)
+                    StackEm = new();
+                StackEm.Draw(); 
+            }
+
+            else if (CurrentGame == "Minesweeper") {
+                if (Minesweeper == null)
+                    Minesweeper = new();
+                Minesweeper.Draw(); 
+            }
+
+            else if (CurrentGame == "NumberCombo") {
+                if (NumberCombo == null)
+                    NumberCombo = new();
+                NumberCombo.Draw();
+            }
         }
 
         public override void Input() {
@@ -61,10 +110,12 @@ namespace LofiHollow.UI {
             else if (CurrentGame == "ArchCleaning") { ArchCleaning.Input(); }
             else if (CurrentGame == "Picross") { Picross.Input(); } 
             else if (CurrentGame == "StackEm") { StackEm.Input(); }
+            else if (CurrentGame == "Minesweeper") { Minesweeper.Input(); }
+            else if (CurrentGame == "NumberCombo") { NumberCombo.Input(); }
         } 
         public void ToggleMinigame(string which) {
             if (Win.IsVisible) {
-                GameLoop.UIManager.selectedMenu = "None";
+                GameLoop.UIManager.selectedMenu = PreviousMenuScreen;
                 CurrentGame = "None";
                 Win.IsVisible = false;
                 GameLoop.UIManager.Map.MapConsole.IsFocused = true;
@@ -73,6 +124,7 @@ namespace LofiHollow.UI {
                 Win.Title = "";
                 GameLoop.World.Player.MineLocation = "None";
             } else {
+                PreviousMenuScreen = GameLoop.UIManager.selectedMenu;
                 GameLoop.UIManager.selectedMenu = "Minigame";
                 Win.IsVisible = true;
                 Win.IsFocused = true;

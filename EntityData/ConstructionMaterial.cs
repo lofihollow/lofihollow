@@ -1,29 +1,21 @@
 ﻿using LofiHollow.Entities;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json; 
 
 namespace LofiHollow.EntityData {
     [JsonObject(MemberSerialization.OptIn)]
     public class ConstructionMaterial {
         [JsonProperty]
-        public string Name = "";
+        public string ID = "";
         [JsonProperty]
-        public int ItemQuantity = 0;
-        [JsonProperty]
-        public bool Stacks = false;
+        public int ItemQuantity = 0; 
 
 
         [JsonConstructor]
         public ConstructionMaterial() { }
 
         public ConstructionMaterial(string name, int qty, bool stacks) {
-            Name = name;
-            ItemQuantity = qty;
-            Stacks = stacks;
+            ID = name;
+            ItemQuantity = qty; 
         }
 
         public int ActorHasComponent(Player act, int CraftAmount, int MinQuality) {
@@ -31,7 +23,7 @@ namespace LofiHollow.EntityData {
             int Quality = 0;
 
             for (int i = 0; i < act.Inventory.Length; i++) {
-                if (act.Inventory[i].FullName() == Name) {
+                if (act.Inventory[i].FullName() == ID) {
                     if (act.Inventory[i].Quality == 0 || act.Inventory[i].Quality >= MinQuality) {
                         heldQty += act.Inventory[i].ItemQuantity;
 

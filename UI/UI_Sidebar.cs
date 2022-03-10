@@ -56,7 +56,7 @@ namespace LofiHollow.UI {
 
         public void SidebarInput() { 
             
-            
+            /*
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F11)) {
                 if (GameLoop.UIManager.selectedMenu == "Map Editor") {
                     GameLoop.UIManager.selectedMenu = "None";
@@ -64,7 +64,7 @@ namespace LofiHollow.UI {
                     GameLoop.UIManager.selectedMenu = "Map Editor";
                 }
             } 
-
+            */
             if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
                 if (hotbarSelect + 1 < GameLoop.World.Player.Inventory.Length)
                     hotbarSelect++;
@@ -81,7 +81,7 @@ namespace LofiHollow.UI {
                         if (sidebarMouse.Y == 13) {
                             if (GameLoop.World.Player.CopperCoins > 0) { 
                                 GameLoop.World.Player.CopperCoins -= 1;
-                                Item copper = new("lh:Copper Coin");
+                                Item copper = Item.Copy("lh:Copper Coin");
                                 CommandManager.AddItemToInv(GameLoop.World.Player, copper);
                                 MadeCoinThisFrame = true;
                             }
@@ -90,7 +90,7 @@ namespace LofiHollow.UI {
                         if (sidebarMouse.Y == 14) {
                             if (GameLoop.World.Player.SilverCoins > 0) {
                                 GameLoop.World.Player.SilverCoins--;
-                                Item silver = new("lh:Silver Coin");
+                                Item silver = Item.Copy("lh:Silver Coin");
                                 CommandManager.AddItemToInv(GameLoop.World.Player, silver);
                                 MadeCoinThisFrame = true;
                             }
@@ -99,7 +99,7 @@ namespace LofiHollow.UI {
                         if (sidebarMouse.Y == 13) {
                             if (GameLoop.World.Player.GoldCoins > 0) {
                                 GameLoop.World.Player.GoldCoins--;
-                                Item gold = new("lh:Gold Coin");
+                                Item gold = Item.Copy("lh:Gold Coin");
                                 CommandManager.AddItemToInv(GameLoop.World.Player, gold);
                                 MadeCoinThisFrame = true;
                             }
@@ -108,7 +108,7 @@ namespace LofiHollow.UI {
                         if (sidebarMouse.Y == 14) {
                             if (GameLoop.World.Player.JadeCoins > 0) {
                                 GameLoop.World.Player.JadeCoins--;
-                                Item jade = new("lh:Jade Coin");
+                                Item jade = Item.Copy("lh:Jade Coin");
                                 CommandManager.AddItemToInv(GameLoop.World.Player, jade);
                                 MadeCoinThisFrame = true;
                             }
@@ -441,6 +441,20 @@ namespace LofiHollow.UI {
                             if (map != null) {
                                 Tile tile = map.GetTile(mouseOverMap);
 
+                                if (tile.Name == "Space") {
+                                    int depth = 1;
+                                    while(tile.Name == "Space") {
+                                        Point3D lower = GameLoop.World.Player.MapPos - new Point3D(0, 0, depth);
+                                        Map lowerMap = Helper.ResolveMap(lower);
+                                        if (lowerMap != null) {
+                                            tile = lowerMap.GetTile(mouseOverMap);
+                                            depth++;
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                }
+
                                 SidebarConsole.Print(0, y++, tile.AsColoredGlyph() + new ColoredString(" " + tile.Name, Color.White, Color.Black));
                                 if (tile.Dec != null)
                                     SidebarConsole.SetDecorator(0, y - 1, 1, tile.GetDecorator());
@@ -456,7 +470,7 @@ namespace LofiHollow.UI {
                                         }
                                     }
 
-                                    foreach (KeyValuePair<Steamworks.CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                                    foreach (KeyValuePair<Steamworks.SteamId, Player> kv in GameLoop.World.otherPlayers) {
                                         if (kv.Value.Position == mouseOverMap && kv.Value.MapPos == GameLoop.World.Player.MapPos) {
                                             PeopleOnTile.Add(kv.Value);
                                         }

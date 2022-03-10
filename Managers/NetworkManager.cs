@@ -10,79 +10,87 @@ using SadConsole;
 using SadRogue.Primitives;
 using LofiHollow.DataTypes;
 using Steamworks;
+using Steamworks.Data;
+using System.Threading.Tasks;
+using Color = SadRogue.Primitives.Color;
 
 namespace LofiHollow.Managers {
 	public class NetworkManager {
-		public CSteamID ownID;
+		public SteamId ownID;
 		public bool isHost = false;
 		public bool FoundLobby = false;
 		public string LobbyCode = "";
-
-
-		protected Callback<LobbyCreated_t> Callback_lobbyCreated;
-		protected Callback<LobbyMatchList_t> Callback_lobbyList;
-		protected Callback<LobbyEnter_t> Callback_lobbyEnter;
-		protected Callback<LobbyDataUpdate_t> Callback_lobbyInfo;
-		protected Callback<LobbyChatMsg_t> Callback_lobbyChatMsg;
-		protected Callback<LobbyChatUpdate_t> Callback_lobbyChatUpdate;
-
-		public ulong currentLobby;
-		List<CSteamID> lobbyIDs;
+		  
+		public Lobby currentLobby;
+		List<SteamId> lobbyIDs;
 
 		public void Start() {
 			lobbyIDs = new();
-			Callback_lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
-			Callback_lobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbiesList);
-			Callback_lobbyEnter = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
-			Callback_lobbyChatMsg = Callback<LobbyChatMsg_t>.Create(OnLobbyMessage);
-			Callback_lobbyChatUpdate = Callback<LobbyChatUpdate_t>.Create(OnChatUpdate);
-		}
+			SteamMatchmaking.OnLobbyEntered += OnLobbyEntered;
+			SteamMatchmaking.OnChatMessage += OnLobbyMessage;
+			SteamMatchmaking.OnLobbyMemberLeave += OnMemberLeave;
+			
+			//Callback_lobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbiesList);  
+			//Callback_lobbyChatUpdate = Callback<LobbyChatUpdate_t>.Create(OnChatUpdate);
+		} 
 
-		public void SteamLobby() {
-			SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 8);
+        public async void CreateSteamLobby() {
+			await CreateLobby();
+		} 
 
+		public async Task<bool> CreateLobby() {
+			if (SteamClient.IsValid) {
+				var createOut = await SteamMatchmaking.CreateLobbyAsync(4);
 
-			GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
-			GameLoop.UIManager.Map.MapWindow.IsVisible = true;
-			GameLoop.UIManager.Map.MessageLog.IsVisible = true;
-			GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
-			GameLoop.UIManager.selectedMenu = "None";
-		}
+				if (!createOut.HasValue) {
+					GameLoop.UIManager.MainMenu.joinError = "Failed Lobby Create";
+					return false;
+				}
 
-		public void JoinSteamLobby(string roomcode) {
-			ownID = SteamUser.GetSteamID();
-			LobbyCode = roomcode;
-			SteamMatchmaking.RequestLobbyList();
-        }
+				Lobby lobby = createOut.Value;
 
-		public void OnLobbyCreated(LobbyCreated_t result) {
-			if (result.m_eResult == EResult.k_EResultOK) {
 				string lobbyCode = GetRoomCode();
+
 				LobbyCode = lobbyCode;
-				SteamMatchmaking.SetLobbyData((CSteamID)result.m_ulSteamIDLobby, "roomCode", lobbyCode);
-				currentLobby = result.m_ulSteamIDLobby;
-				ownID = SteamUser.GetSteamID();
+				lobby.SetData("roomCode", lobbyCode);
+				lobby.SetJoinable(true);
+				lobby.SetPublic();
+				currentLobby = lobby;
+				ownID = SteamClient.SteamId;
+
+
+				GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = false;
+				GameLoop.UIManager.Map.MapWindow.IsVisible = true;
+				GameLoop.UIManager.Map.MessageLog.IsVisible = true;
+				GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
+				GameLoop.UIManager.selectedMenu = "None";
 
 				isHost = true;
 
 				//GameLoop.UIManager.AddMsg(new ColoredString("Created a lobby with code " + lobbyCode, Color.Green, Color.Black));
 				GameLoop.UIManager.AddMsg(new ColoredString("Press ` (tilde) at any time to view multiplayer code.", Color.Green, Color.Black));
-			} else {
-				GameLoop.UIManager.MainMenu.joinError = result.m_eResult.ToString();
-            }
+
+				return true;
+			}
+
+			GameLoop.UIManager.MainMenu.joinError = "Steam Init Error";
+			return false;
+		}
+
+		public void LeaveLobby() {
+			currentLobby.Leave(); 
         }
 
-		public void OnGetLobbiesList(LobbyMatchList_t result) {
-			for (int i = 0; i < result.m_nLobbiesMatching; i++) {
-				CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
-				lobbyIDs.Add(lobbyID);
-				SteamMatchmaking.RequestLobbyData(lobbyID);
+		public void JoinSteamLobby(string roomcode) {
+			ownID = SteamClient.SteamId;
+			LobbyCode = roomcode;
 
+			Lobby[] query = SteamMatchmaking.LobbyList.WithKeyValue("roomCode", roomcode).RequestAsync().Result;
 
-				if (SteamMatchmaking.GetLobbyData(lobbyID, "roomCode") == LobbyCode) {
+			for (int i = 0; i < query.Length; i++) {  
+				if (query[i].GetData("roomCode") == roomcode) {
 					GameLoop.UIManager.MainMenu.joinError = "Joining lobby";
-					SteamMatchmaking.JoinLobby(lobbyID);
-					currentLobby = (ulong) lobbyID;
+					query[i].Join(); 
 
 					NetMsg register = new("registerPlayer", GameLoop.World.Player.ToByteArray());
 					register.senderID = ownID;
@@ -113,52 +121,52 @@ namespace LofiHollow.Managers {
 					GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
 					GameLoop.UIManager.selectedMenu = "None";
 				}
-            } 
+			}
+		} 
+
+		public SteamId GetLobbyOwner() {
+			if (currentLobby.Id.IsValid) {
+				return currentLobby.Owner.Id;
+            }
+			return 0;
+        }
+
+		public void OnLobbyEntered(Lobby lobby) { 
+			if (lobby.Owner.Id != ownID) {
+				GameLoop.UIManager.MainMenu.joinError = "Joining lobby...";
+			} else {
+				GameLoop.UIManager.MainMenu.joinError = "Failed to join lobby.";
+			} 
 		}
 
-		public void OnLobbyEntered(LobbyEnter_t result) {
-			if (result.m_EChatRoomEnterResponse == 1) {
-				if (SteamMatchmaking.GetLobbyOwner((CSteamID) currentLobby) != ownID) {
-					GameLoop.UIManager.MainMenu.joinError = "Joining lobby...";
-				} else {
-					GameLoop.UIManager.MainMenu.joinError = "Failed to join lobby.";
+		public void OnMemberLeave(Lobby lobby, Friend friend) { 
+			if (GameLoop.World.otherPlayers.ContainsKey(friend.Id)) {
+				GameLoop.UIManager.AddMsg(new ColoredString(GameLoop.World.otherPlayers[friend.Id].Name + " disconnected.", Color.Orange, Color.Black));
+				GameLoop.World.otherPlayers.Remove(friend.Id);
+
+				NetMsg discon = new("disconnectedPlayer");
+				discon.senderID = friend.Id;
+
+				BroadcastMsg(discon);
+
+				Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+				if (map != null) {
+					GameLoop.UIManager.Map.SyncMapEntities(map);
 				}
-			}
-		}
-
-		public void OnChatUpdate(LobbyChatUpdate_t result) {
-			if (result.m_rgfChatMemberStateChange == 2) {
-				if (GameLoop.World.otherPlayers.ContainsKey((CSteamID) result.m_ulSteamIDUserChanged)) {
-					GameLoop.UIManager.AddMsg(new ColoredString(GameLoop.World.otherPlayers[(CSteamID)result.m_ulSteamIDUserChanged].Name + " disconnected.", Color.Orange, Color.Black));
-					GameLoop.World.otherPlayers.Remove((CSteamID)result.m_ulSteamIDUserChanged);
-
-					NetMsg discon = new("disconnectedPlayer");
-					discon.senderID = (CSteamID) result.m_ulSteamIDUserChanged;
-
-					BroadcastMsg(discon);
-
-					Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
-					if (map != null) {
-						GameLoop.UIManager.Map.SyncMapEntities(map);
-					}
-				}
-			}
+			} 
         }
 
 
-		public void OnLobbyMessage(LobbyChatMsg_t result) {
-			if ((CSteamID)result.m_ulSteamIDUser == SteamUser.GetSteamID())
+		public void OnLobbyMessage(Lobby lobby, Friend friend, string message) {
+			if (friend.Id == SteamClient.SteamId)
 				return;
 
-			CSteamID senderA;
-			byte[] Data = new byte[65536];
-			EChatEntryType ChatEntryType;
-			int ret = SteamMatchmaking.GetLobbyChatEntry((CSteamID)result.m_ulSteamIDLobby, (int)result.m_iChatID, out senderA, Data, Data.Length, out ChatEntryType);
-			 
+			byte[] Data = System.Text.Encoding.UTF8.GetBytes(message);
+
 			if (Data.Length > 0) {
 				NetMsg msg = Data.FromByteArray<NetMsg>();
 
-				if (msg.recipient != CSteamID.Nil && msg.recipient != ownID)
+				if (msg.recipient != 0 && msg.recipient != ownID)
 					return;
 				 
 
@@ -263,10 +271,10 @@ namespace LofiHollow.Managers {
 						CommandManager.MoveMonster(msg.MiscString1, msg.GetMapPos(), msg.GetPos());
 						break;
 					case "damageMonster":
-						CommandManager.DamageMonster(msg.MiscString1, msg.GetMapPos(), msg.MiscInt, msg.MiscString2, msg.MiscString3);
+						CommandManager.DamageMonster(msg.MiscString1, msg.GetMapPos(), msg.MiscInt, msg.MiscString2, msg.MiscString3, msg.MiscString4);
 						break;
 					case "damagePlayer":
-						CommandManager.DamagePlayer(msg.senderID, msg.MiscInt, msg.MiscString1, msg.MiscString2);
+						CommandManager.DamagePlayer(msg.senderID, msg.MiscInt, msg.MiscString1, msg.MiscString2, msg.MiscString3);
 						break;
 					case "updateTile":
 						Map tileMap = Helper.ResolveMap(msg.GetMapPos());
@@ -415,7 +423,7 @@ namespace LofiHollow.Managers {
 						GameLoop.World.Player.Sleeping = false;
 						GameLoop.World.Player.CurrentHP = GameLoop.World.Player.MaxHP;
 
-						foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+						foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
 							kv.Value.CurrentHP = kv.Value.MaxHP;
 							kv.Value.Sleeping = false;
 						}
@@ -443,7 +451,7 @@ namespace LofiHollow.Managers {
 							if (GameLoop.World.Player.Sleeping)
 								sleepCount++;
 
-							foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+							foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
 								totalPlayers++;
 								if (kv.Value.Sleeping)
 									sleepCount++;
@@ -522,7 +530,7 @@ namespace LofiHollow.Managers {
 							GameLoop.World.otherPlayers.Add(msg.senderID, msg.data.FromByteArray<Player>());
 						break;
 					case "sendJoinData":
-						foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+						foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
 							if (kv.Key != msg.senderID) {
 								NetMsg createPlayer = new("createPlayer", kv.Value.ToByteArray());
 								createPlayer.senderID = kv.Key;
@@ -589,7 +597,8 @@ namespace LofiHollow.Managers {
 
 		public void BroadcastMsg(NetMsg msg) { 
 			byte[] message = msg.ToByteArray();
-			SteamMatchmaking.SendLobbyChatMsg((CSteamID)currentLobby, message, message.Length); 
+
+			currentLobby.SendChatString(System.Text.Encoding.UTF8.GetString(message)); 
 		}
 
 		public static string GetRoomCode() {

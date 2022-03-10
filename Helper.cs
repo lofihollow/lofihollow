@@ -12,6 +12,7 @@ using System.Text;
 using LofiHollow.DataTypes;
 using Steamworks;
 using SadConsole.Input;
+using Console = SadConsole.Console;
 
 namespace LofiHollow {
     public static class Helper {
@@ -25,6 +26,55 @@ namespace LofiHollow {
 
         public static string Center(object obj, int width, int fillChar = ' ') {
             return obj.ToString().Align(HorizontalAlignment.Center, width, (char) fillChar);
+        }
+
+        public static ColoredString Checkmark(bool condition) {
+            ColoredString check = new ColoredString(4.AsString(), Color.Lime, Color.Black);
+
+            if (!condition)
+                check = new ColoredString("x", Color.Red, Color.Black);
+
+            return check;
+        }
+
+        public static T Clone<T>(this T source) { 
+            if (Object.ReferenceEquals(source, null)) {
+                return default(T);
+            }
+
+            var deserializeSettings = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
+            var serializeSettings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+            return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source, serializeSettings), deserializeSettings);
+        }
+
+        public static string Truncate(string input, int len) {
+            if (input.Length < len)
+                return input;
+            return input[0..(len - 1)];
+        }
+
+        public static int Average(int a, int b) {
+            double c = a;
+            double d = b;
+            return (int)Math.Floor((c + d) / 2);
+        }
+
+        public static void DrawBox(Console con, int LeftX, int TopY, int w, int h) {
+            int LeftXin = LeftX + 1;
+            int TopYin = TopY + 1;
+            int RightXin = LeftX + w;
+            int BottomYin = TopY + h;
+            int BottomY = TopY + h + 1;
+            int RightX = LeftX + w + 1;
+
+            con.DrawLine(new Point(LeftXin, TopY), new Point(RightXin, TopY), 196);
+            con.DrawLine(new Point(LeftXin, BottomY), new Point(RightXin, BottomY), 196);
+            con.DrawLine(new Point(LeftX, TopYin), new Point(LeftX, BottomYin), 179);
+            con.DrawLine(new Point(RightX, TopYin), new Point(RightX, BottomYin), 179);
+            con.Print(LeftX, TopY, 218.AsString());
+            con.Print(RightX, BottomY, 217.AsString()); 
+            con.Print(LeftX, BottomY, 192.AsString());
+            con.Print(RightX, TopY, 191.AsString());
         }
 
 
@@ -148,7 +198,7 @@ namespace LofiHollow {
                 if (name == GameLoop.World.Player.Name)
                     return GameLoop.World.Player.NoonbreezeApt.map;
 
-                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                     if (name == kv.Value.Name)
                         return kv.Value.NoonbreezeApt.map;
                 }
@@ -157,7 +207,7 @@ namespace LofiHollow {
             return null;
         }
 
-        public static string ResolveName(CSteamID id) {
+        public static string ResolveName(SteamId id) {
             if (GameLoop.World.otherPlayers.ContainsKey(id))
                 return GameLoop.World.otherPlayers[id].Name;
             return "[Not Connected: " + id + "]";

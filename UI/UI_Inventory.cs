@@ -100,7 +100,7 @@ namespace LofiHollow.UI {
                                     if (item.IsStackable && item.ItemQuantity > 1) {
                                         item.ItemQuantity -= 1;
                                     } else {
-                                        GameLoop.World.Player.Inventory[slot] = new Item("lh:(EMPTY)");
+                                        GameLoop.World.Player.Inventory[slot] = Item.Copy("lh:(EMPTY)");
                                     }
                                     GameLoop.UIManager.AddMsg(new ColoredString("Used the " + item.Name + ".", Color.AliceBlue, Color.Black));
                                     GameLoop.UIManager.AddMsg(new ColoredString(itemResult[1], Color.AliceBlue, Color.Black));

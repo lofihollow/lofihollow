@@ -144,7 +144,7 @@ namespace LofiHollow.Managers {
 
         public void FinishFishing(bool success) {
             if (success) {
-                Item caughtFish = new(HookedFish.FishItemID); 
+                Item caughtFish = Item.Copy(HookedFish.FishItemID); 
 
                 int quality = GameLoop.rand.Next(HookedFish.MaxQuality) + 1;
                 int QualityCap = (int)Math.Floor((GameLoop.World.Player.Skills["Fishing"].Level + 1f) / 10f) + 1;

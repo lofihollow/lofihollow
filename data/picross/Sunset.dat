@@ -1,0 +1,809 @@
+{
+  "Name": "Sunset",
+  "Package": "lh",
+  "Difficulty": "Medium",
+  "Grid": [
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 10,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 10,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 10,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 10,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 255,
+      "G": 255,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 90,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 80,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 80,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 80,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 80,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 90,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 180,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 180,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 180,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 180,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 180,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 180,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 180,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 180,
+      "G": 180,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 200,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 255,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": false,
+      "R": 0,
+      "G": 0,
+      "B": 0,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    },
+    {
+      "PartOfSolution": true,
+      "R": 0,
+      "G": 0,
+      "B": 110,
+      "Crossed": false,
+      "Checked": false
+    }
+  ],
+  "Width": 10,
+  "Height": 10
+}

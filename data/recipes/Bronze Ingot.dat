@@ -7,14 +7,12 @@
   "ExpGranted": 50,
   "SpecificMaterials": [
     {
-      "Name": "lh:Copper Chunk",
-      "SubID": 0,
+      "ID": "lh:Copper Chunk", 
       "ItemQuantity": 1,
       "Stacks": true
     },
 	{
-      "Name": "lh:Tin Chunk",
-      "SubID": 0,
+      "ID": "lh:Tin Chunk", 
       "ItemQuantity": 1,
       "Stacks": true
     }

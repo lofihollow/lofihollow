@@ -13,6 +13,7 @@ namespace LofiHollow.Managers {
 
         public Dictionary<string, ISound> PlayingSounds = new();
         public string CurrentSong = "None";
+        public bool MusicEnabled = true;
 
         public SoundManager() {
             engine.SoundVolume = 0.05f;
@@ -45,25 +46,34 @@ namespace LofiHollow.Managers {
 
         public void PickMusic() {
             string NewSong = CurrentSong;
+            if (MusicEnabled && GameLoop.UIManager.selectedMenu != "ModMenu") {
+                if (GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible) {
+                    NewSong = "Title Theme";
+                }
+                else if (GameLoop.World.Player.MineLocation != "None") {
+                    NewSong = "Mine Theme";
+                }
+                else if (GameLoop.UIManager.Minigames.CurrentGame != "None") {
+                    NewSong = "Minigame Theme";
+                }
+                else if (GameLoop.UIManager.DialogueWindow.dialogueOption == "Shop") {
+                    NewSong = "Shop Theme";
+                }
+                else if (GameLoop.World.Player.Clock.GetCurrentTime() > 1110) {
+                    NewSong = "Noonbreeze Night Theme";
+                }
+                else {
+                    NewSong = "Noonbreeze Day Theme";
+                }
 
-            if (GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible) {
-                NewSong = "Title Theme";
-            } else if (GameLoop.World.Player.MineLocation != "None") {
-                NewSong = "Mine Theme";
-            } else if (GameLoop.UIManager.Minigames.CurrentGame != "None") {
-                NewSong = "Minigame Theme";
-            } else if (GameLoop.UIManager.DialogueWindow.dialogueOption == "Shop") {
-                NewSong = "Shop Theme";
-            } else if (GameLoop.World.Player.Clock.GetCurrentTime() > 1110) {
-                NewSong = "Noonbreeze Night Theme";
+                if (NewSong != CurrentSong) {
+                    Music.StopAllSounds();
+                    Music.Play2D("./sounds/" + NewSong + ".ogg", true);
+                    CurrentSong = NewSong;
+                }
             } else {
-                NewSong = "Noonbreeze Day Theme";
-            }
-
-            if (NewSong != CurrentSong) {
                 Music.StopAllSounds();
-                Music.Play2D("./sounds/" + NewSong + ".ogg", true);
-                CurrentSong = NewSong;
+                CurrentSong = "None";
             }
         }
     }

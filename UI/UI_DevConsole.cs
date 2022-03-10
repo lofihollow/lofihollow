@@ -118,7 +118,7 @@ namespace LofiHollow.UI {
                     int qty = args.Count > 2 ? Int32.Parse(args[2]) : 1;
                     int quality = args.Count > 3 ? Int32.Parse(args[3]) : 1;
                     
-                    Item spawn = new(args[1], qty);
+                    Item spawn = Item.Copy(args[1], qty);
                     spawn.Quality = quality;
                     CommandManager.AddItemToInv(GameLoop.World.Player, spawn);
 

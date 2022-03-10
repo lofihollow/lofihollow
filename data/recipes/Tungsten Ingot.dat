@@ -7,8 +7,7 @@
   "ExpGranted": 90,
   "SpecificMaterials": [
     {
-      "Name": "lh:Tungsten Chunk",
-      "SubID": 0,
+      "ID": "lh:Tungsten Chunk", 
       "ItemQuantity": 1,
       "Stacks": true
     }

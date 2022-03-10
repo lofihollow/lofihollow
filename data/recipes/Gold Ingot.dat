@@ -7,8 +7,7 @@
   "ExpGranted": 60,
   "SpecificMaterials": [
     {
-      "Name": "lh:Gold Chunk",
-      "SubID": 0,
+      "ID": "lh:Gold Chunk", 
       "ItemQuantity": 1,
       "Stacks": true
     }

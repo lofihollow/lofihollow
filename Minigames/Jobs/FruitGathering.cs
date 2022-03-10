@@ -2,7 +2,9 @@
 using SadConsole;
 using SadConsole.Input;
 using SadRogue.Primitives;
+using Steamworks.Data;
 using System.Collections.Generic;
+using Color = SadRogue.Primitives.Color;
 using Key = SadConsole.Input.Keys;
 
 namespace LofiHollow.Minigames.Jobs {
@@ -12,6 +14,7 @@ namespace LofiHollow.Minigames.Jobs {
         public int Timer = 61;
         public double LastTimeTick = 0;
         public bool DisplayingScore = false; 
+        public bool ShowingGlobalLeader = false;
 
         public int playerX = 25;
         public int playerY = 34;
@@ -28,6 +31,9 @@ namespace LofiHollow.Minigames.Jobs {
                     if (Objects[i].Name != "Spider") {
                         GameLoop.SoundManager.PlaySound("failureJingle");
                         Score--;
+                    } else { 
+                        GameLoop.SoundManager.PlaySound("successJingle");
+                        Score++;
                     }
 
                     Objects.RemoveAt(i); 
@@ -87,7 +93,23 @@ namespace LofiHollow.Minigames.Jobs {
             }
             else {
                 if (!DisplayingScore) {
-                    DisplayingScore = true;
+                    DisplayingScore = true; 
+                    GameLoop.SteamManager.MostRecentResult = GameLoop.SteamManager.PostHighscore("00-WeeklyFruitCatch", Score);
+
+                    var scores = GameLoop.SteamManager.FruitCatchLB.GetScoresAsync(10);
+
+                    if (scores.Result != null) {
+                        GameLoop.SteamManager.GlobalLeader.Clear();
+
+                        for (int i = 0; i < scores.Result.Length; i++) {
+                            LeaderboardEntry entry = scores.Result[i];
+                            LeaderboardSlot newSlot = new();
+                            newSlot.Rank = entry.GlobalRank;
+                            newSlot.Score = entry.Score;
+                            newSlot.Name = entry.User.Name;
+                            GameLoop.SteamManager.GlobalLeader.Add(newSlot);
+                        }
+                    }
                 }
 
                 if (Score > 0) {
@@ -98,12 +120,52 @@ namespace LofiHollow.Minigames.Jobs {
                     Mini.Print(0, 3, ("Better luck next time!").Align(HorizontalAlignment.Center, 70));
                     Mini.Print(0, 38, ("[Press SPACE to close]").Align(HorizontalAlignment.Center, 70));
                 }
+
+                if (GameLoop.SteamManager.MostRecentResult != null) {
+                    HighscoreResult res = GameLoop.SteamManager.MostRecentResult;
+
+
+                    if (res.Success) {
+                        Mini.Print(20, 10, "Successfully Posted Score!");
+                        if (res.NewHigh)
+                            Mini.Print(20, 12, "  Global Rank: " + res.GlobalRank);
+                        else
+                            Mini.Print(20, 12, "  Global Rank: " + res.PreviousRank);
+
+                        Mini.Print(20, 13, "Highest Score: " + res.HighScore);
+
+                        if (res.NewHigh)
+                            Mini.Print(20, 17, "     !NEW HIGH SCORE!    ");
+
+                        if (!ShowingGlobalLeader) {
+                            Mini.PrintClickable(20, 19, "[Show Global Leaderboards]", MinigameClick, "ShowGlobal");
+                        }
+                        else {
+                            Mini.PrintClickable(20, 19, "[Hide Global Leaderboards]", MinigameClick, "HideGlobal");
+
+                            for (int i = 0; i < GameLoop.SteamManager.GlobalLeader.Count; i++) {
+                                LeaderboardSlot thisOne = GameLoop.SteamManager.GlobalLeader[i];
+                                Mini.Print(20, 21 + i, thisOne.Rank + " | " + thisOne.Name.Align(HorizontalAlignment.Center, 20) + " | " + thisOne.Score);
+                            }
+                        }
+                    }
+                    else {
+                        Mini.Print(20, 10, "Couldn't post highscore");
+                        Mini.Print(20, 12, "Score: " + Score);
+                    }
+                }
             }
         }
 
         public void MinigameClick(string ID) {
-
+            if (ID == "ShowGlobal") {
+                ShowingGlobalLeader = true;
+            }
+            else if (ID == "HideGlobal") {
+                ShowingGlobalLeader = false;
+            } 
         }
+
         public override void Input() {
             Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.Minigames.Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {

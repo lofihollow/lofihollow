@@ -27,13 +27,11 @@
   },
   "MaterialsNeeded": [
     {
-      "Name": "Poplar Plank",
-      "SubID": 0,
+      "Name": "lh:Poplar Plank", 
       "ItemQuantity": 2
     },
 	{
-      "Name": "Copper Nails",
-      "SubID": 0,
+      "Name": "lh:Copper Nails", 
       "ItemQuantity": 8
     }
   ]

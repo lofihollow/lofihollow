@@ -16,24 +16,39 @@ namespace LofiHollow.Entities {
 
         public MonsterWrapper(string name) : base(Color.Black, 32) {
             if (GameLoop.World.itemLibrary.ContainsKey(name)) {
-                monster = new(name);
+                monster = Monster.Clone(name);
 
                 Appearance.Foreground = new(monster.ForegroundR, monster.ForegroundG, monster.ForegroundB, monster.ForegroundA);
                 Appearance.Glyph = monster.ActorGlyph;
+                UpdateHP();
+                Types = monster.Types;
+                ElementalAlignment = monster.ElementalAlignment;
             }
         }
 
         public MonsterWrapper(Monster temp) : base(Color.Black, 32) {
-            monster = new();
-            monster.SetAll(temp);
+            monster = Monster.Clone(temp); 
 
             Appearance.Foreground = new(monster.ForegroundR, monster.ForegroundG, monster.ForegroundB, monster.ForegroundA);
             Appearance.Glyph = monster.ActorGlyph;
+            UpdateHP();
+            Types = monster.Types;
+            ElementalAlignment = monster.ElementalAlignment;
         }
 
         public void UpdateHP() {
-            MaxHP = monster.Health;
+            MaxHP = GetStat(monster.Health, true);
             CurrentHP = MaxHP;
+        }
+
+        public int GetStat(int input, bool HP = false) {
+            if (HP) {
+                int hp = (int) Math.Floor(0.01 * ((2 * input) + Level)) + Level + 10;
+                return hp;
+            } else {
+                int stat = (int) Math.Floor(0.01 * ((2 * input) + Level) + 5);
+                return stat;
+            }
         }
 
         public void SpawnDrops(List<Item> drops) {
@@ -43,7 +58,7 @@ namespace LofiHollow.Entities {
                 int roll = GameLoop.rand.Next(Int32.Parse(split[1]));
 
                 if (roll == 0) {
-                    Item item = new(split[0]);
+                    Item item = Item.Copy(split[0]);
 
                     if (item.IsStackable) {
                         item.ItemQuantity = GameLoop.rand.Next(Int32.Parse(split[2])) + 1;
@@ -52,7 +67,7 @@ namespace LofiHollow.Entities {
                         int qty = GameLoop.rand.Next(Int32.Parse(split[2])) + 1;
 
                         for (int j = 0; j < qty; j++) {
-                            Item itemNonStack = new(split[0]);
+                            Item itemNonStack = Item.Copy(split[0]);
                             drops.Add(itemNonStack);
                         }
                     }

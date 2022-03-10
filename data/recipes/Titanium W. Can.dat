@@ -7,8 +7,7 @@
   "ExpGranted": 90,
   "SpecificMaterials": [
     {
-      "Name": "lh:Titanium Ingot",
-      "SubID": 0,
+      "ID": "lh:Titanium Ingot", 
       "ItemQuantity": 2,
       "Stacks": true
     }

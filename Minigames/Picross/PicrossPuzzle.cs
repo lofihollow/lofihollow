@@ -64,6 +64,28 @@ namespace LofiHollow.Minigames.Picross {
         public string FullName() {
             return Package + ":" + Name;
         }
+
+        public double Completion() {
+            int score = 0;
+            int maxScore = 0;
+
+            for (int i = 0; i < Grid.Length; i++) {
+                if (Grid[i].Checked && Grid[i].PartOfSolution) {
+                    score++;
+                    maxScore++;
+                }
+                else if (Grid[i].Checked && !Grid[i].PartOfSolution) {
+                    score--;
+                }
+                else if (!Grid[i].Checked && Grid[i].PartOfSolution) {
+                    maxScore++;
+                }
+            }
+
+            double percent = (double)score / (double)maxScore;
+
+            return percent;
+        }
         
         public bool PuzzleSolved() {
             bool allCorrect = true;

@@ -1,9 +1,13 @@
 ﻿CURRENT TASK LIST
-- Fruit Catch Leaderboard
-- Make mouse-look show the tiles on lower z-levels instead of saying "space"
+x Filled out Constructible section of Mod Menu
+x Filled out Recipe section of Mod Menu
+x Filled out the Item section of the Mod Menu
+x If you fail to complete a picross puzzle, you now get a portion of the reward based on how far you got
+x Fixed a bug that caused players to instantly win Stack'Em after playing once
+x Fixed the options menu opening instantly after closing menus with escape
 
 
-Current Playable Minigames: (8)
+Current Playable Minigames: (11)
 - Fishing
 - Blacksmithing
 - Bartending
@@ -12,6 +16,9 @@ Current Playable Minigames: (8)
 - Fruit Catch
 - Relic Cleaning
 - Picross
+- Stack'Em
+- Minesweeper
+- Number Combo (needs to be placed)
 
 Current Activities: (4)
 - Photography
@@ -19,26 +26,24 @@ Current Activities: (4)
 - Construction
 - Archaeology
 
+Add multiple start options?
+- Shipwrecked: The original, start with nothing, washed up on the beach
+- Farmer: Your deceased relative left you a farm! (Start with a farm permit)
+
+
+
 
 Sliding Tile Puzzle minigame
-2048 puzzle clone as minigame
+Sudoku Minigame - Add options for complex rulesets?
+Jelly blob game - Eat smaller blobs to get bigger, become the biggest
 
-
-Archaeology
-- (DONE) Make a skill for it
-- (DONE) Gain experience by cleaning relics
-- (DONE) Require a certain level to clean some artifacts (from digsites?)
-- (DONE) Unlock new tools at set levels
-- (DONE) Make artifact spots spawn in the world
-- (DONE) Appropriately dirt-ify artifacts when you dig them up
-- Create a museum in town to display artifacts
-- (DONE) Attach the relic maker to the mod menu
+Archaeology 
+- Create a museum in town to display artifacts 
 - Make like 20 relics to demonstrate
-
-
+ 
 Demo Mode: Play as much as you want, but only up to level 5 in any skill.
  
-Put a cat in the library and a dog somewhere in town as NPCs with special interactions
+Put a dog somewhere in town as NPCs with special interactions
 
 Content Needs
 - Fishing: All Spring, All Summer, All Fall, All Winter, All Holiday, 9 All season, 10 trash items
@@ -54,25 +59,80 @@ Content Needs
 
 
 Let players restrict access to containers
-Multiplayer Loading Screen: Connected, Received Host Farm, Received NPCs, Received entity data
 Make sure produce items have accurate-enough sprites
 
 
-Turn-Based Combat (again)
-- (DONE) Support multiple enemies and allies
-- (DONE) Attack any enemy at will
+Turn-Based Combat (again) 
 - Allow players to form a party, dragging them all into combats together if they're on the same map
 - Establish a turn order, have players act in that order and then all enemies
 - Player can tame monsters and use them in combat to fight enemies
-- Player can choose what they start combat with (self or tamed monster)
-- (DONE) Allow players to have a monster following them around in the overworld, visible to other players
+- Player can choose what they start combat with (self or tamed monster) 
 - Monster Types:
-- - Elemental Types: Metal, Water, Wood, Fire, Earth
+- - Elemental Types:     Metal, Water,    Wood,    Fire,    Earth
+- - Elevated Elementals: Sound,  Ice,    Plant, Lightning, Gravity
 - - Energy Types: Kinetic, Magnetic, Thermal, Gravity, and Electric
 - - Physical Types?: Slash, Pierce, Blunt, 
 - - Food Types??: Salty, Sweet, Bitter, Sour, Umami, Cool, Hot
 - - Digital Types: Meme, Virus, Firewall, 
 - - Dream/Spirit Types: Spirit, Dream, Nightmare
+
+Monster Species: Load all monsters with each symbol into lists, pick one random one for each letter in each world.
+a:
+b:
+c: canines (dogs)
+d:
+e:
+f: felines (cats)
+g: goblin
+h: horse
+i:
+j:
+k:
+l:
+m:
+n:
+o: ooze / slimes
+p:
+q:
+r: rats / rodents
+s: skeleton
+t: -taurs (minotaurs, centaurs, )
+u: minor demon
+v:
+w: worm / worm mass
+x:
+y:
+z: zombie
+A: Archon
+B: Bird
+C: 
+D: Dragon
+E: Elemental
+F:
+G: Ghost
+H:
+I: Insect
+J: Snake
+K:
+L:
+M:
+N:
+O:
+P:
+Q:
+R: Reptile/Amphibian
+S: Spider
+T: Troll
+U: Major Demon
+V:
+W:
+X:
+Y: Yokai
+Z:
+
+
+
+
 
 Ways to earn money at the start
 - Adventurers Guild (job board with random assorted quests - kill, collect items)
@@ -86,8 +146,7 @@ Photography
 
 Soul Photography
 - Photography skill determines highest tier of Soul Camera you can use
-- Gain exp in skill by taking normal pictures or by capturing souls
-- (DONE) Have an equipped monster that follows you around
+- Gain exp in skill by taking normal pictures or by capturing souls 
 - Make following monsters visible in multiplayer
 - If you have a monster equipped, automatically send it out when combats start instead of the player
 - Soul Cameras have limited film rolls, have to buy more when you run out. Both successful and failed captures use up the film
@@ -100,20 +159,12 @@ Cooking
 
 
 Farm Animals
-- Tools
-- - (DONE) Brush: Improves relationship (Brushing minigame)
-- - (DONE) Feed: Feeds animals
-- - (DONE) Shears: Shear wool off sheep
+- Tools 
 - - Sponge: Clean animal (Cleaning minigame?)
-- Chickens - Lay eggs at the start of each day
-- (DONE) Cows - Milkable (fix milk sprite)
-- (DONE) Sheep - Can be sheared for wool
-- (DONE) Pigs - Shearable for meat
-- (DONE) Cats and Dogs - No material benefit, just pets
+- Chickens - Lay eggs at the start of each day 
 - - Add a few variants of cats/dogs
 - Allow capturing farm animals as soul photographs??
-- Animals leave poop around that has to be cleaned up
-- (DONE) Special pet bed that counts as furniture (can be placed in apartments while normal animal beds only on farm map)
+- Animals leave poop around that has to be cleaned up 
 
 
 
@@ -125,11 +176,7 @@ Fishing
 - Do a little effect in multiplayer when you/another play catches something
  
 
-Quests / Story Missions?
-- (DONE) Make sure quests can require things
-- (DONE) Make a quest log that shows all known/active/completed missions
-- (DONE) Track constructions as a mission requirement
-- (DONE) Track acquired items for mission requirements
+Quests / Story Missions? 
 - Make sure missions you can't start don't show up in the list (or show up as question marks)
 - Track monsters killed as a possible mission requirement
  
@@ -143,15 +190,8 @@ The Sound Effect-ening
 - Harvesting crops
 
 Mod Support
-- Implement the steam workshop
 - In-game mod making tools
-- - (DONE) Display list of installed mods
-- - Button to switch to workshop view
-- - (DONE) Button to make a new mod
-- - - Change each tab to just explain all the fields and make people make the files all outside the game.
-- WIP Sandbox to make changes or upload to workshop
-- Browse workshop mods in-game
-- Add UI buttons to pack/unpack
+- - - Change each tab to just explain all the fields and make people make the files all outside the game. 
 
 Farming
 - Seeds: only plantable in the correct season and only if you have a high enough farming level
@@ -293,6 +333,9 @@ The Adventure Update
 - Point-and-click Adventure Dungeon
 - Roguelike dungeon (turn-based, tile-based, monsters roaming around)
 - Slay the Spire Dungeon (turn-based deckbuilder)
+- Fighting game (ascii smash-like)
+- Shoot-em-up dungeon
+- Beat-em-up dungeon
 
 
 The Urban Update
@@ -300,6 +343,10 @@ The Urban Update
 - Maybe buildings in city are facades rather than top-down, to make them more visually distinct
 - Lots of flavor buildings - Restaurants, shops, etc
 - Rentable apartment - have to pay a certain amount each month
+- Zoo with animals you can go see in a variety of environments
+- - Aquarium
+- - Butterfly Room
+- - Bug room
 - Deckbuilder Combat
 - - Place all combatants on a grid
 - - Moves target specific squares or AoE, hitting all targets in the area
@@ -335,6 +382,10 @@ The Computer Update
 - - - MyHollow: Let people make their own profile page and export to the workshop
 - - - MyHollow: Browse all pages that are currently on the workshop
 - - - Mail Order shops: Pay for items using banked currency, receive them in the mail
+- - Adventure game maker / browser
+- - - Maker: Create adventure games by drawing on a 35x35 grid to paint each view, connect rooms together via directions
+- - - Browser: Search the workshop for adventure games other people have made and download them, then play them at will
+- - - Player: Display the current view, along with all the options for actions, turning left/right, and moving forward/backward
 
 
 The Mining Update 

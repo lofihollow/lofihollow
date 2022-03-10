@@ -29,7 +29,7 @@ namespace LofiHollow.Minigames.Mining {
                     wrap.Position = actor.Position / 12;
 
 
-                    actor.Inventory[slot] = new Item("lh:(EMPTY)");
+                    actor.Inventory[slot] = Item.Copy("lh:(EMPTY)");
 
                     SendItem(wrap, depth);
                     SpawnItem(wrap, depth);
@@ -158,7 +158,7 @@ namespace LofiHollow.Minigames.Mining {
                         Levels[player.MineDepth].GetTile(breakPos).Damage(ToolTier);
                         if (Levels[player.MineDepth].GetTile(breakPos).TileHP <= 0) {
                             if (Levels[player.MineDepth].GetTile(breakPos).OutputID != "") {
-                                Item item = new(Levels[player.MineDepth].GetTile(breakPos).OutputID);
+                                Item item = Item.Copy(Levels[player.MineDepth].GetTile(breakPos).OutputID);
                                 AddItemToInv(player, item);
                                 player.Skills["Mining"].GrantExp(Levels[player.MineDepth].GetTile(breakPos).GrantedExp);
                                 Levels[player.MineDepth].TileToAir(breakPos);

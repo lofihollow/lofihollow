@@ -125,7 +125,7 @@ namespace LofiHollow.UI {
                     } 
                 }
 
-                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) { 
+                foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) { 
                     if (kv.Value.MapPos == GameLoop.World.Player.MapPos || (kv.Value.MapPos.X == GameLoop.World.Player.MapPos.X && kv.Value.MapPos.Y == GameLoop.World.Player.MapPos.Y && kv.Value.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
                         // EntityRenderer.Add(kv.Value); 
                         if (GameLoop.UIManager.Map.FOV.CurrentFOV.Contains(kv.Value.Position.ToCoord())) {
@@ -356,7 +356,7 @@ namespace LofiHollow.UI {
                 }
             }
 
-            foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+            foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                 Point playerPos = kv.Value.Position;
                 if (kv.Value.MapPos == GameLoop.World.Player.MapPos || (kv.Value.MapPos.X == GameLoop.World.Player.MapPos.X && kv.Value.MapPos.Y == GameLoop.World.Player.MapPos.Y && kv.Value.MapPos.Z < GameLoop.World.Player.MapPos.Z)) {
                     // EntityRenderer.Add(kv.Value); 

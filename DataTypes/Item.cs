@@ -94,108 +94,45 @@ namespace LofiHollow.DataTypes {
         [JsonProperty]
         public string RightClickScript = "";
         [JsonProperty]
-        public string LeftClickHoldScript = ""; 
+        public string LeftReleaseScript = ""; 
 
         [JsonConstructor]
         public Item() { }
 
 
-        public Item(string name, int quantity = 1) {
+        public static Item Copy(string name, int quantity = 1) {
             if (GameLoop.World != null && GameLoop.World.itemLibrary != null && GameLoop.World.itemLibrary.ContainsKey(name)) {
-                Item temp = GameLoop.World.itemLibrary[name];
+                Item temp = Helper.Clone(GameLoop.World.itemLibrary[name]); 
 
-                Name = temp.Name;
-                Package = temp.Package;
-                SubID = temp.SubID;
-                ItemCat = temp.ItemCat;
-                EquipSlot = temp.EquipSlot;
-                IsStackable = temp.IsStackable; 
-                Description = temp.Description;
-                ShortDesc = temp.ShortDesc;
-
-                Weight = temp.Weight;
-                AverageValue = temp.AverageValue;
-
-                Durability = temp.Durability;
-                MaxDurability = temp.MaxDurability;
-                ItemTier = temp.ItemTier;
-                ItemSkill = temp.ItemSkill;
-                 
-                Quality = temp.Quality;
-
-                Plant = temp.Plant;
-                Heal = temp.Heal;
-                Tool = temp.Tool;
-                Craft = temp.Craft;
-                Photo = temp.Photo;
-                SoulPhoto = temp.SoulPhoto;
-                Stats = temp.Stats;
-                Artifact = temp.Artifact;
-                SpawnAnimal = temp.SpawnAnimal;
-
-                ForegroundR = temp.ForegroundR; 
-                ForegroundG = temp.ForegroundG; 
-                ForegroundB = temp.ForegroundB;
-                ItemGlyph = temp.ItemGlyph; 
-                Dec = temp.Dec;
-
-
-                if (name == "lh:(EMPTY)") {
-                    ItemQuantity = 0;
-                    Quality = 0;
+                if (temp.Name == "(EMPTY)") {
+                    temp.ItemQuantity = 0;
+                    temp.Quality = 0;
                 } else {
-                    if (Quality == 0)
-                        Quality = 1;
-                    ItemQuantity = quantity;
+                    if (temp.Quality == 0)
+                        temp.Quality = 1;
+                    temp.ItemQuantity = quantity;
                 }
+
+                return temp;
             }
+
+            return null;
         }
 
-        public Item(Item temp) { 
-            Name = temp.Name;
-            Package = temp.Package;
-            SubID = temp.SubID;
-            ItemCat = temp.ItemCat;
-            EquipSlot = temp.EquipSlot;
-            IsStackable = temp.IsStackable;
-            Description = temp.Description;
-            ShortDesc = temp.ShortDesc;
-
-            Weight = temp.Weight;
-            AverageValue = temp.AverageValue;
-            Durability = temp.Durability;
-            MaxDurability = temp.MaxDurability;
-
-            ForegroundR = temp.ForegroundR;
-            ForegroundG = temp.ForegroundG;
-            ForegroundB = temp.ForegroundB;
-            ItemGlyph = temp.ItemGlyph;
-            ItemTier = temp.ItemTier;
-            ItemSkill = temp.ItemSkill;
-             
-            Quality = temp.Quality;
-
-            Dec = temp.Dec;
-
-            Plant = temp.Plant;
-            Heal = temp.Heal;
-            Tool = temp.Tool;
-            Craft = temp.Craft;
-            Photo = temp.Photo;
-            SoulPhoto = temp.SoulPhoto;
-            Stats = temp.Stats;
-            Artifact = temp.Artifact;
-            SpawnAnimal = temp.SpawnAnimal;
-
-            if (Name == "(EMPTY)") {
-                ItemQuantity = 0;
-                Quality = 0;
-            } else {
-                if (Quality == 0)
-                    Quality = 1;
-                ItemQuantity = 1;
+        public static Item Copy(Item other, int newQuantity = 1) {
+            Item other2 = Helper.Clone(other);
+            if (other2.Name == "lh:(EMPTY)") {
+                other2.ItemQuantity = 0;
+                other2.Quality = 0;
             }
-        }
+            else {
+                if (other2.Quality == 0)
+                    other2.Quality = 1;
+                other2.ItemQuantity = newQuantity;
+            }
+
+            return other2;
+        } 
 
         public ColoredString AsColoredGlyph() {
             ColoredString output = new(ItemGlyph.AsString(), new Color(ForegroundR, ForegroundG, ForegroundB), Color.Transparent);

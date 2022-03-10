@@ -84,7 +84,7 @@ namespace LofiHollow.EntityData {
 
         public void Harvest(Player harvester) {
             if (CurrentStage != -1 && Stages[CurrentStage].HarvestItem != "") {
-                Item produce = new(Stages[CurrentStage].HarvestItem);
+                Item produce = Item.Copy(Stages[CurrentStage].HarvestItem);
                 produce.ItemQuantity = ProducePerHarvestMin;
                 if (ProducePerHarvestMax > ProducePerHarvestMin)
                     produce.ItemQuantity += GameLoop.rand.Next(ProducePerHarvestMax - ProducePerHarvestMin);

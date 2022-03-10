@@ -7,8 +7,7 @@
   "ExpGranted": 10,
   "SpecificMaterials": [
     {
-      "Name": "lh:Obsidian Shard",
-      "SubID": 0,
+      "ID": "lh:Obsidian Shard", 
       "ItemQuantity": 1,
       "Stacks": true
     }

@@ -1,89 +1,116 @@
 ﻿using LofiHollow.DataTypes;
 using Steamworks;
+using Steamworks.Data;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace LofiHollow.Managers {
-    public class SteamManager {
-        public bool Initialized = false;
-
-        protected CallResult<LeaderboardFindResult_t> BlacksmithingFind = new CallResult<LeaderboardFindResult_t>();
-        protected CallResult<LeaderboardScoreUploaded_t> m_uploadResult = new CallResult<LeaderboardScoreUploaded_t>();
-        protected CallResult<LeaderboardScoresDownloaded_t> m_blacksmithDownload = new CallResult<LeaderboardScoresDownloaded_t>();
-
-        public SteamLeaderboard_t BlacksmithingLeaderboard;
+    public class SteamManager {  
+        public Leaderboard BlacksmithingLeaderboard;
+        public Leaderboard FruitCatchLB;
+        public Dictionary<string, Leaderboard> SkillLeaderboards = new();
 
         public HighscoreResult MostRecentResult;
         public List<LeaderboardSlot> GlobalLeader = new();
 
-        public void Start() {
-            Initialized = SteamAPI.Init();
+        public List<ulong> ModsEnabled = new();
 
-            if (Initialized) {
-                SteamAPICall_t hSteamAPICall = SteamUserStats.FindLeaderboard("Blacksmithing");
-                BlacksmithingFind.Set(hSteamAPICall, FindBlacksmithingLB);
+        public async void Start() {
+            try {
+                SteamClient.Init(1906540, true);
+
+                var bsl = await SteamUserStats.FindLeaderboardAsync("Blacksmithing");
+
+                if (bsl.HasValue)
+                    BlacksmithingLeaderboard = bsl.Value;
+
+                var flcl = await SteamUserStats.FindOrCreateLeaderboardAsync("00-WeeklyFruitCatch", LeaderboardSort.Descending, LeaderboardDisplay.Numeric);
+
+                if (flcl.HasValue)
+                    FruitCatchLB = flcl.Value;
+
+                if (File.Exists("./modlist.dat")) {
+                    foreach (var line in File.ReadAllLines("./modlist.dat")) {
+                        ModsEnabled.Add(ulong.Parse(line));
+                    }
+                } else {
+                    File.Create("./modlist.dat");
+                }
+
+            }
+            catch {
+
             }
         }
-        
 
-        private void FindBlacksmithingLB(LeaderboardFindResult_t pCallback, bool failure) {
-            if (pCallback.m_bLeaderboardFound == 0) {
-                // Leaderboard couldn't be found
-                return;
-            } else {
-                BlacksmithingLeaderboard = pCallback.m_hSteamLeaderboard;
+        public void SaveModList() {
+            if (!File.Exists("./modlist.dat")) {
+                File.Create("./modlist.dat");
             }
+
+            List<string> allMods = new();
+
+            foreach (var line in ModsEnabled) {
+                allMods.Add(line.ToString());
+            } 
+
+            File.WriteAllLines("./modlist.dat", allMods.ToArray()); 
         }
 
-        private void OnLeaderboardUploadResult(LeaderboardScoreUploaded_t pCallback, bool failure) {
-            MostRecentResult = new(pCallback.m_bSuccess, pCallback.m_nGlobalRankNew, pCallback.m_nGlobalRankPrevious, pCallback.m_nScore, pCallback.m_bScoreChanged); 
-        }
+        public async void PullSkillBoards() {
+            if (SkillLeaderboards.Count == 0) {
+                foreach (KeyValuePair<string, Skill> kv in GameLoop.World.skillLibrary) {
+                    string name = kv.Key + " Experience Earned";
+                    var skillLB = await SteamUserStats.FindOrCreateLeaderboardAsync(name, LeaderboardSort.Descending, LeaderboardDisplay.Numeric);
 
-        private void OnLeaderboardDownloadResult(LeaderboardScoresDownloaded_t pCallback, bool failure) {
-            GlobalLeader.Clear();
-
-            for (int i = 0; i < pCallback.m_cEntryCount; i++) {
-                SteamUserStats.GetDownloadedLeaderboardEntry(pCallback.m_hSteamLeaderboardEntries, i, out LeaderboardEntry_t entry, null, 0);
-                LeaderboardSlot newSlot = new();
-                newSlot.Rank = entry.m_nGlobalRank;
-                newSlot.Score = entry.m_nScore;
-                newSlot.Name = SteamFriends.GetFriendPersonaName(entry.m_steamIDUser);
-                GlobalLeader.Add(newSlot);
+                    if (skillLB.HasValue)
+                        SkillLeaderboards.Add(kv.Key, skillLB.Value);
+                }
             }
         }
 
         public void Update() {
-            if (Initialized) {
-                SteamAPI.RunCallbacks();
+            if (SteamClient.IsValid) {
+                SteamClient.RunCallbacks(); 
             }
-        }
+        } 
 
-
-        public bool FullGame() {
-            if (Initialized) {
-                var hasLicense = SteamUser.UserHasLicenseForApp(SteamUser.GetSteamID(), new AppId_t(1906540));
-                if (hasLicense == EUserHasLicenseForAppResult.k_EUserHasLicenseResultHasLicense) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public void CreateWorkshopItem() {
-            if (Initialized) {
-                SteamAPICall_t CreateItem = SteamUGC.CreateItem(new AppId_t(1906540), EWorkshopFileType.k_EWorkshopFileTypeCommunity);
-            }
-        }
-
-        public HighscoreResult PostHighscore(string leaderboardName, int score) {
-            if (Initialized) {
+        private async Task<LeaderboardUpdate?> PostAsync(string leaderboardName, int score) {
+            if (SteamClient.IsValid) {
                 if (leaderboardName == "Blacksmithing") {
-                    SteamAPICall_t hSteamAPICall = SteamUserStats.UploadLeaderboardScore(BlacksmithingLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodKeepBest, score, null, 0);
-                    m_uploadResult.Set(hSteamAPICall, OnLeaderboardUploadResult);
+                    return await BlacksmithingLeaderboard.SubmitScoreAsync(score); 
+                } else if (leaderboardName == "00-WeeklyFruitCatch") {
+                    return await FruitCatchLB.SubmitScoreAsync(score);
+                }
+            } 
+            return null;
+        }
 
-                    SteamAPICall_t hDownloadCall = SteamUserStats.DownloadLeaderboardEntries(BlacksmithingLeaderboard, ELeaderboardDataRequest.k_ELeaderboardDataRequestGlobal, 0, 10);
-                    m_blacksmithDownload.Set(hDownloadCall, OnLeaderboardDownloadResult);
+        private async Task<LeaderboardUpdate?> SkillPostAsync(string skillName, int score) {
+            if (SteamClient.IsValid) { 
+                if (SkillLeaderboards.ContainsKey(skillName)) {  
+                    return await SkillLeaderboards[skillName].SubmitScoreAsync(score);
+                }
+                return null;
+            }
+            return null;
+        }
+
+        public HighscoreResult PostHighscore(string leaderboardName, int score, bool skillExp = false) {
+            if (!skillExp) {
+                var result = PostAsync(leaderboardName, score).Result;
+
+                if (result.HasValue) {
+                    HighscoreResult output = new(true, result.Value.NewGlobalRank, result.Value.OldGlobalRank, result.Value.Score, result.Value.Changed);
+                    return output;
+                }
+            } else {
+                var result = SkillPostAsync(leaderboardName, score).Result;
+
+                if (result.HasValue) {
+                    HighscoreResult output = new(true, result.Value.NewGlobalRank, result.Value.OldGlobalRank, result.Value.Score, result.Value.Changed);
+                    return output;
                 }
             }
 
@@ -91,20 +118,47 @@ namespace LofiHollow.Managers {
         }
 
         public bool UnlockAchievement(string ID) {
-            if (Initialized) {
-                SteamUserStats.SetAchievement(ID);
+            bool newUnlock = false;
+            if (SteamClient.IsValid) {
+                foreach(var achieve in SteamUserStats.Achievements) {
+                    if (achieve.Identifier == ID) {
+                        if (!achieve.State) {
+                            achieve.Trigger();
+                            newUnlock = true;
+                        }
+                    }
+                } 
+
                 SteamUserStats.StoreStats();
-
-                SteamUserStats.GetAchievement(ID, out bool achieved);
-
-                return achieved;
             }
 
-            return false;
+            return newUnlock;
+        }
+
+        public void MoneyAchieves() {
+            if (SteamClient.IsValid) {
+                int MoneyHeld = GameLoop.World.Player.CopperWealth();
+
+                if (GameLoop.World.Player.SilverCoins >= 1) {
+                    UnlockAchievement("COIN_1SILVER");
+                }
+
+                if (GameLoop.World.Player.SilverCoins >= 3) {
+                    UnlockAchievement("COIN_3SILVER");
+                }
+
+                if (GameLoop.World.Player.GoldCoins >= 1) {
+                    UnlockAchievement("COIN_1GOLD");
+                }
+
+                if (GameLoop.World.Player.JadeCoins >= 1) {
+                    UnlockAchievement("COIN_1JADE");
+                }
+            }
         }
 
         public void CountSocials() {
-            if (Initialized) {
+            if (SteamClient.IsValid) {
                 int maxed = 0;
                 int minimum = 0;
 
@@ -112,11 +166,8 @@ namespace LofiHollow.Managers {
                     if (kv.Value == 100) {
                         maxed++;
                         if (GameLoop.World.npcLibrary.ContainsKey(kv.Key)) {
-                            if (GameLoop.World.npcLibrary[kv.Key].Shop != null) {
-                                SteamUserStats.GetAchievement("BEST_PRICE", out bool best_price);
-                                if (!best_price) {
-                                    UnlockAchievement("BEST_PRICE");
-                                }
+                            if (GameLoop.World.npcLibrary[kv.Key].Shop != null) { 
+                                UnlockAchievement("BEST_PRICE"); 
                             }
                         }
                     }
@@ -124,53 +175,42 @@ namespace LofiHollow.Managers {
                     if (kv.Value == -100) {
                         minimum++;
                         if (GameLoop.World.npcLibrary.ContainsKey(kv.Key)) {
-                            if (GameLoop.World.npcLibrary[kv.Key].Shop != null) {
-                                SteamUserStats.GetAchievement("WORST_PRICE", out bool worst_price);
-                                if (!worst_price) {
-                                    UnlockAchievement("WORST_PRICE");
-                                }
+                            if (GameLoop.World.npcLibrary[kv.Key].Shop != null) { 
+                                UnlockAchievement("WORST_PRICE"); 
                             }
                         }
                     }
                 }
-
-                SteamUserStats.GetAchievement("ONE_WHOLE_FRIEND", out bool one_friend);
-                if (maxed >= 1 && !one_friend) {
+                 
+                if (maxed >= 1) {
                     UnlockAchievement("ONE_WHOLE_FRIEND");
                 }
 
-                SteamUserStats.GetAchievement("WELL_LIKED", out bool well_liked);
-                if (maxed >= 5 && !well_liked) {
+                if (maxed >= 5) {
                     UnlockAchievement("WELL_LIKED");
                 }
 
-                SteamUserStats.GetAchievement("MANY_FRIENDS", out bool many_friends);
-                if (maxed >= 10 && !many_friends) {
+                if (maxed >= 10) {
                     UnlockAchievement("MANY_FRIENDS");
                 }
 
-                SteamUserStats.GetAchievement("POPULAR", out bool popular);
-                if (maxed >= 20 && !popular) {
+                if (maxed >= 20) {
                     UnlockAchievement("POPULAR");
                 }
 
-                SteamUserStats.GetAchievement("NEMESIS", out bool nemesis);
-                if (minimum >= 1 && !nemesis) {
+                if (minimum >= 1) {
                     UnlockAchievement("NEMESIS");
                 }
 
-                SteamUserStats.GetAchievement("NEMESES", out bool nemeses);
-                if (minimum >= 5 && !nemeses) {
+                if (minimum >= 5) {
                     UnlockAchievement("NEMESES");
                 }
 
-                SteamUserStats.GetAchievement("UNPOPULAR", out bool unpopular);
-                if (minimum >= 10 && !unpopular) {
+                if (minimum >= 10) {
                     UnlockAchievement("UNPOPULAR");
                 }
 
-                SteamUserStats.GetAchievement("HATED_IN_THE_NATION", out bool hated_nation);
-                if (minimum >= 20 && !hated_nation) {
+                if (minimum >= 20) {
                     UnlockAchievement("HATED_IN_THE_NATION");
                 }
             }

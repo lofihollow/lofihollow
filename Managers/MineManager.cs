@@ -66,7 +66,7 @@ namespace LofiHollow.Managers {
                     entity.UsePixelPositioning = true;
                 }
 
-                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) { 
+                foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) { 
                     if (kv.Value.MineLocation == GameLoop.World.Player.MineLocation && kv.Value.MineDepth == GameLoop.World.Player.MineDepth) {
                         MiningEntities.Add(kv.Value);
                         kv.Value.UsePixelPositioning = true;
@@ -91,7 +91,7 @@ namespace LofiHollow.Managers {
                     CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(position.X, position.Y)).Unshade();
                 }
 
-                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                     if (kv.Value.MineLocation == GameLoop.World.Player.MineLocation && kv.Value.MineDepth == GameLoop.World.Player.MineDepth) {
                         if (MiningFOV.CurrentFOV.Contains(new GoRogue.Coord(kv.Value.Position.X / 12, kv.Value.Position.Y / 12))) {
                             MiningEntities.Add(kv.Value); 
@@ -140,7 +140,7 @@ namespace LofiHollow.Managers {
                         CurrentMine.Levels[GameLoop.World.Player.MineDepth].SetTile(mousePos, new MineTile("Ladder"));
                         GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemQuantity -= 1;
                         if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemQuantity <= 0)
-                            GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect] = new("lh:(EMPTY)");
+                            GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect] = Item.Copy("lh:(EMPTY)");
                     }
                 }
             }
@@ -314,7 +314,7 @@ namespace LofiHollow.Managers {
                         if (MineJump > 0) {
                             float blocksFallen = (float)MineJump / 6f;
                             if (blocksFallen > 8) {
-                                GameLoop.World.Player.TakeDamage((int)((blocksFallen - 8f) / 2f));
+                                GameLoop.World.Player.TakeDamage((int)((blocksFallen - 8f) / 2f), "Earth");
                             }
                         }
 

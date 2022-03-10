@@ -179,7 +179,7 @@ namespace LofiHollow.UI {
             }
 
             if (GameLoop.World.Player.Inventory[slot].ItemQuantity <= 0) {
-                GameLoop.World.Player.Inventory[slot] = new("lh:(EMPTY)");
+                GameLoop.World.Player.Inventory[slot] = Item.Copy("lh:(EMPTY)");
             }
 
             if (updateChest) {

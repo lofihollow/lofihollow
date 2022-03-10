@@ -86,12 +86,12 @@ namespace LofiHollow.UI {
                 int quantity = 0;
 
                 for (int j = 0; j < GameLoop.World.Player.Inventory.Length; j++) {
-                    if (con.MaterialsNeeded[i].Name.Contains("Nails")) {
+                    if (con.MaterialsNeeded[i].ID.Contains("Nails")) {
                         if (GameLoop.World.Player.Inventory[j].Name.Contains("Nails")) {
                             quantity += GameLoop.World.Player.Inventory[j].ItemQuantity;
                         }
                     } else {
-                        if (GameLoop.World.Player.Inventory[j].Name == con.MaterialsNeeded[i].Name) {
+                        if (GameLoop.World.Player.Inventory[j].FullName() == con.MaterialsNeeded[i].ID) {
                             quantity += GameLoop.World.Player.Inventory[j].ItemQuantity;
                         }
                     }

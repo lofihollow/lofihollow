@@ -9,7 +9,7 @@ namespace LofiHollow.Entities {
 
         public ItemWrapper(string name) : base(Color.Black, Color.Transparent, 32) {
             if (GameLoop.World.itemLibrary.ContainsKey(name)) {
-                item = new(name);
+                item = Item.Copy(name);
 
                 Appearance.Foreground = new(item.ForegroundR, item.ForegroundG, item.ForegroundB, CurrentAlpha);
                 Appearance.Glyph = item.ItemGlyph;
@@ -17,7 +17,7 @@ namespace LofiHollow.Entities {
         }
 
         public ItemWrapper(Item temp) : base(Color.Black, Color.Transparent, 32) { 
-                item = new(temp);
+                item = Item.Copy(temp);
 
             Appearance.Foreground = new(item.ForegroundR, item.ForegroundG, item.ForegroundB, CurrentAlpha);
             Appearance.Glyph = item.ItemGlyph; 

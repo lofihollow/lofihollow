@@ -7,8 +7,7 @@
   "ExpGranted": 10,
   "SpecificMaterials": [
     {
-      "Name": "lh:Flour",
-      "SubID": 0,
+      "ID": "lh:Flour", 
       "ItemQuantity": 1,
       "Stacks": true
     }

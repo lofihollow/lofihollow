@@ -7,8 +7,7 @@
   "ExpGranted": 70,
   "SpecificMaterials": [
     {
-      "Name": "lh:Steel Ingot",
-      "SubID": 0,
+      "ID": "lh:Steel Ingot", 
       "ItemQuantity": 2,
       "Stacks": true
     }

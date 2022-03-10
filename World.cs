@@ -31,14 +31,15 @@ namespace LofiHollow {
         public Dictionary<string, Mission> missionLibrary = new();
         public Dictionary<string, string> scriptLibrary = new();
         public Dictionary<string, ArchArtifact> artifactLibrary = new();
-
+        public Dictionary<string, Move> moveLibrary = new();
         public Dictionary<string, PicrossPuzzle> picrossLibrary = new();
+        public Dictionary<string, TypeDef> typeLibrary = new();
 
 
         public List<Chapter> Chapters = new();
 
 
-        public Dictionary<CSteamID, Player> otherPlayers = new();
+        public Dictionary<SteamId, Player> otherPlayers = new();
 
 
         public bool DoneInitializing = false;
@@ -59,8 +60,8 @@ namespace LofiHollow {
             LoadScripts();
             LoadArtifacts();
             LoadPicross();
-
-            LoadAllMods();
+            LoadMoves();
+            LoadTypes();
         }
 
         public void InitPlayer() {
@@ -80,77 +81,131 @@ namespace LofiHollow {
             } 
         }
 
-        public void LoadAllMods() {
-            if (Directory.Exists("./mods/")) {
-                string[] modFiles = Directory.GetFiles("./mods/");
+        public void RemakeLibraries() { 
+            skillLibrary.Clear();
+            tileLibrary.Clear();
+            itemLibrary.Clear();
+            monsterLibrary.Clear();
+            npcLibrary.Clear();
+            missionLibrary.Clear();
+            scriptLibrary.Clear();
+            artifactLibrary.Clear();
+            picrossLibrary.Clear();
 
+            LoadSkillDefinitions();
+            LoadTileDefinitions();
+            LoadItemDefinitions();
+            LoadMonsterDefinitions();
+            LoadNPCDefinitions();   
+            LoadMissionDefinitions();
+            LoadScripts();
+            LoadArtifacts();
+            LoadPicross();
+        }
 
-                foreach (string fileName in modFiles) { 
-                    Mod mod = Helper.DeserializeFromFileCompressed<Mod>(fileName); 
+        public void LoadAllMods() {   
+            if (SteamClient.IsValid) {
+                RemakeLibraries();
 
-                    if (mod.Enabled) {
-                        for (int i = 0; i < mod.ModArtifacts.Count; i++) { 
-                            if (!artifactLibrary.ContainsKey(mod.ModArtifacts[i].FullName()))
-                                artifactLibrary.Add(mod.ModArtifacts[i].FullName(), mod.ModArtifacts[i]);
-                        }
+                string path = SteamApps.AppInstallDir() + "/../../workshop/content/1906540/";
+                
+                if (Directory.Exists(path)) {
+                    string[] modFiles = Directory.GetDirectories(path);
+                     
+                    foreach (string fileName in modFiles) {
+                        string modPath = Directory.GetFiles(fileName)[0];
 
-                        for (int i = 0; i < mod.ModConstructs.Count; i++) {  
-                            constructibles.Add(constructibles.Count, mod.ModConstructs[i]);
-                        }
+                        Mod mod = Helper.DeserializeFromFileCompressed<Mod>(modPath);
+                        
 
-                        SortConstructibles();
+                        if (GameLoop.SteamManager.ModsEnabled.Contains(mod.Metadata.PublishedID.Value)) { 
+                            for (int i = 0; i < mod.ModArtifacts.Count; i++) {
+                                if (!artifactLibrary.ContainsKey(mod.ModArtifacts[i].FullName()))
+                                    artifactLibrary.Add(mod.ModArtifacts[i].FullName(), mod.ModArtifacts[i]);
+                            }
 
-                        for (int i = 0; i < mod.ModItems.Count; i++) {
-                            if (!itemLibrary.ContainsKey(mod.ModItems[i].FullName()))
-                                itemLibrary.Add(mod.ModItems[i].FullName(), mod.ModItems[i]);
-                        }
+                            for (int i = 0; i < mod.ModConstructs.Count; i++) {
+                                constructibles.Add(constructibles.Count, mod.ModConstructs[i]);
+                            }
 
-                        for (int i = 0; i < mod.ModMissions.Count; i++) {
-                            if (!missionLibrary.ContainsKey(mod.ModMissions[i].FullName()))
-                                missionLibrary.Add(mod.ModMissions[i].FullName(), mod.ModMissions[i]);
-                        }
+                            SortConstructibles();
 
-                        for (int i = 0; i < mod.ModMonsters.Count; i++) {
-                            if (!monsterLibrary.ContainsKey(mod.ModMonsters[i].FullName()))
-                                monsterLibrary.Add(mod.ModMonsters[i].FullName(), mod.ModMonsters[i]);
-                        }
+                            for (int i = 0; i < mod.ModItems.Count; i++) {
+                                if (!itemLibrary.ContainsKey(mod.ModItems[i].FullName()))
+                                    itemLibrary.Add(mod.ModItems[i].FullName(), mod.ModItems[i]);
+                            }
 
-                        for (int i = 0; i < mod.ModNPCs.Count; i++) {
-                            if (!npcLibrary.ContainsKey(mod.ModNPCs[i].FullName()))
-                                npcLibrary.Add(mod.ModNPCs[i].FullName(), mod.ModNPCs[i]);
-                        }
+                            for (int i = 0; i < mod.ModMissions.Count; i++) {
+                                if (!missionLibrary.ContainsKey(mod.ModMissions[i].FullName()))
+                                    missionLibrary.Add(mod.ModMissions[i].FullName(), mod.ModMissions[i]);
+                            }
 
-                        for (int i = 0; i < mod.ModRecipes.Count; i++) { 
-                            recipeLibrary.Add(recipeLibrary.Count, mod.ModRecipes[i]);
-                        }
+                            for (int i = 0; i < mod.ModMonsters.Count; i++) {
+                                if (!monsterLibrary.ContainsKey(mod.ModMonsters[i].FullName()))
+                                    monsterLibrary.Add(mod.ModMonsters[i].FullName(), mod.ModMonsters[i]);
+                            }
 
-                        SortRecipes();
+                            for (int i = 0; i < mod.ModNPCs.Count; i++) {
+                                if (!npcLibrary.ContainsKey(mod.ModNPCs[i].FullName()))
+                                    npcLibrary.Add(mod.ModNPCs[i].FullName(), mod.ModNPCs[i]);
+                            }
 
-                        for (int i = 0; i < mod.ModSkills.Count; i++) {
-                            if (!skillLibrary.ContainsKey(mod.ModSkills[i].Name))
-                                skillLibrary.Add(mod.ModSkills[i].Name, mod.ModSkills[i]);
-                        }
+                            for (int i = 0; i < mod.ModRecipes.Count; i++) {
+                                recipeLibrary.Add(recipeLibrary.Count, mod.ModRecipes[i]);
+                            }
 
-                        for (int i = 0; i < mod.ModTiles.Count; i++) {
-                            if (!tileLibrary.ContainsKey(mod.ModTiles[i].FullName()))
-                                tileLibrary.Add(mod.ModTiles[i].FullName(), mod.ModTiles[i]);
-                        }
+                            SortRecipes();
 
-                        for (int i = 0; i < mod.ModPicross.Count; i++) {
-                            if (!picrossLibrary.ContainsKey(mod.ModPicross[i].FullName()))
-                                picrossLibrary.Add(mod.ModPicross[i].FullName(), mod.ModPicross[i]);
-                        }
+                            for (int i = 0; i < mod.ModSkills.Count; i++) {
+                                if (!skillLibrary.ContainsKey(mod.ModSkills[i].Name))
+                                    skillLibrary.Add(mod.ModSkills[i].Name, mod.ModSkills[i]);
+                            }
 
-                        for (int i = 0; i < mod.ModScripts.Count; i++) {
-                            if (!scriptLibrary.ContainsKey(mod.ModScripts[i].Name))
-                                scriptLibrary.Add(mod.ModScripts[i].Name, mod.ModScripts[i].Script);
-                        }
+                            for (int i = 0; i < mod.ModTiles.Count; i++) {
+                                if (!tileLibrary.ContainsKey(mod.ModTiles[i].FullName()))
+                                    tileLibrary.Add(mod.ModTiles[i].FullName(), mod.ModTiles[i]);
+                            }
 
-                        for (int i = 0; i < mod.ModMaps.Count; i++) {
-                            if (!maps.ContainsKey(mod.ModMaps[i].MapPos))
-                                maps.Add(mod.ModMaps[i].MapPos, mod.ModMaps[i].Map);
+                            for (int i = 0; i < mod.ModPicross.Count; i++) {
+                                if (!picrossLibrary.ContainsKey(mod.ModPicross[i].FullName()))
+                                    picrossLibrary.Add(mod.ModPicross[i].FullName(), mod.ModPicross[i]);
+                            }
+
+                            for (int i = 0; i < mod.ModScripts.Count; i++) {
+                                if (!scriptLibrary.ContainsKey(mod.ModScripts[i].Name))
+                                    scriptLibrary.Add(mod.ModScripts[i].FullName(), mod.ModScripts[i].Script);
+                            }
+
+                            for (int i = 0; i < mod.ModMaps.Count; i++) {
+                                if (!maps.ContainsKey(mod.ModMaps[i].MapPos))
+                                    maps.Add(mod.ModMaps[i].MapPos, mod.ModMaps[i].Map);
+                            }
                         }
                     }
+                }
+            }
+        }
+
+        public void LoadMoves() {
+            if (Directory.Exists("./data/moves/")) {
+                string[] itemFiles = Directory.GetFiles("./data/moves/");
+
+                foreach (string fileName in itemFiles) {
+                    string json = File.ReadAllText(fileName);
+                    Move item = JsonConvert.DeserializeObject<Move>(json);
+                    moveLibrary.Add(item.FullName(), item);
+                }
+            }
+        }
+
+        public void LoadTypes() {
+            if (Directory.Exists("./data/types/")) {
+                string[] itemFiles = Directory.GetFiles("./data/types/");
+
+                foreach (string fileName in itemFiles) {
+                    string json = File.ReadAllText(fileName);
+                    TypeDef item = JsonConvert.DeserializeObject<TypeDef>(json);
+                    typeLibrary.Add(item.Name, item);
                 }
             }
         }
@@ -162,7 +217,7 @@ namespace LofiHollow {
                 foreach (string fileName in scriptFiles) {
                     string script = File.ReadAllText(fileName);
                     string name = fileName.Split("/")[^1][0..^4];
-                    scriptLibrary.Add(name, script);
+                    scriptLibrary.Add("lh:" + name, script);
                 }
             }
         }
@@ -210,7 +265,7 @@ namespace LofiHollow {
                 if (!fishLibrary.ContainsKey(newFish.FullName())) {
                     fishLibrary.Add(newFish.FullName(), newFish);
 
-                    Item fishItem = new("lh:Raw Fish");
+                    Item fishItem = Item.Copy("lh:Raw Fish");
                     fishItem.ForegroundR = newFish.colR;
                     fishItem.ForegroundG = newFish.colG;
                     fishItem.ForegroundB = newFish.colB;
@@ -225,6 +280,38 @@ namespace LofiHollow {
                         itemLibrary.Add(fishItem.FullName(), fishItem);
                 }
             }
+
+            FishDef guaranteed = GenerateFish();
+
+            while (fishLibrary.ContainsKey(guaranteed.FullName())) {
+                guaranteed = GenerateFish();
+            }
+
+            guaranteed.CatchLocation = "Any";
+            guaranteed.Season = "Any";
+            guaranteed.EarliestTime = 360;
+            guaranteed.LatestTime = 1560;
+            guaranteed.RequiredLevel = 0;
+            guaranteed.GrantedExp = 10;
+            guaranteed.Strength = 2;
+            guaranteed.FightChance = 50;
+            guaranteed.FightLength = 4;
+
+            fishLibrary.Add(guaranteed.FullName(), guaranteed);
+
+            Item guaranteedItem = Item.Copy("lh:Raw Fish");
+            guaranteedItem.ForegroundR = guaranteed.colR;
+            guaranteedItem.ForegroundG = guaranteed.colG;
+            guaranteedItem.ForegroundB = guaranteed.colB;
+            guaranteedItem.ItemGlyph = guaranteed.glyph;
+
+
+            guaranteedItem.Name = guaranteed.FishItemID.Split(":")[1];
+            guaranteedItem.Package = "lh";
+            guaranteedItem.AverageValue = 5;
+
+            if (!itemLibrary.ContainsKey(guaranteedItem.FullName()))
+                itemLibrary.Add(guaranteedItem.FullName(), guaranteedItem);
         }
 
         public FishDef GenerateFish() {
@@ -647,7 +734,7 @@ namespace LofiHollow {
 
                     Monster monster = JsonConvert.DeserializeObject<Monster>(json);
 
-                    monsterLibrary.Add(monster.Package + ":" + monster.Name, monster);
+                    monsterLibrary.Add(monster.FullName(), monster);
                 }
             }
         }
@@ -823,7 +910,7 @@ namespace LofiHollow {
                         foreach (FishDef fish in allFish) {
                             fishLibrary.Add(fish.FullName(), fish);
 
-                            Item fishItem = new("lh:Raw Fish");
+                            Item fishItem = Item.Copy("lh:Raw Fish");
 
                             string[] split = fish.FishItemID.Split(":");
                             fishItem.ForegroundR = fish.colR;
@@ -926,7 +1013,7 @@ namespace LofiHollow {
             LoadMapAt(Player.MapPos);
 
             DoneInitializing = true;
-            Player.Inventory[0] = new Item("lh:Rusty Dagger");
+            Player.Inventory[0] = Item.Copy("lh:Rusty Dagger");
 
             Player.Skills = new Dictionary<string, Skill>();
             

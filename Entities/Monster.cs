@@ -9,72 +9,65 @@ using SadConsole;
 using SadRogue.Primitives;
 
 namespace LofiHollow.Entities {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class Monster {
-        [JsonProperty]
-        public string Name = "";
-        [JsonProperty]
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Monster { 
+        public string Species = ""; 
         public string Package = "";
-
-        [JsonProperty]
         public string UniqueID;
-
-        [JsonProperty]
-        public int Health = 1;
-        [JsonProperty]
-        public int Speed = 1;
-        [JsonProperty]
-        public int Attack = 1;
-        [JsonProperty]
-        public int Defense = 1; 
-        [JsonProperty]
-        public int MAttack = 1;
-        [JsonProperty]
+         
+        public int Health = 1; 
+        public int Speed = 1; 
+        public int Attack = 1; 
+        public int Defense = 1;  
+        public int MAttack = 1; 
         public int MDefense = 1;
-
-        [JsonProperty]
-        public int MinLevel = 1;
-        [JsonProperty]
+         
+        public int MinLevel = 1; 
         public int MaxLevel = 99;
-
-        [JsonProperty]
+         
         public int CaptureRate = 45;
+         
+        public string StatGrowths = "";
 
-        [JsonProperty]
-        public string StatGrowths = ""; 
-
-        [JsonProperty]
-        public List<string> Types = new();
-        [JsonProperty]
+        public int EvolutionLevel = 10;
+        public string EvolvesInto = "";
+        public string AlternateEvoMethod = "";
+         
         public string SpawnLocation = "";
 
-        [JsonProperty]
-        public List<string> MoveList = new();
-
-        [JsonProperty]
+        public string ElementalAlignment = "Fire";
+        public List<string> Types = new();
+        public List<string> MoveList = new(); 
         public List<string> DropTable = new();
-
-        [JsonProperty]
-        public int ForegroundR = 0;
-        [JsonProperty]
-        public int ForegroundG = 0;
-        [JsonProperty]
-        public int ForegroundB = 0;
-        [JsonProperty]
-        public int ForegroundA = 255;
-        [JsonProperty]
+          
+        public int ForegroundR = 0; 
+        public int ForegroundG = 0; 
+        public int ForegroundB = 0; 
+        public int ForegroundA = 255; 
         public int ActorGlyph = 0;  
 
         [JsonConstructor]
         public Monster() { 
         }
 
-        public Monster(string name) {
+        public static Monster Clone(string name) {
             if (GameLoop.World.monsterLibrary != null && GameLoop.World.monsterLibrary.ContainsKey(name)) {
-                Monster temp = GameLoop.World.monsterLibrary[name];
-                SetAll(temp);
+                Monster temp = Helper.Clone(GameLoop.World.monsterLibrary[name]); 
+                temp.UniqueID = Guid.NewGuid().ToString("N");
+
+                return temp;
             }
+
+            return null;
         }
+
+        public static Monster Clone(Monster other) { 
+            Monster temp = Helper.Clone(other);
+            temp.UniqueID = Guid.NewGuid().ToString("N");
+
+            return temp;  
+        }
+         
 
         public ColoredString GetAppearance() {
             return new ColoredString(ActorGlyph.AsString(), new Color(ForegroundR, ForegroundG, ForegroundB, ForegroundA), Color.Black);
@@ -82,39 +75,10 @@ namespace LofiHollow.Entities {
 
         public CellDecorator AsDecorator() {
             return new CellDecorator(new Color(ForegroundR, ForegroundG, ForegroundB, ForegroundA), ActorGlyph, Mirror.Horizontal);
-        }
-
-        public void SetAll(Monster temp) { 
-            UniqueID = Guid.NewGuid().ToString("N");
-
-            Name = temp.Name;
-            Package = temp.Package;
-
-            Speed = temp.Speed;
-            Attack = temp.Attack;
-            Defense = temp.Defense;
-            Health = temp.Health;
-            MAttack = temp.MAttack;
-            MDefense = temp.MDefense;
-            StatGrowths = temp.StatGrowths;
-
-            MinLevel = temp.MinLevel;
-            MaxLevel = temp.MaxLevel;
-            CaptureRate = temp.CaptureRate;
-
-            Types = temp.Types;
-            SpawnLocation = temp.SpawnLocation;
-            MoveList = temp.MoveList;
-            DropTable = temp.DropTable;
-             
-            ForegroundR = temp.ForegroundR;
-            ForegroundG = temp.ForegroundG;
-            ForegroundB = temp.ForegroundB;
-            ActorGlyph = temp.ActorGlyph;
-        }
+        } 
 
         public string FullName() {
-            return Package + ":" + Name;
+            return Package + ":" + Species;
         }
     }
 }

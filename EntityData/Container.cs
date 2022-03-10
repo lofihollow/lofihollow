@@ -33,7 +33,7 @@ namespace LofiHollow.EntityData {
             }
 
             if (Items.Count < Capacity) {
-                Item newItem = new(item);
+                Item newItem = Item.Copy(item);
                 newItem.ItemQuantity = quantity;
                 Items.Add(newItem);
                 return true;
@@ -47,11 +47,11 @@ namespace LofiHollow.EntityData {
                 if (Items[slot].IsStackable) {
                     if (quantity < Items[slot].ItemQuantity) {
                         Items[slot].ItemQuantity -= quantity;
-                        Item pop = new(Items[slot]);
+                        Item pop = Item.Copy(Items[slot]);
                         pop.ItemQuantity = quantity;
                         return pop;
                     } else {
-                        Item pop = new(Items[slot]);
+                        Item pop = Item.Copy(Items[slot]);
                         pop.ItemQuantity = quantity;
                         Items.RemoveAt(slot);
                         return pop;
@@ -59,11 +59,11 @@ namespace LofiHollow.EntityData {
                 } else {
                     if (Items[slot].ItemQuantity > 1) {
                         Items[slot].ItemQuantity--;
-                        Item pop = new(Items[slot]);
+                        Item pop = Item.Copy(Items[slot]);
                         pop.ItemQuantity = 1;
                         return pop;
                     } else {
-                        Item pop = new(Items[slot]);
+                        Item pop = Item.Copy(Items[slot]);
                         pop.ItemQuantity = quantity;
                         Items.RemoveAt(slot);
                         return pop;

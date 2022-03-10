@@ -35,7 +35,8 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public string CombatMode = "Attack";
 
-        
+        [JsonProperty]
+        public string ElementalAlignment = "Fire";
 
         [JsonProperty]
         public int CombatLevel = 1;
@@ -47,6 +48,8 @@ namespace LofiHollow.Entities {
         [JsonProperty]
         public Dictionary<string, Skill> Skills = new();
 
+        [JsonProperty]
+        public List<string> Types = new();
 
         [JsonProperty]
         public int ForegroundR = 0;
@@ -116,8 +119,30 @@ namespace LofiHollow.Entities {
             return new ColoredString(ActorGlyph.AsString(), Appearance.Foreground, Color.Transparent);
         }
 
-        public int TakeDamage(int damage) {
-            int damageTaken = 0;
+        public float ModifiedDamage(string attackType, int damageIn) {
+            for (int i = 0; i < Types.Count; i++) {
+                if (GameLoop.World.typeLibrary.ContainsKey(Types[i])) {
+                    TypeDef thisType = GameLoop.World.typeLibrary[Types[i]];
+
+                    damageIn = thisType.ModDamage(damageIn, attackType);
+                } 
+            }
+
+            if (GameLoop.World.typeLibrary.ContainsKey(ElementalAlignment)) {
+                TypeDef coreType = GameLoop.World.typeLibrary[ElementalAlignment];
+                damageIn = coreType.ModDamage(damageIn, attackType);
+            }
+
+            return damageIn;
+        }
+
+
+        public int TakeDamage(int damageIn, string attackType) {
+            int damageTaken;
+
+            int damage = (int) Math.Ceiling(ModifiedDamage(attackType, damageIn));
+
+
             if (damage > CurrentHP) {
                 damageTaken = CurrentHP;
                 CurrentHP = 0; 
@@ -172,14 +197,14 @@ namespace LofiHollow.Entities {
                                     if (Skills[tile.RequiredSkill].Level >= tile.RequiredLevel) {
                                         if (play.Equipment[0].ItemCat == tile.HarvestTool || play.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCat == tile.HarvestTool) {
                                             if (play.HasInventorySlotOpen()) {
-                                                CommandManager.AddItemToInv(play, new Item(tile.ItemGiven));
+                                                CommandManager.AddItemToInv(play, Item.Copy(tile.ItemGiven));
                                                 GameLoop.UIManager.AddMsg(tile.HarvestMessage);
                                                 ExpendStamina(1);
 
                                                 int choppedChance = GameLoop.rand.Next(100) + 1;
 
                                                 if (choppedChance < 33) {
-                                                    CommandManager.AddItemToInv(play, new Item(tile.DepletedItem));
+                                                    CommandManager.AddItemToInv(play, Item.Copy(tile.DepletedItem));
                                                     map.GetTile(newPosition).Name = tile.DepletedName;
                                                     GameLoop.UIManager.AddMsg(tile.DepleteMessage);
                                                     Skills[tile.RequiredSkill].Experience += tile.ExpOnDeplete;

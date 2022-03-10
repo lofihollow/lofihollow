@@ -42,7 +42,7 @@ namespace LofiHollow.UI {
                 int y = 4;
 
                 Con.Print(1, 2, "Connected Players");
-                foreach(KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                foreach(KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                     if (!Current.AllowedGuests.Contains(kv.Key)) {
                         Con.Print(1, y, new ColoredString(kv.Value.Name.Align(HorizontalAlignment.Left, 20)) + Helper.HoverColoredString(12.AsString(), mousePos == new Point(21, y)));
                         y++;

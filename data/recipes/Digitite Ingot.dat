@@ -7,8 +7,7 @@
   "ExpGranted": 110,
   "SpecificMaterials": [
     {
-      "Name": "lh:Digitite Chunk",
-      "SubID": 0,
+      "ID": "lh:Digitite Chunk", 
       "ItemQuantity": 1,
       "Stacks": true
     }

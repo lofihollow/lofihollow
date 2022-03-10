@@ -14,9 +14,7 @@ namespace LofiHollow.EntityData {
         [JsonProperty]
         public int Tier = 0;
         [JsonProperty]
-        public int Quantity = 0;
-        [JsonProperty]
-        public bool Stacks = false;
+        public int Quantity = 0; 
         [JsonProperty]
         public bool CountsAsMultiple = false;
          
@@ -26,8 +24,7 @@ namespace LofiHollow.EntityData {
         public CraftComponent(string prop, int tier, int qty, bool stack, bool countsAsMult) {
             Property = prop;
             Tier = tier;
-            Quantity = qty;
-            Stacks = stack;
+            Quantity = qty; 
             CountsAsMultiple = countsAsMult;
         }
 

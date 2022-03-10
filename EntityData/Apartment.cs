@@ -16,7 +16,7 @@ namespace LofiHollow.EntityData {
         public bool GuestsAllowedWhileOut = false;
         public bool GuestsAllowedWhileIn = true;
         public bool Whitelist = true;
-        public List<CSteamID> AllowedGuests = new();
+        public List<SteamId> AllowedGuests = new();
 
         [JsonConstructor]
         public Apartment() { }
@@ -32,17 +32,17 @@ namespace LofiHollow.EntityData {
             DaysLeft += days;
         }
 
-        public void AddGuest(CSteamID id) {
+        public void AddGuest(SteamId id) {
             if (!AllowedGuests.Contains(id))
                 AllowedGuests.Add(id);
         }
 
-        public void RemoveGuest(CSteamID id) {
+        public void RemoveGuest(SteamId id) {
             if (AllowedGuests.Contains(id))
                 AllowedGuests.Remove(id);
         }
 
-        public bool CanEnter(CSteamID guestID, bool PlayerHome) {
+        public bool CanEnter(SteamId guestID, bool PlayerHome) {
             if (DaysLeft >= 0) {
                 if (PlayerHome) {
                     if (GuestsAllowedWhileIn)

@@ -11,10 +11,11 @@ namespace LofiHollow.DataTypes {
     public class CombatParticipant {
         public Actor Participant;
         public bool Enemy = false;
-        public CSteamID playerID = CSteamID.Nil;
+        public SteamId playerID;
 
-        public CombatParticipant(CSteamID id) {
-            playerID = id;
+        public CombatParticipant(SteamId id) {
+            if (id.IsValid)
+                playerID = id;
         }
 
         public CombatParticipant(MonsterWrapper mon) {
@@ -27,12 +28,12 @@ namespace LofiHollow.DataTypes {
         }
 
         public Actor GetActor() {
-            if (playerID != CSteamID.Nil) {
+            if (playerID.IsValid) {
                 if (GameLoop.World.otherPlayers.ContainsKey(playerID)) {
                     return GameLoop.World.otherPlayers[playerID];
                 }
 
-                if (playerID == SteamUser.GetSteamID()) {
+                if (playerID == SteamClient.SteamId) {
                     return GameLoop.World.Player;
                 }
             } else {

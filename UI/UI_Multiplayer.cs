@@ -43,7 +43,7 @@ namespace LofiHollow.UI {
 
             else if (ID == "Host") {
                 GameLoop.NetworkManager = new();
-                GameLoop.NetworkManager.SteamLobby();
+                GameLoop.NetworkManager.CreateSteamLobby();
             }
         }
 

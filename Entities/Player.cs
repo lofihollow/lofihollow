@@ -92,20 +92,20 @@ namespace LofiHollow.Entities {
         public double DayStart = 0;
 
         [JsonProperty]
-        public List<CSteamID> PartyMembers = new();
+        public List<SteamId> PartyMembers = new();
 
         public Player(Color foreground) : base(foreground, '@') {
             ActorGlyph = '@';
              
             Equipment = new Item[11];
             for (int i = 0; i < Equipment.Length; i++) {
-                Equipment[i] = new Item("lh:(EMPTY)");
+                Equipment[i] = Item.Copy("lh:(EMPTY)");
             }
 
             Inventory = new Item[9];
 
             for (int i = 0; i < Inventory.Length; i++) {
-                Inventory[i] = new Item("lh:(EMPTY)");
+                Inventory[i] = Item.Copy("lh:(EMPTY)");
             }
         }
 
@@ -115,6 +115,10 @@ namespace LofiHollow.Entities {
             } else {
                 return 0;
             }
+        }
+
+        public int CopperWealth() {
+            return CopperCoins + (SilverCoins * 100) + (GoldCoins * 10000) + (JadeCoins * 1000000);
         }
 
         public bool HasInventorySlotOpen(string stackID = "") {
@@ -178,13 +182,13 @@ namespace LofiHollow.Entities {
             }
 
             if (DropsOnDeath >= 0) {
-                Item copper = new("lh:Copper Coin");
+                Item copper = Item.Copy("lh:Copper Coin");
                 copper.ItemQuantity = 0;
-                Item silver = new("lh:Silver Coin");
+                Item silver = Item.Copy("lh:Silver Coin");
                 silver.ItemQuantity = 0;
-                Item gold = new("lh:Gold Coin");
+                Item gold = Item.Copy("lh:Gold Coin");
                 gold.ItemQuantity = 0;
-                Item jade = new("lh:Jade Coin");
+                Item jade = Item.Copy("lh:Jade Coin");
                 jade.ItemQuantity = 0;
 
                 ItemWrapper copperWrap = new(copper);
@@ -294,7 +298,8 @@ namespace LofiHollow.Entities {
                     } else {
                         NetMsg outOfLives = new("outOfLives");
                         GameLoop.SendMessageIfNeeded(outOfLives, false, true);
-                        SteamMatchmaking.LeaveLobby((CSteamID) GameLoop.NetworkManager.currentLobby);
+                        
+                        GameLoop.NetworkManager.LeaveLobby();
                     }
                 }
 
@@ -361,19 +366,10 @@ namespace LofiHollow.Entities {
 
         public string GetDamageType() {
             if (Equipment[0].Stats != null) {
-                string[] types = Equipment[0].Stats.DamageType.Split(",");
-
-                if (CombatMode == "Attack")
-                    return types[0];
-                if (CombatMode == "Strength")
-                    return types[1];
-                if (CombatMode == "Defense")
-                    return types[2];
-                if (CombatMode == "Balanced")
-                    return types[3];
+                return Equipment[0].Stats.DamageType;
             }
 
-            return "Physical";
+            return ElementalAlignment;
         }
 
     }

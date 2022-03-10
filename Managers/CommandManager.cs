@@ -89,7 +89,7 @@ namespace LofiHollow.Managers {
 
                 item.UpdateAppearance();
                     
-                actor.Inventory[slot] = new Item("lh:(EMPTY)");
+                actor.Inventory[slot] = Item.Copy("lh:(EMPTY)");
 
                 SendItem(item);
                 SpawnItem(item);
@@ -222,7 +222,7 @@ namespace LofiHollow.Managers {
             if (slot >= 0 && slot <= 10) {
                 if (actor.Equipment[slot].Name != "(EMPTY)") {
                     AddItemToInv(actor, actor.Equipment[slot]); 
-                    actor.Equipment[slot] = new Item("lh:(EMPTY)"); 
+                    actor.Equipment[slot] = Item.Copy("lh:(EMPTY)"); 
                 } 
             }
         }
@@ -233,7 +233,7 @@ namespace LofiHollow.Managers {
                 if (actor.Inventory[slot].Name != "(EMPTY)") {
                     if (!actor.Inventory[slot].IsStackable || (actor.Inventory[slot].IsStackable && actor.Inventory[slot].ItemQuantity == 1)) {
                         returnID = actor.Inventory[slot].FullName();
-                        actor.Inventory[slot] = new Item("lh:(EMPTY)");
+                        actor.Inventory[slot] = Item.Copy("lh:(EMPTY)");
                     } else if (actor.Inventory[slot].IsStackable && actor.Inventory[slot].ItemQuantity > 1) {
                         actor.Inventory[slot].ItemQuantity--;
                         returnID = actor.Inventory[slot].FullName();
@@ -282,7 +282,7 @@ namespace LofiHollow.Managers {
             }
         }
 
-        public static void DamageMonster(string id, Point3D MapPos, int damage, string battleString, string color) {
+        public static void DamageMonster(string id, Point3D MapPos, int damage, string battleString, string color, string atkType) {
             foreach (Entity ent in GameLoop.World.maps[MapPos].Entities.Items) {
                 if (ent is MonsterWrapper mon) {
                     if (mon.monster.UniqueID == id) {
@@ -292,18 +292,18 @@ namespace LofiHollow.Managers {
                             GameLoop.UIManager.AddMsg(new ColoredString(battleString, stringColor, Color.Black));
                         }
 
-                        mon.TakeDamage(damage);
+                        mon.TakeDamage(damage, atkType);
                     }
                 }
             }
         }
 
-        public static void DamagePlayer(CSteamID id, int damage, string battleString, string color) {
+        public static void DamagePlayer(SteamId id, int damage, string battleString, string color, string atkType) {
             Color hitColor = color == "Green" ? Color.Green : color == "Red" ? Color.Red : Color.White;
             if (!GameLoop.World.otherPlayers.ContainsKey(id)) {
-                if (SteamUser.GetSteamID() == id) { 
+                if (SteamClient.SteamId == id) { 
                     GameLoop.UIManager.AddMsg(new ColoredString(battleString, hitColor, Color.Black));
-                    GameLoop.World.Player.TakeDamage(damage);
+                    GameLoop.World.Player.TakeDamage(damage, atkType);
                 } else {
                     return;
                 }
@@ -311,28 +311,52 @@ namespace LofiHollow.Managers {
                 if (GameLoop.World.otherPlayers[id].MapPos == GameLoop.World.Player.MapPos)
                     GameLoop.UIManager.AddMsg(new ColoredString(battleString, hitColor, Color.Black));
 
-                GameLoop.World.otherPlayers[id].TakeDamage(damage);
+                GameLoop.World.otherPlayers[id].TakeDamage(damage, atkType);
             }
         }
 
         public static int PlayerDamage(Player play, int targetDef) {
             play.CalculateCombatLevel();
-            int pow = play.Equipment[0].Stats != null ? play.Equipment[0].Stats.WeaponTier : 10;
-            int str = play.Skills["Strength"].Level;
-            int damage = ((((((2 * play.CombatLevel) / 5) + 2) * pow * (str / targetDef)) / 50) + 2);
+            int atk = play.Equipment[0].Stats != null ? play.Equipment[0].Stats.Accuracy : 30;
+            int pow = play.Equipment[0].Stats != null ? play.Equipment[0].Stats.Power : 1; 
+
+            int attack = play.Skills["Attack"].Level + atk;
+            int power = play.Skills["Strength"].Level + pow;
+
+
+            int damage = ((((((2 * play.CombatLevel) / 5) + 2) * power * (attack / targetDef)) / 50) + 2);
 
             bool crit = GameLoop.rand.Next(20) == 0 ? true : false;
 
             if (crit)
                 damage *= 2;
 
+            if (play.GetDamageType() == play.ElementalAlignment)
+                damage = (int)Math.Ceiling((double)damage * 1.5f);
+
+            if (play.GetDamageType() == "Water") {
+                if (GameLoop.World.Player.Clock.Raining) {
+                    damage = (int)Math.Ceiling((double)damage * 1.5f);
+                } else {
+                    damage = (int)Math.Ceiling((double)damage * 0.5f);
+                }
+            } else if (play.GetDamageType() == "Fire") {
+                if (!GameLoop.World.Player.Clock.Raining) {
+                    damage = (int)Math.Ceiling((double)damage * 1.5f);
+                }
+                else {
+                    damage = (int)Math.Ceiling((double)damage * 0.5f);
+                }
+            }
+
             return damage;
         }
 
         // Player attacks a monster
         public static ColoredString Attack(Player attacker, MonsterWrapper defender) {
-            string damageType = attacker.GetDamageType(); 
-            int acc = (int) Math.Floor((attacker.Skills["Attack"].Level / 2f) + 50); 
+            string damageType = attacker.GetDamageType();
+            int atk = attacker.Equipment[0].Stats != null ? attacker.Equipment[0].Stats.Accuracy : 30;
+            int acc = (int) Math.Floor((attacker.Skills["Attack"].Level / 2f) + atk); 
             int attackRoll = GameLoop.rand.Next(100) + 1;
 
             ColoredString battleString;
@@ -345,13 +369,13 @@ namespace LofiHollow.Managers {
                     damage = 0;
 
                 if (damage > 0) {
-                    battleString = new ColoredString(attacker.Name + " dealt " + damage + " damage to " + defender.monster.Name); 
+                    battleString = new ColoredString(attacker.Name + " dealt " + damage + " damage to " + defender.monster.Species); 
                     attacker.CombatExp(damage);
                 } else {
-                    battleString = new ColoredString(attacker.Name + " hit " + defender.monster.Name + " but dealt no damage!");
+                    battleString = new ColoredString(attacker.Name + " hit " + defender.monster.Species + " but dealt no damage!");
                 }
 
-                defender.TakeDamage(damage);
+                defender.TakeDamage(damage, damageType);
                  
                 NetMsg damageMon = new("damageMonster");
                 damageMon.MiscInt = damage; 
@@ -359,9 +383,11 @@ namespace LofiHollow.Managers {
                 damageMon.MiscString1 = defender.monster.UniqueID;
                 damageMon.MiscString2 = battleString.String;
                 damageMon.MiscString3 = battleColor;
+                damageMon.MiscString4 = attacker.GetDamageType();
                 GameLoop.SendMessageIfNeeded(damageMon, false, false);
+                  
             } else {
-                battleString = new ColoredString(attacker.Name + " attacked " + defender.monster.Name + " but missed!");
+                battleString = new ColoredString(attacker.Name + " attacked " + defender.monster.Species + " but missed!");
             }
 
             if (defender.CurrentHP <= 0) { 
@@ -425,7 +451,7 @@ namespace LofiHollow.Managers {
                     }
                 }
 
-                MissionManager.Increment("Kill", defender.monster.Name, 1); 
+                MissionManager.Increment("Kill", defender.monster.Species, 1); 
             }
 
             return battleString;

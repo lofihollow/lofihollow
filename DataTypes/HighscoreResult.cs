@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace LofiHollow.DataTypes {
     public class HighscoreResult {
-        public byte Success = 0;
+        public bool Success = false;
         public int GlobalRank = -1;
         public int PreviousRank = -1;
         public int HighScore = -1;
-        public byte NewHigh = 0;
+        public bool NewHigh = false;
 
-        public HighscoreResult(byte suc, int rank, int prevRank, int score, byte newHigh) {
-            Success = suc;
+        public HighscoreResult(bool success, int rank, int prevRank, int score, bool newHigh) {
+            Success = success;
             GlobalRank = rank;
             PreviousRank = prevRank;
             HighScore = score;

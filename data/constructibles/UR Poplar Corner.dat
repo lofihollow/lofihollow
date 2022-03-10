@@ -13,12 +13,12 @@
   "BlocksLOS": true,
   "MaterialsNeeded": [
     {
-      "Name": "Poplar Plank",
+      "Name": "lh:Poplar Plank",
       "SubID": 0,
       "ItemQuantity": 10
     },
 	{
-      "Name": "Copper Nails",
+      "Name": "lh:Copper Nails",
       "SubID": 0,
       "ItemQuantity": 40
     }

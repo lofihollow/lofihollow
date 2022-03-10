@@ -5,13 +5,14 @@ using Steamworks;
 namespace LofiHollow.DataTypes {
     [JsonObject(MemberSerialization.OptOut)]
     public class NetMsg {
-        public CSteamID senderID;
-        public CSteamID recipient = CSteamID.Nil;
+        public SteamId senderID;
+        public SteamId recipient = 0;
         public string ident = "";
         public bool Flag = false;
         public string MiscString1 = "";
         public string MiscString2 = "";
         public string MiscString3 = "";
+        public string MiscString4 = "";
         public int MiscInt = 0;
         public int MiscInt2 = 0;
 

@@ -20,7 +20,10 @@ namespace LofiHollow.Managers {
         [JsonProperty]
         public int Day = 1;
         [JsonProperty]
-        public int Year = 1; 
+        public int Year = 1;
+
+        [JsonProperty]
+        public bool Raining = false;
 
         public string GetSeason() {
             if (Month == 1) { return "Spring"; } 
@@ -63,7 +66,7 @@ namespace LofiHollow.Managers {
             GameLoop.World.Player.CurrentHP = passedOut ? GameLoop.World.Player.CurrentHP : GameLoop.World.Player.MaxHP;
             GameLoop.World.Player.CurrentStamina = passedOut ? Math.Max(GameLoop.World.Player.CurrentStamina, GameLoop.World.Player.MaxStamina / 2) : GameLoop.World.Player.MaxStamina;
 
-            foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+            foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                 kv.Value.CurrentHP = kv.Value.MaxHP;
                 kv.Value.CurrentStamina = kv.Value.MaxStamina;
                 kv.Value.Sleeping = false;
@@ -152,7 +155,7 @@ namespace LofiHollow.Managers {
                 }
             }
 
-            foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+            foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                 if (kv.Value.NoonbreezeApt != null) {
                     Map apt = kv.Value.NoonbreezeApt.map;
                     List<FarmAnimal> aptDied = new();
@@ -259,7 +262,7 @@ namespace LofiHollow.Managers {
                 if (GameLoop.World.Player.Sleeping)
                     sleepCount++;
 
-                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                     totalPlayers++;
                     if (kv.Value.Sleeping)
                         sleepCount++;
@@ -316,13 +319,15 @@ namespace LofiHollow.Managers {
             GameLoop.World.Player.MapsClearedToday = 0;
             GameLoop.World.Player.killList.Clear();
 
-            foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+            foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                 kv.Value.MapsClearedToday = 0;
             }
 
-            GameLoop.UIManager.Minigames.MineManager.MountainMine = new("Mountain");
-            GameLoop.UIManager.Minigames.MineManager.LakeMine = new("Lake");
-               
+            if (GameLoop.UIManager.Minigames.MineManager != null) {
+                GameLoop.UIManager.Minigames.MineManager.MountainMine = new("Mountain");
+                GameLoop.UIManager.Minigames.MineManager.LakeMine = new("Lake");
+            }
+
             GameLoop.UIManager.Map.LoadMap(GameLoop.World.Player.MapPos);
         }
     }

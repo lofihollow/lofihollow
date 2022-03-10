@@ -90,7 +90,7 @@ namespace LofiHollow.Minigames.Archaeology {
                     item.Weight = Weight;
                 }
                 else {
-                    item = new(TurnIntoItem);
+                    item = Item.Copy(TurnIntoItem);
                     if (KeepArtifact)
                         item.Artifact = this;
                 }

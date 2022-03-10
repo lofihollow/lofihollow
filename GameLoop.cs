@@ -48,7 +48,7 @@ namespace LofiHollow {
         } 
 
         private static void Update(object sender, GameHost e) {
-            if (UIManager != null) {
+            if (UIManager != null) { 
                 if (NetworkManager == null || NetworkManager.isHost) {
                     if (World.Player.Clock != null) {
                         if ((NetworkManager == null && !UIManager.Help.Win.IsVisible) || (NetworkManager != null && NetworkManager.isHost)) {
@@ -77,7 +77,7 @@ namespace LofiHollow {
                             }
                         }
 
-                        foreach (KeyValuePair<CSteamID, Player> kv in World.otherPlayers) {
+                        foreach (KeyValuePair<SteamId, Player> kv in World.otherPlayers) {
                             if (kv.Value.NoonbreezeApt != null) {
                                 foreach (Entity ent in kv.Value.NoonbreezeApt.map.Entities.Items) {
                                     if (ent is FarmAnimal ani) {
@@ -107,17 +107,20 @@ namespace LofiHollow {
             } */
 
             if (SteamManager != null) {
-                SteamManager.Update();
+                SteamManager.Update(); 
+                SteamManager.MoneyAchieves();
             }
         }
 
         private static void Init() {
         //    SadConsole.Game.Instance.SetSplashScreens(new SadConsole.SplashScreens.PCBoot());
             rand = new Random(); 
-            SoundManager = new SoundManager();
+            SoundManager = new SoundManager(); 
             SteamManager = new SteamManager();
+            World = new World(); 
+
             SteamManager.Start();
-            World = new World();
+
             UIManager = new UIManager();
             UIManager.Init();
             FirebaseManager = new();
@@ -160,19 +163,19 @@ namespace LofiHollow {
         }
 
         public static void SendMessageIfNeeded(NetMsg msg, bool OnlyIfHost, bool AddOwnID, ulong OnlyToID = 0) {
-            if (NetworkManager != null) {
+            if (NetworkManager != null && SteamClient.IsValid) {
                 if (!OnlyIfHost || (OnlyIfHost && NetworkManager.isHost)) {
                     if (AddOwnID)
-                        msg.senderID = Steamworks.SteamUser.GetSteamID();
+                        msg.senderID = SteamClient.SteamId;
 
                     if (OnlyToID == 0) {
                         NetworkManager.BroadcastMsg(msg);
                     } else if (OnlyToID == 1) {
-                        var lobbyOwnerId = SteamMatchmaking.GetLobbyOwner((CSteamID) NetworkManager.currentLobby);
+                        var lobbyOwnerId = NetworkManager.GetLobbyOwner();
                         msg.recipient = lobbyOwnerId;
                         NetworkManager.BroadcastMsg(msg); 
                     } else {
-                        msg.recipient = (CSteamID) OnlyToID;
+                        msg.recipient = (SteamId) OnlyToID;
                         NetworkManager.BroadcastMsg(msg); 
                     }
                 }

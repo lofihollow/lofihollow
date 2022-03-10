@@ -207,7 +207,7 @@ namespace LofiHollow.UI {
 
                                 break;
                             } else {
-                                Item item = new(DialogueNPC.Shop.SoldItems[j]);
+                                Item item = Item.Copy(DialogueNPC.Shop.SoldItems[j]);
                                 int price = DialogueNPC.Shop.GetPrice(GameLoop.World.Player.MetNPCs[DialogueNPC.Name], item, false);
 
                                 int buyQuantity = 0;
@@ -235,7 +235,7 @@ namespace LofiHollow.UI {
 
 
                         for (int i = 0; i < GameLoop.World.Player.Inventory.Length; i++) {
-                            Item item = new(GameLoop.World.Player.Inventory[i]);
+                            Item item = Item.Copy(GameLoop.World.Player.Inventory[i]);
                             item.ItemQuantity = GameLoop.World.Player.Inventory[i].ItemQuantity;
                             int price = DialogueNPC.Shop.GetPrice(GameLoop.World.Player.MetNPCs[DialogueNPC.Name], item, true);
 
@@ -491,7 +491,7 @@ namespace LofiHollow.UI {
                                     CurrentMission.SelectChoice(dialogue.Responses[clickedResponse]);
 
                                     if (dialogue.Responses[clickedResponse].ItemGiven != "") {
-                                        CommandManager.AddItemToInv(GameLoop.World.Player, new(dialogue.Responses[clickedResponse].ItemGiven));
+                                        CommandManager.AddItemToInv(GameLoop.World.Player, Item.Copy(dialogue.Responses[clickedResponse].ItemGiven));
                                     }
 
                                     if (dialogue.Responses[clickedResponse].EndsDialogue) {
@@ -581,7 +581,7 @@ namespace LofiHollow.UI {
                         if (GameLoop.World.Player.Inventory[j].StacksWith(SellingItems[i], true)) {
                             GameLoop.World.Player.Inventory[j].ItemQuantity -= SellingItems[i].ItemQuantity;
                             if (GameLoop.World.Player.Inventory[j].ItemQuantity <= 0) {
-                                GameLoop.World.Player.Inventory[j] = new Item("lh:(EMPTY)");
+                                GameLoop.World.Player.Inventory[j] = Item.Copy("lh:(EMPTY)");
                             }
                             break;
                         }
@@ -704,7 +704,7 @@ namespace LofiHollow.UI {
                         if (GameLoop.World.Player.Inventory[j].StacksWith(SellingItems[i], true)) {
                             GameLoop.World.Player.Inventory[j].ItemQuantity -= SellingItems[i].ItemQuantity;
                             if (GameLoop.World.Player.Inventory[j].ItemQuantity <= 0) {
-                                GameLoop.World.Player.Inventory[j] = new Item("lh:(EMPTY)");
+                                GameLoop.World.Player.Inventory[j] = Item.Copy("lh:(EMPTY)");
                             }
                             break;
                         }
@@ -769,14 +769,14 @@ namespace LofiHollow.UI {
                         }
                         else if (!BuyingItems[i].IsStackable) {
                             alreadyInList = true;
-                            BuyingItems.Add(new Item(DialogueNPC.Shop.SoldItems[itemSlot]));
+                            BuyingItems.Add(Item.Copy(DialogueNPC.Shop.SoldItems[itemSlot]));
                             break;
                         }
                     }
                 }
 
                 if (!alreadyInList) {
-                    BuyingItems.Add(new Item(DialogueNPC.Shop.SoldItems[itemSlot]));
+                    BuyingItems.Add(Item.Copy(DialogueNPC.Shop.SoldItems[itemSlot]));
 
                     if (GameHost.Instance.Keyboard.IsKeyDown(SadConsole.Input.Keys.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(SadConsole.Input.Keys.RightShift)) {
                         if (BuyingItems[^1].IsStackable)
@@ -831,7 +831,7 @@ namespace LofiHollow.UI {
 
                             if (alreadyInListCount < thisItemCount) {
                                 alreadyInList = true;
-                                SellingItems.Add(new Item(GameLoop.World.Player.Inventory[itemSlot]));
+                                SellingItems.Add(Item.Copy(GameLoop.World.Player.Inventory[itemSlot]));
                                 break;
                             }
                             else {
@@ -842,7 +842,7 @@ namespace LofiHollow.UI {
                 }
 
                 if (!alreadyInList) {
-                    SellingItems.Add(new Item(GameLoop.World.Player.Inventory[itemSlot]));
+                    SellingItems.Add(Item.Copy(GameLoop.World.Player.Inventory[itemSlot]));
                     SellingItems[^1].ItemQuantity = 1;
                 }
             }

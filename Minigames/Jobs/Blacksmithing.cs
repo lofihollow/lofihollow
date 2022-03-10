@@ -2,6 +2,7 @@
 using SadConsole;
 using SadConsole.Input;
 using SadRogue.Primitives;
+using Steamworks.Data;
 using System.Collections.Generic;
 using Key = SadConsole.Input.Keys;
 
@@ -85,7 +86,22 @@ namespace LofiHollow.Minigames.Jobs {
             else {
                 if (!DisplayingScore) {
                     DisplayingScore = true;
-                    GameLoop.SteamManager.PostHighscore("Blacksmithing", Score);
+                    GameLoop.SteamManager.MostRecentResult = GameLoop.SteamManager.PostHighscore("Blacksmithing", Score);
+
+                    var scores = GameLoop.SteamManager.BlacksmithingLeaderboard.GetScoresAsync(10);
+
+                    if (scores.Result != null) {
+                        GameLoop.SteamManager.GlobalLeader.Clear();
+
+                        for (int i = 0; i < scores.Result.Length; i++) {
+                            LeaderboardEntry entry = scores.Result[i];
+                            LeaderboardSlot newSlot = new();
+                            newSlot.Rank = entry.GlobalRank;
+                            newSlot.Score = entry.Score;
+                            newSlot.Name = entry.User.Name;
+                            GameLoop.SteamManager.GlobalLeader.Add(newSlot);
+                        }
+                    }
                 }
 
                 if (Score > 0) {
@@ -99,11 +115,19 @@ namespace LofiHollow.Minigames.Jobs {
 
                 if (GameLoop.SteamManager.MostRecentResult != null) {
                     HighscoreResult res = GameLoop.SteamManager.MostRecentResult;
-                    if (res.Success == 1) {
+
+
+                    if (res.Success) {
                         Mini.Print(20, 10, "Successfully Posted Score!");
-                        Mini.Print(20, 12, "  Global Rank: " + res.GlobalRank);
+                        if (res.NewHigh)
+                            Mini.Print(20, 12, "  Global Rank: " + res.GlobalRank);
+                        else
+                            Mini.Print(20, 12, "  Global Rank: " + res.PreviousRank);
+
                         Mini.Print(20, 13, "Highest Score: " + res.HighScore);
-                        Mini.Print(20, 17, "     !NEW HIGH SCORE!    ");
+
+                        if (res.NewHigh)
+                            Mini.Print(20, 17, "     !NEW HIGH SCORE!    ");
 
                         if (!ShowingGlobalLeader) {
                             Mini.PrintClickable(20, 19, "[Show Global Leaderboards]", MinigameClick, "ShowGlobal");

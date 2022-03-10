@@ -9,6 +9,8 @@ using LofiHollow.DataTypes;
 using System.Linq;
 using System;
 using LofiHollow.Managers;
+using Steamworks;
+using LofiHollow.Minigames.Photo;
 
 namespace LofiHollow.UI {
     public class UI_Combat : Lofi_UI {  
@@ -21,38 +23,49 @@ namespace LofiHollow.UI {
         public UI_Combat(int width, int height, string title) : base(width, height, title, "Combat") { }
 
         public void StartCombat(string loc, int level) {
-            Current = new();
+            if (SteamClient.IsValid) {
+                Current = new();
 
-            SpawnEnemies(loc, level);
+                SpawnEnemies(loc, level);
 
-            for (int i = 0; i < Current.Enemies.Count; i++) {
-                if (Current.Enemies[i].GetActor() != null && Current.Enemies[i].GetActor() is MonsterWrapper mon) {
-                    ApplyLevels(level, mon.monster);
-                    mon.UpdateHP();
-                }
-            }
-
-            if (GameLoop.NetworkManager != null)
-                Current.Allies.Add(new CombatParticipant(GameLoop.NetworkManager.ownID)); 
-
-            for (int i = 0; i < GameLoop.World.Player.PartyMembers.Count; i++) {
-                if (GameLoop.World.otherPlayers.ContainsKey(GameLoop.World.Player.PartyMembers[i])) {
-                    Player play = GameLoop.World.otherPlayers[GameLoop.World.Player.PartyMembers[i]];
-                    if (play.MapPos == GameLoop.World.Player.MapPos) {
-                        Current.Allies.Add(new CombatParticipant(GameLoop.World.Player.PartyMembers[i]));
+                for (int i = 0; i < Current.Enemies.Count; i++) {
+                    if (Current.Enemies[i].GetActor() != null && Current.Enemies[i].GetActor() is MonsterWrapper mon) {
+                        ApplyLevels(level, mon.monster);
+                        mon.UpdateHP();
                     }
                 }
-            }
 
-            for (int i = 0; i < GameLoop.World.Player.PartyMembers.Count; i++) {
-                if (GameLoop.World.otherPlayers.ContainsKey(GameLoop.World.Player.PartyMembers[i])) {
-                    Player play = GameLoop.World.otherPlayers[GameLoop.World.Player.PartyMembers[i]];
-                    if (play.MapPos == GameLoop.World.Player.MapPos) {
-                        NetMsg initiateCombat = new("startCombat", Current.ToByteArray()); 
-                        
-                        GameLoop.SendMessageIfNeeded(initiateCombat, false, true, (ulong) GameLoop.World.Player.PartyMembers[i]);
+                if (GameLoop.World.Player.Equipment[10].Name != "(EMPTY)") {
+                    SoulPhoto photo = GameLoop.World.Player.Equipment[10].SoulPhoto;
+                    if (photo != null) {
+                        Current.Allies.Add(new(photo.GetCombined()));
+                    } else {
+                        Current.Allies.Add(new CombatParticipant(SteamClient.SteamId));
                     }
                 }
+                else {
+                    Current.Allies.Add(new CombatParticipant(SteamClient.SteamId));
+                }
+                /*
+                for (int i = 0; i < GameLoop.World.Player.PartyMembers.Count; i++) {
+                    if (GameLoop.World.otherPlayers.ContainsKey(GameLoop.World.Player.PartyMembers[i])) {
+                        Player play = GameLoop.World.otherPlayers[GameLoop.World.Player.PartyMembers[i]];
+                        if (play.MapPos == GameLoop.World.Player.MapPos) {
+                            Current.Allies.Add(new CombatParticipant(GameLoop.World.Player.PartyMembers[i]));
+                        }
+                    }
+                }
+
+                for (int i = 0; i < GameLoop.World.Player.PartyMembers.Count; i++) {
+                    if (GameLoop.World.otherPlayers.ContainsKey(GameLoop.World.Player.PartyMembers[i])) {
+                        Player play = GameLoop.World.otherPlayers[GameLoop.World.Player.PartyMembers[i]];
+                        if (play.MapPos == GameLoop.World.Player.MapPos) {
+                            NetMsg initiateCombat = new("startCombat", Current.ToByteArray());
+
+                            GameLoop.SendMessageIfNeeded(initiateCombat, false, true, (ulong)GameLoop.World.Player.PartyMembers[i]);
+                        }
+                    }
+                }*/
             }
         }
 
@@ -67,10 +80,14 @@ namespace LofiHollow.UI {
                 }
             }
 
-            for (int i = 0; i < possible.Count; i++) {
-                MonsterWrapper one = new MonsterWrapper(possible[i]);
-                one.Level = level;
-                Current.Enemies.Add(new CombatParticipant(one));
+            MonsterWrapper one = new MonsterWrapper(possible[GameLoop.rand.Next(possible.Count)]);
+            one.Level = level;
+            Current.Enemies.Add(new CombatParticipant(one));
+
+            if (GameLoop.rand.Next(3) == 2) {
+                MonsterWrapper two = new MonsterWrapper(possible[GameLoop.rand.Next(possible.Count)]);
+                two.Level = level;
+                Current.Enemies.Add(new CombatParticipant(two));
             }
         }
 
@@ -112,7 +129,7 @@ namespace LofiHollow.UI {
 
                 for (int i = 0; i < Current.Enemies.Count; i++) {
                     if (Current.Enemies[i].GetActor() != null && Current.Enemies[i].GetActor() is MonsterWrapper mon) {
-                        Con.Print(29, 1 + i, mon.monster.Name.Align(HorizontalAlignment.Right, 30), CurrentTarget == i ? Color.Yellow : Color.White);
+                        Con.Print(29, 1 + i, mon.monster.Species.Align(HorizontalAlignment.Right, 30), CurrentTarget == i ? Color.Yellow : Color.White);
 
                         int percent = (int) Math.Ceiling((double) ((double) mon.CurrentHP / (double) mon.MaxHP) * 10);
                         Con.DrawLine(new Point(60, 1 + i), new Point(60 + percent, 1+i), 254, Color.Lime);
@@ -209,17 +226,16 @@ namespace LofiHollow.UI {
                 int roll = GameLoop.rand.Next(255) + 1; 
 
                 if (roll <= chance) {
-                    captureString = new ColoredString("You captured the " + wrap.monster.Name + "!");
+                    captureString = new ColoredString("You captured the " + wrap.monster.Species + "!");
                     // Turn them into an NFT and add them to the players inventory
-                    Monster clone = new();
-                    clone.SetAll(wrap.monster);
-                    Item nft = new("lh:Soul");
+                    Monster clone = Monster.Clone(wrap.monster); 
+                    Item nft = Item.Copy("lh:Soul");
                     nft.SoulPhoto = new(clone, wrap.CombatLevel);
                     CommandManager.AddItemToInv(GameLoop.World.Player, nft);
                     wrap.CurrentHP = 0;
                 }
                 else {
-                    captureString = new ColoredString("You failed to capture the " + wrap.monster.Name + "!");
+                    captureString = new ColoredString("You failed to capture the " + wrap.monster.Species + "!");
                 }
             } else {
                 MonsterWrapper wrap1 = enemies[0].GetActor() as MonsterWrapper;
@@ -237,11 +253,9 @@ namespace LofiHollow.UI {
                 if (roll <= chance) {
                     captureString = new ColoredString("Something has gone horribly wrong...");
                     // Turn them into an NFT and add them to the players inventory
-                    Monster clone = new();
-                    clone.SetAll(wrap1.monster);
-                    Monster secondClone = new();
-                    secondClone.SetAll(wrap2.monster);
-                    Item nft = new("lh:Soul");
+                    Monster clone = Monster.Clone(wrap1.monster); 
+                    Monster secondClone = Monster.Clone(wrap2.monster); 
+                    Item nft = Item.Copy("lh:Soul");
                     nft.SoulPhoto = new(clone, wrap1.CombatLevel);
                     nft.SoulPhoto.Contained2 = secondClone;
                     CommandManager.AddItemToInv(GameLoop.World.Player, nft);

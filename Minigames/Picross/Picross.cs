@@ -53,12 +53,12 @@ namespace LofiHollow.Minigames.Picross {
         }
 
         public void MinigameClick(string ID) {
-            if (ID == "Easy") { Setup("Easy"); }
-            else if (ID == "Medium") { Setup("Medium"); }
-            else if (ID == "Hard") { Setup("Hard"); }
-            else if (ID == "EasyRandom") { Setup("EasyRandom"); }
-            else if (ID == "MediumRandom") { Setup("MediumRandom"); }
-            else if (ID == "HardRandom") { Setup("HardRandom"); }
+            if (ID == "Easy") { Setup("Easy"); Timer = 31; }
+            else if (ID == "Medium") { Setup("Medium"); Timer = 61; }
+            else if (ID == "Hard") { Setup("Hard"); Timer = 121; }
+            else if (ID == "EasyRandom") { Setup("EasyRandom"); Timer = 31; }
+            else if (ID == "MediumRandom") { Setup("MediumRandom"); Timer = 61; }
+            else if (ID == "HardRandom") { Setup("HardRandom"); Timer = 121; }
         } 
 
         public override void Draw() {
@@ -87,7 +87,7 @@ namespace LofiHollow.Minigames.Picross {
 
                     Mini.Print(0, 2, "Left Click: Mark tiles as part of the solution.");
                     Mini.Print(0, 3, "Right Click: Cross tiles off");
-                    Mini.Print(0, 4, "Click and drag to apply to multiple tiles.");
+                    Mini.Print(0, 4, "Click and drag to apply to multiple tiles."); 
 
 
                     for (int row = 0; row < Current.Height; row++) {
@@ -147,10 +147,20 @@ namespace LofiHollow.Minigames.Picross {
                         Mini.Print(0, 10, "You solved the puzzle!".Align(HorizontalAlignment.Center, 70));
                         Mini.Print(0, 12, ("You got " + amount + " coppers!").Align(HorizontalAlignment.Center, 70));
                     } else {
+                        int amount = Current.Difficulty == "Easy" ? 5 : Current.Difficulty == "Medium" ? 10 : 20; 
+                        
+                        if (PuzzleWasRandom)
+                            amount *= 2;
+
+                        double completion = Current.Completion();
+                        int Reward = (int)System.Math.Floor(completion * (double)amount);
+
                         Mini.Print(0, 10, "Better luck next time!".Align(HorizontalAlignment.Center, 70));
+                        Mini.Print(0, 12, ("For completing " + System.Math.Floor(completion * 100) + "% of the puzzle, you earn a reduced".ToString()).Align(HorizontalAlignment.Center, 70));
+                        Mini.Print(0, 13, ("prize of " + Reward + " coppers.").Align(HorizontalAlignment.Center, 70));
                     }
 
-                    Mini.Print(0, 14, "Press [SPACE] to exit.".Align(HorizontalAlignment.Center, 70));
+                    Mini.Print(0, 15, "Press [SPACE] to exit.".Align(HorizontalAlignment.Center, 70));
 
 
 
@@ -218,6 +228,15 @@ namespace LofiHollow.Minigames.Picross {
                             amount *= 2;
 
                         GameLoop.World.Player.CopperCoins += amount;
+                    } else {
+                        int amount = Current.Difficulty == "Easy" ? 5 : Current.Difficulty == "Medium" ? 10 : 20;
+                        if (PuzzleWasRandom)
+                            amount *= 2;
+
+                        double completion = Current.Completion();
+                        int Reward = (int)System.Math.Ceiling(completion * (double)amount);
+
+                        GameLoop.World.Player.CopperCoins += Reward;
                     }
                     
                     Reset();

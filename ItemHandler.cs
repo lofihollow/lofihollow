@@ -102,7 +102,7 @@ namespace LofiHollow {
                     if (animal != null) {
                         if (animal.Shearable()) {
                             animal.ShearedToday = true;
-                            CommandManager.AddItemToInv(GameLoop.World.Player, new(animal.ShearItem));
+                            CommandManager.AddItemToInv(GameLoop.World.Player, Item.Copy(animal.ShearItem));
 
                             Point bed = animal.RestSpot;
                             NetMsg updateTile = new("updateTile", map.GetTile(bed).ToByteArray());
@@ -126,7 +126,7 @@ namespace LofiHollow {
                     if (animal != null) {
                         if (animal.Milkable()) {
                             animal.MilkedToday = true;
-                            CommandManager.AddItemToInv(GameLoop.World.Player, new(animal.MilkItem));
+                            CommandManager.AddItemToInv(GameLoop.World.Player, Item.Copy(animal.MilkItem));
 
                             Point bed = animal.RestSpot;
                             NetMsg updateTile = new("updateTile", map.GetTile(bed).ToByteArray());
@@ -246,7 +246,7 @@ namespace LofiHollow {
 
                         ArchArtifact rand = new(possible[GameLoop.rand.Next(possible.Count)]); 
 
-                        Item artItem = new("lh:Unknown Relic");
+                        Item artItem = Item.Copy("lh:Unknown Relic");
                         artItem.Artifact = rand;
                         artItem.Artifact.SetStats(artItem);
                         artItem.Artifact.Dirtify(false);
@@ -277,30 +277,30 @@ namespace LofiHollow {
 
                                                 for (int j = 0; j < GameLoop.World.Player.Inventory.Length; j++) {
                                                     if (needed > 0) {
-                                                        if (con.MaterialsNeeded[i].Name.Contains("Nails")) {
-                                                            if (GameLoop.World.Player.Inventory[j].Name == con.MaterialsNeeded[i].Name) {
+                                                        if (con.MaterialsNeeded[i].ID.Contains("Nails")) {
+                                                            if (GameLoop.World.Player.Inventory[j].Name == con.MaterialsNeeded[i].ID) {
                                                                 if (GameLoop.World.Player.Inventory[j].ItemQuantity > con.MaterialsNeeded[i].ItemQuantity) {
                                                                     GameLoop.World.Player.Inventory[j].ItemQuantity -= con.MaterialsNeeded[i].ItemQuantity;
                                                                     needed -= con.MaterialsNeeded[i].ItemQuantity;
                                                                 } else if (GameLoop.World.Player.Inventory[j].ItemQuantity == con.MaterialsNeeded[i].ItemQuantity) {
-                                                                    GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
+                                                                    GameLoop.World.Player.Inventory[j] = Item.Copy("lh:(EMPTY)");
                                                                     needed = 0;
                                                                 } else {
                                                                     needed -= GameLoop.World.Player.Inventory[j].ItemQuantity;
-                                                                    GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
+                                                                    GameLoop.World.Player.Inventory[j] = Item.Copy("lh:(EMPTY)");
                                                                 }
                                                             }
                                                         } else {
-                                                            if (GameLoop.World.Player.Inventory[j].Name == con.MaterialsNeeded[i].Name) {
+                                                            if (GameLoop.World.Player.Inventory[j].FullName() == con.MaterialsNeeded[i].ID) {
                                                                 if (GameLoop.World.Player.Inventory[j].ItemQuantity > con.MaterialsNeeded[i].ItemQuantity) {
                                                                     GameLoop.World.Player.Inventory[j].ItemQuantity -= con.MaterialsNeeded[i].ItemQuantity;
                                                                     needed -= con.MaterialsNeeded[i].ItemQuantity;
                                                                 } else if (GameLoop.World.Player.Inventory[j].ItemQuantity == con.MaterialsNeeded[i].ItemQuantity) {
-                                                                    GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
+                                                                    GameLoop.World.Player.Inventory[j] = Item.Copy("lh:(EMPTY)");
                                                                     needed = 0;
                                                                 } else {
                                                                     needed -= GameLoop.World.Player.Inventory[j].ItemQuantity;
-                                                                    GameLoop.World.Player.Inventory[j] = new("lh:(EMPTY)");
+                                                                    GameLoop.World.Player.Inventory[j] = Item.Copy("lh:(EMPTY)");
                                                                 }
                                                             }
                                                         }
@@ -436,7 +436,7 @@ namespace LofiHollow {
                     GameLoop.World.Player.Inventory = new Item[18];
 
                     for (int i = 0; i < GameLoop.World.Player.Inventory.Length; i++) {
-                        GameLoop.World.Player.Inventory[i] = new("lh:(EMPTY)");
+                        GameLoop.World.Player.Inventory[i] = Item.Copy("lh:(EMPTY)");
                     }
 
                     for (int i = 0; i < previous.Count; i++) {
@@ -452,7 +452,7 @@ namespace LofiHollow {
                     GameLoop.World.Player.Inventory = new Item[27];
 
                     for (int i = 0; i < GameLoop.World.Player.Inventory.Length; i++) {
-                        GameLoop.World.Player.Inventory[i] = new("lh:(EMPTY)");
+                        GameLoop.World.Player.Inventory[i] = Item.Copy("lh:(EMPTY)");
                     }
 
                     for (int i = 0; i < previous.Count; i++) {
@@ -463,7 +463,7 @@ namespace LofiHollow {
                 }
 
                 if (item.ItemCat == "Camera") { // Used Camera
-                    Item photo = new("lh:Photo");
+                    Item photo = Item.Copy("lh:Photo");
                     Photo data = new();
 
                     Point topLeft = Pos - new Point(10, 10);
@@ -532,7 +532,7 @@ namespace LofiHollow {
                                     ent.ColA = 255;
                                     ent.Type = "Monster";
 
-                                    ent.Name = wrap.monster.Name;
+                                    ent.Name = wrap.monster.Species;
                                     ent.X = x;
                                     ent.Y = y;
                                     data.entities.Add(ent);
@@ -555,7 +555,7 @@ namespace LofiHollow {
                                     }
                                 }
 
-                                foreach (KeyValuePair<CSteamID, Player> kv in GameLoop.World.otherPlayers) {
+                                foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
                                     if (kv.Value.Position == maploc && kv.Value.MapPos == GameLoop.World.Player.MapPos) {
                                         PhotoEntity ent = new();
                                         ent.Glyph = kv.Value.ActorGlyph;
@@ -735,7 +735,7 @@ namespace LofiHollow {
                     }
 
                     if (item.LeftClickScript != "") {
-                        GameLoop.ScriptManager.SetupScript(item.LeftClickHoldScript);
+                        GameLoop.ScriptManager.SetupScript(item.LeftReleaseScript);
                     }
                 }
             }

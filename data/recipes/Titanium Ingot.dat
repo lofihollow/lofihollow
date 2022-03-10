@@ -7,8 +7,7 @@
   "ExpGranted": 100,
   "SpecificMaterials": [
     {
-      "Name": "lh:Titanium Chunk",
-      "SubID": 0,
+      "ID": "lh:Titanium Chunk", 
       "ItemQuantity": 1,
       "Stacks": true
     }

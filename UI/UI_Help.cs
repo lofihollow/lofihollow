@@ -90,17 +90,22 @@ namespace LofiHollow.UI {
 
         public override void Input() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
-            if (GameHost.Instance.Keyboard.HasKeysPressed) {
+            if (GameHost.Instance.Keyboard.HasKeysPressed && !GameLoop.EitherShift()) {
                 ToggleHelp("None");
             }
 
             if (Guide != null) {
-                if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
-                    if (GuideTopIndex + 1 < Guide.Length)
-                        GuideTopIndex++;
-                } else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
-                    if (GuideTopIndex > 0)
-                        GuideTopIndex--;
+                if (GameLoop.EitherShift()) {
+                    if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0)
+                        GuideTopIndex = Math.Clamp(GuideTopIndex + 10, 0, Guide.Length);
+                    else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0)
+                        GuideTopIndex = Math.Clamp(GuideTopIndex - 10, 0, Guide.Length);
+                }
+                else {
+                    if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0)
+                        GuideTopIndex = Math.Clamp(GuideTopIndex + 1, 0, Guide.Length);
+                    else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0)
+                        GuideTopIndex = Math.Clamp(GuideTopIndex - 1, 0, Guide.Length);
                 }
             }
 

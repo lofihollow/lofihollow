@@ -54,7 +54,7 @@
           ]
         },
 		"4": {
-          "Text": "Your best bet would probably be the inn on the north side of town.|   Look for the big stone building with the courtyard, the inn is|   in the back corner.||Talk to Ash about a room.",
+          "Text": "Your best bet would probably be the inn, a little east of the town plaza.|   It's the building next to the hardware store.||Talk to Ash about a room.",
           "Responses": [
             {
               "Text": "Got it, thanks!",

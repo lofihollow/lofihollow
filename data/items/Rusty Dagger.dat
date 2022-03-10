@@ -20,8 +20,9 @@
   "ForegroundB": 14,
   "ItemGlyph": 20,
   "Stats": {
-	"DamageType": "Physical,Physical,Physical,Physical",
-	"WeaponTier": 1,
+	"DamageType": "Earth",
+	"Power": 10,
+	"Accuracy": 30, 
 	"Armor": 0,
 	"MagicArmor": 0
   }

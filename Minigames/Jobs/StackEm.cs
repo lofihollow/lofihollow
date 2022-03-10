@@ -33,12 +33,14 @@ namespace LofiHollow.Minigames.Jobs {
         }
 
         public void Reset() {
-            Score = 0;
+            Score = 30;
             Timer = 61;
             DisplayingScore = false;
             Speed = 100;
             blockX = 10;
-            LastTimeTick = 0; 
+            LastTimeTick = 0;
+            highestStack = 0;
+            Dropped = false;
 
             PlayGrid.Clear();
             for (int x = 0; x < 20; x++) {
