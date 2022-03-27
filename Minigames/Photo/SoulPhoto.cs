@@ -3,6 +3,7 @@ using LofiHollow.Entities;
 using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,15 +58,8 @@ namespace LofiHollow.Minigames.Photo {
             if (Contained1.EvolvesInto != "") {
                 if (Level >= Contained1.EvolutionLevel || (Contained1.AlternateEvoMethod != "" && Contained1.AlternateEvoMethod.Contains(method))) {
                     if (GameLoop.World.monsterLibrary.ContainsKey(Contained1.EvolvesInto)) {
-                        old1 = Contained1.Species;
-
-                        Monster evolved = Monster.Clone(Contained1.EvolvesInto);
-                        Contained1.StatGrowths = evolved.StatGrowths;
-                        Contained1.MoveList = evolved.MoveList;
-                        Contained1.Species = evolved.Species;
-                        Contained1.EvolutionLevel = evolved.EvolutionLevel;
-                        Contained1.EvolvesInto = evolved.EvolvesInto;
-                        Contained1.AlternateEvoMethod = evolved.AlternateEvoMethod;
+                        old1 = Contained1.Species; 
+                        Contained1.Evolve(); 
                         EvolveSuccess = true;
                     }
                 }
@@ -74,15 +68,8 @@ namespace LofiHollow.Minigames.Photo {
             if (Contained2.EvolvesInto != "") {
                 if (Level >= Contained2.EvolutionLevel || (Contained2.AlternateEvoMethod != "" && Contained2.AlternateEvoMethod.Contains(method))) {
                     if (GameLoop.World.monsterLibrary.ContainsKey(Contained2.EvolvesInto)) {
-                        old2 = Contained2.Species;
-
-                        Monster evolved = Monster.Clone(Contained2.EvolvesInto);
-                        Contained2.StatGrowths = evolved.StatGrowths;
-                        Contained2.MoveList = evolved.MoveList;
-                        Contained2.Species = evolved.Species;
-                        Contained2.EvolutionLevel = evolved.EvolutionLevel;
-                        Contained2.EvolvesInto = evolved.EvolvesInto;
-                        Contained2.AlternateEvoMethod = evolved.AlternateEvoMethod;
+                        old2 = Contained2.Species; 
+                        Contained2.Evolve();
                         EvolveSuccess = true;
                         FusionSuccess = true;
                     }
@@ -176,28 +163,56 @@ namespace LofiHollow.Minigames.Photo {
             return Contained1.Species;
         }
 
-        public MonsterWrapper GetCombined() {
+        public CombatParticipant GetCombined(SteamId Owner) {
             if (Contained2 == null) {
-                return new MonsterWrapper(Contained1);
+                return Contained1.GetCombatParticipant(Owner, Level, MonsterName);
             }
 
-            Monster mon = Helper.Clone(Contained1);
-            mon.Attack = Helper.Average(Contained1.Attack, Contained2.Attack);
-            mon.Defense = Helper.Average(Contained1.Defense, Contained2.Defense);
-            mon.Speed = Helper.Average(Contained1.Speed, Contained2.Speed);
-            mon.Health = Helper.Average(Contained1.Health, Contained2.Health);
-            mon.MAttack = Helper.Average(Contained1.MAttack, Contained2.MAttack);
-            mon.MDefense = Helper.Average(Contained1.MDefense, Contained2.MDefense);
-            
+            CombatParticipant mon = new();
+            mon.Name = MonsterName;
+            mon.Level = Level;
+            mon.Owner = Owner;
+
+            mon.ForeR = Contained1.ForegroundR;
+            mon.ForeG = Contained1.ForegroundG;
+            mon.ForeB = Contained1.ForegroundB;
+            mon.ForeA = Contained1.ForegroundA;
+            mon.Glyph = Contained1.ActorGlyph[0];
+            mon.Dec = Contained2.AsDec();
+
+            int avgAttack = Helper.Average(Contained1.Attack, Contained2.Attack);
+            int avgDefense = Helper.Average(Contained1.Defense, Contained2.Defense);
+            int avgSpeed = Helper.Average(Contained1.Speed, Contained2.Speed);
+            int avgHealth = Helper.Average(Contained1.Health, Contained2.Health);
+            int avgMAttack = Helper.Average(Contained1.MAttack, Contained2.MAttack);
+            int avgMDefense = Helper.Average(Contained1.MDefense, Contained2.MDefense);
+
+            int avgAtkGrowth = Helper.Average(Contained1.AttackGrowth, Contained2.AttackGrowth);
+            int avgDefGrowth = Helper.Average(Contained1.DefenseGrowth, Contained2.DefenseGrowth);
+            int avgSpdGrowth = Helper.Average(Contained1.SpeedGrowth, Contained2.SpeedGrowth);
+            int avgHPGrowth = Helper.Average(Contained1.HealthGrowth, Contained2.HealthGrowth);
+            int avgMAtkGrowth = Helper.Average(Contained1.MAttackGrowth, Contained2.MAttackGrowth);
+            int avgMDefGrowth = Helper.Average(Contained1.MDefenseGrowth, Contained2.MDefenseGrowth);
+
+
+            mon.Attack = Monster.GetStat(avgAttack, mon.Level, avgAtkGrowth, Contained1.AttackEXP);
+            mon.Defense = Monster.GetStat(avgDefense, mon.Level, avgDefGrowth, Contained1.DefenseEXP);
+            mon.Speed = Monster.GetStat(avgSpeed, mon.Level, avgSpdGrowth, Contained1.SpeedEXP);
+            mon.Health = Monster.GetStat(avgHealth, mon.Level, avgHPGrowth, Contained1.HealthEXP, true);
+            mon.MAttack = Monster.GetStat(avgMAttack, mon.Level, avgMAtkGrowth, Contained1.MAttackEXP);
+            mon.MDefense = Monster.GetStat(avgMDefense, mon.Level, avgMDefGrowth, Contained1.MDefenseEXP);
+
+            mon.MaxHP = mon.Health;
+            mon.CurrentHP = mon.MaxHP;
+
+
             for (int i = 0; i < Contained2.Types.Count; i++) {
                 if (!mon.Types.Contains(Contained2.Types[i])) {
                     mon.Types.Add(Contained2.Types[i]);
                 }
             }
 
-            mon.Species += "-" + Contained2.Species;
-
-            return new MonsterWrapper(mon);
+            return mon;
         }
 
         public DecoratedString GetAppearance() {

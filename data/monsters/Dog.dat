@@ -1,0 +1,28 @@
+{ 
+  "Species": "Dog",
+  "Package": "lh",  
+  "Health": 50,
+  "Speed": 60,
+  "Attack": 40,
+  "Defense": 30,
+  "MAttack": 10,
+  "MDefense": 10,
+  "Level": 2,
+  "StatGranted": "Attack,1",
+  "SpawnLocation": "Field",
+  "SpawnsInWater": false,
+  "ElementalAlignment": "Wood",
+  "Types": [
+	"Common"
+  ],
+  "MoveList": [
+	"1,lh:Bite"
+  ],
+  "DropTable": [ 
+    "1;4;1;lh:Core Fragment"
+  ],
+  "ForegroundR": 225,
+  "ForegroundG": 198,
+  "ForegroundB": 153,
+  "ActorGlyph": "c"
+}

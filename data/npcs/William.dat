@@ -2,6 +2,7 @@
   "Name": "William", 
   "Package": "lh",
   "Occupation": "Butcher",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

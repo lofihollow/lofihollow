@@ -2,6 +2,7 @@
   "Name": "Cobalt",
   "Package": "lh",
   "Occupation": "Scholar",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": null,
     "SpringRain": null,

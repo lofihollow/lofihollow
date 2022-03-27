@@ -1,0 +1,31 @@
+{
+  "Name": "Stone Sword",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Metal/20p/40a",
+  "Description": "",
+  "AverageValue": 20,
+  "Weight": 1.0,
+  "Quality": 0,
+  "ItemTier": 1,
+  "ItemCat": "Weapon",
+  "EquipSlot": 0,
+  "Dec": null,
+  "ForegroundR": 30,
+  "ForegroundG": 30,
+  "ForegroundB": 30,
+  "ItemGlyph": 20,
+  "Stats": {
+	"DamageType": "Metal",
+	"Power": 20,
+	"Accuracy": 40, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 30,
+	"WornG": 30,
+	"WornB": 30
+  }
+}

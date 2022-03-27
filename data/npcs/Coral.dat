@@ -2,6 +2,7 @@
   "Name": "Coral",
   "Package": "lh",
   "Occupation": "Angler",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

@@ -212,6 +212,24 @@ namespace LofiHollow.UI {
                 MenuConsole.PrintClickable(CreateX + 25, CreateY + 2, new ColoredString("Only Gold", GameLoop.World.Player.DropsOnDeath == 0 ? Color.Yellow : Color.White, Color.Black), MenuClicks, "DropsGold");
                 MenuConsole.PrintClickable(CreateX + 25, CreateY + 3, new ColoredString("Gold and Items".ToString(), GameLoop.World.Player.DropsOnDeath == 1 ? Color.Yellow : Color.White, Color.Black), MenuClicks, "DropsAll");
 
+                string playerEle = GameLoop.World.Player.ElementalAlignment;
+
+                MenuConsole.Print(CreateX + 15, CreateY + 5, new ColoredString("Elemental Affinity: ", Color.White, Color.Black));
+
+                MenuConsole.Print(CreateX + 15, CreateY + 7, new ColoredString("Type  | Weak to | Resists", Color.DarkSlateBlue, Color.Black));
+                MenuConsole.Print(CreateX + 15, CreateY + 8, new ColoredString("------------------------", Color.DarkSlateBlue, Color.Black));
+                MenuConsole.PrintClickable(CreateX + 15, CreateY + 9, new ColoredString("Wood", playerEle == "Wood" ? Color.Green : Color.DarkSlateGray, Color.Black), MenuClicks, "AffinityWood");
+                MenuConsole.PrintClickable(CreateX + 15, CreateY + 10, new ColoredString("Fire", playerEle == "Fire" ? Color.Firebrick : Color.DarkSlateGray, Color.Black), MenuClicks, "AffinityFire");
+                MenuConsole.PrintClickable(CreateX + 15, CreateY + 11, new ColoredString("Earth", playerEle == "Earth" ? new Color(111, 66, 33) : Color.DarkSlateGray, Color.Black), MenuClicks, "AffinityEarth");
+                MenuConsole.PrintClickable(CreateX + 15, CreateY + 12, new ColoredString("Metal", playerEle == "Metal" ? Color.Gray : Color.DarkSlateGray, Color.Black), MenuClicks, "AffinityMetal");
+                MenuConsole.PrintClickable(CreateX + 15, CreateY + 13, new ColoredString("Water", playerEle == "Water" ? Color.Cyan : Color.DarkSlateGray, Color.Black), MenuClicks, "AffinityWater");
+
+
+                MenuConsole.Print(CreateX + 21, CreateY + 9, new ColoredString( "|  Metal  | Water", playerEle == "Wood" ? Color.Green : Color.DarkSlateGray, Color.Black)); 
+                MenuConsole.Print(CreateX + 21, CreateY + 10, new ColoredString("|  Water  | Wood", playerEle == "Fire" ? Color.Firebrick : Color.DarkSlateGray, Color.Black)); 
+                MenuConsole.Print(CreateX + 21, CreateY + 11, new ColoredString("|  Wood   | Fire", playerEle == "Earth" ? new Color(111, 66, 33) : Color.DarkSlateGray, Color.Black)); 
+                MenuConsole.Print(CreateX + 21, CreateY + 12, new ColoredString("|  Fire   | Earth", playerEle == "Metal" ? Color.Gray : Color.DarkSlateGray, Color.Black));
+                MenuConsole.Print(CreateX + 21, CreateY + 13, new ColoredString("|  Earth  | Metal", playerEle == "Water" ? Color.Cyan : Color.DarkSlateGray, Color.Black));
 
                 MenuConsole.Print(CreateX + 1, CreateY + 11, new ColoredString("Name:", Color.White, Color.Black));
 
@@ -386,6 +404,12 @@ namespace LofiHollow.UI {
                 GameLoop.World.Player.DropsOnDeath = 1;
             }
 
+            else if (ID == "AffinityFire") { GameLoop.World.Player.ElementalAlignment = "Fire"; }
+            else if (ID == "AffinityWater") { GameLoop.World.Player.ElementalAlignment = "Water"; }
+            else if (ID == "AffinityEarth") { GameLoop.World.Player.ElementalAlignment = "Earth"; }
+            else if (ID == "AffinityMetal") { GameLoop.World.Player.ElementalAlignment = "Metal"; }
+            else if (ID == "AffinityWood") { GameLoop.World.Player.ElementalAlignment = "Wood"; }
+
             else if (ID == "FinishCharCreation") {
                 if (NameBox.EditingText != "" && NameBox.Text != "") {
                     GameLoop.UIManager.selectedMenu = "ConnectOrHost";
@@ -411,8 +435,7 @@ namespace LofiHollow.UI {
 
             else if (ID == "StartSingleplayer") {
                 MainMenuWindow.IsVisible = false;
-                GameLoop.UIManager.Map.MapWindow.IsVisible = true;
-                GameLoop.UIManager.Map.MessageLog.IsVisible = true;
+                GameLoop.UIManager.Map.MapWindow.IsVisible = true; 
                 GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = true;
                 GameLoop.UIManager.selectedMenu = "None";
             }

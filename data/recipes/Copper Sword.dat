@@ -1,0 +1,25 @@
+{
+  "Name": "Copper Sword",
+  "FinishedID": "lh:Copper Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 20,
+  "ExpGranted": 30,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Copper Ingot", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

@@ -1,0 +1,31 @@
+{
+  "Name": "Iron Sword",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Metal/70p/50a",
+  "Description": "",
+  "AverageValue": 640,
+  "Weight": 1.0,
+  "Quality": 0,
+  "ItemTier": 50,
+  "ItemCat": "Weapon",
+  "EquipSlot": 0,
+  "Dec": null,
+  "ForegroundR": 83,
+  "ForegroundG": 86,
+  "ForegroundB": 90,
+  "ItemGlyph": 20,
+  "Stats": {
+	"DamageType": "Metal",
+	"Power": 70,
+	"Accuracy": 50, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 83,
+	"WornG": 86,
+	"WornB": 90
+  }
+}

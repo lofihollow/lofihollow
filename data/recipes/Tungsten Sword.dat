@@ -1,0 +1,25 @@
+{
+  "Name": "Tungsten Sword",
+  "FinishedID": "lh:Tungsten Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 70,
+  "ExpGranted": 80,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Tungsten Ingot", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

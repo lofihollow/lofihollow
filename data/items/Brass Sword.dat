@@ -1,0 +1,31 @@
+{
+  "Name": "Brass Sword",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Metal/50p/50a",
+  "Description": "",
+  "AverageValue": 160,
+  "Weight": 1.0,
+  "Quality": 0,
+  "ItemTier": 30,
+  "ItemCat": "Weapon",
+  "EquipSlot": 0,
+  "Dec": null,
+  "ForegroundR": 179,
+  "ForegroundG": 115,
+  "ForegroundB": 92,
+  "ItemGlyph": 20,
+  "Stats": {
+	"DamageType": "Metal",
+	"Power": 50,
+	"Accuracy": 50, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 179,
+	"WornG": 115,
+	"WornB": 92
+  }
+}

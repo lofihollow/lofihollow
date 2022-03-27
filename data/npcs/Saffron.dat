@@ -2,6 +2,7 @@
   "Name": "Saffron",
   "Package": "lh",
   "Occupation": "Merchant",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

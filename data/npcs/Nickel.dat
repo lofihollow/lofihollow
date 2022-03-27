@@ -2,6 +2,7 @@
   "Name": "Nickel",
   "Package": "lh",
   "Occupation": "Receptionist",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

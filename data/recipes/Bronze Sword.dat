@@ -1,0 +1,25 @@
+{
+  "Name": "Bronze Sword",
+  "FinishedID": "lh:Bronze Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 40,
+  "ExpGranted": 50,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Bronze Ingot", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

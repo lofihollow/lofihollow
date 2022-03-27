@@ -1,0 +1,39 @@
+{
+  "Name": "Light Curative",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Heals 5d8 HP",
+  "Description": "",
+  "AverageValue": 5,
+  "Weight": 0.5,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "Consumable",
+  "BattleUse": true,
+  "EquipSlot": -1,
+  "Dec": {
+    "Glyph": 169,
+    "R": 100,
+    "G": 0,
+    "B": 0,
+    "A": 255
+  },
+  "ForegroundR": 255,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "ItemGlyph": 168,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": {
+	"HealAmount": "5d8"
+  }
+}

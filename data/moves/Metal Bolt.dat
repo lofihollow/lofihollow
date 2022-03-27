@@ -1,0 +1,12 @@
+{
+  "Name": "Metal Bolt",
+  "Package": "lh",
+  "Power": 25,
+  "Accuracy": 90,
+  "Type": "Metal",
+  "Physical": false,
+  "OwnStat": "",
+  "OwnStatChange": 0,
+  "EnemyStat": "",
+  "EnemyStatChange": 0
+}

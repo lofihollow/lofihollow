@@ -1,0 +1,38 @@
+{
+  "Name": "Tool Handle",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "A tool handle",
+  "Description": "",
+  "AverageValue": 2,
+  "Weight": 1.0,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "None",
+  "EquipSlot": -1,
+  "Dec": null,
+  "ForegroundR": 101,
+  "ForegroundG": 66,
+  "ForegroundB": 33,
+  "ItemGlyph": 331,
+  "Plant": null,
+  "Tool": null,
+  "Craft": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+      "CountsAsMultiple": false
+    }
+  ],
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null
+}

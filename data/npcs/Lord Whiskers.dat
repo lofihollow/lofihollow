@@ -2,6 +2,7 @@
   "Name": "Lord Whiskers",
   "Package": "lh",
   "Occupation": "Library Cat",
+  "CourierGuild": "None",
   "Animal": true,
   "AI": {
     "SpringNormal": { },

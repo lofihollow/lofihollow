@@ -2,6 +2,7 @@
   "Name": "Zephyr",
   "Package": "lh",
   "Occupation": "Tailor",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

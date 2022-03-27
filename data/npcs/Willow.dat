@@ -2,6 +2,7 @@
   "Name": "Willow",
   "Package": "lh",
   "Occupation": "Nurse",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

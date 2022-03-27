@@ -1,0 +1,25 @@
+{
+  "Name": "Obsidian Sword",
+  "FinishedID": "lh:Obsidian Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 10,
+  "ExpGranted": 20,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Obsidian Shard", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

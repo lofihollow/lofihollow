@@ -42,6 +42,9 @@ namespace LofiHollow.DataTypes {
         public string ItemCat = "";
         [JsonProperty]
         public string ItemSkill = "";
+
+        [JsonProperty]
+        public bool BattleUse = false;
          
         [JsonProperty]
         public int EquipSlot = -1;
@@ -73,6 +76,8 @@ namespace LofiHollow.DataTypes {
         public List<CraftComponent> Craft;
         [JsonProperty]
         public Heal Heal;
+        [JsonProperty]
+        public StatTonic Tonic;
         [JsonProperty]
         public Equipment Stats;
         [JsonProperty]

@@ -28,6 +28,8 @@ namespace LofiHollow.UI {
         public string chitChat4 = "";
         public string chitChat5 = "";
 
+        public int mostRecentChange = 0;
+
         public string dialogueOption = "None";
         public string dialogueLatest = "";
         public Mission CurrentMission;
@@ -67,9 +69,21 @@ namespace LofiHollow.UI {
                 } else {
                     dialogueLatest = "Error: Greeting not found for relationship " + DialogueNPC.RelationshipDescriptor();
                 }
+
+                if (DialogueNPC.RelationshipDescriptor() == "Nemesis" || DialogueNPC.RelationshipDescriptor() == "Hate")
+                    mostRecentChange = -2;
+                else if (DialogueNPC.RelationshipDescriptor() == "Unfriendly" || DialogueNPC.RelationshipDescriptor() == "Dislike")
+                    mostRecentChange = -1;
+                else if (DialogueNPC.RelationshipDescriptor() == "Neutral")
+                    mostRecentChange = 0;
+                else if (DialogueNPC.RelationshipDescriptor() == "Like" || DialogueNPC.RelationshipDescriptor() == "Friendly")
+                    mostRecentChange = 1;
+                else if (DialogueNPC.RelationshipDescriptor() == "Close Friend" || DialogueNPC.RelationshipDescriptor() == "Best Friend")
+                    mostRecentChange = 2;
             } else {
                dialogueLatest = GameLoop.UIManager.DialogueWindow.DialogueNPC.Introduction;
                 GameLoop.World.Player.MetNPCs.Add(DialogueNPC.Name, 0);
+                mostRecentChange = 0;
             }
 
             DialogueNPC.UpdateChitChats();
@@ -133,7 +147,54 @@ namespace LofiHollow.UI {
                     Con.PrintClickable(1, Con.Height - 6, "Chit-chat: " + chitChat4, UI_Clicks, "ChitChat4");
                     Con.PrintClickable(1, Con.Height - 4, "Chit-chat: " + chitChat5, UI_Clicks, "ChitChat5");
 
-                    Con.PrintClickable(1, Con.Height - 1, "Nevermind.", UI_Clicks, "Nevermind"); 
+                    Con.PrintClickable(1, Con.Height - 1, "Nevermind.", UI_Clicks, "Nevermind");
+
+
+                    int faceX = 58;
+                    int faceY = 8;
+                    Helper.DrawBox(Con, faceX, faceY, 10, 10);
+
+
+                    Con.Print(faceX + 3, faceY + 4, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                    Con.Print(faceX + 4, faceY + 4, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                    Con.Print(faceX + 3, faceY + 5, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                    Con.Print(faceX + 4, faceY + 5, 254.AsString(), DialogueNPC.Appearance.Foreground);
+
+                    Con.Print(faceX + 8, faceY + 4, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                    Con.Print(faceX + 7, faceY + 4, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                    Con.Print(faceX + 8, faceY + 5, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                    Con.Print(faceX + 7, faceY + 5, 254.AsString(), DialogueNPC.Appearance.Foreground);
+
+
+                    if (mostRecentChange == 0) { 
+                        Con.DrawLine(new Point(faceX + 3, faceY + 8), new Point(faceX + 8, faceY + 8), 254, DialogueNPC.Appearance.Foreground);
+                    }
+
+                    else if (mostRecentChange == -1) {
+                        Con.Print(faceX + 3, faceY + 9, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                        Con.Print(faceX + 8, faceY + 9, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                        Con.DrawLine(new Point(faceX + 4, faceY + 8), new Point(faceX + 7, faceY + 8), 254, DialogueNPC.Appearance.Foreground);
+                    }
+
+                    else if (mostRecentChange <= -2) {
+                        Con.DrawLine(new Point(faceX + 3, faceY + 10), new Point(faceX + 8, faceY + 10), 254, DialogueNPC.Appearance.Foreground);
+                        Con.Print(faceX + 3, faceY + 9, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                        Con.Print(faceX + 8, faceY + 9, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                        Con.DrawLine(new Point(faceX + 4, faceY + 8), new Point(faceX + 7, faceY + 8), 254, DialogueNPC.Appearance.Foreground);
+                    }
+
+                    else if (mostRecentChange == 1) {
+                        Con.Print(faceX + 3, faceY + 8, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                        Con.Print(faceX + 8, faceY + 8, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                        Con.DrawLine(new Point(faceX + 4, faceY + 9), new Point(faceX + 7, faceY + 9), 254, DialogueNPC.Appearance.Foreground);
+                    }
+
+                    else if (mostRecentChange >= 2) { 
+                        Con.DrawLine(new Point(faceX + 3, faceY + 8), new Point(faceX + 8, faceY + 8), 254, DialogueNPC.Appearance.Foreground);
+                        Con.Print(faceX + 3, faceY + 9, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                        Con.Print(faceX + 8, faceY + 9, 254.AsString(), DialogueNPC.Appearance.Foreground);
+                        Con.DrawLine(new Point(faceX + 4, faceY + 10), new Point(faceX + 7, faceY + 10), 254, DialogueNPC.Appearance.Foreground);
+                    }
                 } else if (dialogueOption == "Goodbye") {
                     Con.Print(1, Con.Height - 1, Helper.HoverColoredString("[Click anywhere to close]", mousePos.Y == Con.Height - 1));
                 } else if (dialogueOption == "Gift") {
@@ -166,7 +227,8 @@ namespace LofiHollow.UI {
                     }
 
                     Con.PrintClickable(1, y + 2, "Nevermind.", UI_Clicks, "GiftCancel"); 
-                } else if (dialogueOption == "Shop") {
+                } 
+                else if (dialogueOption == "Shop") {
 
                     ColoredString shopHeader = new(DialogueNPC.Shop.ShopName, Color.White, Color.Black);
 
@@ -335,7 +397,8 @@ namespace LofiHollow.UI {
 
                     Con.PrintClickable(Con.Width - 12, Con.Height - 1, "[Close Shop]", UI_Clicks, "ShopCancel");
 
-                } else if (dialogueOption == "Mission") {
+                } 
+                else if (dialogueOption == "Mission") {
                     if (CurrentMission != null) {
                         if (CurrentMission.Stages.Count > CurrentMission.CurrentStage) {
                             if (CurrentMission.Stages[CurrentMission.CurrentStage].Dialogue.ContainsKey(CurrentMission.Stages[CurrentMission.CurrentStage].CurrentDialogue)) {
@@ -374,6 +437,7 @@ namespace LofiHollow.UI {
 
                     if (chatParts.Length == 2) {
                         dialogueLatest = chatParts[1];
+                        mostRecentChange = Int32.Parse(chatParts[0]);
                         int newRel = Math.Clamp(GameLoop.World.Player.MetNPCs[DialogueNPC.Name] + Int32.Parse(chatParts[0]), 0, 100);
                         GameLoop.World.Player.MetNPCs[DialogueNPC.Name] = newRel;
                         DialogueNPC.UpdateChitChats();
@@ -389,6 +453,7 @@ namespace LofiHollow.UI {
 
                     if (chatParts.Length == 2) {
                         dialogueLatest = chatParts[1];
+                        mostRecentChange = Int32.Parse(chatParts[0]);
                         int newRel = Math.Clamp(GameLoop.World.Player.MetNPCs[DialogueNPC.Name] + Int32.Parse(chatParts[0]), 0, 100);
                         GameLoop.World.Player.MetNPCs[DialogueNPC.Name] = newRel;
                         DialogueNPC.UpdateChitChats();
@@ -404,6 +469,7 @@ namespace LofiHollow.UI {
 
                     if (chatParts.Length == 2) {
                         dialogueLatest = chatParts[1];
+                        mostRecentChange = Int32.Parse(chatParts[0]);
                         int newRel = Math.Clamp(GameLoop.World.Player.MetNPCs[DialogueNPC.Name] + Int32.Parse(chatParts[0]), 0, 100);
                         GameLoop.World.Player.MetNPCs[DialogueNPC.Name] = newRel;
                         DialogueNPC.UpdateChitChats();
@@ -419,6 +485,7 @@ namespace LofiHollow.UI {
 
                     if (chatParts.Length == 2) {
                         dialogueLatest = chatParts[1];
+                        mostRecentChange = Int32.Parse(chatParts[0]);
                         int newRel = Math.Clamp(GameLoop.World.Player.MetNPCs[DialogueNPC.Name] + Int32.Parse(chatParts[0]), 0, 100);
                         GameLoop.World.Player.MetNPCs[DialogueNPC.Name] = newRel;
                         DialogueNPC.UpdateChitChats();
@@ -434,6 +501,7 @@ namespace LofiHollow.UI {
 
                     if (chatParts.Length == 2) {
                         dialogueLatest = chatParts[1];
+                        mostRecentChange = Int32.Parse(chatParts[0]);
                         int newRel = Math.Clamp(GameLoop.World.Player.MetNPCs[DialogueNPC.Name] + Int32.Parse(chatParts[0]), 0, 100);
                         GameLoop.World.Player.MetNPCs[DialogueNPC.Name] = newRel;
                         DialogueNPC.UpdateChitChats();

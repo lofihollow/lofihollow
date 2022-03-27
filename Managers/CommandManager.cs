@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using LofiHollow.EntityData;
 using LofiHollow.DataTypes;
 using Steamworks;
+using LofiHollow.Minigames.Photo;
 
 namespace LofiHollow.Managers {
     public class CommandManager {
@@ -211,9 +212,20 @@ namespace LofiHollow.Managers {
             if (actor.Inventory.Length > slot && slot >= 0) {
 
                 if (item.EquipSlot >= 0 && item.EquipSlot <= 10) {
-                    Item temp = actor.Equipment[item.EquipSlot];
-                    actor.Equipment[item.EquipSlot] = item;
-                    actor.Inventory[slot] = temp;
+                    int playerSkill = item.EquipSlot == 0 ? actor.GetSkillLevel("Attack") : actor.GetSkillLevel("Defense");
+                    if (item.ItemTier <= playerSkill) {
+                        Item temp = actor.Equipment[item.EquipSlot];
+                        actor.Equipment[item.EquipSlot] = item;
+                        actor.Inventory[slot] = temp;
+                    } 
+                    else {
+                        string name = item.EquipSlot == 0 ? "Attack" : "Defense";
+                        if (GameLoop.UIManager.Combat.Win.IsVisible) {
+                            GameLoop.UIManager.Combat.AddMsg(new("You need " + item.ItemTier + " " + name + " to equip that.", Color.Yellow, Color.Black));
+                        } else {
+                            GameLoop.UIManager.AddMsg(new ColoredString("You need " + item.ItemTier + " " + name + " to equip that.", Color.Yellow, Color.Black));
+                        }
+                    }
                 }
             }
         }
@@ -244,103 +256,35 @@ namespace LofiHollow.Managers {
             return returnID;
         }
 
-        public static void SendMonster(MonsterWrapper wrap) {
-            NetMsg spawnMon = new("spawnMonster");
-            spawnMon.MiscString1 = wrap.monster.FullName();
-            spawnMon.SetFullPos(wrap.Position, wrap.MapPos);
-            GameLoop.SendMessageIfNeeded(spawnMon, false, false); 
-        }
 
 
-        public static void SpawnMonster(string name, Point3D MapPos, Point Pos) {
-            if (GameLoop.World.monsterLibrary.ContainsKey(name)) {
-                MonsterWrapper wrap = new(name);
-                wrap.MapPos = MapPos;
-                wrap.Position = Pos;
-                GameLoop.World.maps[wrap.MapPos].Add(wrap);
+        public static int Damage(CombatParticipant attacker, Move move, CombatParticipant target) {
+            int attack = move.Physical ? attacker.StatWithStage("Attack") : attacker.StatWithStage("Magic Attack");
+            int power = move.Power;
+            int def = target.StatWithStage("Defense");
+            int mdef = target.StatWithStage("Magic Defense");
 
-                wrap.UpdateAppearance();
-                if (wrap.MapPos == GameLoop.World.Player.MapPos) {
-                    Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+            int damage;
+            if (move.Physical)
+                damage = (int) (((((2f * attacker.Level / 5f) + 2) * power * attack / def) / 50f) + 2);
+            else
+                damage = (int) (((((2f * attacker.Level / 5f) + 2) * power * attack / mdef) / 50f) + 2);
 
-                    if (map != null) {
-                        GameLoop.UIManager.Map.SyncMapEntities(map);
-                    }
-                }
-            } else {
-                GameLoop.UIManager.AddMsg("Monster ID not found: " + name);
-            }
-        }
-
-        public static void MoveMonster(string id, Point3D MapPos, Point newPos) {
-            foreach (Entity ent in GameLoop.World.maps[MapPos].Entities.Items) {
-                if (ent is MonsterWrapper mon) { 
-                    if (mon.monster.UniqueID == id) {
-                        mon.MoveTo(newPos, MapPos);
-                    }
-                }
-            }
-        }
-
-        public static void DamageMonster(string id, Point3D MapPos, int damage, string battleString, string color, string atkType) {
-            foreach (Entity ent in GameLoop.World.maps[MapPos].Entities.Items) {
-                if (ent is MonsterWrapper mon) {
-                    if (mon.monster.UniqueID == id) {
-                        Color stringColor = color == "Green" ? Color.Green : color == "Red" ? Color.Red : Color.White;
-                         
-                        if (MapPos == GameLoop.World.Player.MapPos) {
-                            GameLoop.UIManager.AddMsg(new ColoredString(battleString, stringColor, Color.Black));
-                        }
-
-                        mon.TakeDamage(damage, atkType);
-                    }
-                }
-            }
-        }
-
-        public static void DamagePlayer(SteamId id, int damage, string battleString, string color, string atkType) {
-            Color hitColor = color == "Green" ? Color.Green : color == "Red" ? Color.Red : Color.White;
-            if (!GameLoop.World.otherPlayers.ContainsKey(id)) {
-                if (SteamClient.SteamId == id) { 
-                    GameLoop.UIManager.AddMsg(new ColoredString(battleString, hitColor, Color.Black));
-                    GameLoop.World.Player.TakeDamage(damage, atkType);
-                } else {
-                    return;
-                }
-            } else {
-                if (GameLoop.World.otherPlayers[id].MapPos == GameLoop.World.Player.MapPos)
-                    GameLoop.UIManager.AddMsg(new ColoredString(battleString, hitColor, Color.Black));
-
-                GameLoop.World.otherPlayers[id].TakeDamage(damage, atkType);
-            }
-        }
-
-        public static int PlayerDamage(Player play, int targetDef) {
-            play.CalculateCombatLevel();
-            int atk = play.Equipment[0].Stats != null ? play.Equipment[0].Stats.Accuracy : 30;
-            int pow = play.Equipment[0].Stats != null ? play.Equipment[0].Stats.Power : 1; 
-
-            int attack = play.Skills["Attack"].Level + atk;
-            int power = play.Skills["Strength"].Level + pow;
-
-
-            int damage = ((((((2 * play.CombatLevel) / 5) + 2) * power * (attack / targetDef)) / 50) + 2);
-
-            bool crit = GameLoop.rand.Next(20) == 0 ? true : false;
+            bool crit = GameLoop.rand.Next(20) == 0;
 
             if (crit)
                 damage *= 2;
 
-            if (play.GetDamageType() == play.ElementalAlignment)
+            if (attacker.Types.Contains(move.Type))
                 damage = (int)Math.Ceiling((double)damage * 1.5f);
 
-            if (play.GetDamageType() == "Water") {
+            if (attacker.Types.Contains("Water")) {
                 if (GameLoop.World.Player.Clock.Raining) {
                     damage = (int)Math.Ceiling((double)damage * 1.5f);
                 } else {
                     damage = (int)Math.Ceiling((double)damage * 0.5f);
                 }
-            } else if (play.GetDamageType() == "Fire") {
+            } else if (attacker.Types.Contains("Fire")) {
                 if (!GameLoop.World.Player.Clock.Raining) {
                     damage = (int)Math.Ceiling((double)damage * 1.5f);
                 }
@@ -349,49 +293,183 @@ namespace LofiHollow.Managers {
                 }
             }
 
+            bool minOneDamage = damage > 0;
+
+            for (int i = 0; i < target.Types.Count; i++) {
+                if (GameLoop.World.typeLibrary.ContainsKey(target.Types[i])) {
+                    TypeDef type = GameLoop.World.typeLibrary[target.Types[i]];
+                    damage = type.ModDamage(damage, move.Type);
+                }
+            }
+
+            int minDamage = (minOneDamage && damage > 0) ? 1 : 0;
+              
+            damage += move.Physical ? attacker.AtkStage : attacker.MAtkStage;
+            damage -= move.Physical ? target.DefStage : target.MDefStage;
+
+            int atkBonus = move.Physical ? attacker.AtkBonus : attacker.MAtkBonus;
+            int defBonus = move.Physical ? target.DefBonus : target.MDefBonus;
+
+            int damBoost = (int) Math.Min(6, atkBonus / 2f);
+            int damReduc = (int) Math.Min(6, defBonus / 2f);
+
+            damage += damBoost;
+            damage -= damReduc;
+
+            if (damage < minDamage)
+                damage = minDamage;
+
             return damage;
         }
 
-        // Player attacks a monster
-        public static ColoredString Attack(Player attacker, MonsterWrapper defender) {
-            string damageType = attacker.GetDamageType();
-            int atk = attacker.Equipment[0].Stats != null ? attacker.Equipment[0].Stats.Accuracy : 30;
-            int acc = (int) Math.Floor((attacker.Skills["Attack"].Level / 2f) + atk); 
+        public static float TypeMultiplier(CombatParticipant target, Move attackMove) {
+            float mult = 1.0f;
+
+            for (int i = 0; i < target.Types.Count; i++) {
+                if (GameLoop.World.typeLibrary.ContainsKey(target.Types[i])) {
+                    TypeDef type = GameLoop.World.typeLibrary[target.Types[i]];
+                    if (type.WeakAgainst.Contains(attackMove.Type)) {
+                        mult *= 2f;
+                    }
+                    else if (type.StrongAgainst.Contains(attackMove.Type)) {
+                        mult *= 0.5f;
+                    }
+                    else if (type.ImmuneTo.Contains(attackMove.Type)) {
+                        mult = 0;
+                    }
+                }
+            }
+
+            return mult;
+        }
+
+        public static TurnResult Attack(CombatParticipant attacker, CombatParticipant defender, Move attackMove) { 
+            int acc = (int)Math.Floor((double)attackMove.Accuracy * attacker.GetStatusMultiplier("Accuracy"));
             int attackRoll = GameLoop.rand.Next(100) + 1;
 
+            bool defFullHP = defender.CurrentHP == defender.MaxHP;
+
             ColoredString battleString;
-            string battleColor = "White";
+            ColoredString ownStatus;
+            ColoredString targetStatus;
+
+            TurnResult turn = new();
 
             if (attackRoll < acc) {
-                int damage = PlayerDamage(attacker, defender.monster.Defense);
+                if (attackMove.Power > 0) {
+                    int damage = Damage(attacker, attackMove, defender);
 
-                if (damage < 0)
-                    damage = 0;
+                    turn.Hit = true;
 
-                if (damage > 0) {
-                    battleString = new ColoredString(attacker.Name + " dealt " + damage + " damage to " + defender.monster.Species); 
-                    attacker.CombatExp(damage);
-                } else {
-                    battleString = new ColoredString(attacker.Name + " hit " + defender.monster.Species + " but dealt no damage!");
+                    if (damage < 0)
+                        damage = 0;
+
+                    if (damage > 0) {
+                        ColoredString multString = new ColoredString("");
+                        float multiplier = TypeMultiplier(defender, attackMove);
+                        if (multiplier > 2f)
+                            multString = new ColoredString("eff++", Color.Lime, Color.Black);
+                        else if (multiplier > 1f)
+                            multString = new ColoredString("eff+", Color.Green, Color.Black);
+                        else if (multiplier < 1f)
+                            multString = new ColoredString("eff-", Color.Yellow, Color.Black);
+
+                        if (multiplier != 1f)
+                            battleString = new ColoredString(attacker.Name + " used " + attackMove.Name + " on " + defender.Name + ". (" + damage + ", ") + multString + new ColoredString(")", Color.White, Color.Black);
+                        else
+                            battleString = new ColoredString(attacker.Name + " used " + attackMove.Name + " on " + defender.Name + ". (" + damage + ")");
+
+
+                        attacker.CombatExp(damage);
+                    }
+                    else {
+                        battleString = new ColoredString(attacker.Name + " used " + attackMove.Name + " on " + defender.Name + ", but did no damage!");
+                    }
+
+                    defender.TakeDamage(damage);
+                     
+                    turn.Damage = battleString;
                 }
 
-                defender.TakeDamage(damage, damageType);
-                 
-                NetMsg damageMon = new("damageMonster");
-                damageMon.MiscInt = damage; 
-                damageMon.MiscInt2 = GameLoop.UIManager.Combat.Current.CombatID;
-                damageMon.MiscString1 = defender.monster.UniqueID;
-                damageMon.MiscString2 = battleString.String;
-                damageMon.MiscString3 = battleColor;
-                damageMon.MiscString4 = attacker.GetDamageType();
+                if (attackMove.OwnStat != "" && attackMove.OwnStatChange != 0) {
+                    attacker.FlatChange(attackMove.OwnStat, attackMove.OwnStatChange);
+                    int ownStatChange = attackMove.OwnStatChange;
+                    if (turn.Damage == null) {
+                        turn.Damage = new ColoredString(attacker.Name + " used " + attackMove.Name + ".");
+                    }
+
+                    if (ownStatChange == -1) { ownStatus = new ColoredString(attacker.Name + "'s " + attackMove.OwnStat + " fell 1!", Color.Crimson, Color.Black); }
+                    else if (ownStatChange < -1) { ownStatus = new ColoredString(attacker.Name + "'s " + attackMove.OwnStat + " fell " + ownStatChange + "!", Color.Red, Color.Black); }
+                    else if (ownStatChange == 1) { ownStatus = new ColoredString(attacker.Name + "'s " + attackMove.OwnStat + " rose 1!", Color.Green, Color.Black); }
+                    else { ownStatus = new ColoredString(attacker.Name + "'s " + attackMove.OwnStat + " rose " + ownStatChange + "!", Color.LimeGreen, Color.Black); }
+
+                    turn.OwnStatus = ownStatus;
+                }
+
+                if (attackMove.EnemyStat != "" && attackMove.EnemyStatChange != 0) {
+                    defender.FlatChange(attackMove.EnemyStat, attackMove.EnemyStatChange);
+                    int enemyStatChange = attackMove.EnemyStatChange;
+
+                    if (turn.Damage == null) {
+                        turn.Damage = new ColoredString(attacker.Name + " used " + attackMove.Name + ".");
+                    }
+
+                    if (enemyStatChange == -1) { targetStatus = new ColoredString(defender.Name + "'s " + attackMove.EnemyStat + " fell 1!", Color.Crimson, Color.Black); }
+                    else if (enemyStatChange < -1) { targetStatus = new ColoredString(defender.Name + "'s " + attackMove.EnemyStat + " fell " + enemyStatChange + "!", Color.Red, Color.Black); }
+                    else if (enemyStatChange == 1) { targetStatus = new ColoredString(defender.Name + "'s " + attackMove.EnemyStat + " rose 1!", Color.Green, Color.Black); }
+                    else { targetStatus = new ColoredString(defender.Name + "'s " + attackMove.EnemyStat + " rose " + enemyStatChange + "!", Color.LimeGreen, Color.Black); }
+
+                    turn.TargetStatus = targetStatus;
+                }
+
+
+
+
+                NetMsg damageMon = new("updateCombat");
+                damageMon.MiscInt = GameLoop.UIManager.Combat.Current.CombatID;
+                damageMon.data = GameLoop.UIManager.Combat.Current.ToByteArray();
                 GameLoop.SendMessageIfNeeded(damageMon, false, false);
                   
             } else {
-                battleString = new ColoredString(attacker.Name + " attacked " + defender.monster.Species + " but missed!");
+                battleString = new ColoredString(attacker.Name + " attacked " + defender.Name + " but missed!"); 
+                turn.Damage = battleString;
             }
 
-            if (defender.CurrentHP <= 0) { 
-                attacker.killList.Push(defender.monster.GetAppearance());
+            if (defender.CurrentHP <= 0) {
+                if (attacker.Owner == SteamClient.SteamId) {
+                    if (attacker.ID == "Player") {
+                        GameLoop.World.Player.killList.Push(defender.GetAppearance());
+
+                        string[] split = defender.StatGranted.Split(",");
+                        GameLoop.World.Player.GainStatEXP(split[0], Int32.Parse(split[1]));
+
+                        if (GameLoop.World.Player.CurrentKillTask == defender.Species && GameLoop.World.Player.KillTaskMonLevel == defender.Level) {
+                            GameLoop.World.Player.GrantExp("Bounty Hunting", Math.Max(5, defender.Level));
+                            GameLoop.World.Player.KillTaskProgress += 1;
+                            if (GameLoop.World.Player.KillTaskProgress >= GameLoop.World.Player.KillTaskGoal) {
+                                GameLoop.UIManager.AddMsg(new ColoredString(GameLoop.World.Player.CurrentKillTask + " task complete.", Color.Lime, Color.Black));
+                            }
+                            else {
+                                GameLoop.UIManager.AddMsg(new ColoredString(GameLoop.World.Player.CurrentKillTask + " task progress: " + GameLoop.World.Player.KillTaskProgress + "/" + GameLoop.World.Player.KillTaskGoal, Color.Yellow, Color.Black));
+                            }
+                        }
+                    }
+                    else {
+                        if (GameLoop.World.Player.Equipment[10].SoulPhoto != null) {
+                            SoulPhoto soul = GameLoop.World.Player.Equipment[10].SoulPhoto;
+                            string[] split = defender.StatGranted.Split(",");
+
+                            soul.Contained1.GainStatEXP(split[0], Int32.Parse(split[1]));
+                            soul.Contained2.GainStatEXP(split[0], Int32.Parse(split[1]));
+                        }
+                    }
+
+                    if (defFullHP)
+                        GameLoop.SteamManager.UnlockAchievement("ONE_HIT_WONDER");
+                } else {
+                    if (defFullHP)
+                        GameLoop.SteamManager.UnlockAchievement("ONE_HIT_BLUNDER");
+                }
 
 
 
@@ -451,10 +529,13 @@ namespace LofiHollow.Managers {
                     }
                 }
 
-                MissionManager.Increment("Kill", defender.monster.Species, 1); 
+                MissionManager.Increment("Kill", defender.Species, 1); 
             }
 
-            return battleString;
+
+
+
+            return turn;
         }
     }
 }

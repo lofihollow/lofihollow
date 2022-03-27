@@ -3,6 +3,7 @@
   "Package": "lh",
   "Occupation": "Snail",
   "Animal": true,
+  "CourierGuild": "None",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

@@ -50,7 +50,7 @@ namespace LofiHollow {
         private static void Update(object sender, GameHost e) {
             if (UIManager != null) { 
                 if (NetworkManager == null || NetworkManager.isHost) {
-                    if (World.Player.Clock != null) {
+                    if (World.Player.Clock != null && UIManager.Sidebar.SidebarWindow.IsVisible) {
                         if ((NetworkManager == null && !UIManager.Help.Win.IsVisible) || (NetworkManager != null && NetworkManager.isHost)) {
                             World.Player.TimeLastTicked++;
                             if (World.Player.TimeLastTicked >= 60) {
@@ -132,9 +132,9 @@ namespace LofiHollow {
 
             //  World.LoadExistingMaps();
             World.LoadMapAt(new Point3D(1, 3, 0));
-            World.InitPlayer(); 
+            World.InitPlayer();
 
-            SadConsole.Game.Instance.MonoGameInstance.Window.Title = "Lofi Hollow"; 
+            Game.Instance.MonoGameInstance.Window.Title = "Lofi Hollow"; 
         }
 
         public static bool EitherShift() {

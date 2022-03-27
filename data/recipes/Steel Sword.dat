@@ -1,0 +1,25 @@
+{
+  "Name": "Steel Sword",
+  "FinishedID": "lh:Steel Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 60,
+  "ExpGranted": 70,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Steel Ingot", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

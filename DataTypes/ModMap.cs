@@ -8,5 +8,10 @@ namespace LofiHollow.DataTypes {
     public class ModMap {
         public Map Map;
         public Point3D MapPos;
+
+        public ModMap() {
+            Map = new(); 
+            MapPos = new();
+        }
     }
 }

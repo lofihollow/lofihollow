@@ -10,5 +10,6 @@
   "Dec": null,
   "OutputID": "lh:Dirt Clump",
   "RequiredTier": 0,
-  "TileHP": 2
+  "TileHP": 2,
+  "GrantedExp": 1
 }

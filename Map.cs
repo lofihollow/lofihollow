@@ -10,22 +10,19 @@ using LofiHollow.DataTypes;
 
 namespace LofiHollow {
     [JsonObject(MemberSerialization.OptIn)]
-    public class Map { 
-        [JsonProperty]
-        public int MinimumMonsters = 0;
-        [JsonProperty]
-        public int MaximumMonsters = 0;
+    public class Map {  
         [JsonProperty]
         public Tile[] Tiles;
         [JsonProperty]
         public int Width;
         [JsonProperty]
         public int Height;
+        [JsonProperty]
+        public bool AmbientMonsters = false;
 
         [JsonProperty]
         public MinimapTile MinimapTile = new(',', new Color(0, 127, 0), Color.Black);
-
-        public int SpawnedMonsters = -1;
+         
        
 
         public GoRogue.MultiSpatialMap<Entity> Entities;
@@ -52,6 +49,17 @@ namespace LofiHollow {
             MapPath = new GoRogue.Pathing.FastAStar(MapView, GoRogue.Distance.CHEBYSHEV);
 
             LightRes = new GoRogue.MapViews.LambdaMapView<double>(GameLoop.MapWidth, GameLoop.MapHeight, pos => GetLightRes(new Point(pos.X, pos.Y)));
+        }
+
+        public Map() {
+            Width = 70;
+            Height = 40;
+            Tiles = new Tile[Width * Height];
+            MinimapTile = new('?', Color.White, Color.Black);
+
+            for (int i = 0; i < Tiles.Length; i++) {
+                Tiles[i] = new Tile(353, new Color(0, 127, 0));
+            }
         }
 
         public Map(Map other) {
@@ -82,9 +90,7 @@ namespace LofiHollow {
          
         public bool IsTileWalkable(Point location) { 
             if (location.X < 0 || location.Y < 0 || location.X >= Width || location.Y >= Height)
-                return false;
-            if (GetEntityAt<MonsterWrapper>(location) != null)
-                return false;
+                return false; 
             return !Tiles[location.Y * Width + location.X].IsBlockingMove;
         }
 
@@ -169,13 +175,5 @@ namespace LofiHollow {
             Entities.Move(sender as Entity, e.NewValue.ToCoord()); 
         } 
 
-
-        public void PopulateMonsters(Point3D MapPos) {
-            int diff = MaximumMonsters - MinimumMonsters;
-            int monsterAmount = GameLoop.rand.Next(diff) + MinimumMonsters;
-             
-
-            SpawnedMonsters = monsterAmount;
-        } 
     }
 }

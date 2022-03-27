@@ -9,6 +9,8 @@ using LofiHollow.DataTypes;
 using System.Collections.Generic;
 using LofiHollow.Entities;
 using Steamworks;
+using LofiHollow.Minigames.Electronics;
+using SadConsole.Input;
 
 namespace LofiHollow.UI {
     public class UIManager : ScreenObject {
@@ -27,8 +29,7 @@ namespace LofiHollow.UI {
         public UI_Help Help;
         public UI_MissionLog MissionLog;
         public UI_Photo Photo;
-        public UI_Teleport Teleport;
-        public UI_DevConsole DevConsole;
+        public UI_Teleport Teleport; 
         public UI_Security Security;
         public UI_ScriptMini ScriptMini;
         public UI_Combat Combat;
@@ -36,10 +37,16 @@ namespace LofiHollow.UI {
         public UI_Multiplayer Multiplayer;
         public UI_Nametag Nametag;
         public UI_Options Options;
+        public UI_AdventurerBoard AdventurerBoard;
+        public GamePocket GamePocket;
           
         public SadConsole.Console SignConsole;
+        public SadConsole.Console MessageConsole;
         public Window SignWindow; 
-        public string signText = ""; 
+        public string signText = "";
+
+        public List<DecoratedString> MessageLog = new();
+        public int MessageLogTop = 0;
 
         public Point targetDir = new(0, 0); 
         public string targetType = "None";
@@ -55,9 +62,9 @@ namespace LofiHollow.UI {
             Parent = GameHost.Instance.Screen;
         }
 
-        public void AddMsg(string msg) { Map.MessageLog.Add(msg); }
-        public void AddMsg(ColoredString msg) { Map.MessageLog.Add(msg); }
-        public void AddMsg(DecoratedString msg) { Map.MessageLog.Add(msg); }
+        public void AddMsg(string msg) { MessageLog.Add(new(new ColoredString(msg))); MessageLogTop = MessageLog.Count - 1; }
+        public void AddMsg(ColoredString msg) { MessageLog.Add(new(msg)); MessageLogTop = MessageLog.Count - 1; }
+        public void AddMsg(DecoratedString msg) { MessageLog.Add(msg); MessageLogTop = MessageLog.Count - 1; }
 
         public override void Update(TimeSpan timeElapsed) {
             if (clientAndConnected) {
@@ -67,6 +74,7 @@ namespace LofiHollow.UI {
                 } else {
                     if (GameLoop.World != null && GameLoop.World.DoneInitializing) {
                         Sidebar.RenderSidebar();
+                        RenderMessageLog();
                     }
 
                     if (selectedMenu == "Inventory") {
@@ -131,15 +139,21 @@ namespace LofiHollow.UI {
                         Options.Render();
                         Options.Input();
                     }
+                    else if (selectedMenu == "AdventurerBoard") {
+                        AdventurerBoard.Render();
+                        AdventurerBoard.Input();
+                    }
+                    else if (selectedMenu == "GamePocket") {
+                        GamePocket.Render();
+                        GamePocket.Input();
+                    }
                     else {
                         if (selectedMenu != "Dialogue") {
                             if (selectedMenu == "Sign")
                                 RenderSign();
-                            CheckFall();
-                            if (!DevConsole.DevWindow.IsVisible) {
-                                CheckKeyboard();
-                                Sidebar.SidebarInput();
-                            }
+                            CheckFall(); 
+                            CheckKeyboard();
+                            Sidebar.SidebarInput(); 
                             Map.UpdateNPCs();
 
                         } else {
@@ -174,14 +188,19 @@ namespace LofiHollow.UI {
             MissionLog = new UI_MissionLog(72, 42, "");
             Photo = new UI_Photo(31, 31, "");
             Teleport = new UI_Teleport(72, 42, "Where to?");
-            Security = new UI_Security(72, 42, "Security Panel");
-            DevConsole = new UI_DevConsole(72, 42, "DEV CONSOLE");
+            Security = new UI_Security(72, 42, "Security Panel"); 
             ScriptMini = new UI_ScriptMini(72, 42, "");
-            Combat = new UI_Combat(72, 42, "");
+            Combat = new UI_Combat(72, 52, "");
             Feedback = new UI_Feedback(72, 42, "");
             Multiplayer = new UI_Multiplayer(15, 7, "Lobby Code");
             Nametag = new UI_Nametag(20, 5, "Name Tag");
             Options = new UI_Options(72, 42, "Options");
+            GamePocket = new GamePocket(34, 50, "GamePocket");
+            AdventurerBoard = new(51, 31, "Adventurer Tasks");
+
+            MessageConsole = new(72, 18);
+            Children.Add(MessageConsole);
+            MessageConsole.Position = new Point(0, 42);
 
             UseMouse = true;
             selectedMenu = "MainMenu";
@@ -190,24 +209,26 @@ namespace LofiHollow.UI {
         private void CheckKeyboard() {
             if (selectedMenu != "Sign") {  
                 if (GameLoop.World.Player.TimeLastActed + (80) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W) && GameLoop.EitherShift()) { 
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W) && GameLoop.EitherShift() && GameLoop.World.Player.CurrentStamina > 1) { 
                         CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1));
                         RunTicks++;
 
                         if (RunTicks > 5) {
                             GameLoop.World.Player.ExpendStamina(1);
+                            GameLoop.World.Player.GrantExp("Agility", 10);
                             RunTicks = 0;
                         }
 
                         GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
                         Map.UpdateVision(); 
                     }
-                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S) && GameLoop.EitherShift()) { 
+                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S) && GameLoop.EitherShift() && GameLoop.World.Player.CurrentStamina > 1) { 
                         CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
                         RunTicks++;
 
                         if (RunTicks > 5) {
                             GameLoop.World.Player.ExpendStamina(1);
+                            GameLoop.World.Player.GrantExp("Agility", 10);
                             RunTicks = 0;
                         }
 
@@ -215,24 +236,26 @@ namespace LofiHollow.UI {
                         Map.UpdateVision(); 
                     }
                     
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A) && GameLoop.EitherShift()) { 
+                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A) && GameLoop.EitherShift() && GameLoop.World.Player.CurrentStamina > 1) { 
                         CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
                         RunTicks++;
 
                         if (RunTicks > 5) {
                             GameLoop.World.Player.ExpendStamina(1);
+                            GameLoop.World.Player.GrantExp("Agility", 10);
                             RunTicks = 0;
                         }
 
                         GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
                         Map.UpdateVision(); 
                     }
-                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D) && GameLoop.EitherShift()) { 
+                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D) && GameLoop.EitherShift() && GameLoop.World.Player.CurrentStamina > 1) { 
                         CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
                         RunTicks++;
 
                         if (RunTicks > 5) {
                             GameLoop.World.Player.ExpendStamina(1);
+                            GameLoop.World.Player.GrantExp("Agility", 10);
                             RunTicks = 0;
                         }
 
@@ -368,10 +391,20 @@ namespace LofiHollow.UI {
                 }
 
 
+
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.OemPlus)) {
+                    Map.ZoomIn();
+                }
+
+                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.OemMinus)) {
+                    Map.ZoomOut();
+                }
+
+
                 if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F2)) {
                     Combat.Toggle();
-                    Combat.StartCombat("Plains", 5);
-                }
+                    Combat.StartCombat("Field", 1, 5); 
+                } 
             } else if (selectedMenu == "Sign") {
                 if (GameHost.Instance.Keyboard.HasKeysPressed) {
                     selectedMenu = "None";
@@ -380,6 +413,70 @@ namespace LofiHollow.UI {
                 }
             } 
         }
+
+        public void LogClicks(string ID) {
+            if (ID == "top") {
+                MessageLogTop = MessageLog.Count - 1;
+            }
+
+            else if (ID == "bottom") {
+                MessageLogTop = Math.Max(MessageLog.Count - 16, 0);
+            }
+        }
+
+
+        public void RenderMessageLog() { 
+            Point mousePos = new MouseScreenObjectState(MessageConsole, GameHost.Instance.Mouse).CellPosition;
+
+            MessageConsole.Clear();
+            Helper.DrawBox(MessageConsole, 0, 0, 70, 16);
+            if (MessageLog.Count > 0) {
+                for (int i = MessageLogTop; i >= 0 && i >= MessageLogTop - 15; i--) {
+                    int line = MessageLogTop - i;
+
+                    MessageConsole.PrintDecorated(1, line + 1, MessageLog[i]);
+                }
+
+                if (MessageLogTop != MessageLog.Count - 1) {
+                    MessageConsole.PrintClickable(71, 1, 9.AsString(), LogClicks, "top");
+                }
+
+                if (MessageLogTop > 0 && MessageLogTop > MessageLog.Count - 16) {
+                    MessageConsole.PrintClickable(71, 17, 10.AsString(), LogClicks, "bottom");
+                }
+
+                if (mousePos != new Point(0, 0)) {
+                    if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
+                        if (!GameLoop.EitherShift()) {
+                            if (MessageLogTop < MessageLog.Count - 1) {
+                                MessageLogTop++;
+                            }
+                        }
+                        else {
+                            if (MessageLogTop + 10 < MessageLog.Count - 1) {
+                                MessageLogTop += 10;
+                            }
+                            else {
+                                MessageLogTop = MessageLog.Count - 1;
+                            }
+                        }
+                    }
+                    else if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
+                        if (!GameLoop.EitherShift()) {
+                            if (MessageLogTop > MessageLog.Count - 16 && MessageLogTop > 0)
+                                MessageLogTop--;
+                        }
+                        else {
+                            if (MessageLogTop - 10 > MessageLog.Count - 16 && MessageLogTop - 10 > 0)
+                                MessageLogTop -= 10;
+                            else
+                                MessageLogTop = Math.Max(MessageLog.Count - 16, 0);
+                        }
+                    }
+                }
+            }
+        }
+
 
         private void RenderSign() {
             SignConsole.Clear();

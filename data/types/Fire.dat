@@ -1,0 +1,10 @@
+{
+  "Name": "Fire",
+  "StrongAgainst": [
+    "Wood"
+  ],
+  "WeakAgainst": [
+    "Water"
+  ],
+  "ImmuneTo": []
+}

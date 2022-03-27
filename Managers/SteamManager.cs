@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace LofiHollow.Managers {
     public class SteamManager {  
         public Leaderboard BlacksmithingLeaderboard;
+        public Leaderboard MailSortLB;
         public Leaderboard FruitCatchLB;
         public Dictionary<string, Leaderboard> SkillLeaderboards = new();
 
@@ -24,6 +25,11 @@ namespace LofiHollow.Managers {
 
                 if (bsl.HasValue)
                     BlacksmithingLeaderboard = bsl.Value;
+
+                var mslb = await SteamUserStats.FindOrCreateLeaderboardAsync("MailSort", LeaderboardSort.Descending, LeaderboardDisplay.Numeric);
+
+                if (mslb.HasValue)
+                    MailSortLB = mslb.Value;
 
                 var flcl = await SteamUserStats.FindOrCreateLeaderboardAsync("00-WeeklyFruitCatch", LeaderboardSort.Descending, LeaderboardDisplay.Numeric);
 
@@ -79,9 +85,13 @@ namespace LofiHollow.Managers {
         private async Task<LeaderboardUpdate?> PostAsync(string leaderboardName, int score) {
             if (SteamClient.IsValid) {
                 if (leaderboardName == "Blacksmithing") {
-                    return await BlacksmithingLeaderboard.SubmitScoreAsync(score); 
-                } else if (leaderboardName == "00-WeeklyFruitCatch") {
+                    return await BlacksmithingLeaderboard.SubmitScoreAsync(score);
+                }
+                else if (leaderboardName == "00-WeeklyFruitCatch") {
                     return await FruitCatchLB.SubmitScoreAsync(score);
+                }
+                else if (leaderboardName == "MailSort") {
+                    return await MailSortLB.SubmitScoreAsync(score);
                 }
             } 
             return null;

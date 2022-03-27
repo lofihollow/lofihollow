@@ -4,16 +4,14 @@
   "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
-  "ShortDesc": "Cuts trees",
+  "ShortDesc": "Fire/100p/30a",
   "Description": "",
-  "AverageValue": 70,
-  "Weight": 1.0,
-  "Durability": 140,
-  "MaxDurability": 140,
+  "AverageValue": 640,
+  "Weight": 1.0, 
   "Quality": 0,
   "ItemTier": 60,
   "ItemCat": "Hatchet",
-  "EquipSlot": -1,
+  "EquipSlot": 0,
   "Dec": {
     "Glyph": 287,
     "R": 42,
@@ -28,9 +26,15 @@
   "Plant": null,
   "Tool": null,
   "Craft": null,
-  "Stats": null,
-  "Photo": null,
-  "Egg": null,
-  "MonsterFood": null,
-  "Heal": null
+  "Stats": {
+	"DamageType": "Fire",
+	"Power": 100,
+	"Accuracy": 30, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 42,
+	"WornG": 52,
+	"WornB": 57
+  }
 }

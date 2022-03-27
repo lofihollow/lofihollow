@@ -70,6 +70,13 @@ namespace LofiHollow.DataTypes {
             Glyph = TileGlyph;
         }
 
+        public Tile(int glyph, Color fg) : base(fg, Color.Transparent, glyph) {
+            TileGlyph = Glyph;
+            ForegroundR = Foreground.R;
+            ForegroundG = Foreground.G;
+            ForegroundB = Foreground.B; 
+        }
+
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context) {
             Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);

@@ -1,0 +1,25 @@
+{
+  "Name": "Titanium Sword",
+  "FinishedID": "lh:Titanium Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 80,
+  "ExpGranted": 90,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Titanium Ingot", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

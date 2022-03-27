@@ -29,11 +29,8 @@ namespace LofiHollow.Entities {
 
         [JsonProperty]
         public bool OwnsFarm = false;
-
-        public List<Point3D> VisitedMaps = new();
-
-        public double TimeLastTicked = 0;
-        public int MapsClearedToday = 0;
+         
+        public double TimeLastTicked = 0; 
         public Stack<ColoredString> killList = new(52);
 
         public string MineLocation = "None";
@@ -43,7 +40,9 @@ namespace LofiHollow.Entities {
 
         public string CurrentKillTask = "";
         public int KillTaskProgress = 0;
+        public int KillTaskMonLevel = 0;
         public int KillTaskGoal = 0;
+        public int KillTaskReward = 0;
 
         public string CurrentDeliveryTask = "";
 
@@ -106,6 +105,74 @@ namespace LofiHollow.Entities {
 
             for (int i = 0; i < Inventory.Length; i++) {
                 Inventory[i] = Item.Copy("lh:(EMPTY)");
+            }
+        } 
+
+        public CombatParticipant GetCombatParticipant() {
+            CombatParticipant part = new();
+
+            CalculateCombatLevel();
+            part.Level = CombatLevel;
+            part.Attack = Monster.GetStat(Skills["Strength"].Level, AttackGrowth, AttackEXP, part.Level);
+            part.Defense = Monster.GetStat(Skills["Defense"].Level, DefenseGrowth, DefenseEXP, part.Level);
+            part.Health = Monster.GetStat(Skills["Constitution"].Level, HealthGrowth, HealthEXP, part.Level, true);
+            part.Speed = Monster.GetStat(Skills["Agility"].Level, SpeedGrowth, SpeedEXP, part.Level);
+            part.MAttack = Monster.GetStat(Skills["Magic"].Level, MAttackGrowth, MAttackEXP, part.Level);
+            part.MDefense = Monster.GetStat(Skills["Magic"].Level, MDefenseGrowth, MDefenseEXP, part.Level);
+
+            part.CurrentHP = CurrentHP;
+            part.MaxHP = MaxHP; 
+
+            part.Types.Add(ElementalAlignment);
+
+            part.Owner = SteamClient.SteamId;
+            part.Name = Name;
+            part.ID = "Player";
+            part.Species = "Player";
+            part.ForeR = ForegroundR;
+            part.ForeG = ForegroundG;
+            part.ForeB = ForegroundB;
+            part.Glyph = ActorGlyph;
+
+            return part;
+        }
+
+        public int GetSkillLevel(string which) {
+            if (Skills.ContainsKey(which))
+                return Skills[which].Level; 
+            return -1;
+        }
+
+        public void GrantExp(string which, int amount) {
+            if (Skills.ContainsKey(which)) {
+                int currentLevel = Skills[which].Level;
+                Skills[which].GrantExp(amount);
+
+                if (currentLevel != Skills[which].Level && which == "Agility") {
+                    UpdateHP();
+                    CurrentStamina = Math.Clamp(CurrentStamina + 10, 10, MaxStamina);
+                }
+
+                if (currentLevel != Skills[which].Level && which == "Constitution") {
+                    UpdateHP();
+                    CurrentHP = Math.Clamp(CurrentHP + 1, 1, MaxHP);
+                }
+            }
+        }
+
+        public void GainStatEXP(string which, int amount) {
+            int total = HealthEXP + SpeedEXP + AttackEXP + DefenseEXP + MAttackEXP + MDefenseEXP;
+
+
+            int applying = total + amount > 512 ? (total + amount) - 512 : amount;
+
+            switch (which) {
+                case "Health": HealthEXP += applying; break;
+                case "Speed": SpeedEXP += applying; break;
+                case "Attack": AttackEXP += applying; break;
+                case "Defense": DefenseEXP += applying; break;
+                case "Magic Attack": MAttackEXP += applying; break;
+                case "Magic Defense": MDefenseEXP += applying; break;
             }
         }
 
@@ -308,8 +375,7 @@ namespace LofiHollow.Entities {
                 GameLoop.UIManager.MainMenu.RemakeMenu();
                 GameLoop.UIManager.selectedMenu = "MainMenu";
                 GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = true;
-                GameLoop.UIManager.Map.MapWindow.IsVisible = false;
-                GameLoop.UIManager.Map.MessageLog.IsVisible = false;
+                GameLoop.UIManager.Map.MapWindow.IsVisible = false; 
                 GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = false;
                 GameLoop.UIManager.MainMenu.NameBox.Text = "";
 
@@ -337,7 +403,14 @@ namespace LofiHollow.Entities {
             return highest;
         }
 
+        public bool HasSoulPhoto() {
+            for (int i = 0; i < Inventory.Length; i++) {
+                if (Inventory[i].SoulPhoto != null)
+                    return true;
+            }
 
+            return false;
+        }
         public int GetToolTier(string Category) {
             if (Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCat == Category) {
                 return Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemTier;
@@ -349,19 +422,18 @@ namespace LofiHollow.Entities {
         public void CalculateCombatLevel() {
             int Attack = Skills["Attack"].Level;
             int Strength = Skills["Strength"].Level;
-            int Magic = Skills["Magic"].Level;
-            int Ranged = Skills["Ranged"].Level;
             int Defense = Skills["Defense"].Level;
             int Constitution = Skills["Constitution"].Level;
 
-            int CombatStat = Math.Max(Attack + Strength, Math.Max(Magic, Ranged));
+            int CombatStat = Attack + Strength;
 
             CombatLevel = (int)Math.Floor((double)(((13 / 10) * CombatStat) + Defense + Constitution) / 4);
         }
 
-        public void UpdateHP() { 
-            MaxHP = Skills["Constitution"].Level;
-            CurrentHP = MaxHP; 
+        public void UpdateHP() {
+            CalculateCombatLevel();
+            MaxHP = Monster.GetStat(Skills["Constitution"].Level, HealthGrowth, HealthEXP, CombatLevel, true);
+            MaxStamina = (Skills["Agility"].Level * 10) + 10;
         }
 
         public string GetDamageType() {

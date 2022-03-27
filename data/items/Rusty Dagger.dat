@@ -4,7 +4,7 @@
   "SubID": 0,
   "ItemQuantity": 1,
   "IsStackable": false,
-  "ShortDesc": "Not much use",
+  "ShortDesc": "Earth/10p/30a",
   "Description": "",
   "AverageValue": 5,
   "Weight": 1.0,
@@ -24,6 +24,10 @@
 	"Power": 10,
 	"Accuracy": 30, 
 	"Armor": 0,
-	"MagicArmor": 0
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 183,
+	"WornG": 65,
+	"WornB": 14
   }
 }

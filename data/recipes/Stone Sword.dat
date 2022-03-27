@@ -1,0 +1,25 @@
+{
+  "Name": "Stone Sword",
+  "FinishedID": "lh:Stone Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 1,
+  "ExpGranted": 20,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Stone Chunk", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

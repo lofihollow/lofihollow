@@ -1,0 +1,31 @@
+{
+  "Name": "Obsidian Sword",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Metal/30p/40a",
+  "Description": "",
+  "AverageValue": 40,
+  "Weight": 1.0,
+  "Quality": 0,
+  "ItemTier": 10,
+  "ItemCat": "Weapon",
+  "EquipSlot": 0,
+  "Dec": null,
+  "ForegroundR": 104,
+  "ForegroundG": 77,
+  "ForegroundB": 119,
+  "ItemGlyph": 20,
+  "Stats": {
+	"DamageType": "Metal",
+	"Power": 30,
+	"Accuracy": 40, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 104,
+	"WornG": 77,
+	"WornB": 119
+  }
+}

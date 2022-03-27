@@ -28,6 +28,12 @@ namespace LofiHollow.UI {
                     if (photo.Contains(targetName, type)) {
                         return true;
                     }
+                } else {
+                    if (play.Inventory[i].ItemCat == "MonPhoto") {
+                        if (play.Inventory[i].Name == "Photo (" + targetName + ")") {
+                            return true;
+                        }
+                    }
                 }
             }
 
@@ -41,7 +47,18 @@ namespace LofiHollow.UI {
                     if (photo.Contains(targetName, type)) {
                         CommandManager.RemoveOneItem(play, i);
                         play.CopperCoins += reward;
+                        play.GrantExp("Photography", reward * 5);
                         return;
+                    }
+                }
+                else {
+                    if (play.Inventory[i].ItemCat == "MonPhoto") {
+                        if (play.Inventory[i].Name == "Photo (" + targetName + ")") {
+                            CommandManager.RemoveOneItem(play, i);
+                            play.CopperCoins += reward;
+                            play.GrantExp("Photography", reward * 5);
+                            return;
+                        }
                     }
                 }
             }
@@ -59,30 +76,30 @@ namespace LofiHollow.UI {
                 Decorator dec = null;
 
                 if (type == 0)
-                    targetType = "Item";
-                else if (type == 1)
                     targetType = "NPC";
                 else
                     targetType = "Monster"; 
 
 
-                if (targetType == "Item") {
-                    int index = GameLoop.rand.Next(GameLoop.World.itemLibrary.Count - 1) + 1;
-                    targetName = GameLoop.World.itemLibrary.ElementAt(index).Value.Name;
-                    app = GameLoop.World.itemLibrary.ElementAt(index).Value.AsColoredGlyph();
-                    if (GameLoop.World.itemLibrary.ElementAt(index).Value.Dec != null)
-                        dec = new(GameLoop.World.itemLibrary.ElementAt(index).Value.Dec);
-                    rewardAmount = GameLoop.rand.Next(8) + 2;
-                } else if (targetType == "NPC") {
+                 if (targetType == "NPC") {
                     int index = GameLoop.rand.Next(GameLoop.World.npcLibrary.Count);
                     targetName = GameLoop.World.npcLibrary.ElementAt(index).Value.Name; 
                     app = GameLoop.World.npcLibrary.ElementAt(index).Value.GetAppearance();
-                    rewardAmount = GameLoop.rand.Next(8) + 2;
+                    rewardAmount = 5;
                 } else {
                     int index = GameLoop.rand.Next(GameLoop.World.monsterLibrary.Count);
-                    targetName = GameLoop.World.monsterLibrary.ElementAt(index).Value.Species; 
-                    app = GameLoop.World.monsterLibrary.ElementAt(index).Value.GetAppearance();
-                    rewardAmount = GameLoop.rand.Next(GameLoop.World.monsterLibrary.ElementAt(index).Value.MinLevel) + 2;
+                    Monster mon = GameLoop.World.monsterLibrary.ElementAt(index).Value;
+                    targetName = mon.Species; 
+                    app = mon.GetAppearance();
+                    rewardAmount = System.Math.Max(5, mon.Level);
+                    while (mon.Level > GameLoop.World.Player.GetSkillLevel("Photography")) {
+                        index = GameLoop.rand.Next(GameLoop.World.monsterLibrary.Count); 
+                        mon = GameLoop.World.monsterLibrary.ElementAt(index).Value;
+
+                        targetName = mon.Species;
+                        app = mon.GetAppearance();
+                        rewardAmount = System.Math.Max(5, mon.Level);
+                    }
                 }
 
                 PhotoJob newJob = new(app, dec, targetName, targetType, rewardAmount);
@@ -161,11 +178,13 @@ namespace LofiHollow.UI {
         public override void Input() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
+                ShowingBoard = false;
                 Toggle();
             }
 
             if (GameHost.Instance.Mouse.LeftClicked) {
                 if (mousePos == new Point(28, 0)) {
+                    ShowingBoard = false;
                     Toggle();
                 }
             }

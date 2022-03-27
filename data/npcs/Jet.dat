@@ -2,6 +2,7 @@
   "Name": "Jet",
   "Package": "lh",
   "Occupation": "Blacksmith",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },
@@ -121,7 +122,7 @@
 		"Y": 1,
 		"Z": 0
 	},
-	"SoldItems": ["lh:Stone Pickaxe", "lh:Copper Spade", "lh:Copper Ingot", "lh:Iron Ingot" ],
+	"SoldItems": ["lh:Stone Pickaxe", "lh:Copper Spade", "lh:Stone Chunk", "lh:Obsidian Shard", "lh:Copper Ingot", "lh:Brass Ingot", "lh:Bronze Ingot" ],
 	"BuyCategory": -2
   }, 
   "MapPos": {

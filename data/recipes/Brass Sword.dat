@@ -1,0 +1,25 @@
+{
+  "Name": "Brass Sword",
+  "FinishedID": "lh:Brass Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 30,
+  "ExpGranted": 40,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Brass Ingot", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

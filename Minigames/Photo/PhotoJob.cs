@@ -1,11 +1,6 @@
 ﻿using LofiHollow.EntityData;
 using Newtonsoft.Json;
-using SadConsole;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SadConsole; 
 
 namespace LofiHollow.Minigames.Photo { 
     [JsonObject(MemberSerialization.OptOut)]
@@ -15,6 +10,7 @@ namespace LofiHollow.Minigames.Photo {
         public string Target = "";
         public string Type = "";
         public int RewardCoppers = 0;
+        public int Level = 5;
 
         public PhotoJob() { }
 

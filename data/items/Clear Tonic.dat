@@ -1,0 +1,41 @@
+{
+  "Name": "Clear Tonic",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Clears all changes",
+  "Description": "",
+  "AverageValue": 5,
+  "Weight": 0.5,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "Consumable",
+  "BattleUse": true,
+  "EquipSlot": -1,
+  "Dec": {
+    "Glyph": 169,
+    "R": 255,
+    "G": 255,
+    "B": 255,
+    "A": 100
+  },
+  "ForegroundR": 255,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "ItemGlyph": 168,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null,
+  "Tonic": {
+    "StatChanged": "Clear",
+    "AmountChanged": 0
+  }
+}

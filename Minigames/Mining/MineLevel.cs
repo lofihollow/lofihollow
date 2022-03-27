@@ -13,7 +13,7 @@ namespace LofiHollow.Minigames.Mining {
         [JsonProperty]
         public MineTile[] Mine;
         [JsonProperty]
-        public int Depth = 0;
+        public int Depth = 0; 
 
         public GoRogue.MultiSpatialMap<Entity> Entities; 
         public GoRogue.Pathing.FastAStar MapPath;
@@ -32,13 +32,13 @@ namespace LofiHollow.Minigames.Mining {
                     for (int x = 0; x < 70; x++) {
                         for (int y = 0; y < 8; y++) {
                             if (y == 4 && x == 35) {
-                                Mine[x + (y * 70)] = new MineTile("Mine Entrance");
+                                Mine[x + (y * 70)] = MineTile.Copy("Mine Entrance");
                             } else if (y < 5) {
-                                Mine[x + (y * 70)] = new MineTile("Air");
+                                Mine[x + (y * 70)] = MineTile.Copy("Air");
                             } else if (y == 5) {
-                                Mine[x + (y * 70)] = new MineTile("Grass");
+                                Mine[x + (y * 70)] = MineTile.Copy("Grass");
                             } else {
-                                Mine[x + (y * 70)] = new MineTile("Dirt");
+                                Mine[x + (y * 70)] = MineTile.Copy("Dirt");
                             }
                         }
                     }
@@ -48,13 +48,13 @@ namespace LofiHollow.Minigames.Mining {
 
                 for (int x = 0; x < 70; x++) {
                     for (int y = topY; y < 40; y++) {
-                        Mine[x + (y * 70)] = new MineTile("Stone");
+                        Mine[x + (y * 70)] = MineTile.Copy("Stone");
                     }
                 } 
 
 
                 foreach (KeyValuePair<string, MineTile> kv in GameLoop.World.mineTileLibrary) {
-                    MineTile tile = new(kv.Value); 
+                    MineTile tile = Helper.Clone(kv.Value); 
 
                     if (tile.MinDepth <= Depth && Depth <= tile.MaxDepth && tile.Spawns) {
                         for (int j = 0; j < tile.MaxPerMap; j++) {
@@ -64,12 +64,30 @@ namespace LofiHollow.Minigames.Mining {
                                 int y = GameLoop.rand.Next(40);
 
                                 if (GetTile(new Point(x, y)).Name == "Stone") {
-                                    SetTile(new Point(x, y), new MineTile(tile));
+                                    SetTile(new Point(x, y), Helper.Clone(tile));
                                 }
                             }
                         }
                     }
                 }
+
+                if (Depth != 0) {
+                    int randX = GameLoop.rand.Next(70);
+                    int randY = GameLoop.rand.Next(5);
+                    SetTile(new Point(randX, randY), MineTile.Copy("Up Stairs"));
+                }
+
+                bool placedDownStairs = false;
+
+                while (!placedDownStairs) {
+                    int randX = GameLoop.rand.Next(70);
+                    int randY = GameLoop.rand.Next(5) + 34;
+                    if (GetTile(new Point(randX, randY)).Name != "Up Stairs") {
+                        SetTile(new Point(randX, randY), MineTile.Copy("Down Stairs"));
+                        placedDownStairs = true;
+                    }
+                }
+
             }
 
             if (loc == "Lake") {
@@ -78,13 +96,13 @@ namespace LofiHollow.Minigames.Mining {
                     for (int x = 0; x < 70; x++) {
                         for (int y = 0; y < 8; y++) {
                             if (y == 4 && x == 35) {
-                                Mine[x + (y * 70)] = new MineTile("Mine Entrance");
+                                Mine[x + (y * 70)] = MineTile.Copy("Mine Entrance");
                             } else if (y < 5) {
-                                Mine[x + (y * 70)] = new MineTile("Air");
+                                Mine[x + (y * 70)] = MineTile.Copy("Air");
                             } else if (y == 5) {
-                                Mine[x + (y * 70)] = new MineTile("Grass");
+                                Mine[x + (y * 70)] = MineTile.Copy("Grass");
                             } else {
-                                Mine[x + (y * 70)] = new MineTile("Dirt");
+                                Mine[x + (y * 70)] = MineTile.Copy("Dirt");
                             }
                         }
                     }
@@ -94,13 +112,13 @@ namespace LofiHollow.Minigames.Mining {
 
                 for (int x = 0; x < 70; x++) {
                     for (int y = topY; y < 40; y++) {
-                        Mine[x + (y * 70)] = new MineTile("Stone");
+                        Mine[x + (y * 70)] = MineTile.Copy("Stone");
                     }
                 }
 
 
                 foreach (KeyValuePair<string, MineTile> kv in GameLoop.World.mineTileLibrary) {
-                    MineTile tile = new(kv.Value);
+                    MineTile tile = Helper.Clone(kv.Value);
 
                     if (tile.MinDepth <= Depth + 5 && Depth + 5 <= tile.MaxDepth && tile.Spawns) {
                         for (int j = 0; j < tile.MaxPerMap; j++) {
@@ -110,10 +128,27 @@ namespace LofiHollow.Minigames.Mining {
                                 int y = GameLoop.rand.Next(40);
 
                                 if (GetTile(new Point(x, y)).Name == "Stone") {
-                                    SetTile(new Point(x, y), new MineTile(tile));
+                                    SetTile(new Point(x, y), Helper.Clone(tile));
                                 }
                             }
                         }
+                    }
+                }
+
+                if (Depth != 0) {
+                    int randX = GameLoop.rand.Next(70);
+                    int randY = GameLoop.rand.Next(5);
+                    SetTile(new Point(randX, randY), MineTile.Copy("Up Stairs"));
+                }
+
+                bool placedDownStairs = false;
+
+                while (!placedDownStairs) {
+                    int randX = GameLoop.rand.Next(70);
+                    int randY = GameLoop.rand.Next(5) + 34;
+                    if (GetTile(new Point(randX, randY)).Name != "Up Stairs") {
+                        SetTile(new Point(randX, randY), MineTile.Copy("Down Stairs"));
+                        placedDownStairs = true;
                     }
                 }
             }
@@ -148,7 +183,7 @@ namespace LofiHollow.Minigames.Mining {
         }
 
         public void TileToAir(Point pos) {
-            Mine[pos.X + (pos.Y * 70)] = new MineTile("Air");
+            Mine[pos.X + (pos.Y * 70)] = MineTile.Copy("Air");
 
             if (pos.Y < 5) {
                 Mine[pos.X + (pos.Y * 70)].ForeR = 0;

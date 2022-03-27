@@ -1,0 +1,41 @@
+{
+  "Name": "White Tonic",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": true,
+  "ShortDesc": "Clears neg. changes",
+  "Description": "",
+  "AverageValue": 10,
+  "Weight": 0.5,
+  "Durability": -1,
+  "MaxDurability": -1,
+  "Quality": 0,
+  "ItemTier": -1,
+  "ItemCat": "Consumable",
+  "BattleUse": true,
+  "EquipSlot": -1,
+  "Dec": {
+    "Glyph": 169,
+    "R": 230,
+    "G": 230,
+    "B": 230,
+    "A": 255
+  },
+  "ForegroundR": 255,
+  "ForegroundG": 255,
+  "ForegroundB": 255,
+  "ItemGlyph": 168,
+  "Plant": null,
+  "Tool": null,
+  "Craft": null,
+  "Stats": null,
+  "Photo": null,
+  "Egg": null,
+  "MonsterFood": null,
+  "Heal": null,
+  "Tonic": {
+    "StatChanged": "LeaveOnlyPositive",
+    "AmountChanged": 0
+  }
+}

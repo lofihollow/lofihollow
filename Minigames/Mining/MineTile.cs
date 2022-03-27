@@ -71,53 +71,12 @@ namespace LofiHollow.Minigames.Mining {
 
         [JsonConstructor]
         public MineTile() { }
-
-        public MineTile(MineTile other) {
-            Name = other.Name;
-            TileGlyph = other.TileGlyph;
-            ForeR = other.ForeR;
-            ForeG = other.ForeG;
-            ForeB = other.ForeB;
-            ForeA = other.ForeA;
-
-            Dec = other.Dec;
-            RequiredTier = other.RequiredTier;
-            TileHP = other.TileHP;
-
-            OutputID = other.OutputID;
-            Chance = other.Chance;
-            MaxPerMap = other.MaxPerMap;
-            MinDepth = other.MinDepth;
-            MaxDepth = other.MaxDepth;
-            GrantedExp = other.GrantedExp;
-
-            BlocksMove = other.BlocksMove;
-            BlocksLOS = other.BlocksLOS;
-        }
-
-        public MineTile(string name) {
-            MineTile other = GameLoop.World.mineTileLibrary[name];
-
-            Name = other.Name;
-            TileGlyph = other.TileGlyph;
-
-            ForeR = other.ForeR;
-            ForeG = other.ForeG;
-            ForeB = other.ForeB;
-            ForeA = other.ForeA; 
-
-            Dec = other.Dec;
-            RequiredTier = other.RequiredTier;
-            TileHP = other.TileHP;
-            OutputID = other.OutputID;
-            Chance = other.Chance;
-            MaxPerMap = other.MaxPerMap;
-            MinDepth = other.MinDepth;
-            MaxDepth = other.MaxDepth;
-            GrantedExp = other.GrantedExp;
-            BlocksMove = other.BlocksMove;
-            BlocksLOS = other.BlocksLOS;
-        }
+         
+        public static MineTile Copy(string name) {
+            if (GameLoop.World.mineTileLibrary.ContainsKey(name))
+                return Helper.Clone(GameLoop.World.mineTileLibrary[name]);
+            return null;
+        } 
 
         public bool Damage(int hitTier) {
             if (hitTier >= RequiredTier) {

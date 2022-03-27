@@ -28,7 +28,7 @@ namespace LofiHollow.DataTypes {
                 Experience -= ExpToLevel();
                 Level++;
                 GameLoop.UIManager.AddMsg(new ColoredString("You leveled " + Name + " to " + Level + "!", Color.Cyan, Color.Black));
-
+                GameLoop.SoundManager.PlaySound("ding");
                 if (Name == "Constitution") {
                     GameLoop.World.Player.MaxHP = Level;
                     GameLoop.World.Player.CurrentHP += 1;
@@ -41,14 +41,13 @@ namespace LofiHollow.DataTypes {
                 GameLoop.SendMessageIfNeeded(updateSkill, false, true);
 
                 if (Level == 92) {
-                    if (GameLoop.SteamManager.UnlockAchievement(Name.ToUpper() + "_92")) {
+                    if (GameLoop.SteamManager.UnlockAchievement(Name.ToUpper().Replace(' ', '_') + "_92")) {
                         GameLoop.UIManager.AddMsg("Achievement: Halfway to " + Name + " Mastery!");
-                    }
-
+                    } 
                 }
 
                 if (Level == 99) {
-                    if (GameLoop.SteamManager.UnlockAchievement(Name.ToUpper() + "_99")) {
+                    if (GameLoop.SteamManager.UnlockAchievement(Name.ToUpper().Replace(' ', '_') + "_99")) {
                         GameLoop.UIManager.AddMsg("Achievement: " + Name + " Master!");
                     }
                 }

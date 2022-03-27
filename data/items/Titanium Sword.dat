@@ -1,0 +1,31 @@
+{
+  "Name": "Titanium Sword",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Metal/100p/50a",
+  "Description": "",
+  "AverageValue": 5120,
+  "Weight": 1.0,
+  "Quality": 0,
+  "ItemTier": 80,
+  "ItemCat": "Weapon",
+  "EquipSlot": 0,
+  "Dec": null,
+  "ForegroundR": 0,
+  "ForegroundG": 168,
+  "ForegroundB": 107,
+  "ItemGlyph": 20,
+  "Stats": {
+	"DamageType": "Metal",
+	"Power": 100,
+	"Accuracy": 50, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 0,
+	"WornG": 168,
+	"WornB": 107
+  }
+}

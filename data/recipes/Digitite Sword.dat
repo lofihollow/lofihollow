@@ -1,0 +1,25 @@
+{
+  "Name": "Digitite Sword",
+  "FinishedID": "lh:Digitite Sword",
+  "FinishedQty": 1,
+  "Skill": "Smithing",
+  "RequiredLevel": 90,
+  "ExpGranted": 100,
+  "SpecificMaterials": [
+    {
+      "ID": "lh:Digitite Ingot", 
+      "ItemQuantity": 2,
+      "Stacks": true
+    }
+  ],
+  "GenericMaterials": [
+    {
+      "Property": "Handle",
+      "Tier": 1,
+      "Quantity": 1,
+      "Stacks": true,
+	  "CountsAsMultiple": false
+    }
+  ],
+  "RequiredTools": [ ]
+}

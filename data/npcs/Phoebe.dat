@@ -2,6 +2,7 @@
   "Name": "Phoebe",
   "Package": "lh",
   "Occupation": "Pet Merchant",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

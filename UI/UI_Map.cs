@@ -17,13 +17,15 @@ namespace LofiHollow.UI {
     public class UI_Map {
         public SadConsole.Console MapConsole;
         public SadConsole.Console OverlayConsole;
-        public Window MapWindow;
-        public MessageLogWindow MessageLog;
+        public Window MapWindow; 
         public SadConsole.Entities.Renderer EntityRenderer;
+
 
         public GoRogue.FOV FOV;
         public GoRogue.SenseMapping.SenseMap LightMap;
         public bool LimitedVision = true;
+
+        public int ZoomLevel = 1;
 
         public UI_Map(int width, int height) {
             int mapConsoleWidth = width - 2;
@@ -33,9 +35,9 @@ namespace LofiHollow.UI {
             OverlayConsole = new SadConsole.Console(mapConsoleWidth, mapConsoleHeight);
             MapWindow = new(width, height);
             MapWindow.CanDrag = false;
-
-            MapConsole.Position = new Point(1, 1);
-            OverlayConsole.Position = new(1, 1);
+             
+            MapConsole.Position = new Point(1, 1);  
+            OverlayConsole.Position = new(1, 1); 
             MapWindow.Title = "".Align(HorizontalAlignment.Center, mapConsoleWidth, (char)196);
 
 
@@ -43,17 +45,136 @@ namespace LofiHollow.UI {
             MapWindow.Children.Add(OverlayConsole);
             GameLoop.UIManager.Children.Add(MapWindow);
 
-            MapConsole.SadComponents.Add(EntityRenderer);
+            MapConsole.SadComponents.Add(EntityRenderer); 
 
             MapWindow.Show();
-            MapWindow.IsVisible = false;
+            MapWindow.IsVisible = false; 
+        }
 
-            MessageLog = new MessageLogWindow(72, 18, "Message Log");
-            GameLoop.UIManager.Children.Add(MessageLog);
-            MessageLog.Show();
-            MessageLog.Position = new Point(0, 42); 
-            MessageLog.IsVisible = false;
+        public void ZoomIn() {
+            if (ZoomLevel == 1) {
+                MapConsole.UsePixelPositioning = true;
 
+                MapConsole.Position = new Point(12, 12);
+                MapConsole.FontSize = new Point(24, 24);
+                MapConsole.ViewHeight = 20;
+                MapConsole.ViewWidth = 35;
+
+                OverlayConsole.UsePixelPositioning = true;
+                OverlayConsole.Position = new(12, 12);
+                OverlayConsole.FontSize = new Point(24, 24); 
+                OverlayConsole.ViewHeight = 20;
+                OverlayConsole.ViewWidth = 35;
+                ZoomLevel = 2;
+            } else if (ZoomLevel == 2) {
+                MapConsole.UsePixelPositioning = true;
+
+                MapConsole.Position = new Point(12, 12);
+                MapConsole.FontSize = new Point(36, 36);
+                MapConsole.ViewHeight = 13;
+                MapConsole.ViewWidth = 23;
+
+                OverlayConsole.UsePixelPositioning = true;
+                OverlayConsole.Position = new(12, 12);
+                OverlayConsole.FontSize = new Point(36, 36);
+                OverlayConsole.ViewHeight = 13;
+                OverlayConsole.ViewWidth = 23;
+                ZoomLevel = 3;
+            }
+
+            CenterViewOnPlayer();
+        }
+
+        public void ZoomOut() {
+            if (ZoomLevel == 2) {
+                MapConsole.UsePixelPositioning = false;
+                MapConsole.FontSize = new Point(12, 12);
+                MapConsole.Position = new Point(1, 1);
+                MapConsole.ViewHeight = 40;
+                MapConsole.ViewWidth = 70;
+
+                OverlayConsole.UsePixelPositioning = false;
+                OverlayConsole.FontSize = new Point(12, 12);
+                OverlayConsole.Position = new Point(1, 1); 
+                OverlayConsole.ViewHeight = 40;
+                OverlayConsole.ViewWidth = 70;
+                ZoomLevel = 1;
+            } else if (ZoomLevel == 3) {
+                MapConsole.UsePixelPositioning = true;
+
+                MapConsole.Position = new Point(12, 12);
+                MapConsole.FontSize = new Point(24, 24);
+                MapConsole.ViewHeight = 20;
+                MapConsole.ViewWidth = 35;
+
+                OverlayConsole.UsePixelPositioning = true;
+                OverlayConsole.Position = new(12, 12);
+                OverlayConsole.FontSize = new Point(24, 24);
+                OverlayConsole.ViewHeight = 20;
+                OverlayConsole.ViewWidth = 35;
+                ZoomLevel = 2;
+            }
+
+            CenterViewOnPlayer();
+        }
+
+        public void CenterViewOnPlayer() {
+            if (ZoomLevel == 1) {
+                MapConsole.UsePixelPositioning = false;
+                MapConsole.FontSize = new Point(12, 12);
+                MapConsole.Position = new Point(1, 1);
+                MapConsole.ViewHeight = 40;
+                MapConsole.ViewWidth = 70;
+
+                OverlayConsole.UsePixelPositioning = false;
+                OverlayConsole.FontSize = new Point(12, 12);
+                OverlayConsole.Position = new Point(1, 1); 
+                OverlayConsole.ViewHeight = 40;
+                OverlayConsole.ViewWidth = 70;
+
+                MapConsole.ViewPosition = new Point(0, 0);
+                OverlayConsole.ViewPosition = new Point(0, 0);
+            } 
+            else if (ZoomLevel == 2) {
+                MapConsole.UsePixelPositioning = true;
+
+                MapConsole.Position = new Point(12, 12);
+                MapConsole.FontSize = new Point(24, 24);
+                MapConsole.ViewHeight = 20;
+                MapConsole.ViewWidth = 35;
+
+                OverlayConsole.UsePixelPositioning = true;
+                OverlayConsole.Position = new(12, 12);
+                OverlayConsole.FontSize = new Point(24, 24);
+                OverlayConsole.ViewHeight = 20;
+                OverlayConsole.ViewWidth = 35;
+
+                int topLeftX = Math.Clamp(GameLoop.World.Player.Position.X - 17, 0, 52);
+                int topLeftY = Math.Clamp(GameLoop.World.Player.Position.Y - 10, 0, 30);
+
+                MapConsole.ViewPosition = new Point(topLeftX, topLeftY);
+                OverlayConsole.ViewPosition = new Point(topLeftX, topLeftY);
+            }  
+            else if (ZoomLevel == 3) {
+                MapConsole.UsePixelPositioning = true;
+
+                MapConsole.Position = new Point(12, 12);
+                MapConsole.FontSize = new Point(36, 36);
+                MapConsole.ViewHeight = 13;
+                MapConsole.ViewWidth = 23;
+
+                OverlayConsole.UsePixelPositioning = true;
+                OverlayConsole.Position = new(12, 12);
+                OverlayConsole.FontSize = new Point(36, 36); 
+                OverlayConsole.ViewHeight = 13;
+                OverlayConsole.ViewWidth = 23;
+
+                int topLeftX = Math.Clamp(GameLoop.World.Player.Position.X - 11, 0, 59);
+                int topLeftY = Math.Clamp(GameLoop.World.Player.Position.Y - 6, 0, 34);
+
+                MapConsole.ViewPosition = new Point(topLeftX, topLeftY);
+                OverlayConsole.ViewPosition = new Point(topLeftX, topLeftY);
+            }
         }
 
         public void LoadMap(Map map, bool tryRelic = true) {
@@ -73,7 +194,7 @@ namespace LofiHollow.UI {
                     SpawnRelicSpot = false;
                     map.Tiles[i] = new("lh:Relic Spot");
                     LoadMap(map, false);
-                }
+                } 
             }
 
             MapConsole.Surface = new CellSurface(GameLoop.MapWidth, GameLoop.MapHeight, map.Tiles);
@@ -83,6 +204,8 @@ namespace LofiHollow.UI {
             LightMap = new GoRogue.SenseMapping.SenseMap(map.LightRes);
             LightMap.Calculate();
             SyncMapEntities(map);
+
+            CenterViewOnPlayer();
         }
 
         public void LoadMap(Point3D pos, bool tryRelic = true) { 
@@ -204,8 +327,10 @@ namespace LofiHollow.UI {
                     MapConsole.ClearDecorators(i, 1);
                     OverlayConsole.ClearDecorators(i, 1);
                     if (map.Tiles[i].Dec != null) {
-                        Decorator dec = map.Tiles[i].Dec;
-                        MapConsole.AddDecorator(i, 1, new CellDecorator(new Color(dec.R, dec.G, dec.B, map.Tiles[i].Foreground.A), dec.Glyph, Mirror.None));
+                        if (map.Tiles[i].SkillableTile == null || (map.Tiles[i].SkillableTile != null && map.Tiles[i].Name == map.Tiles[i].SkillableTile.HarvestableName)) {
+                            Decorator dec = map.Tiles[i].Dec;
+                            MapConsole.AddDecorator(i, 1, new CellDecorator(new Color(dec.R, dec.G, dec.B, map.Tiles[i].Foreground.A), dec.Glyph, Mirror.None));
+                        }
                     }
 
                     if (map.Tiles[i].Plant != null) {
@@ -224,6 +349,15 @@ namespace LofiHollow.UI {
                 if (GameLoop.World.Player.Equipment[10].Name != "(EMPTY)") {
                     SoulPhoto photo = GameLoop.World.Player.Equipment[10].SoulPhoto;
                     OverlayConsole.PrintDecorated(photo.Position.X, photo.Position.Y, photo.GetAppearance());
+                }
+
+                for (int i = 0; i < GameLoop.World.Player.Equipment.Length; i++) {
+                    if (GameLoop.World.Player.Equipment[i].Stats != null) {
+                        Equipment stats = GameLoop.World.Player.Equipment[i].Stats; 
+                        int pIndex = GameLoop.World.Player.Position.ToIndex(GameLoop.MapWidth);
+
+                        OverlayConsole.AddDecorator(pIndex, 1, stats.GetDec());
+                    }
                 }
 
                 foreach (var pos in FOV.CurrentFOV) {
@@ -335,6 +469,8 @@ namespace LofiHollow.UI {
 
         public void UpdateVision() {
             Point cellPos = GameLoop.World.Player.Position;
+
+            CenterViewOnPlayer();
 
             if (cellPos.X <= GameLoop.MapWidth && cellPos.Y <= GameLoop.MapHeight) {
                 if (LimitedVision) { 

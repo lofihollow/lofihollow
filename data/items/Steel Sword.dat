@@ -1,0 +1,31 @@
+{
+  "Name": "Steel Sword",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Metal/80p/50a",
+  "Description": "",
+  "AverageValue": 1280,
+  "Weight": 1.0,
+  "Quality": 0,
+  "ItemTier": 60,
+  "ItemCat": "Weapon",
+  "EquipSlot": 0,
+  "Dec": null,
+  "ForegroundR": 42,
+  "ForegroundG": 52,
+  "ForegroundB": 57,
+  "ItemGlyph": 20,
+  "Stats": {
+	"DamageType": "Metal",
+	"Power": 80,
+	"Accuracy": 50, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 42,
+	"WornG": 52,
+	"WornB": 57
+  }
+}

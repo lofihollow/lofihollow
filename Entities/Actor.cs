@@ -7,8 +7,7 @@ using SadRogue.Primitives;
 using LofiHollow.EntityData;
 using System.Text;
 using LofiHollow.DataTypes;
-using LofiHollow.Managers;
-using LofiHollow.DataTypes;
+using LofiHollow.Managers; 
 
 
 namespace LofiHollow.Entities {
@@ -36,11 +35,37 @@ namespace LofiHollow.Entities {
         public string CombatMode = "Attack";
 
         [JsonProperty]
-        public string ElementalAlignment = "Fire";
+        public string ElementalAlignment = "Earth"; 
 
         [JsonProperty]
         public int CombatLevel = 1;
-        
+
+        [JsonProperty]
+        public int HealthGrowth = 5;
+        [JsonProperty]
+        public int SpeedGrowth = 5;
+        [JsonProperty]
+        public int AttackGrowth = 5;
+        [JsonProperty]
+        public int DefenseGrowth = 5;
+        [JsonProperty]
+        public int MAttackGrowth = 5;
+        [JsonProperty]
+        public int MDefenseGrowth = 5;
+
+        [JsonProperty]
+        public int HealthEXP = 0;
+        [JsonProperty]
+        public int SpeedEXP = 0;
+        [JsonProperty]
+        public int AttackEXP = 0;
+        [JsonProperty]
+        public int DefenseEXP = 0;
+        [JsonProperty]
+        public int MAttackEXP = 0;
+        [JsonProperty]
+        public int MDefenseEXP = 0;
+
 
         public double TimeLastActed = 0;
 
@@ -65,7 +90,7 @@ namespace LofiHollow.Entities {
             Appearance.Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
             Appearance.Background = new Color(0, 0, 0, 50);
             Appearance.Glyph = ActorGlyph; 
-        } 
+        }
 
         public void UpdateAppearance() {
             Appearance.Foreground = new Color(ForegroundR, ForegroundG, ForegroundB);
@@ -137,19 +162,12 @@ namespace LofiHollow.Entities {
         }
 
 
-        public int TakeDamage(int damageIn, string attackType) {
-            int damageTaken;
+        public int TakeDamage(int damage) {
+            int currHp = CurrentHP;
 
-            int damage = (int) Math.Ceiling(ModifiedDamage(attackType, damageIn));
+            CurrentHP = Math.Clamp(CurrentHP - damage, 0, MaxHP);
 
-
-            if (damage > CurrentHP) {
-                damageTaken = CurrentHP;
-                CurrentHP = 0; 
-            } else {
-                CurrentHP -= damage;
-                damageTaken = damage;
-            }
+            int damageTaken = currHp - CurrentHP;
 
             if (CurrentHP <= 0) {
                 if (this is Player player)
@@ -187,6 +205,17 @@ namespace LofiHollow.Entities {
                                 if (split[1] == "Noonbreeze") {
                                     GameLoop.UIManager.Teleport.Toggle("Noonbreeze Apartments");
                                 }
+                            } else if (split[0] == "Board") {
+                                if (split[1] == "Photography") {
+                                    GameLoop.UIManager.Photo.ShowingBoard = true;
+                                    GameLoop.UIManager.Photo.Toggle();
+                                }
+                                else if (split[1] == "Adventure") {
+                                    GameLoop.UIManager.AdventurerBoard.Toggle();
+                                }
+                                else if (split[1] == "Courier") {
+
+                                }
                             }
                         }
 
@@ -206,6 +235,7 @@ namespace LofiHollow.Entities {
                                                 if (choppedChance < 33) {
                                                     CommandManager.AddItemToInv(play, Item.Copy(tile.DepletedItem));
                                                     map.GetTile(newPosition).Name = tile.DepletedName;
+                                                    map.GetTile(newPosition).UpdateAppearance();
                                                     GameLoop.UIManager.AddMsg(tile.DepleteMessage);
                                                     Skills[tile.RequiredSkill].Experience += tile.ExpOnDeplete;
                                                 } else {
@@ -333,19 +363,7 @@ namespace LofiHollow.Entities {
                 }
 
                 if (movedMaps && ID == GameLoop.World.Player.ID) {
-                    GameLoop.UIManager.Map.LoadMap(MapPos); 
-
-                    if (GameLoop.SingleOrHosting()) {
-                        if (!GameLoop.World.Player.VisitedMaps.Contains(MapPos)) {
-                            Map mapData = Helper.ResolveMap(MapPos);
-
-                            if (map != null) {
-                                mapData.PopulateMonsters(MapPos);
-                                GameLoop.World.Player.VisitedMaps.Add(MapPos);
-                            }
-                        }
-                    }
-
+                    GameLoop.UIManager.Map.LoadMap(MapPos);  
                     return true;
                 } 
 
@@ -449,12 +467,6 @@ namespace LofiHollow.Entities {
                     GameLoop.UIManager.Map.EntityRenderer.Remove(this);
                     GameLoop.UIManager.Map.SyncMapEntities(map);
                     GameLoop.UIManager.AddMsg(this.Name + " died.");
-                }
-
-                map.SpawnedMonsters--;
-
-                if (map.SpawnedMonsters == 0) {
-                    GameLoop.World.Player.MapsClearedToday++;
                 }
             }
         }

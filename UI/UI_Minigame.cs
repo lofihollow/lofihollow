@@ -1,6 +1,7 @@
 ﻿using LofiHollow.Entities;
 using LofiHollow.Managers;
 using LofiHollow.Minigames.Archaeology;
+using LofiHollow.Minigames.Electronics;
 using LofiHollow.Minigames.Jobs;
 using LofiHollow.Minigames.Picross;
 using SadConsole;
@@ -27,6 +28,9 @@ namespace LofiHollow.UI {
         public StackEm StackEm;
         public Minesweeper Minesweeper;
         public NumberCombo NumberCombo;
+        public MailSort MailSort;
+        public WordGuess WordGuess;
+        public PatternTaps PatternTaps;
 
         public UI_Minigame(int width, int height, string title) : base(width, height, title, "Minigame") {  }
 
@@ -98,6 +102,24 @@ namespace LofiHollow.UI {
                     NumberCombo = new();
                 NumberCombo.Draw();
             }
+
+            else if (CurrentGame == "MailSort") {
+                if (MailSort == null)
+                    MailSort = new();
+                MailSort.Draw();
+            }
+
+            else if (CurrentGame == "WordGuess") {
+                if (WordGuess == null)
+                    WordGuess = new();
+                WordGuess.Draw();
+            }
+
+            else if (CurrentGame == "PatternTaps") {
+                if (PatternTaps == null)
+                    PatternTaps = new();
+                PatternTaps.Draw();
+            }
         }
 
         public override void Input() {
@@ -112,6 +134,9 @@ namespace LofiHollow.UI {
             else if (CurrentGame == "StackEm") { StackEm.Input(); }
             else if (CurrentGame == "Minesweeper") { Minesweeper.Input(); }
             else if (CurrentGame == "NumberCombo") { NumberCombo.Input(); }
+            else if (CurrentGame == "MailSort") { MailSort.Input(); }
+            else if (CurrentGame == "WordGuess") { WordGuess.Input(); }
+            else if (CurrentGame == "PatternTaps") { PatternTaps.Input(); }
         } 
         public void ToggleMinigame(string which) {
             if (Win.IsVisible) {

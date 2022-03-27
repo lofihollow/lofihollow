@@ -174,6 +174,23 @@ namespace LofiHollow {
                     } 
                 }
 
+
+                if (item.ItemCat == "Consumable") {
+                    if (item.Heal != null) {
+                        if (GameLoop.World.Player.CurrentHP < GameLoop.World.Player.MaxHP) {
+                            int healAmt = GoRogue.DiceNotation.Dice.Roll(item.Heal.HealAmount);
+                            int currHP = GameLoop.World.Player.CurrentHP;
+                            GameLoop.World.Player.TakeDamage(-1 * healAmt);
+                            int actualHeal = Math.Min(healAmt, GameLoop.World.Player.CurrentHP - currHP);
+
+                            GameLoop.UIManager.AddMsg(new ColoredString("You use the " + item.Name + ", restoring " + actualHeal + " health.", Color.Yellow, Color.Black));
+                            ConsumeItem();
+                        } else {
+                            GameLoop.UIManager.AddMsg(new ColoredString("Already at max health.", Color.Yellow, Color.Black));
+                        }
+                    } 
+                }
+
                 if (map.GetEntityAt<FarmAnimal>(Pos) != null) {
                     FarmAnimal spot = map.GetEntityAt<FarmAnimal>(Pos);
                     if (item.ItemCat == "NameTag" && item.Name != "Name Tag") {
@@ -462,7 +479,11 @@ namespace LofiHollow {
                     GameLoop.UIManager.AddMsg("Your backpack can now hold 27 items!");
                 }
 
-                if (item.ItemCat == "Camera") { // Used Camera
+                if (item.ItemCat == "Camera") { // Used camera
+                    if (item.IsStackable) {
+                        ConsumeItem();
+                    }
+
                     Item photo = Item.Copy("lh:Photo");
                     Photo data = new();
 
@@ -518,23 +539,6 @@ namespace LofiHollow {
                                     if (wrap.item.Dec != null)
                                         ent.Dec = new(wrap.item.Dec);
 
-                                    data.entities.Add(ent);
-                                }
-
-                                if (map.GetEntityAt<MonsterWrapper>(maploc) != null) {
-                                    PhotoEntity ent = new();
-                                    MonsterWrapper wrap = map.GetEntityAt<MonsterWrapper>(maploc);
-
-                                    ent.Glyph = wrap.monster.ActorGlyph;
-                                    ent.ColR = wrap.monster.ForegroundR;
-                                    ent.ColG = wrap.monster.ForegroundG;
-                                    ent.ColB = wrap.monster.ForegroundB;
-                                    ent.ColA = 255;
-                                    ent.Type = "Monster";
-
-                                    ent.Name = wrap.monster.Species;
-                                    ent.X = x;
-                                    ent.Y = y;
                                     data.entities.Add(ent);
                                 }
 

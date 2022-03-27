@@ -2,6 +2,7 @@
   "Name": "Paprika",
   "Package": "lh",
   "Occupation": "Kid",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

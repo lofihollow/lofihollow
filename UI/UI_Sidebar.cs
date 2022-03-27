@@ -54,9 +54,9 @@ namespace LofiHollow.UI {
             SidebarWindow.IsVisible = false; 
         }
 
-        public void SidebarInput() { 
+        public void SidebarInput() {
+
             
-            /*
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F11)) {
                 if (GameLoop.UIManager.selectedMenu == "Map Editor") {
                     GameLoop.UIManager.selectedMenu = "None";
@@ -64,17 +64,22 @@ namespace LofiHollow.UI {
                     GameLoop.UIManager.selectedMenu = "Map Editor";
                 }
             } 
-            */
-            if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
-                if (hotbarSelect + 1 < GameLoop.World.Player.Inventory.Length)
-                    hotbarSelect++;
-            } 
-            else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
-                if (hotbarSelect > 0)
-                    hotbarSelect--;
+            
+            Point sidebarMouse = new MouseScreenObjectState(SidebarConsole, GameHost.Instance.Mouse).CellPosition;
+            Point mapPos = new MouseScreenObjectState(GameLoop.UIManager.Map.MapConsole, GameHost.Instance.Mouse).CellPosition;
+
+            if (sidebarMouse != new Point(0, 0) || mapPos != new Point(0, 0)) {
+                if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
+                    if (hotbarSelect + 1 < GameLoop.World.Player.Inventory.Length)
+                        hotbarSelect++;
+                }
+                else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
+                    if (hotbarSelect > 0)
+                        hotbarSelect--;
+                }
             }
 
-            Point sidebarMouse = new MouseScreenObjectState(SidebarConsole, GameHost.Instance.Mouse).CellPosition;
+           
             if (sidebarMouse.X > 0) { // Clicked in Sidebar
                 if (GameHost.Instance.Mouse.LeftClicked) {
                     if (sidebarMouse.X < 12) {
@@ -119,7 +124,6 @@ namespace LofiHollow.UI {
             }
 
 
-            Point mapPos = new MouseScreenObjectState(GameLoop.UIManager.Map.MapConsole, GameHost.Instance.Mouse).CellPosition;
             int distance = GoRogue.Lines.Get(mapPos.ToCoord(), GameLoop.World.Player.Position.ToCoord()).Count();
             if (GameHost.Instance.Mouse.LeftButtonDown) {
                 ItemHandler.ContinuousUseItem(GameLoop.World.Player.Inventory[hotbarSelect], mapPos, GameLoop.World.Player.MapPos, distance);
@@ -300,11 +304,7 @@ namespace LofiHollow.UI {
                         if (mousePos == new Point(8, 15)) { thisMap.fg = new Color(thisMap.fg.R, thisMap.fg.G - 1, thisMap.fg.B); }
                         if (mousePos == new Point(14, 15)) { thisMap.fg = new Color(thisMap.fg.R, thisMap.fg.G + 1, thisMap.fg.B); }
                         if (mousePos == new Point(8, 16)) { thisMap.fg = new Color(thisMap.fg.R, thisMap.fg.G, thisMap.fg.B - 1); }
-                        if (mousePos == new Point(14, 16)) { thisMap.fg = new Color(thisMap.fg.R, thisMap.fg.G, thisMap.fg.B + 1); }
-                        if (mousePos == new Point(14, 17)) { GameLoop.World.maps[GameLoop.World.Player.MapPos].MinimumMonsters--; }
-                        if (mousePos == new Point(20, 17)) { GameLoop.World.maps[GameLoop.World.Player.MapPos].MinimumMonsters++; }
-                        if (mousePos == new Point(14, 18)) { GameLoop.World.maps[GameLoop.World.Player.MapPos].MaximumMonsters--; }
-                        if (mousePos == new Point(20, 18)) { GameLoop.World.maps[GameLoop.World.Player.MapPos].MaximumMonsters++; }
+                        if (mousePos == new Point(14, 16)) { thisMap.fg = new Color(thisMap.fg.R, thisMap.fg.G, thisMap.fg.B + 1); } 
 
                     }
                 }
@@ -415,7 +415,7 @@ namespace LofiHollow.UI {
                     SidebarConsole.Print(0, 3, JadeString);
 
                     SidebarConsole.Print(0, 5, new ColoredString(3.AsString(), Color.Red, Color.Black));
-                    SidebarConsole.Print(1, 5, new ColoredString((GameLoop.World.Player.CurrentHP + "/" + GameLoop.World.Player.MaxHP).Align(HorizontalAlignment.Right, 5), Color.Red, Color.Black));
+                    SidebarConsole.Print(1, 5, new ColoredString((GameLoop.World.Player.CurrentHP + "/" + GameLoop.World.Player.MaxHP).Align(HorizontalAlignment.Right, 7), Color.Red, Color.Black));
 
                     SidebarConsole.Print(0, 6, new ColoredString(175.AsString(), Color.Lime, Color.Black));
                     SidebarConsole.Print(1, 6, new ColoredString((GameLoop.World.Player.CurrentStamina + "/" + GameLoop.World.Player.MaxStamina).Align(HorizontalAlignment.Right, 7), Color.Lime, Color.Black));

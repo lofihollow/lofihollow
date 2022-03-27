@@ -74,8 +74,7 @@ namespace LofiHollow.UI {
             }
             else if (ID == "ExitToMenu") {
                 GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = true;
-                GameLoop.UIManager.Map.MapWindow.IsVisible = false;
-                GameLoop.UIManager.Map.MessageLog.IsVisible = false;
+                GameLoop.UIManager.Map.MapWindow.IsVisible = false; 
                 GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = false;
                 GameLoop.UIManager.selectedMenu = "MainMenu";
 
@@ -87,7 +86,7 @@ namespace LofiHollow.UI {
 
         public override void Input() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
-            if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
+            if (GameHost.Instance.Keyboard.IsKeyPressed(Key.Escape)) {
                 Toggle();
             } 
         } 

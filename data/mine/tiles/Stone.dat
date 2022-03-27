@@ -10,5 +10,6 @@
   "Dec": null,
   "OutputID": "lh:Stone Chunk",
   "RequiredTier": 1,
-  "TileHP": 3
+  "TileHP": 3,
+  "GrantedExp": 2
 }

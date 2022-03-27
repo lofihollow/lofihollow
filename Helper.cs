@@ -16,6 +16,9 @@ using Console = SadConsole.Console;
 
 namespace LofiHollow {
     public static class Helper {
+        public static bool KeyPressed(Keys key) {
+            return GameHost.Instance.Keyboard.IsKeyPressed(key);
+        }
         public static ColoredString HoverColoredString(string text, bool condition) {
             return new ColoredString(text, condition ? Color.Yellow : Color.White, Color.Black);
         }
@@ -59,7 +62,7 @@ namespace LofiHollow {
             return (int)Math.Floor((c + d) / 2);
         }
 
-        public static void DrawBox(Console con, int LeftX, int TopY, int w, int h) {
+        public static void DrawBox(Console con, int LeftX, int TopY, int w, int h, int r = 255, int g = 255, int b = 255) {
             int LeftXin = LeftX + 1;
             int TopYin = TopY + 1;
             int RightXin = LeftX + w;
@@ -67,14 +70,16 @@ namespace LofiHollow {
             int BottomY = TopY + h + 1;
             int RightX = LeftX + w + 1;
 
-            con.DrawLine(new Point(LeftXin, TopY), new Point(RightXin, TopY), 196);
-            con.DrawLine(new Point(LeftXin, BottomY), new Point(RightXin, BottomY), 196);
-            con.DrawLine(new Point(LeftX, TopYin), new Point(LeftX, BottomYin), 179);
-            con.DrawLine(new Point(RightX, TopYin), new Point(RightX, BottomYin), 179);
-            con.Print(LeftX, TopY, 218.AsString());
-            con.Print(RightX, BottomY, 217.AsString()); 
-            con.Print(LeftX, BottomY, 192.AsString());
-            con.Print(RightX, TopY, 191.AsString());
+            Color fg = new Color(r, g, b);
+
+            con.DrawLine(new Point(LeftXin, TopY), new Point(RightXin, TopY), 196, fg);
+            con.DrawLine(new Point(LeftXin, BottomY), new Point(RightXin, BottomY), 196, fg);
+            con.DrawLine(new Point(LeftX, TopYin), new Point(LeftX, BottomYin), 179, fg);
+            con.DrawLine(new Point(RightX, TopYin), new Point(RightX, BottomYin), 179, fg);
+            con.Print(LeftX, TopY, 218.AsString(), fg);
+            con.Print(RightX, BottomY, 217.AsString(), fg); 
+            con.Print(LeftX, BottomY, 192.AsString(), fg);
+            con.Print(RightX, TopY, 191.AsString(), fg);
         }
 
 

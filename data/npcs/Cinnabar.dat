@@ -2,6 +2,7 @@
   "Name": "Cinnabar",
   "Package": "lh",
   "Occupation": "Adventurer Guild Leader",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

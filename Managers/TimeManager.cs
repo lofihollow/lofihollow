@@ -62,6 +62,7 @@ namespace LofiHollow.Managers {
             newDay.Flag = passedOut;
             GameLoop.SendMessageIfNeeded(newDay, false, false);
 
+            GameLoop.World.Player.UpdateHP();
             GameLoop.World.Player.Sleeping = false;
             GameLoop.World.Player.CurrentHP = passedOut ? GameLoop.World.Player.CurrentHP : GameLoop.World.Player.MaxHP;
             GameLoop.World.Player.CurrentStamina = passedOut ? Math.Max(GameLoop.World.Player.CurrentStamina, GameLoop.World.Player.MaxStamina / 2) : GameLoop.World.Player.MaxStamina;
@@ -73,6 +74,7 @@ namespace LofiHollow.Managers {
             } 
 
             GameLoop.UIManager.Photo.PopulateJobList();
+            GameLoop.UIManager.AdventurerBoard.PopulateJobList();
 
             if (GameLoop.World.Player.NoonbreezeApt != null) {
                 GameLoop.World.Player.NoonbreezeApt.DaysLeft--;
@@ -207,6 +209,17 @@ namespace LofiHollow.Managers {
                 }
             }
 
+
+            foreach (KeyValuePair<Point3D, Map> kv in GameLoop.World.maps) {
+                for (int i = 0; i < kv.Value.Tiles.Length; i++) {
+                    if (kv.Value.Tiles[i].SkillableTile != null) {
+                        kv.Value.Tiles[i].Name = kv.Value.Tiles[i].SkillableTile.HarvestableName;
+                    }
+                }
+            }
+
+
+
             GameLoop.World.SavePlayer();
         }
 
@@ -316,12 +329,7 @@ namespace LofiHollow.Managers {
             }
 
 
-            GameLoop.World.Player.MapsClearedToday = 0;
             GameLoop.World.Player.killList.Clear();
-
-            foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
-                kv.Value.MapsClearedToday = 0;
-            }
 
             if (GameLoop.UIManager.Minigames.MineManager != null) {
                 GameLoop.UIManager.Minigames.MineManager.MountainMine = new("Mountain");

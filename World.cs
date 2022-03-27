@@ -35,6 +35,8 @@ namespace LofiHollow {
         public Dictionary<string, PicrossPuzzle> picrossLibrary = new();
         public Dictionary<string, TypeDef> typeLibrary = new();
 
+        public List<string> wordGuessWords = new();
+
 
         public List<Chapter> Chapters = new();
 
@@ -62,6 +64,10 @@ namespace LofiHollow {
             LoadPicross();
             LoadMoves();
             LoadTypes();
+            LoadWords();
+
+
+          //  LoadAllMaps();
         }
 
         public void InitPlayer() {
@@ -102,6 +108,25 @@ namespace LofiHollow {
             LoadArtifacts();
             LoadPicross();
         }
+
+
+        public void LoadAllMaps() {
+            if (Directory.Exists("./data/maps/Overworld/")) {
+                string[] mapFiles = Directory.GetFiles("./data/maps/Overworld/");
+
+                foreach (string fileName in mapFiles) {
+                    Map map = Helper.DeserializeFromFileCompressed<Map>(fileName);
+                    string name = map.MinimapTile.name;
+                    if (name == "Forest" || name == "Forest Road")
+                        map.AmbientMonsters = true;
+                    else
+                        map.AmbientMonsters = false;
+
+                    Helper.SerializeToFileCompressed(map, fileName);
+                }
+            }
+        }
+
 
         public void LoadAllMods() {   
             if (SteamClient.IsValid) {
@@ -186,6 +211,16 @@ namespace LofiHollow {
             }
         }
 
+        public void LoadWords() {
+            if (File.Exists("./data/wordgame.txt")) {
+                string[] tileFiles = File.ReadAllLines("./data/wordgame.txt");
+
+                foreach (string word in tileFiles) {
+                    wordGuessWords.Add(word);
+                }
+            }
+        }
+
         public void LoadMoves() {
             if (Directory.Exists("./data/moves/")) {
                 string[] itemFiles = Directory.GetFiles("./data/moves/");
@@ -194,7 +229,7 @@ namespace LofiHollow {
                     string json = File.ReadAllText(fileName);
                     Move item = JsonConvert.DeserializeObject<Move>(json);
                     moveLibrary.Add(item.FullName(), item);
-                }
+                } 
             }
         }
 
@@ -206,7 +241,7 @@ namespace LofiHollow {
                     string json = File.ReadAllText(fileName);
                     TypeDef item = JsonConvert.DeserializeObject<TypeDef>(json);
                     typeLibrary.Add(item.Name, item);
-                }
+                } 
             }
         }
 
@@ -946,6 +981,7 @@ namespace LofiHollow {
 
 
             GameLoop.UIManager.Photo.PopulateJobList();
+            GameLoop.UIManager.AdventurerBoard.PopulateJobList();
 
             DoneInitializing = true;
 
@@ -997,19 +1033,31 @@ namespace LofiHollow {
             Player = new(Color.Yellow);
             Player.Position = new(25, 25);
             Player.MapPos = new(3, 1, 0);
-            Player.Name = "Player"; 
+            Player.Name = "Player";
+            Player.Skills = new Dictionary<string, Skill>();
+
+            foreach (KeyValuePair<string, Skill> kv in skillLibrary) {
+                Skill skill = new(kv.Value);
+                Player.Skills.Add(skill.Name, skill);
+            }
+
+            foreach (KeyValuePair<string, Mission> kv in missionLibrary) {
+                Player.MissionLog.Add(kv.Key, kv.Value);
+            }
 
             GameLoop.UIManager.Map.LoadMap(Player.MapPos);
           //  GameLoop.UIManager.Map.EntityRenderer.Add(Player);
             Player.ZIndex = 10;
 
-            Player.MaxHP = 0;
-            Player.CurrentHP = Player.MaxHP; 
+            Player.UpdateHP();
+            Player.CurrentHP = Player.MaxHP;
+            Player.CurrentStamina = Player.MaxStamina;
         }
 
         public void FreshStart() {
-            Player.MaxHP = 10;
+            Player.UpdateHP();
             Player.CurrentHP = Player.MaxHP;
+            Player.CurrentStamina = Player.MaxStamina;
             LoadMapAt(Player.MapPos);
 
             DoneInitializing = true;
@@ -1019,11 +1067,13 @@ namespace LofiHollow {
             
             foreach (KeyValuePair<string, Skill> kv in skillLibrary) {
                 Skill skill = new(kv.Value);
-                Player.Skills.Add(skill.Name, skill);
+                if (!Player.Skills.ContainsKey(skill.Name))
+                    Player.Skills.Add(skill.Name, skill);
             } 
 
-            foreach (KeyValuePair<string, Mission> kv in missionLibrary) {
-                Player.MissionLog.Add(kv.Key, kv.Value);
+            foreach (KeyValuePair<string, Mission> kv in missionLibrary) { 
+                if (!Player.MissionLog.ContainsKey(kv.Key))
+                    Player.MissionLog.Add(kv.Key, kv.Value);
             } 
 
             GenerateAllFish();

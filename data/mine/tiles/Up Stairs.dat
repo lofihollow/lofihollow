@@ -1,0 +1,14 @@
+{
+  "Name": "Up Stairs",
+  "Spawns": false,
+  "BlocksMove": false,
+  "BlocksLOS": false,
+  "TileGlyph": 9,
+  "ForeR": 110,
+  "ForeG": 66,
+  "ForeB": 33,
+  "Dec": null,
+  "OutputID": "",
+  "RequiredTier": 100,
+  "TileHP": 3
+}

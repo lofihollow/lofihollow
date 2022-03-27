@@ -2,6 +2,7 @@
   "Name": "Emerald",
   "Package": "lh",
   "Occupation": "Apothecary",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },
@@ -112,18 +113,18 @@
   "Shop": {
 	"ShopName": "Apothecary",
 	"WanderingVendor": false,
-	"Position": {
-		"WorldArea": "Overworld",
+	"Position": { 
 		"X": 29,
 		"Y": 34
 	},
 	"MapPos": {
+		"WorldArea": "Overworld",
 		"X": 0,
 		"Y": 1,
 		"Z": 0
 	},
-	"SoldItems": [ "lh:Rusty Dagger" ],
-	"BuyCategory": -2
+	"SoldItems": [ "lh:Light Curative", "lh:Green Tonic", "lh:Red Tonic", "lh:Yellow Tonic", "lh:Purple Tonic", "lh:Blue Tonic", "lh:Clear Tonic", "lh:White Tonic", "lh:Black Tonic" ],
+	"BuyCategory": "Consumable"
   }, 
   "MapPos": {
     "WorldArea": "Overworld",

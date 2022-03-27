@@ -1,0 +1,12 @@
+{
+  "Name": "Earth Bolt",
+  "Package": "lh",
+  "Power": 40,
+  "Accuracy": 60,
+  "Type": "Earth",
+  "Physical": false,
+  "OwnStat": "",
+  "OwnStatChange": 0,
+  "EnemyStat": "",
+  "EnemyStatChange": 0
+}

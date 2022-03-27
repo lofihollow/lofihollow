@@ -17,7 +17,7 @@
   "RequiredTier": 10,
   "TileHP": 3,
   "Chance": 40,
-  "MaxPerMap": 100,
+  "MaxPerMap": 500,
   "MinDepth": 0,
   "MaxDepth": 20,
   "GrantedExp": 30

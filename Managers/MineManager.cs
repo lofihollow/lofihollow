@@ -137,7 +137,7 @@ namespace LofiHollow.Managers {
                     }
                 } else if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].Name == "Ladder") {
                     if (CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(mousePos).Name == "Air") {
-                        CurrentMine.Levels[GameLoop.World.Player.MineDepth].SetTile(mousePos, new MineTile("Ladder"));
+                        CurrentMine.Levels[GameLoop.World.Player.MineDepth].SetTile(mousePos, MineTile.Copy("Ladder"));
                         GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemQuantity -= 1;
                         if (GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemQuantity <= 0)
                             GameLoop.World.Player.Inventory[GameLoop.UIManager.Sidebar.hotbarSelect] = Item.Copy("lh:(EMPTY)");
@@ -227,10 +227,60 @@ namespace LofiHollow.Managers {
                 if (GameLoop.World.Player.Position / 12 == new Point(35, 4) || GameLoop.World.Player.Position / 12 == new Point(34, 4) || GameLoop.World.Player.Position / 12 == new Point(36, 4)) {
                     GameLoop.UIManager.selectedMenu = "None";
                     GameLoop.World.Player.UsePixelPositioning = false;
-                    GameLoop.World.Player.Position = GameLoop.World.Player.MineEnteredAt; 
+                    GameLoop.World.Player.Position = GameLoop.World.Player.MineEnteredAt;
                     GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 }
+                else { 
+                    if (PlayerOnTile(GameLoop.World.Player, CurrentMine.Levels[GameLoop.World.Player.MineDepth], "Up Stairs")) {
+                        GameLoop.World.Player.MineDepth -= 1;
+
+                        MiningFOV = new GoRogue.FOV(CurrentMine.Levels[GameLoop.World.Player.MineDepth].MapFOV);
+                        SyncMiningEntities(MountainMine);
+
+                        bool foundStairs = false;
+
+                        for (int x = 0; x < 70; x++) {
+                            for (int y = 0; y < 40; y++) {
+                                if (CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(x, y)).Name == "Down Stairs") {
+                                    GameLoop.World.Player.Position = new Point(x * 12, y * 12);
+                                    foundStairs = true;
+                                    break;
+                                }
+                            }
+
+                            if (foundStairs)
+                                break;
+                        }
+                    }
+                }
             }
+
+            if (GameLoop.EitherShift() && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemPeriod)) {
+                if (PlayerOnTile(GameLoop.World.Player, CurrentMine.Levels[GameLoop.World.Player.MineDepth], "Down Stairs")) {
+                    GameLoop.World.Player.MineDepth += 1;
+
+                    if (!CurrentMine.Levels.ContainsKey(GameLoop.World.Player.MineDepth))
+                        CurrentMine.Levels.Add(GameLoop.World.Player.MineDepth, new(GameLoop.World.Player.MineDepth, GameLoop.World.Player.MineLocation));
+
+                    MiningFOV = new GoRogue.FOV(CurrentMine.Levels[GameLoop.World.Player.MineDepth].MapFOV);
+                    SyncMiningEntities(MountainMine);
+
+                    bool foundStairs = false;
+
+                    for (int x = 0; x < 70; x++) {
+                        for (int y = 0; y < 40; y++) {
+                            if (CurrentMine.Levels[GameLoop.World.Player.MineDepth].GetTile(new Point(x, y)).Name == "Up Stairs") {
+                                GameLoop.World.Player.Position = new Point(x * 12, y * 12);
+                                foundStairs = true;
+                                break;
+                            }
+                        }
+
+                        if (foundStairs)
+                            break;
+                    }
+                }
+            } 
 
             if (PlayerOnTile(GameLoop.World.Player, CurrentMine.Levels[GameLoop.World.Player.MineDepth], "Ladder")) {
                 MineJumpApex = false;
@@ -314,7 +364,7 @@ namespace LofiHollow.Managers {
                         if (MineJump > 0) {
                             float blocksFallen = (float)MineJump / 6f;
                             if (blocksFallen > 8) {
-                                GameLoop.World.Player.TakeDamage((int)((blocksFallen - 8f) / 2f), "Earth");
+                                GameLoop.World.Player.TakeDamage((int)((blocksFallen - 8f) / 2f));
                             }
                         }
 
@@ -333,6 +383,9 @@ namespace LofiHollow.Managers {
                         MineJumpApex = true;
                     }
                 }
+            } else {
+                MineJumpApex = false;
+                MineJump = 0;
             }
 
             if (oldPos != GameLoop.World.Player.Position) {

@@ -1,0 +1,12 @@
+{
+  "Name": "Bite",
+  "Package": "lh",
+  "Power": 10,
+  "Accuracy": 40,
+  "Type": "Earth",
+  "Physical": true,
+  "OwnStat": "",
+  "OwnStatChange": 0,
+  "EnemyStat": "",
+  "EnemyStatChange": 0
+}

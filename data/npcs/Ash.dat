@@ -2,6 +2,7 @@
   "Name": "Ash",
   "Package": "lh",
   "Occupation": "Innkeeper",
+  "CourierGuild": "Noonbreeze",
   "AI": {
     "SpringNormal": { },
     "SpringRain": { },

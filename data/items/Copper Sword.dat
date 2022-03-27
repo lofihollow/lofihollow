@@ -1,0 +1,31 @@
+{
+  "Name": "Copper Sword",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Metal/40p/50a",
+  "Description": "",
+  "AverageValue": 80,
+  "Weight": 1.0,
+  "Quality": 0,
+  "ItemTier": 20,
+  "ItemCat": "Weapon",
+  "EquipSlot": 0,
+  "Dec": null,
+  "ForegroundR": 183,
+  "ForegroundG": 65,
+  "ForegroundB": 14,
+  "ItemGlyph": 20,
+  "Stats": {
+	"DamageType": "Metal",
+	"Power": 40,
+	"Accuracy": 50, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 183,
+	"WornG": 65,
+	"WornB": 14
+  }
+}

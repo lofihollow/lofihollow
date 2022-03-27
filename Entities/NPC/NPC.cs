@@ -17,6 +17,9 @@ namespace LofiHollow.Entities.NPC {
         public bool Animal = false;
 
         [JsonProperty]
+        public string CourierGuild = "Noonbreeze";
+
+        [JsonProperty]
         public int BirthMonth = 1;
         [JsonProperty]
         public int BirthDay = 2;

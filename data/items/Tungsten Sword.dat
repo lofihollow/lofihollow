@@ -1,0 +1,31 @@
+{
+  "Name": "Tungsten Sword",
+  "Package": "lh",
+  "SubID": 0,
+  "ItemQuantity": 1,
+  "IsStackable": false,
+  "ShortDesc": "Metal/90p/50a",
+  "Description": "",
+  "AverageValue": 2560,
+  "Weight": 1.0,
+  "Quality": 0,
+  "ItemTier": 70,
+  "ItemCat": "Weapon",
+  "EquipSlot": 0,
+  "Dec": null,
+  "ForegroundR": 203,
+  "ForegroundG": 205,
+  "ForegroundB": 205,
+  "ItemGlyph": 20,
+  "Stats": {
+	"DamageType": "Metal",
+	"Power": 90,
+	"Accuracy": 50, 
+	"Armor": 0,
+	"MagicArmor": 0,
+	"WornGlyph": 402,
+	"WornR": 203,
+	"WornG": 205,
+	"WornB": 205
+  }
+}
