@@ -1,0 +1,31 @@
+{
+  "DisplayName": "A Cozy Cot",
+  "ID": "CozyCotBedSleep",
+  "Package": "lh",
+  "InteractVerb": "Sleep until Tomorrow", 
+  "AllActiveConditions": false,
+  "AllInactiveConditions": false,
+  "DataMods": [ 
+	{
+      "Target": "cozyCotDays",
+      "ModType": "rem",
+      "Amount": 1
+    }
+  ],
+  "NeedMods": [ "Sleep;100" ],
+  "ActiveConditions": [  ],
+  "InactiveConditions": [ ],
+  "zeriCost": 0,
+  "timeCost": 0,
+  "TimerID": "",
+  "TimerHours": 1,
+  "ItemGiven": [ ],
+  "SkillReq": "",
+  "ExpGranted": [ ],
+  "CostSummary": "",
+  "ReqSummary": "",
+  "NeedSummary": "Sleep +100",
+  "MinigameSummary": "",
+  "ActionString": "fullSleep",
+  "UseMessage": ""
+}

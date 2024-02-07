@@ -11,7 +11,7 @@ using NLua;
 using LofiHollow.UI;
 
 namespace LofiHollow.Minigames.Electronics {
-    public class GamePocket : Lofi_UI {
+    public class GamePocket : InstantUI {
         ColoredString[] screen = new ColoredString[900];
 
         public Lua RunningScript;
@@ -25,7 +25,7 @@ namespace LofiHollow.Minigames.Electronics {
         }
 
 
-        public override void Render() {
+        public override void Update() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
             Con.Clear();
@@ -91,7 +91,7 @@ namespace LofiHollow.Minigames.Electronics {
         public override void Input() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
-                Toggle(); 
+                Toggle(""); 
             }
 
             foreach (var key in GameHost.Instance.Keyboard.KeysPressed) {
@@ -111,15 +111,12 @@ namespace LofiHollow.Minigames.Electronics {
 
 
         public void Toggle(string scriptName) {
-            if (Win.IsVisible) {
-                GameLoop.UIManager.selectedMenu = "None";
-                Win.IsVisible = false;
-                GameLoop.UIManager.Map.MapConsole.IsFocused = true;
+            if (Win.IsVisible) { 
+                Win.IsVisible = false; 
                 RunningScript = null;
             }
             else {
-                if (GameLoop.World.scriptLibrary.ContainsKey(scriptName)) {
-                    GameLoop.UIManager.selectedMenu = "GamePocket";
+                if (GameLoop.World.scriptLibrary.ContainsKey(scriptName)) { 
                     RunningScript = new Lua();
                     RunningScript["os"] = null;
                     RunningScript["lh"] = new ScriptInterface();

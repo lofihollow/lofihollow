@@ -227,7 +227,7 @@ namespace LofiHollow.Minigames.Picross {
                         if (PuzzleWasRandom)
                             amount *= 2;
 
-                        GameLoop.World.Player.CopperCoins += amount;
+                        GameLoop.World.Player.Zeri += amount;
                     } else {
                         int amount = Current.Difficulty == "Easy" ? 5 : Current.Difficulty == "Medium" ? 10 : 20;
                         if (PuzzleWasRandom)
@@ -236,7 +236,7 @@ namespace LofiHollow.Minigames.Picross {
                         double completion = Current.Completion();
                         int Reward = (int)System.Math.Ceiling(completion * (double)amount);
 
-                        GameLoop.World.Player.CopperCoins += Reward;
+                        GameLoop.World.Player.Zeri += Reward;
                     }
                     
                     Reset();

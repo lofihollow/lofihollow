@@ -131,11 +131,7 @@ namespace LofiHollow.Managers {
                 LineStress = 0;
                 GameLoop.UIManager.Minigames.ToggleMinigame("Fishing");
             } else {
-                HookedFish = null;
-                GameLoop.UIManager.Map.MapConsole.ClearDecorators(GameLoop.UIManager.Sidebar.LocalLure.Position.X, GameLoop.UIManager.Sidebar.LocalLure.Position.Y, 1);
-                GameLoop.UIManager.Sidebar.LocalLure.Position = new Point(-1, -1);
-                GameLoop.UIManager.Sidebar.LocalLure.FishOnHook = false;
-                GameLoop.UIManager.Sidebar.LocalLure = new FishingLure();
+                HookedFish = null; 
                 GameLoop.UIManager.Minigames.CurrentGame = "None";
 
                 GameLoop.UIManager.AddMsg("You feel like nothing can be caught here.");
@@ -152,7 +148,7 @@ namespace LofiHollow.Managers {
 
                 Color fore = new(HookedFish.colR, HookedFish.colG, HookedFish.colB, HookedFish.colA);
 
-                CommandManager.AddItemToInv(GameLoop.World.Player, caughtFish);
+                GameLoop.World.Player.AddItemToInventory(caughtFish);
                 GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 ColoredString caught = new("You caught a ", Color.Cyan, Color.Black);
                 caught += new ColoredString(HookedFish.Name, fore, Color.Black);
@@ -169,11 +165,7 @@ namespace LofiHollow.Managers {
                 }
             }
 
-            HookedFish = null;
-            GameLoop.UIManager.Map.MapConsole.ClearDecorators(GameLoop.UIManager.Sidebar.LocalLure.Position.X, GameLoop.UIManager.Sidebar.LocalLure.Position.Y, 1);
-            GameLoop.UIManager.Sidebar.LocalLure.Position = new Point(-1, -1);
-            GameLoop.UIManager.Sidebar.LocalLure.FishOnHook = false;
-            GameLoop.UIManager.Sidebar.LocalLure = new FishingLure();
+            HookedFish = null; 
             GameLoop.UIManager.Minigames.CurrentGame = "None";
         }
 

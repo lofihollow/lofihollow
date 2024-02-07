@@ -1,0 +1,51 @@
+{
+  "ID": "CozyCotRoom",
+  "DisplayName": "The Cozy Cot - Your Room",
+  "Description": "    The room is a little bare, but that was to be expected from the price. A small round glass window overlooks the streets below. The door leading back out to the main room is unadorned cheap wood, but still solid enough to provide a measure of safety against thieves. Most of the space of the room is taken up by a simple wooden bed with plain cloth sheets, and a single pillow and blanket.",
+  "DescriptionBlocks": [
+    {
+      "Description": "    At the foot of the bed is a small chest to store valuables in, placed here by the innkeeper after you purchased the room. ",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "cozyCotRoomOwned",
+          "Check": "has",
+          "CompareNum": 0,
+          "Secondary": 0
+        }
+      ],
+      "AllConditions": false
+    }
+  ],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeTheCozyCot",
+      "Direction": "Door",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [ "lh:CozyCotBedSleep", "lh:CozyCotBedNap" ],
+  "IsLit": true,
+  "InDevLottery": false
+}

@@ -1,0 +1,84 @@
+{
+  "ID": "NoonbreezeCommons",
+  "DisplayName": "Noonbreeze - Commons",
+  "Description": "    This part of town is made of neat rows of small dwellings where most citizens live. Though each house is slightly different from its neighbors, personalized to the family inside, they share a number of similarities. Most of the houses are made of smooth grey quarried stone bricks. Each has a wooden door and a glass window set into the wall facing the road, with a sign on each door declaring what family lives there. The rectangular homes are placed in such a way that every pod of four leaves a small courtyard between them, allowing the residents to have a private outdoor space. Some of these courtyards are covered by silken cloth canopies while others remain open to the elements.",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeEast",
+      "Direction": "North",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "NoonbreezeSouth",
+      "Direction": "West",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "NoonbreezeTheCozyCot",
+      "Direction": "Door",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true
+}

@@ -10,8 +10,7 @@ namespace LofiHollow.Managers {
         public Lua Running;
 
         public void SetupScript(string name) {
-            if (GameLoop.World.scriptLibrary.ContainsKey(name)) {
-                GameLoop.UIManager.selectedMenu = "ScriptMini";
+            if (GameLoop.World.scriptLibrary.ContainsKey(name)) { 
                 Running = new Lua();
                 Running["os"] = null; 
                 Running["lh"] = new ScriptInterface();

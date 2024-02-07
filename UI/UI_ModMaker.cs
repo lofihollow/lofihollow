@@ -9,8 +9,7 @@ using Key = SadConsole.Input.Keys;
 using LofiHollow.DataTypes;
 using Newtonsoft.Json;
 using LofiHollow.EntityData;
-using LofiHollow.Entities;
-using LofiHollow.Missions;
+using LofiHollow.Entities; 
 using LofiHollow.Entities.NPC;
 using LofiHollow.Minigames.Archaeology;
 using LofiHollow.Minigames.Picross;
@@ -21,7 +20,7 @@ using Color = SadRogue.Primitives.Color;
 using System.Linq;
 
 namespace LofiHollow.UI {
-    public class UI_ModMaker {
+    public class UI_ModMaker : InstantUI {
         public string ModMenuSelect = "List";
         public string ModSubSelect = "None";
         public bool CreatingMod = false;
@@ -30,8 +29,7 @@ namespace LofiHollow.UI {
         public int MapEditorTileIndex = 0;
         public int SelectedField = 0;
         public int DocumentationTop = 0;
-        public Mod CurrentMod;
-        public ControlsConsole ModConsole;
+        public Mod CurrentMod; 
          
         public string UploadText = "";
         public string CurrentChangelog = "";
@@ -45,10 +43,7 @@ namespace LofiHollow.UI {
 
         public Dictionary<string, Mod> InstalledMods = new();
 
-        public UI_ModMaker() {
-            ModConsole = new(96, 50);
-            ModConsole.Position = new(2, 5); 
-            ModConsole.IsVisible = false;
+        public UI_ModMaker(int width, int height) : base(width, height, "ModMaker") { 
         }
 
         public async void UploadToWorkshop() {
@@ -116,13 +111,10 @@ namespace LofiHollow.UI {
             DocumentationTop = 0;
         }
 
-        public void ModMakerClicks(string ID) {
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.MainMenu.MenuConsole, GameHost.Instance.Mouse).CellPosition;
+        public void ModMakerClicks(string ID) { 
 
             if (ID == "BackToMainMenu") {
-                GameLoop.UIManager.selectedMenu = "MainMenu";
-                GameLoop.UIManager.MainMenu.MenuConsole.IsVisible = true;
-                ModConsole.IsVisible = false;
+                GameLoop.UIManager.ToggleUI("ModMaker");
             }
 
             else if (ID == "CreateNewMod") {
@@ -140,35 +132,18 @@ namespace LofiHollow.UI {
             }
 
             else if (ID == "SaveMod") { SaveMod(); }
-
-            else if (ID == "Go Constructibles") {
-                ResetThings("Constructible");
-                if (CurrentMod.ModConstructs.Count == 0)
-                    CurrentMod.ModConstructs.Add(new());
-            }
-
-            else if (ID == "Go Recipes") {
-                ResetThings("Recipe");
-                if (CurrentMod.ModRecipes.Count == 0)
-                    CurrentMod.ModRecipes.Add(new());
-            }
+             
 
             else if (ID == "Go Items") {
                 ResetThings("Item");
                 if (CurrentMod.ModItems.Count == 0)
                     CurrentMod.ModItems.Add(new());
-            }
-
-            else if (ID == "Go Missions") {
-                ResetThings("Mission");
-                if (CurrentMod.ModMissions.Count == 0)
-                    CurrentMod.ModMissions.Add(new());
-            }
+            } 
 
             else if (ID == "Go Monsters") {
                 ResetThings("Monster");
                 if (CurrentMod.ModMonsters.Count == 0)
-                    CurrentMod.ModMonsters.Add(new());
+                    CurrentMod.ModMonsters.Add(new(Color.White));
             }
 
             else if (ID == "Go NPCs") {
@@ -199,23 +174,8 @@ namespace LofiHollow.UI {
                 ResetThings("Script");
                 if (CurrentMod.ModScripts.Count == 0)
                     CurrentMod.ModScripts.Add(new());
-            }
-
-            else if (ID == "Go Tiles") {
-                ResetThings("Tile");
-                if (CurrentMod.ModTiles.Count == 0)
-                    CurrentMod.ModTiles.Add(new());
-            }
-
-            else if (ID == "Go Maps") {
-                ResetThings("Map");
-                GameLoop.World.RemakeLibraries();
-                GameLoop.World.LoadAllMods(); 
-
-                if (CurrentMod.ModMaps.Count == 0)
-                    CurrentMod.ModMaps.Add(new());
-            }
-
+            } 
+             
             else if (ID == "BackToList") {
                 ModMenuSelect = "List";
                 SaveMod();
@@ -261,12 +221,7 @@ namespace LofiHollow.UI {
                         CurrentMod.ModPicross.Add(new());
                     ModItemIndex++;
                 }
-
-                else if (ModSubSelect == "Map") {
-                    if (CurrentMod.ModMaps.Count < ModItemIndex + 2)
-                        CurrentMod.ModMaps.Add(new());
-                    ModItemIndex++;
-                }
+                 
             }
 
             else if (ID == "PackMod") { PackMod(); }
@@ -389,95 +344,94 @@ namespace LofiHollow.UI {
         }
 
         public void DrawMod() {
-            ModConsole.Clear();
-            Point mousePos = new MouseScreenObjectState(GameLoop.UIManager.MainMenu.MenuConsole, GameHost.Instance.Mouse).CellPosition;
+            Con.Clear(); 
 
-            ModConsole.DrawBox(new Rectangle(0, 0, 96, 50), ShapeParameters.CreateStyledBoxFilled(ICellSurface.ConnectedLineThin, new ColoredGlyph(Color.White, Color.Black), new ColoredGlyph(Color.White, Color.Black)));
+            Con.DrawBox(new Rectangle(0, 0, 96, 50), ShapeParameters.CreateStyledBoxFilled(ICellSurface.ConnectedLineThin, new ColoredGlyph(Color.White, Color.Black), new ColoredGlyph(Color.White, Color.Black)));
 
-            ModConsole.DrawLine(new Point(20, 1), new Point(20, 48), 179, Color.White, Color.Black);
+            Con.DrawLine(new Point(20, 1), new Point(20, 48), 179, Color.White, Color.Black);
 
             if (ModMenuSelect == "Create") {
-                ModConsole.PrintClickable(1, 1, "[BACK]", ModMakerClicks, "BackToOverview");
-                ModConsole.PrintClickable(10, 1, "[SAVE]", ModMakerClicks, "SaveMod");
+                Con.PrintClickable(1, 1, "[BACK]", ModMakerClicks, "BackToOverview");
+                Con.PrintClickable(10, 1, "[SAVE]", ModMakerClicks, "SaveMod");
                  
-                ModConsole.Print(1, 3, "Name: ", Color.DarkSlateGray);
-                ModConsole.Print(1, 4, Helper.Truncate(CurrentMod.Metadata.WorkshopTitle, 14));
+                Con.Print(1, 3, "Name: ", Color.DarkSlateGray);
+                Con.Print(1, 4, Helper.Truncate(CurrentMod.Metadata.WorkshopTitle, 14));
 
-                ModConsole.Print(1, 5, "Package:", Color.DarkSlateGray);
-                ModConsole.Print(1, 6, Helper.Truncate(CurrentMod.Metadata.Package, 14));
+                Con.Print(1, 5, "Package:", Color.DarkSlateGray);
+                Con.Print(1, 6, Helper.Truncate(CurrentMod.Metadata.Package, 14));
 
 
-                ModConsole.PrintClickable(1, 8, "Back to Overview", ModMakerClicks, "GoOverview");
-                ModConsole.PrintClickable(1, 10, "Constructibles", ModMakerClicks, "Go Constructibles");
-                ModConsole.PrintClickable(1, 12, "Crafting Recipes", ModMakerClicks, "Go Recipes"); 
-                ModConsole.PrintClickable(1, 14, "Items", ModMakerClicks, "Go Items");
-                ModConsole.PrintClickable(1, 16, "Missions", ModMakerClicks, "Go Missions");
-                ModConsole.PrintClickable(1, 18, "Monsters", ModMakerClicks, "Go Monsters");
-                ModConsole.PrintClickable(1, 20, "NPCs", ModMakerClicks, "Go NPCs");
-                ModConsole.PrintClickable(1, 22, "Skills", ModMakerClicks, "Go Skills");
-                ModConsole.PrintClickable(1, 24, "Artifacts", ModMakerClicks, "Go Artifacts");
-                ModConsole.PrintClickable(1, 26, "Picross", ModMakerClicks, "Go Picross");
-                ModConsole.PrintClickable(1, 28, "Tiles", ModMakerClicks, "Go Tiles");
-                ModConsole.PrintClickable(1, 30, "Maps", ModMakerClicks, "Go Maps");
+                Con.PrintClickable(1, 8, "Back to Overview", ModMakerClicks, "GoOverview");
+                Con.PrintClickable(1, 10, "Constructibles", ModMakerClicks, "Go Constructibles");
+                Con.PrintClickable(1, 12, "Crafting Recipes", ModMakerClicks, "Go Recipes"); 
+                Con.PrintClickable(1, 14, "Items", ModMakerClicks, "Go Items");
+                Con.PrintClickable(1, 16, "Missions", ModMakerClicks, "Go Missions");
+                Con.PrintClickable(1, 18, "Monsters", ModMakerClicks, "Go Monsters");
+                Con.PrintClickable(1, 20, "NPCs", ModMakerClicks, "Go NPCs");
+                Con.PrintClickable(1, 22, "Skills", ModMakerClicks, "Go Skills");
+                Con.PrintClickable(1, 24, "Artifacts", ModMakerClicks, "Go Artifacts");
+                Con.PrintClickable(1, 26, "Picross", ModMakerClicks, "Go Picross");
+                Con.PrintClickable(1, 28, "Tiles", ModMakerClicks, "Go Tiles");
+                Con.PrintClickable(1, 30, "Maps", ModMakerClicks, "Go Maps");
 
-                ModConsole.Print(1, 44, UploadText);
+                Con.Print(1, 44, UploadText);
 
                 if (ModSubSelect == "Overview") {
-                    ModConsole.Print(21, 1, "Listen.", Color.Coral);
-                    ModConsole.Print(21, 2, "I tried to make a whole built-in mod thing, I really did.", Color.SkyBlue);
-                    ModConsole.Print(21, 3, "But there's so much data attached to everything that ", Color.Coral);
-                    ModConsole.Print(21, 4, "it's just not feasible to have all of it packed in here.", Color.SkyBlue);
-                    ModConsole.Print(21, 6, "So instead, this menu is mostly documentation for how to", Color.Coral);
-                    ModConsole.Print(21, 7, "define each type of data, and then tools to pack it up.", Color.SkyBlue);
+                    Con.Print(21, 1, "Listen.", Color.Coral);
+                    Con.Print(21, 2, "I tried to make a whole built-in mod thing, I really did.", Color.SkyBlue);
+                    Con.Print(21, 3, "But there's so much data attached to everything that ", Color.Coral);
+                    Con.Print(21, 4, "it's just not feasible to have all of it packed in here.", Color.SkyBlue);
+                    Con.Print(21, 6, "So instead, this menu is mostly documentation for how to", Color.Coral);
+                    Con.Print(21, 7, "define each type of data, and then tools to pack it up.", Color.SkyBlue);
 
-                    ModConsole.PrintClickable(21, 10, new ColoredString("Click this and type to enter the Workshop Title:", SelectedField == 2 ? Color.Yellow : Color.DarkSlateGray, Color.Black), ModMakerClicks, "SelectWorkshopTitle");
-                    ModConsole.Print(21, 11, CurrentMod.Metadata.WorkshopTitle);
+                    Con.PrintClickable(21, 10, new ColoredString("Click this and type to enter the Workshop Title:", SelectedField == 2 ? Color.Yellow : Color.DarkSlateGray, Color.Black), ModMakerClicks, "SelectWorkshopTitle");
+                    Con.Print(21, 11, CurrentMod.Metadata.WorkshopTitle);
 
-                    ModConsole.PrintClickable(21, 13, new ColoredString("Click this and type to enter the Package ID:", SelectedField == 1 ? Color.Yellow : Color.DarkSlateGray, Color.Black), ModMakerClicks, "SelectPackage");
-                    ModConsole.Print(21, 14, CurrentMod.Metadata.Package);
+                    Con.PrintClickable(21, 13, new ColoredString("Click this and type to enter the Package ID:", SelectedField == 1 ? Color.Yellow : Color.DarkSlateGray, Color.Black), ModMakerClicks, "SelectPackage");
+                    Con.Print(21, 14, CurrentMod.Metadata.Package);
 
-                    ModConsole.PrintClickable(21, 17, new ColoredString("Click this and type to enter the Workshop Description:", SelectedField == 3 ? Color.Yellow : Color.DarkSlateGray, Color.Black), ModMakerClicks, "SelectWorkshopDesc");
+                    Con.PrintClickable(21, 17, new ColoredString("Click this and type to enter the Workshop Description:", SelectedField == 3 ? Color.Yellow : Color.DarkSlateGray, Color.Black), ModMakerClicks, "SelectWorkshopDesc");
 
                     string[] allDescLines = CurrentMod.Metadata.WorkshopDesc.Split((char)10);
 
                     for (int i = 0; i < allDescLines.Length; i++) { 
-                        ModConsole.Print(21, 18 + i, allDescLines[i]);
+                        Con.Print(21, 18 + i, allDescLines[i]);
                     } 
 
-                    ModConsole.PrintClickable(21, 25, new ColoredString("Click this and type to enter the Update Changelog:", SelectedField == 4 ? Color.Yellow : Color.DarkSlateGray, Color.Black), ModMakerClicks, "SelectChangelog");
+                    Con.PrintClickable(21, 25, new ColoredString("Click this and type to enter the Update Changelog:", SelectedField == 4 ? Color.Yellow : Color.DarkSlateGray, Color.Black), ModMakerClicks, "SelectChangelog");
                     string[] allChangelogLines = CurrentChangelog.Split((char)10);
 
                     for (int i = 0; i < allChangelogLines.Length; i++) {
-                        ModConsole.Print(21, 26 + i, allChangelogLines[i]);
+                        Con.Print(21, 26 + i, allChangelogLines[i]);
                     }
                 }
 
 
                 else if (ModSubSelect == "Constructible") {
-                    ModConsole.Print(21, 1, "Constructibles: Furniture or tiles you can place using Construction", Color.Teal);
-                    ModConsole.Print(21, 4, "Easy Fields: (Fields that don't require much extra work to set)", Color.DarkSlateGray);
-                    ModConsole.Print(21, 5, "  - Name: The name of the construction in the construction menu.", Color.Coral);
-                    ModConsole.Print(21, 7, "  - Package: An identifier for things from your mod/mods.", Color.SkyBlue);
-                    ModConsole.Print(21, 9, "  - Materials: A brief string with the material requirements if the", Color.Coral);
-                    ModConsole.Print(21, 10, "               player doesn't have all the materials when building.", Color.Coral);
-                    ModConsole.Print(21, 12, "  - Glyph: The glyph index, in the core font sheet, of the tile.", Color.SkyBlue);
-                    ModConsole.Print(21, 14, "  - ForegroundR: The red value of the tile's RGB color.", Color.DarkRed);
-                    ModConsole.Print(21, 16, "  - ForegroundG: The green value of the tile's RGB color.", Color.DarkGreen);
-                    ModConsole.Print(21, 18, "  - ForegroundB: The blue value of the tile's RGB color.", Color.CadetBlue);
-                    ModConsole.Print(21, 20, "  - RequiredLevel: The Construction level required to build this.", Color.Coral);
-                    ModConsole.Print(21, 22, "  - ExpGranted: The amount of experience granted for building.", Color.SkyBlue);
-                    ModConsole.Print(21, 24, "  - BlocksMove: Whether or not the tile blocks player movement.", Color.Coral);
-                    ModConsole.Print(21, 26, "  - BlocksLOS: Whether or not the tile blocks player vision.", Color.SkyBlue);
-                    ModConsole.Print(21, 28, "  - Furniture: Only furniture can be built in apartments", Color.Coral);
-                    ModConsole.Print(21, 32, "Hard Fields: (Fields that require a bit of extra work)", Color.DarkSlateGray);
-                    ModConsole.Print(21, 33, "  - " + new ColoredString("Dec: Decorators are rendered OVER the main tile to add detail.", Color.DarkSlateBlue, Color.Black));
-                    ModConsole.Print(21, 34, "  -  -     " + new ColoredString("R: The red value of the decorator.", Color.DarkRed, Color.Black));
-                    ModConsole.Print(21, 35, "  -  -     " + new ColoredString("G: The green value of the decorator.", Color.DarkGreen, Color.Black));
-                    ModConsole.Print(21, 36, "  -  -     " + new ColoredString("B: The blue value of the decorator.", Color.CadetBlue, Color.Black));
-                    ModConsole.Print(21, 37, "  -  - Glyph: The symbol the decorator draws over the main glyph.", Color.SkyBlue);
-                    ModConsole.Print(21, 39, "  - " + new ColoredString("MaterialsNeeded: A detailed list of all ingredients needed.", Color.DarkSlateBlue, Color.Black));
-                    ModConsole.Print(21, 40, "  -  - ID: The specific ID (package:name) of the material.", Color.Coral);
-                    ModConsole.Print(21, 41, "  -  - ItemQuantity: The amount of this item needed per tile.", Color.SkyBlue);
+                    Con.Print(21, 1, "Constructibles: Furniture or tiles you can place using Construction", Color.Teal);
+                    Con.Print(21, 4, "Easy Fields: (Fields that don't require much extra work to set)", Color.DarkSlateGray);
+                    Con.Print(21, 5, "  - Name: The name of the construction in the construction menu.", Color.Coral);
+                    Con.Print(21, 7, "  - Package: An identifier for things from your mod/mods.", Color.SkyBlue);
+                    Con.Print(21, 9, "  - Materials: A brief string with the material requirements if the", Color.Coral);
+                    Con.Print(21, 10, "               player doesn't have all the materials when building.", Color.Coral);
+                    Con.Print(21, 12, "  - Glyph: The glyph index, in the core font sheet, of the tile.", Color.SkyBlue);
+                    Con.Print(21, 14, "  - ForegroundR: The red value of the tile's RGB color.", Color.DarkRed);
+                    Con.Print(21, 16, "  - ForegroundG: The green value of the tile's RGB color.", Color.DarkGreen);
+                    Con.Print(21, 18, "  - ForegroundB: The blue value of the tile's RGB color.", Color.CadetBlue);
+                    Con.Print(21, 20, "  - RequiredLevel: The Construction level required to build this.", Color.Coral);
+                    Con.Print(21, 22, "  - ExpGranted: The amount of experience granted for building.", Color.SkyBlue);
+                    Con.Print(21, 24, "  - BlocksMove: Whether or not the tile blocks player movement.", Color.Coral);
+                    Con.Print(21, 26, "  - BlocksLOS: Whether or not the tile blocks player vision.", Color.SkyBlue);
+                    Con.Print(21, 28, "  - Furniture: Only furniture can be built in apartments", Color.Coral);
+                    Con.Print(21, 32, "Hard Fields: (Fields that require a bit of extra work)", Color.DarkSlateGray);
+                    Con.Print(21, 33, "  - " + new ColoredString("Dec: Decorators are rendered OVER the main tile to add detail.", Color.DarkSlateBlue, Color.Black));
+                    Con.Print(21, 34, "  -  -     " + new ColoredString("R: The red value of the decorator.", Color.DarkRed, Color.Black));
+                    Con.Print(21, 35, "  -  -     " + new ColoredString("G: The green value of the decorator.", Color.DarkGreen, Color.Black));
+                    Con.Print(21, 36, "  -  -     " + new ColoredString("B: The blue value of the decorator.", Color.CadetBlue, Color.Black));
+                    Con.Print(21, 37, "  -  - Glyph: The symbol the decorator draws over the main glyph.", Color.SkyBlue);
+                    Con.Print(21, 39, "  - " + new ColoredString("MaterialsNeeded: A detailed list of all ingredients needed.", Color.DarkSlateBlue, Color.Black));
+                    Con.Print(21, 40, "  -  - ID: The specific ID (package:name) of the material.", Color.Coral);
+                    Con.Print(21, 41, "  -  - ItemQuantity: The amount of this item needed per tile.", Color.SkyBlue);
                 }
 
 
@@ -508,12 +462,12 @@ namespace LofiHollow.UI {
                     Lines.Add(new("  - - Property: The name of the tag on the material", Color.Coral, Color.Black));
                     Lines.Add(new("  - - Tier: The required tool tier for an item to qualify.", Color.SkyBlue, Color.Black));
 
-                    ModConsole.Print(21, 1, "Recipes: Definitions for crafting items via the crafting menu.", Color.Teal);
+                    Con.Print(21, 1, "Recipes: Definitions for crafting items via the crafting menu.", Color.Teal);
 
 
                     for (int i = DocumentationTop; i < DocumentationTop + 46 && i < Lines.Count; i++) {
                         int line = i - DocumentationTop;
-                        ModConsole.Print(21, 3 + line, Lines[i]);
+                        Con.Print(21, 3 + line, Lines[i]);
                     }
                 }
                  
@@ -613,11 +567,11 @@ namespace LofiHollow.UI {
                     Lines.Add(new("( Don't set Photo, SoulPhoto, or Artifact. These are for )", Color.DarkSlateBlue, Color.Black));
                     Lines.Add(new("( internal assigning and saving/loading )", Color.DarkSlateBlue, Color.Black));
 
-                    ModConsole.Print(21, 1, "Items: Definitions for items you can hold and use.", Color.Teal); 
+                    Con.Print(21, 1, "Items: Definitions for items you can hold and use.", Color.Teal); 
 
                     for (int i = DocumentationTop; i < DocumentationTop + 46 && i < Lines.Count; i++) {
                         int line = i - DocumentationTop;
-                        ModConsole.Print(21, 3 + line, Lines[i]);
+                        Con.Print(21, 3 + line, Lines[i]);
                     }
                 }
 
@@ -630,11 +584,11 @@ namespace LofiHollow.UI {
                     Lines.Add(new("- Chapter: Which chapter the mission show up under in the log", Color.Coral, Color.Black));
 
 
-                    ModConsole.Print(21, 1, "Missions: Story quests for the player to complete", Color.Teal);
+                    Con.Print(21, 1, "Missions: Story quests for the player to complete", Color.Teal);
 
                     for (int i = DocumentationTop; i < DocumentationTop + 46 && i < Lines.Count; i++) {
                         int line = i - DocumentationTop;
-                        ModConsole.Print(21, 3 + line, Lines[i]);
+                        Con.Print(21, 3 + line, Lines[i]);
                     }
                 }
 
@@ -664,39 +618,39 @@ namespace LofiHollow.UI {
                     Lines.Add(new ColoredString("- ") + new ColoredString("ForegroundG: The green value of the monster's RGB color.", Color.DarkGreen, Color.Black));
                     Lines.Add(new ColoredString("- ") + new ColoredString("ForegroundB: The blue value of the monster's RGB color.", Color.CadetBlue, Color.Black));
                     Lines.Add(new("- ActorGlyph: A letter that the monster uses for appearance (format: 'h')", Color.SkyBlue, Color.Black));
-                    ModConsole.Print(21, 1, "Missions: Story quests for the player to complete", Color.Teal);
+                    Con.Print(21, 1, "Missions: Story quests for the player to complete", Color.Teal);
 
                     for (int i = DocumentationTop; i < DocumentationTop + 46 && i < Lines.Count; i++) {
                         int line = i - DocumentationTop;
-                        ModConsole.Print(21, 3 + line, Lines[i]);
+                        Con.Print(21, 3 + line, Lines[i]);
                     }
                 }
 
                 else if (ModSubSelect == "NPC") {
-                    ModConsole.Print(21, 1, "NPC");
+                    Con.Print(21, 1, "NPC");
                 }
 
                 else if (ModSubSelect == "Skill") {
-                    ModConsole.Print(21, 1, "Skills: Self explanatory, literally one field.", Color.Teal);
-                    ModConsole.Print(21, 4, " - Name: The name of the skill"); 
+                    Con.Print(21, 1, "Skills: Self explanatory, literally one field.", Color.Teal);
+                    Con.Print(21, 4, " - Name: The name of the skill"); 
                 }
 
                 else if (ModSubSelect == "Artifact") {
-                    ModConsole.Print(22, 1, "You'll have to edit a lot of this data externally too.");
-                    ModConsole.Print(22, 3, "Name: " + CurrentMod.ModArtifacts[ModItemIndex].Name, SelectedField == 2 ? Color.Yellow : Color.White);
-                    ModConsole.Print(22, 5, "Glyph: " + CurrentGlyphIndex.AsString(), new Color(PaintR, PaintG, PaintB));
-                    ModConsole.Print(22, 7, "ForeR: " + PaintR);
-                    ModConsole.Print(22, 9, "ForeG: " + PaintG);
-                    ModConsole.Print(22, 11, "ForeB: " + PaintB);
+                    Con.Print(22, 1, "You'll have to edit a lot of this data externally too.");
+                    Con.Print(22, 3, "Name: " + CurrentMod.ModArtifacts[ModItemIndex].Name, SelectedField == 2 ? Color.Yellow : Color.White);
+                    Con.Print(22, 5, "Glyph: " + CurrentGlyphIndex.AsString(), new Color(PaintR, PaintG, PaintB));
+                    Con.Print(22, 7, "ForeR: " + PaintR);
+                    Con.Print(22, 9, "ForeG: " + PaintG);
+                    Con.Print(22, 11, "ForeB: " + PaintB);
 
 
-                    Helper.DrawBox(ModConsole, 49, 4, 30, 30);
+                    Helper.DrawBox(Con, 49, 4, 30, 30);
 
                     Dictionary<Color, int> ColorsUsed = new();
 
                     for (int x = 0; x < 30; x++) {
                         for (int y = 0; y < 30; y++) {
-                            ModConsole.Print(50 + x, 5 + y, CurrentMod.ModArtifacts[ModItemIndex].Tiles[x + (y * 30)].GetAppearance());
+                            Con.Print(50 + x, 5 + y, CurrentMod.ModArtifacts[ModItemIndex].Tiles[x + (y * 30)].GetAppearance());
 
                             ArchTile archTile = CurrentMod.ModArtifacts[ModItemIndex].Tiles[x + (y * 30)];
                             Color archColor = new Color(archTile.ForeR, archTile.ForeG, archTile.ForeB);
@@ -710,8 +664,8 @@ namespace LofiHollow.UI {
                     for (int i = 0; i < 400; i++) {
                         int x = i % 32;
                         int y = i / 32;
-                        Color col = i == CurrentGlyphIndex ? Color.Lime : mousePos == new Point(49 + x, 36 + y) ? Color.Yellow : Color.White;
-                        ModConsole.PrintClickable(49 + x, 36 + y, new ColoredString(i.AsString(), col, Color.Black), SetGlyph, i.ToString());
+                        Color col = i == CurrentGlyphIndex ? Color.Lime : Color.White;
+                        Con.PrintClickable(49 + x, 36 + y, new ColoredString(i.AsString(), col, Color.Black), SetGlyph, i.ToString());
                         
                     }
 
@@ -720,35 +674,35 @@ namespace LofiHollow.UI {
                     foreach (KeyValuePair<Color, int> kv in ColorsUsed) {
                         string TileCount = kv.Value.ToString();
                         string col = kv.Key.R + "," + kv.Key.G + "," + kv.Key.B;
-                        ModConsole.PrintClickable(21, line, new ColoredString(col, kv.Key, Color.Black) + ": " + TileCount, PicrossColorMemory, col);
+                        Con.PrintClickable(21, line, new ColoredString(col, kv.Key, Color.Black) + ": " + TileCount, PicrossColorMemory, col);
                         line++;
                     }
                 }
 
                 else if (ModSubSelect == "Picross") {
-                    ModConsole.Print(22, 1, "Clues are generated automatically during play.");
-                    ModConsole.Print(22, 3, "Name: " + CurrentMod.ModPicross[ModItemIndex].Name, SelectedField == 2 ? Color.Yellow : Color.White);
-                    ModConsole.Print(22, 5, "Difficulty: ");
+                    Con.Print(22, 1, "Clues are generated automatically during play.");
+                    Con.Print(22, 3, "Name: " + CurrentMod.ModPicross[ModItemIndex].Name, SelectedField == 2 ? Color.Yellow : Color.White);
+                    Con.Print(22, 5, "Difficulty: ");
 
                     string diff = CurrentMod.ModPicross[ModItemIndex].Difficulty;
-                    ModConsole.PrintClickable(34, 5, new ColoredString("E", diff == "Easy" ? Color.Lime : Color.White, Color.Black), ModMakerClicks, "PicrossEasy");
-                    ModConsole.PrintClickable(36, 5, new ColoredString("M", diff == "Medium" ? Color.Yellow : Color.White, Color.Black), ModMakerClicks, "PicrossMedium");
-                    ModConsole.PrintClickable(38, 5, new ColoredString("H", diff == "Hard" ? Color.Red : Color.White, Color.Black), ModMakerClicks, "PicrossHard");
+                    Con.PrintClickable(34, 5, new ColoredString("E", diff == "Easy" ? Color.Lime : Color.White, Color.Black), ModMakerClicks, "PicrossEasy");
+                    Con.PrintClickable(36, 5, new ColoredString("M", diff == "Medium" ? Color.Yellow : Color.White, Color.Black), ModMakerClicks, "PicrossMedium");
+                    Con.PrintClickable(38, 5, new ColoredString("H", diff == "Hard" ? Color.Red : Color.White, Color.Black), ModMakerClicks, "PicrossHard");
 
-                    ModConsole.Print(22, 7, "ForeR: " + PaintR);
-                    ModConsole.Print(22, 9, "ForeG: " + PaintG);
-                    ModConsole.Print(22, 11, "ForeB: " + PaintB);
+                    Con.Print(22, 7, "ForeR: " + PaintR);
+                    Con.Print(22, 9, "ForeG: " + PaintG);
+                    Con.Print(22, 11, "ForeB: " + PaintB);
 
-                    ModConsole.PrintClickable(22, 13, "Playtest Puzzle", ModMakerClicks, "PlaytestPicross");
+                    Con.PrintClickable(22, 13, "Playtest Puzzle", ModMakerClicks, "PlaytestPicross");
                      
-                    Helper.DrawBox(ModConsole, 49, 4, CurrentMod.ModPicross[ModItemIndex].Width, CurrentMod.ModPicross[ModItemIndex].Height);
+                    Helper.DrawBox(Con, 49, 4, CurrentMod.ModPicross[ModItemIndex].Width, CurrentMod.ModPicross[ModItemIndex].Height);
 
                     Dictionary<Color, int> ColorsUsed = new();
 
 
                     for (int x = 0; x < CurrentMod.ModPicross[ModItemIndex].Width; x++) {
                         for (int y = 0; y < CurrentMod.ModPicross[ModItemIndex].Height; y++) {
-                            ModConsole.Print(50 + x, 5 + y, CurrentMod.ModPicross[ModItemIndex].Grid[x + (y * CurrentMod.ModPicross[ModItemIndex].Width)].GetAppearance(true));
+                            Con.Print(50 + x, 5 + y, CurrentMod.ModPicross[ModItemIndex].Grid[x + (y * CurrentMod.ModPicross[ModItemIndex].Width)].GetAppearance(true));
                             PicrossTile thisTile = CurrentMod.ModPicross[ModItemIndex].Grid[x + (y * CurrentMod.ModPicross[ModItemIndex].Width)];
                             if (thisTile.PartOfSolution) {
                                 Color thisColor = new(thisTile.R, thisTile.G, thisTile.B);
@@ -764,77 +718,41 @@ namespace LofiHollow.UI {
                     foreach(KeyValuePair<Color, int> kv in ColorsUsed) {
                         string TileCount = kv.Value.ToString();
                         string col = kv.Key.R + "," + kv.Key.G + "," + kv.Key.B;
-                        ModConsole.PrintClickable(21, line, new ColoredString(col, kv.Key, Color.Black) + ": " + TileCount, PicrossColorMemory, col);
+                        Con.PrintClickable(21, line, new ColoredString(col, kv.Key, Color.Black) + ": " + TileCount, PicrossColorMemory, col);
                         line++;        
                     }
                 }
 
                 else if (ModSubSelect == "Tile") {
 
-                }
+                } 
 
-                else if (ModSubSelect == "Map") {
-                    MinimapTile minimap = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile;
-                    Point3D mapPos = CurrentMod.ModMaps[ModItemIndex].MapPos;
-                    Tile placing = GameLoop.World.tileLibrary.ElementAt(MapEditorTileIndex).Value;
+                Con.PrintClickable(1, 48, "[PACK]", ModMakerClicks, "PackMod");
+                Con.PrintClickable(11, 48, "[UNPACK]", ModMakerClicks, "UnpackMod");
 
-                    ModConsole.PrintClickable(22, 1, new ColoredString("Name: " + minimap.name, SelectedField == 1 ? Color.Yellow : Color.White, Color.Black), ModMakerClicks, "SelectMapName");
-                    ModConsole.Print(22, 3, "Minimap Glyph: " + minimap.ch, minimap.fg, minimap.bg);
-                    ModConsole.Print(22, 4, "FG R: " + minimap.fg.R);
-                    ModConsole.Print(22, 5, "FG G: " + minimap.fg.G);
-                    ModConsole.Print(22, 6, "FG B: " + minimap.fg.B);
-                    ModConsole.DrawLine(new Point(31, 4), new Point(31, 6), 179, Color.DarkSlateGray, Color.Black);
-                    ModConsole.Print(32, 4, "BG R: " + minimap.bg.R);
-                    ModConsole.Print(32, 5, "BG G: " + minimap.bg.G);
-                    ModConsole.Print(32, 6, "BG B: " + minimap.bg.B);
-                    ModConsole.DrawLine(new Point(41, 4), new Point(41, 6), 179, Color.DarkSlateGray, Color.Black);
-                    ModConsole.Print(42, 1, "Map Position: (Z is height)");
-                    ModConsole.PrintClickable(42, 3, new ColoredString("WorldArea: " + mapPos.WorldArea, SelectedField == 2 ? Color.Yellow : Color.White, Color.Black), ModMakerClicks, "SelectWorldArea");
-                    ModConsole.Print(42, 4, "World X: " + mapPos.X);
-                    ModConsole.Print(42, 5, "World Y: " + mapPos.Y);
-                    ModConsole.Print(42, 6, "World Z: " + mapPos.Z);
-
-                    ModConsole.Print(62, 1, "Placing Tile: ");
-                    ModConsole.Print(62, 3, "Name: " + placing.Name);
-                    ModConsole.Print(62, 4, "Appearance: " + placing.AsColoredGlyph());
-
-                    for (int x = 0; x < 70; x++) { 
-                        for (int y = 0; y < 40; y++) {
-                            Tile tile = CurrentMod.ModMaps[ModItemIndex].Map.GetTile(new Point(x, y));
-                            ModConsole.ClearDecorators(x + 23, y + 8, 1);
-                            ModConsole.Print(x + 23, y + 8, tile.AsColoredGlyph());
-                            if (tile.Dec != null)
-                                ModConsole.AddDecorator(x + 23, y + 8, 1, tile.GetDecorator());
-                        }
-                    }
-                }
-
-                ModConsole.PrintClickable(1, 48, "[PACK]", ModMakerClicks, "PackMod");
-                ModConsole.PrintClickable(11, 48, "[UNPACK]", ModMakerClicks, "UnpackMod");
-
-                ModConsole.PrintClickable(1, 46, "[WORKSHOP UPLOAD]", ModMakerClicks, "Upload");
+                Con.PrintClickable(1, 46, "[WORKSHOP UPLOAD]", ModMakerClicks, "Upload");
 
 
                 if (ModSubSelect == "Artifact" || ModSubSelect == "Picross" || ModSubSelect == "Map") {
-                    ModConsole.PrintClickable(21, 48, "Previous", ModMakerClicks, "PreviousItem");
-                    ModConsole.PrintClickable(85, 48, "Next", ModMakerClicks, "NextItem");
+                    Con.PrintClickable(21, 48, "Previous", ModMakerClicks, "PreviousItem");
+                    Con.PrintClickable(85, 48, "Next", ModMakerClicks, "NextItem");
                 }
             }
 
             if (ModMenuSelect == "List") {
-                ModConsole.PrintClickable(1, 1, "[BACK]", ModMakerClicks, "BackToMainMenu");
-                ModConsole.PrintClickable(10, 1, "[NEW]", ModMakerClicks, "CreateNewMod");
+                Con.PrintClickable(1, 1, "[BACK]", ModMakerClicks, "BackToMainMenu");
+                Con.PrintClickable(10, 1, "[NEW]", ModMakerClicks, "CreateNewMod");
 
 
-                ModConsole.Print(1, 3, LocalModList ? "Viewing Local" : "Viewing Workshop");
+                Con.Print(1, 3, LocalModList ? "Viewing Local" : "Viewing Workshop");
                 if (LocalModList)
-                    ModConsole.PrintClickable(1, 4, "[WORKSHOP MODS]", ModMakerClicks, "ToggleLocal");
+                    Con.PrintClickable(1, 4, "[WORKSHOP MODS]", ModMakerClicks, "ToggleLocal");
                 else 
-                    ModConsole.PrintClickable(1, 4, "[LOCAL MODS]", ModMakerClicks, "ToggleLocal");
+                    Con.PrintClickable(1, 4, "[LOCAL MODS]", ModMakerClicks, "ToggleLocal");
 
                 if (!LocalModList) {
-                    ModConsole.Print(1, 6, "Must be in local");
-                    ModConsole.Print(1, 7, "view to edit mods");
+                    Con.Print(1, 6, "Must be in local");
+                    Con.Print(1, 7, "view to edit mods");
                 }
 
                 string path = "./mods/";
@@ -845,125 +763,104 @@ namespace LofiHollow.UI {
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                ModConsole.Print(21, 1, "Mod Name".Align(HorizontalAlignment.Center, 50) + "|" + "Enabled".Align(HorizontalAlignment.Center, 9));
-                ModConsole.DrawLine(new Point(21, 2), new Point(88, 2), 196, Color.White, Color.Black);
+                Con.Print(21, 1, "Mod Name".Align(HorizontalAlignment.Center, 50) + "|" + "Enabled".Align(HorizontalAlignment.Center, 9));
+                Con.DrawLine(new Point(21, 2), new Point(88, 2), 196, Color.White, Color.Black);
 
                 int y = 3;
 
                 foreach (var kv in InstalledMods) {
                     Mod mod = kv.Value;
-                    ModConsole.PrintClickable(75, y, Helper.Checkmark(GameLoop.SteamManager.ModsEnabled.Contains(mod.Metadata.PublishedID.Value)), ToggleClick, mod.Metadata.PublishedID.Value.ToString());
+                    Con.PrintClickable(75, y, Helper.Checkmark(GameLoop.SteamManager.ModsEnabled.Contains(mod.Metadata.PublishedID.Value)), ToggleClick, mod.Metadata.PublishedID.Value.ToString());
 
-                    ModConsole.PrintClickable(21, y, mod.Metadata.WorkshopTitle.Align(HorizontalAlignment.Center, 50), ModMakerClicks, "Load;" + mod.Metadata.WorkshopTitle);
+                    Con.PrintClickable(21, y, mod.Metadata.WorkshopTitle.Align(HorizontalAlignment.Center, 50), ModMakerClicks, "Load;" + mod.Metadata.WorkshopTitle);
 
                     y++;
                 }
             }
 
             if (ModMenuSelect == "Overview") {
-                ModConsole.PrintClickable(1, 1, "[BACK]", ModMakerClicks, "BackToList");
+                Con.PrintClickable(1, 1, "[BACK]", ModMakerClicks, "BackToList");
 
                 if (LocalModList)
-                    ModConsole.PrintClickable(10, 1, "[EDIT]", ModMakerClicks, "ToCreateEdit");
+                    Con.PrintClickable(10, 1, "[EDIT]", ModMakerClicks, "ToCreateEdit");
 
                 if (CurrentMod != null) { 
-                    ModConsole.Print(1, 3, Helper.Truncate(CurrentMod.Metadata.WorkshopTitle, 20));
+                    Con.Print(1, 3, Helper.Truncate(CurrentMod.Metadata.WorkshopTitle, 20));
 
-                    ModConsole.PrintClickable(1, 4, "Back to Overview", ModMakerClicks, "GoOverview");
-
-                    if (CurrentMod.ModConstructs.Count > 0)
-                        ModConsole.PrintClickable(1, 6, "Constructibles", ModMakerClicks, "OverviewConstructs");
-                    else
-                        ModConsole.Print(1, 6, new ColoredString("Constructibles", Color.DarkSlateGray, Color.Black));
-
-                    if (CurrentMod.ModRecipes.Count > 0)
-                        ModConsole.PrintClickable(1, 8, "Recipes", ModMakerClicks, "OverviewRecipes");
-                    else
-                        ModConsole.Print(1, 8, new ColoredString("Crafting Recipes", Color.DarkSlateGray, Color.Black));
-
-                    if (CurrentMod.ModRecipes.Count > 0)
-                        ModConsole.PrintClickable(1, 10, "Scripts", ModMakerClicks, "OverviewScripts");
-                    else
-                        ModConsole.Print(1, 10, new ColoredString("Scripts", Color.DarkSlateGray, Color.Black));
+                    Con.PrintClickable(1, 4, "Back to Overview", ModMakerClicks, "GoOverview");
+                     
 
                     if (CurrentMod.ModItems.Count > 0)
-                        ModConsole.PrintClickable(1, 12, "Items", ModMakerClicks, "OverviewItems");
+                        Con.PrintClickable(1, 12, "Items", ModMakerClicks, "OverviewItems");
                     else
-                        ModConsole.Print(1, 12, new ColoredString("Items", Color.DarkSlateGray, Color.Black));
-
-                    if (CurrentMod.ModMissions.Count > 0)
-                        ModConsole.PrintClickable(1, 14, "Missions", ModMakerClicks, "OverviewMissions");
-                    else
-                        ModConsole.Print(1, 14, new ColoredString("Missions", Color.DarkSlateGray, Color.Black));
+                        Con.Print(1, 12, new ColoredString("Items", Color.DarkSlateGray, Color.Black));
+                     
 
                     if (CurrentMod.ModMonsters.Count > 0)
-                        ModConsole.PrintClickable(1, 16, "Monsters", ModMakerClicks, "OverviewMonsters");
+                        Con.PrintClickable(1, 16, "Monsters", ModMakerClicks, "OverviewMonsters");
                     else
-                        ModConsole.Print(1, 16, new ColoredString("Monsters", Color.DarkSlateGray, Color.Black));
+                        Con.Print(1, 16, new ColoredString("Monsters", Color.DarkSlateGray, Color.Black));
 
                     if (CurrentMod.ModNPCs.Count > 0)
-                        ModConsole.PrintClickable(1, 18, "NPCs", ModMakerClicks, "OverviewNPCs");
+                        Con.PrintClickable(1, 18, "NPCs", ModMakerClicks, "OverviewNPCs");
                     else
-                        ModConsole.Print(1, 18, new ColoredString("NPCs", Color.DarkSlateGray, Color.Black));
+                        Con.Print(1, 18, new ColoredString("NPCs", Color.DarkSlateGray, Color.Black));
 
                     if (CurrentMod.ModSkills.Count > 0)
-                        ModConsole.PrintClickable(1, 20, "Skills", ModMakerClicks, "OverviewSkills");
+                        Con.PrintClickable(1, 20, "Skills", ModMakerClicks, "OverviewSkills");
                     else
-                        ModConsole.Print(1, 20, new ColoredString("Skills", Color.DarkSlateGray, Color.Black));
+                        Con.Print(1, 20, new ColoredString("Skills", Color.DarkSlateGray, Color.Black));
 
                     if (CurrentMod.ModArtifacts.Count > 0)
-                        ModConsole.PrintClickable(1, 22, "Artifacts", ModMakerClicks, "OverviewArtifacts");
+                        Con.PrintClickable(1, 22, "Artifacts", ModMakerClicks, "OverviewArtifacts");
                     else
-                        ModConsole.Print(1, 22, new ColoredString("Artifacts", Color.DarkSlateGray, Color.Black));
+                        Con.Print(1, 22, new ColoredString("Artifacts", Color.DarkSlateGray, Color.Black));
 
                     if (CurrentMod.ModPicross.Count > 0)
-                        ModConsole.PrintClickable(1, 24, "Picross", ModMakerClicks, "OverviewPicross");
+                        Con.PrintClickable(1, 24, "Picross", ModMakerClicks, "OverviewPicross");
                     else
-                        ModConsole.Print(1, 24, new ColoredString("Picross", Color.DarkSlateGray, Color.Black));
+                        Con.Print(1, 24, new ColoredString("Picross", Color.DarkSlateGray, Color.Black));
 
 
                     if (ModSubSelect == "None" || ModSubSelect == "Overview") {
-                        ModConsole.Print(21, 1, "  Mod Name: " + CurrentMod.Metadata.WorkshopTitle);
-                        ModConsole.Print(21, 3, "Mod Prefix: " + CurrentMod.Metadata.Package);
+                        Con.Print(21, 1, "  Mod Name: " + CurrentMod.Metadata.WorkshopTitle);
+                        Con.Print(21, 3, "Mod Prefix: " + CurrentMod.Metadata.Package);
 
                         ColoredString check = new ColoredString(4.AsString(), Color.Lime, Color.Black);
                         if (!CurrentMod.Enabled)
                             check = new ColoredString("x", Color.Red, Color.Black);
-                        ModConsole.Print(21, 5, "Enabled: ");
-                        ModConsole.PrintClickable(30, 5, check, ToggleClick, CurrentMod.Metadata.PublishedID.Value.ToString());
-
-                        ModConsole.Print(21, 8, "Constructibles Added: " + CurrentMod.ModConstructs.Count);
-                        ModConsole.Print(21, 10, "Crafting Recipes Added: " + CurrentMod.ModRecipes.Count);
-                        ModConsole.Print(21, 12, "Scripts Added: " + CurrentMod.ModScripts.Count);
-                        ModConsole.Print(21, 14, "Items Added: " + CurrentMod.ModItems.Count);
-                        ModConsole.Print(21, 16, "Missions Added: " + CurrentMod.ModMissions.Count);
-                        ModConsole.Print(21, 18, "Monsters Added: " + CurrentMod.ModMonsters.Count);
-                        ModConsole.Print(21, 20, "NPCs Added: " + CurrentMod.ModNPCs.Count);
-                        ModConsole.Print(21, 22, "Skills Added: " + CurrentMod.ModSkills.Count);
-                        ModConsole.Print(21, 24, "Artifacts Added: " + CurrentMod.ModArtifacts.Count);
-                        ModConsole.Print(21, 26, "Picross Puzzles Added: " + CurrentMod.ModPicross.Count); 
+                        Con.Print(21, 5, "Enabled: ");
+                        Con.PrintClickable(30, 5, check, ToggleClick, CurrentMod.Metadata.PublishedID.Value.ToString());
+                         
+                        Con.Print(21, 12, "Scripts Added: " + CurrentMod.ModScripts.Count);
+                        Con.Print(21, 14, "Items Added: " + CurrentMod.ModItems.Count); 
+                        Con.Print(21, 18, "Monsters Added: " + CurrentMod.ModMonsters.Count);
+                        Con.Print(21, 20, "NPCs Added: " + CurrentMod.ModNPCs.Count);
+                        Con.Print(21, 22, "Skills Added: " + CurrentMod.ModSkills.Count);
+                        Con.Print(21, 24, "Artifacts Added: " + CurrentMod.ModArtifacts.Count);
+                        Con.Print(21, 26, "Picross Puzzles Added: " + CurrentMod.ModPicross.Count); 
                     }
                     else if (ModSubSelect == "Artifact") {
-                        Helper.DrawBox(ModConsole, 22, 4, 30, 30);
+                        Helper.DrawBox(Con, 22, 4, 30, 30);
 
-                        ModConsole.Print(21, 1, new ColoredString("Name: ", Color.DarkSlateGray, Color.Black) + new ColoredString(CurrentMod.ModArtifacts[ModItemIndex].Name, Color.White, Color.Black));
+                        Con.Print(21, 1, new ColoredString("Name: ", Color.DarkSlateGray, Color.Black) + new ColoredString(CurrentMod.ModArtifacts[ModItemIndex].Name, Color.White, Color.Black));
 
                         for (int x = 0; x < 30; x++) {
                             for (int y = 0; y < 30; y++) {
-                                ModConsole.Print(23 + x, 5 + y, CurrentMod.ModArtifacts[ModItemIndex].Tiles[x + (y * 30)].GetAppearance()); 
+                                Con.Print(23 + x, 5 + y, CurrentMod.ModArtifacts[ModItemIndex].Tiles[x + (y * 30)].GetAppearance()); 
                             }
                         }
                     }
                     else if (ModSubSelect == "Picross") {
-                        ModConsole.Print(21, 1, new ColoredString("Name: ", Color.DarkSlateGray, Color.Black) + new ColoredString(CurrentMod.ModPicross[ModItemIndex].Name, Color.White, Color.Black));
-                        ModConsole.Print(21, 2, new ColoredString("Difficulty: ", Color.DarkSlateGray, Color.Black) + new ColoredString(CurrentMod.ModPicross[ModItemIndex].Difficulty, Color.White, Color.Black));
+                        Con.Print(21, 1, new ColoredString("Name: ", Color.DarkSlateGray, Color.Black) + new ColoredString(CurrentMod.ModPicross[ModItemIndex].Name, Color.White, Color.Black));
+                        Con.Print(21, 2, new ColoredString("Difficulty: ", Color.DarkSlateGray, Color.Black) + new ColoredString(CurrentMod.ModPicross[ModItemIndex].Difficulty, Color.White, Color.Black));
 
 
-                        Helper.DrawBox(ModConsole, 22, 4, CurrentMod.ModPicross[ModItemIndex].Width, CurrentMod.ModPicross[ModItemIndex].Height);
+                        Helper.DrawBox(Con, 22, 4, CurrentMod.ModPicross[ModItemIndex].Width, CurrentMod.ModPicross[ModItemIndex].Height);
                          
                         for (int x = 0; x < CurrentMod.ModPicross[ModItemIndex].Width; x++) {
                             for (int y = 0; y < CurrentMod.ModPicross[ModItemIndex].Height; y++) {
-                                ModConsole.Print(23 + x, 5 + y, CurrentMod.ModPicross[ModItemIndex].Grid[x + (y * CurrentMod.ModPicross[ModItemIndex].Width)].GetAppearance(true));
+                                Con.Print(23 + x, 5 + y, CurrentMod.ModPicross[ModItemIndex].Grid[x + (y * CurrentMod.ModPicross[ModItemIndex].Width)].GetAppearance(true));
                                 PicrossTile thisTile = CurrentMod.ModPicross[ModItemIndex].Grid[x + (y * CurrentMod.ModPicross[ModItemIndex].Width)]; 
                             }
                         }
@@ -971,16 +868,7 @@ namespace LofiHollow.UI {
                 }
             }
 
-        }
-
-        public void MapEditorClicks(string ID) {
-            string[] split = ID.Split(",");
-            int x = Int32.Parse(split[0]);
-            int y = Int32.Parse(split[1]);
-            Tile tile = GameLoop.World.tileLibrary.ElementAt(MapEditorTileIndex).Value;
-
-            CurrentMod.ModMaps[ModItemIndex].Map.SetTile(new Point(x, y), tile);
-        }
+        } 
 
         public void PicrossColorMemory(string ID) {
             string[] split = ID.Split(",");
@@ -996,7 +884,7 @@ namespace LofiHollow.UI {
         }
 
         public void Input() {
-            Point mousePos = new MouseScreenObjectState(ModConsole, GameHost.Instance.Mouse).CellPosition;
+            Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
             if (CurrentMod != null && ModMenuSelect == "Create") {
                 foreach (var key in GameHost.Instance.Keyboard.KeysPressed) {
@@ -1025,258 +913,29 @@ namespace LofiHollow.UI {
                     if (mousePos.Y == 5 && mousePos.X < 20)
                         SelectedField = 1;
                 }
-
-                if (ModMenuSelect == "Create" && ModSubSelect == "Map") {
-                    Point mapMouse = mousePos - new Point(23, 8);
-
-                    if (mapMouse.X >= 0 && mapMouse.Y >= 0 && mapMouse.X < 70 && mapMouse.Y < 40) {
-                        if (GameHost.Instance.Mouse.LeftButtonDown) { 
-                            Tile tile = GameLoop.World.tileLibrary.ElementAt(MapEditorTileIndex).Value;
-
-                            CurrentMod.ModMaps[ModItemIndex].Map.SetTile(new Point(mapMouse.X, mapMouse.Y), tile);
-                        }
-
-                        if (GameHost.Instance.Mouse.RightClicked) {
-                            Tile tile = CurrentMod.ModMaps[ModItemIndex].Map.GetTile(mapMouse);
-                            if (GameLoop.World.tileLibrary.ContainsKey(tile.FullName())) {
-                                var tileList = GameLoop.World.tileLibrary.ToList();
-                                for (int i = 0; i < tileList.Count; i++) {
-                                    if (tileList[i].Key == tile.FullName()) {
-                                        MapEditorTileIndex = i;
-                                    }
-                                } 
-                            }
-                        }
-                    }
-
-
-                    if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
-                        if (mousePos.X >= 62) {
-                            if (GameLoop.EitherShift())
-                                MapEditorTileIndex = (char)Math.Clamp(MapEditorTileIndex + 10, 0, GameLoop.World.tileLibrary.Count - 1);
-                            else
-                                MapEditorTileIndex = (char)Math.Clamp(MapEditorTileIndex + 1, 0, GameLoop.World.tileLibrary.Count - 1);
-                        }
-
-
-                        if (mousePos.Y == 3) {
-                            if (mousePos.X >= 21 && mousePos.X <= 31) {
-                                if (!GameLoop.EitherShift())
-                                    CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.ch = (char) Math.Clamp(CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.ch + 10, 0, 400);
-                                else
-                                    CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.ch = (char) Math.Clamp(CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.ch + 1, 0, 400);
-                            }
-                        }
-                        else if (mousePos.Y == 4) {
-                            if (mousePos.X >= 21 && mousePos.X <= 31) {
-                                int fgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.R;
-                                int fgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.G;
-                                int fgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.B;
-                                if (!GameLoop.EitherShift())
-                                    fgR = Math.Clamp(fgR + 10, 0, 255);
-                                else
-                                    fgR = Math.Clamp(fgR + 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg = new Color(fgR, fgG, fgB);
-                            }
-                            else if (mousePos.X >= 32 && mousePos.X <= 41) {
-                                int bgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.R;
-                                int bgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.G;
-                                int bgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.B;
-                                if (!GameLoop.EitherShift())
-                                    bgR = Math.Clamp(bgR + 10, 0, 255);
-                                else
-                                    bgR = Math.Clamp(bgR + 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg = new Color(bgR, bgG, bgB);
-                            }
-                            else if (mousePos.X >= 42 && mousePos.X <= 61) {
-                                if (!GameLoop.EitherShift())
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.X += 10;
-                                else
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.X += 1;
-                            }
-                        }
-                        else if (mousePos.Y == 5) {
-                            if (mousePos.X >= 21 && mousePos.X <= 31) {
-                                int fgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.R;
-                                int fgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.G;
-                                int fgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.B;
-                                if (!GameLoop.EitherShift())
-                                    fgG = Math.Clamp(fgG + 10, 0, 255);
-                                else
-                                    fgG = Math.Clamp(fgG + 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg = new Color(fgR, fgG, fgB);
-                            }
-                            else if (mousePos.X >= 32 && mousePos.X <= 41) {
-                                int bgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.R;
-                                int bgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.G;
-                                int bgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.B;
-                                if (!GameLoop.EitherShift())
-                                    bgG = Math.Clamp(bgG + 10, 0, 255);
-                                else
-                                    bgG = Math.Clamp(bgG + 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg = new Color(bgR, bgG, bgB);
-                            }
-                            else if (mousePos.X >= 42 && mousePos.X <= 61) {
-                                if (!GameLoop.EitherShift())
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.Y += 10;
-                                else
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.Y += 1;
-                            }
-                        }
-                        else if (mousePos.Y == 6) {
-                            if (mousePos.X >= 21 && mousePos.X <= 31) {
-                                int fgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.R;
-                                int fgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.G;
-                                int fgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.B;
-                                if (!GameLoop.EitherShift())
-                                    fgB = Math.Clamp(fgB + 10, 0, 255);
-                                else
-                                    fgB = Math.Clamp(fgB + 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg = new Color(fgR, fgG, fgB);
-                            }
-                            else if (mousePos.X >= 32 && mousePos.X <= 41) {
-                                int bgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.R;
-                                int bgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.G;
-                                int bgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.B;
-                                if (!GameLoop.EitherShift())
-                                    bgB = Math.Clamp(bgB + 10, 0, 255);
-                                else
-                                    bgB = Math.Clamp(bgB + 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg = new Color(bgR, bgG, bgB);
-                            }
-                            else if (mousePos.X >= 42 && mousePos.X <= 61) {
-                                if (!GameLoop.EitherShift())
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.Z += 10;
-                                else
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.Z += 1;
-                            }
-                        }
-                    }
-                    else if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
-                        if (mousePos.X >= 62) {
-                            if (GameLoop.EitherShift())
-                                MapEditorTileIndex = (char)Math.Clamp(MapEditorTileIndex - 10, 0, GameLoop.World.tileLibrary.Count - 1);
-                            else
-                                MapEditorTileIndex = (char)Math.Clamp(MapEditorTileIndex - 1, 0, GameLoop.World.tileLibrary.Count - 1);
-                        }
-
-                        if (mousePos.Y == 3) {
-                            if (mousePos.X >= 21 && mousePos.X <= 31) {
-                                if (!GameLoop.EitherShift())
-                                    CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.ch = (char)Math.Clamp(CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.ch - 10, 0, 400);
-                                else
-                                    CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.ch = (char)Math.Clamp(CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.ch - 1, 0, 400);
-                            }
-                        }
-                        else if (mousePos.Y == 4) {
-                            if (mousePos.X >= 21 && mousePos.X <= 31) {
-                                int fgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.R;
-                                int fgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.G;
-                                int fgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.B;
-                                if (!GameLoop.EitherShift())
-                                    fgR = Math.Clamp(fgR - 10, 0, 255);
-                                else
-                                    fgR = Math.Clamp(fgR - 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg = new Color(fgR, fgG, fgB);
-                            }
-                            else if (mousePos.X >= 32 && mousePos.X <= 41) {
-                                int bgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.R;
-                                int bgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.G;
-                                int bgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.B;
-                                if (!GameLoop.EitherShift())
-                                    bgR = Math.Clamp(bgR - 10, 0, 255);
-                                else
-                                    bgR = Math.Clamp(bgR - 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg = new Color(bgR, bgG, bgB);
-                            }
-                            else if (mousePos.X >= 42 && mousePos.X <= 61) {
-                                if (!GameLoop.EitherShift())
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.X -= 10;
-                                else
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.X -= 1;
-                            }
-                        }
-                        else if (mousePos.Y == 5) {
-                            if (mousePos.X >= 21 && mousePos.X <= 31) {
-                                int fgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.R;
-                                int fgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.G;
-                                int fgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.B;
-                                if (!GameLoop.EitherShift())
-                                    fgG = Math.Clamp(fgG - 10, 0, 255);
-                                else
-                                    fgG = Math.Clamp(fgG - 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg = new Color(fgR, fgG, fgB);
-                            }
-                            else if (mousePos.X >= 32 && mousePos.X <= 41) {
-                                int bgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.R;
-                                int bgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.G;
-                                int bgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.B;
-                                if (!GameLoop.EitherShift())
-                                    bgG = Math.Clamp(bgG - 10, 0, 255);
-                                else
-                                    bgG = Math.Clamp(bgG - 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg = new Color(bgR, bgG, bgB);
-                            }
-                            else if (mousePos.X >= 42 && mousePos.X <= 61) {
-                                if (!GameLoop.EitherShift())
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.Y -= 10;
-                                else
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.Y -= 1;
-                            }
-                        }
-                        else if (mousePos.Y == 6) {
-                            if (mousePos.X >= 21 && mousePos.X <= 31) {
-                                int fgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.R;
-                                int fgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.G;
-                                int fgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg.B;
-                                if (!GameLoop.EitherShift())
-                                    fgB = Math.Clamp(fgB - 10, 0, 255);
-                                else
-                                    fgB = Math.Clamp(fgB - 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.fg = new Color(fgR, fgG, fgB);
-                            }
-                            else if (mousePos.X >= 32 && mousePos.X <= 41) {
-                                int bgR = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.R;
-                                int bgG = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.G;
-                                int bgB = CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg.B;
-                                if (!GameLoop.EitherShift())
-                                    bgB = Math.Clamp(bgB - 10, 0, 255);
-                                else
-                                    bgB = Math.Clamp(bgB - 1, 0, 255);
-                                CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.bg = new Color(bgR, bgG, bgB);
-                            }
-                            else if (mousePos.X >= 42 && mousePos.X <= 61) {
-                                if (!GameLoop.EitherShift())
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.Z -= 10;
-                                else
-                                    CurrentMod.ModMaps[ModItemIndex].MapPos.Z -= 1;
-                            }
-                        }
-                    }
-                }
-
+                 
                 if (ModMenuSelect == "Create" && ModSubSelect == "Artifact") {
                     if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
                         if (mousePos.Y == 5) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 CurrentGlyphIndex = Math.Clamp(CurrentGlyphIndex + 10, 0, 400);
                             else
                                 CurrentGlyphIndex = Math.Clamp(CurrentGlyphIndex + 1, 0, 400);
                         }
                         else if (mousePos.Y == 7) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintR = Math.Clamp(PaintR + 10, 0, 255);
                             else
                                 PaintR = Math.Clamp(PaintR + 1, 0, 255);
                         }
                         else if (mousePos.Y == 9) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintG = Math.Clamp(PaintG + 10, 0, 255);
                             else
                                 PaintG = Math.Clamp(PaintG + 1, 0, 255);
                         }
                         else if (mousePos.Y == 11) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintB = Math.Clamp(PaintB + 10, 0, 255);
                             else
                                 PaintB = Math.Clamp(PaintB + 1, 0, 255);
@@ -1284,25 +943,25 @@ namespace LofiHollow.UI {
                     }
                     else if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
                         if (mousePos.Y == 5) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 CurrentGlyphIndex = Math.Clamp(CurrentGlyphIndex - 10, 0, 400);
                             else
                                 CurrentGlyphIndex = Math.Clamp(CurrentGlyphIndex - 1, 0, 400);
                         }
                         else if (mousePos.Y == 7) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintR = Math.Clamp(PaintR - 10, 0, 255);
                             else
                                 PaintR = Math.Clamp(PaintR - 1, 0, 255);
                         }
                         else if (mousePos.Y == 9) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintG = Math.Clamp(PaintG - 10, 0, 255);
                             else
                                 PaintG = Math.Clamp(PaintG - 1, 0, 255);
                         }
                         else if (mousePos.Y == 11) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintB = Math.Clamp(PaintB - 10, 0, 255);
                             else
                                 PaintB = Math.Clamp(PaintB - 1, 0, 255);
@@ -1366,19 +1025,19 @@ namespace LofiHollow.UI {
                 if (ModMenuSelect == "Create" && ModSubSelect == "Picross") {
                     if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
                         if (mousePos.Y == 7) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintR = Math.Clamp(PaintR + 10, 0, 255);
                             else
                                 PaintR = Math.Clamp(PaintR + 1, 0, 255);
                         }
                         else if (mousePos.Y == 9) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintG = Math.Clamp(PaintG + 10, 0, 255);
                             else
                                 PaintG = Math.Clamp(PaintG + 1, 0, 255);
                         }
                         else if (mousePos.Y == 11) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintB = Math.Clamp(PaintB + 10, 0, 255);
                             else
                                 PaintB = Math.Clamp(PaintB + 1, 0, 255);
@@ -1386,19 +1045,19 @@ namespace LofiHollow.UI {
                     }
                     else if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
                         if (mousePos.Y == 7) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintR = Math.Clamp(PaintR - 10, 0, 255);
                             else
                                 PaintR = Math.Clamp(PaintR - 1, 0, 255);
                         }
                         else if (mousePos.Y == 9) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintG = Math.Clamp(PaintG - 10, 0, 255);
                             else
                                 PaintG = Math.Clamp(PaintG - 1, 0, 255);
                         }
                         else if (mousePos.Y == 11) {
-                            if (!GameLoop.EitherShift())
+                            if (!Helper.EitherShift())
                                 PaintB = Math.Clamp(PaintB - 10, 0, 255);
                             else
                                 PaintB = Math.Clamp(PaintB - 1, 0, 255);
@@ -1484,28 +1143,16 @@ namespace LofiHollow.UI {
 
                 for (int i = 0; i < CurrentMod.ModArtifacts.Count; i++) {
                     CurrentMod.ModArtifacts[i].Package = CurrentMod.Metadata.Package;
-                }
-
-                for (int i = 0; i < CurrentMod.ModConstructs.Count; i++) {
-                    CurrentMod.ModConstructs[i].Package = CurrentMod.Metadata.Package;
-                }
+                } 
 
                 for (int i = 0; i < CurrentMod.ModItems.Count; i++) {
                     CurrentMod.ModItems[i].Package = CurrentMod.Metadata.Package;
-                }
-
-                for (int i = 0; i < CurrentMod.ModMissions.Count; i++) {
-                    CurrentMod.ModMissions[i].Package = CurrentMod.Metadata.Package;
-                }
+                } 
 
                 for (int i = 0; i < CurrentMod.ModMonsters.Count; i++) {
                     CurrentMod.ModMonsters[i].Package = CurrentMod.Metadata.Package;
                 }
-
-                for (int i = 0; i < CurrentMod.ModNPCs.Count; i++) {
-                    CurrentMod.ModNPCs[i].Package = CurrentMod.Metadata.Package;
-                }
-
+                 
                 for (int i = 0; i < CurrentMod.ModPicross.Count; i++) {
                     CurrentMod.ModPicross[i].Package = CurrentMod.Metadata.Package;
                 } 
@@ -1513,10 +1160,7 @@ namespace LofiHollow.UI {
                 for (int i = 0; i < CurrentMod.ModScripts.Count; i++) {
                     CurrentMod.ModScripts[i].Package = CurrentMod.Metadata.Package;
                 }
-
-                for (int i = 0; i < CurrentMod.ModTiles.Count; i++) {
-                    CurrentMod.ModTiles[i].Package = CurrentMod.Metadata.Package;
-                }
+                 
 
 
 
@@ -1534,34 +1178,17 @@ namespace LofiHollow.UI {
         }
 
         public void UnpackMod() {
-            if (CurrentMod != null) {
-                Directory.CreateDirectory("./sandbox/constructibles/");
-                for (int i = 0; i < CurrentMod.ModConstructs.Count; i++) {
-                    string path = "./sandbox/constructibles/" + CurrentMod.ModConstructs[i].Name + ".dat";
-                    Helper.SerializeToFile(CurrentMod.ModConstructs[i], path);
-                }
+            if (CurrentMod != null) { 
 
                 Directory.CreateDirectory("./sandbox/items/");
                 for (int i = 0; i < CurrentMod.ModItems.Count; i++) {
                     string path = "./sandbox/items/" + CurrentMod.ModItems[i].Name + ".dat";
                     Helper.SerializeToFile(CurrentMod.ModItems[i], path);
-                }
-
-                Directory.CreateDirectory("./sandbox/maps/");
-                for (int i = 0; i < CurrentMod.ModMaps.Count; i++) {
-                    string path = "./sandbox/maps/" + CurrentMod.ModMaps[i].MapPos + ".dat";
-                    Helper.SerializeToFile(CurrentMod.ModMaps[i], path);
-                }
-
-                Directory.CreateDirectory("./sandbox/missions/");
-                for (int i = 0; i < CurrentMod.ModMissions.Count; i++) {
-                    string path = "./sandbox/missions/" + CurrentMod.ModMissions[i].Name + ".dat";
-                    Helper.SerializeToFile(CurrentMod.ModMissions[i], path);
-                }
+                } 
 
                 Directory.CreateDirectory("./sandbox/monsters/");
                 for (int i = 0; i < CurrentMod.ModMonsters.Count; i++) {
-                    string path = "./sandbox/monsters/" + CurrentMod.ModMonsters[i].Species + ".dat";
+                    string path = "./sandbox/monsters/" + CurrentMod.ModMonsters[i].Name + ".dat";
                     Helper.SerializeToFile(CurrentMod.ModMonsters[i], path);
                 }
 
@@ -1570,12 +1197,7 @@ namespace LofiHollow.UI {
                     string path = "./sandbox/npcs/" + CurrentMod.ModNPCs[i].Name + ".dat";
                     Helper.SerializeToFile(CurrentMod.ModNPCs[i], path);
                 }
-
-                Directory.CreateDirectory("./sandbox/recipes/");
-                for (int i = 0; i < CurrentMod.ModRecipes.Count; i++) {
-                    string path = "./sandbox/recipes/" + CurrentMod.ModRecipes[i].Name + ".dat";
-                    Helper.SerializeToFile(CurrentMod.ModRecipes[i], path);
-                }
+                 
 
                 Directory.CreateDirectory("./sandbox/artifacts/");
                 for (int i = 0; i < CurrentMod.ModArtifacts.Count; i++) {
@@ -1602,13 +1224,7 @@ namespace LofiHollow.UI {
                 for (int i = 0; i < CurrentMod.ModSkills.Count; i++) {
                     string path = "./sandbox/skills/" + CurrentMod.ModSkills[i].Name + ".dat";
                     Helper.SerializeToFile(CurrentMod.ModSkills[i], path);
-                }
-
-                Directory.CreateDirectory("./sandbox/tiles/");
-                for (int i = 0; i < CurrentMod.ModTiles.Count; i++) {
-                    string path = "./sandbox/tiles/" + CurrentMod.ModTiles[i].Name + ".dat";
-                    Helper.SerializeToFile(CurrentMod.ModTiles[i], path);
-                }
+                } 
 
                 string metaPath = "./sandbox/metadata.dat";
                 Helper.SerializeToFile(CurrentMod.Metadata, metaPath);
@@ -1617,16 +1233,7 @@ namespace LofiHollow.UI {
 
         public void PackMod() {
             Mod load = new();
-
-            if (Directory.Exists("./sandbox/constructibles/")) {
-                string[] files = Directory.GetFiles("./sandbox/constructibles/"); 
-                foreach (string fileName in files) {
-                    string json = File.ReadAllText(fileName);
-                    var item = JsonConvert.DeserializeObject<Constructible>(json);
-                    load.ModConstructs.Add(item);
-                }
-            }
-
+              
             if (Directory.Exists("./sandbox/items/")) {
                 string[] files = Directory.GetFiles("./sandbox/items/");
                 foreach (string fileName in files) {
@@ -1634,25 +1241,7 @@ namespace LofiHollow.UI {
                     var item = JsonConvert.DeserializeObject<Item>(json);
                     load.ModItems.Add(item);
                 }
-            }
-
-            if (Directory.Exists("./sandbox/maps/")) {
-                string[] files = Directory.GetFiles("./sandbox/maps/");
-                foreach (string fileName in files) {
-                    string json = File.ReadAllText(fileName);
-                    var item = JsonConvert.DeserializeObject<ModMap>(json);
-                    load.ModMaps.Add(item);
-                }
-            }
-
-            if (Directory.Exists("./sandbox/missions/")) {
-                string[] files = Directory.GetFiles("./sandbox/missions/");
-                foreach (string fileName in files) {
-                    string json = File.ReadAllText(fileName);
-                    var item = JsonConvert.DeserializeObject<Mission>(json);
-                    load.ModMissions.Add(item);
-                }
-            }
+            } 
 
             if (Directory.Exists("./sandbox/monsters/")) {
                 string[] files = Directory.GetFiles("./sandbox/monsters/");
@@ -1671,15 +1260,7 @@ namespace LofiHollow.UI {
                     load.ModNPCs.Add(item);
                 }
             }
-
-            if (Directory.Exists("./sandbox/recipes/")) {
-                string[] files = Directory.GetFiles("./sandbox/recipes/");
-                foreach (string fileName in files) {
-                    string json = File.ReadAllText(fileName);
-                    var item = JsonConvert.DeserializeObject<CraftingRecipe>(json);
-                    load.ModRecipes.Add(item);
-                }
-            }
+             
 
             if (Directory.Exists("./sandbox/artifacts/")) {
                 string[] files = Directory.GetFiles("./sandbox/artifacts/");
@@ -1719,16 +1300,7 @@ namespace LofiHollow.UI {
                     var item = JsonConvert.DeserializeObject<Skill>(json);
                     load.ModSkills.Add(item);
                 }
-            }
-
-            if (Directory.Exists("./sandbox/tiles/")) {
-                string[] files = Directory.GetFiles("./sandbox/tiles/");
-                foreach (string fileName in files) {
-                    string json = File.ReadAllText(fileName);
-                    var item = JsonConvert.DeserializeObject<Tile>(json);
-                    load.ModTiles.Add(item);
-                }
-            }
+            } 
 
             string metaPath = "./sandbox/metadata.dat";
             string metaJson = File.ReadAllText(metaPath);
@@ -1754,11 +1326,7 @@ namespace LofiHollow.UI {
                     else if (SelectedField == 2 && ModSubSelect == "Artifact")
                         RemoveOneCharacter(ref CurrentMod.ModArtifacts[ModItemIndex].Name);
                     else if (SelectedField == 2 && ModSubSelect == "Picross")
-                        RemoveOneCharacter(ref CurrentMod.ModPicross[ModItemIndex].Name);
-                    else if (SelectedField == 1 && ModSubSelect == "Map")
-                        RemoveOneCharacter(ref CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.name);
-                    else if (SelectedField == 2 && ModSubSelect == "Map")
-                        RemoveOneCharacter(ref CurrentMod.ModMaps[ModItemIndex].MapPos.WorldArea);
+                        RemoveOneCharacter(ref CurrentMod.ModPicross[ModItemIndex].Name); 
                 } else { 
                     if (SelectedField == 1 && ModSubSelect == "Overview")
                         CurrentMod.Metadata.Package += add;
@@ -1771,11 +1339,7 @@ namespace LofiHollow.UI {
                     else if (SelectedField == 2 && ModSubSelect == "Artifact")
                         CurrentMod.ModArtifacts[ModItemIndex].Name += add;
                     else if (SelectedField == 2 && ModSubSelect == "Picross")
-                        CurrentMod.ModPicross[ModItemIndex].Name += add;
-                    else if (SelectedField == 1 && ModSubSelect == "Map")
-                        CurrentMod.ModMaps[ModItemIndex].Map.MinimapTile.name += add;
-                    else if (SelectedField == 2 && ModSubSelect == "Map")
-                        CurrentMod.ModMaps[ModItemIndex].MapPos.WorldArea += add;
+                        CurrentMod.ModPicross[ModItemIndex].Name += add; 
                 }
             }
         }

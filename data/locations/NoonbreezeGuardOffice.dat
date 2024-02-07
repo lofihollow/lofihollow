@@ -1,0 +1,37 @@
+{
+  "ID": "NoonbreezeGuardOffice",
+  "DisplayName": "Noonbreeze Guard Office",
+  "Description": "    The cramped office set into the wall is surprisingly spartan. A small desk sits slightly offset from the middle of the room, and a board of job postings hangs on one of the walls, while a poster on the wall directly across from the door proclaims 'Join the Noonbreeze Guard! Defend our town from the forces of evil!'. ",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeSouthGate",
+      "Direction": "Door",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true,
+  "InDevLottery": false
+}

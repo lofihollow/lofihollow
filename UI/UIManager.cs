@@ -11,48 +11,34 @@ using LofiHollow.Entities;
 using Steamworks;
 using LofiHollow.Minigames.Electronics;
 using SadConsole.Input;
+using System.Linq;
 
 namespace LofiHollow.UI {
     public class UIManager : ScreenObject {
         public SadConsole.UI.Colors CustomColors;
-
-        public UI_DialogueWindow DialogueWindow;
+         
         public UI_Sidebar Sidebar; 
-        public UI_MainMenu MainMenu;
-        public UI_Inventory Inventory;
-        public UI_Map Map;
+        public UI_MenuBackdrop MenuBackdrop;
+        public UI_Inventory Inventory; 
         public UI_Skills Skills;
-        public UI_Minigame Minigames;
-        public UI_Construction Construction;
-        public UI_Crafting Crafting;
-        public UI_Container Container;
-        public UI_Help Help;
-        public UI_MissionLog MissionLog;
-        public UI_Photo Photo;
-        public UI_Teleport Teleport; 
-        public UI_Security Security;
-        public UI_ScriptMini ScriptMini;
-        public UI_Combat Combat;
-        public UI_Feedback Feedback;
-        public UI_Multiplayer Multiplayer;
+        public UI_Minigame Minigames; 
+        public UI_Help Help; 
+        public UI_ScriptMini ScriptMini;  
         public UI_Nametag Nametag;
         public UI_Options Options;
-        public UI_AdventurerBoard AdventurerBoard;
+        public UI_Navigation Nav;
+        public UI_MessageLog MsgLog;
+
+        public UI_MainMenu MainMenu;
+        public UI_CharGen CharGen;
+        public UI_LoadFile LoadFile;
+        public UI_FakeStart FakeStart;
+        public UI_MapEditor MapEditor;
+        
         public GamePocket GamePocket;
-          
-        public SadConsole.Console SignConsole;
-        public SadConsole.Console MessageConsole;
-        public Window SignWindow; 
-        public string signText = "";
 
-        public List<DecoratedString> MessageLog = new();
-        public int MessageLogTop = 0;
 
-        public Point targetDir = new(0, 0); 
-        public string targetType = "None";
-        public string selectedMenu = "None";
-        public bool flying = false;
-        public int RunTicks = 0;
+        public Dictionary<string, InstantUI> Interfaces = new();  
 
         public bool clientAndConnected = true;
          
@@ -62,455 +48,159 @@ namespace LofiHollow.UI {
             Parent = GameHost.Instance.Screen;
         }
 
-        public void AddMsg(string msg) { MessageLog.Add(new(new ColoredString(msg))); MessageLogTop = MessageLog.Count - 1; }
-        public void AddMsg(ColoredString msg) { MessageLog.Add(new(msg)); MessageLogTop = MessageLog.Count - 1; }
-        public void AddMsg(DecoratedString msg) { MessageLog.Add(msg); MessageLogTop = MessageLog.Count - 1; }
+        public InstantUI? GetUI(string name) {
+            if (Interfaces.ContainsKey(name))
+                return Interfaces[name];
+            return null;
+        }
+
+        public void ToggleUI(string name) {
+            if (Interfaces.ContainsKey(name)) {
+                Interfaces[name].Win.IsVisible = !Interfaces[name].Win.IsVisible;
+
+                if (Interfaces[name].Win.IsVisible) {
+                    Interfaces[name].Win.IsFocused = true;
+                } 
+            }
+        }
+
+
+        public void AddMsg(string msg) { MsgLog.Log.Add(new(new ColoredString(msg))); MsgLog.Top = MsgLog.Log.Count - 1; }
+        public void AddMsg(ColoredString msg) { MsgLog.Log.Add(new(msg)); MsgLog.Top = MsgLog.Log.Count - 1; }
+        public void AddMsg(DecoratedString msg) { MsgLog.Log.Add(msg); MsgLog.Top = MsgLog.Log.Count - 1; }
 
         public override void Update(TimeSpan timeElapsed) {
-            if (clientAndConnected) {
-                if (MainMenu.MainMenuWindow.IsVisible && selectedMenu != "Minigame") {
-                    MainMenu.RenderMainMenu();
-                    MainMenu.CaptureMainMenuClicks();
-                } else {
-                    if (GameLoop.World != null && GameLoop.World.DoneInitializing) {
-                        Sidebar.RenderSidebar();
-                        RenderMessageLog();
-                    }
-
-                    if (selectedMenu == "Inventory") {
-                        Inventory.Render();
-                        Inventory.Input();
-                    } else if (selectedMenu == "Map Editor") {
-                        Sidebar.MapEditorInput();
-                    } else if (selectedMenu == "Skills") {
-                        Skills.Render();
-                        Skills.Input();
-                    } else if (selectedMenu == "Minigame") {
-                        Minigames.Render();
-                        Minigames.Input();
-                    } else if (selectedMenu == "Construction") {
-                        Construction.Render();
-                        Construction.Input();
-                    } else if (selectedMenu == "Crafting") {
-                        Crafting.Render();
-                        Crafting.Input();
-                    } else if (selectedMenu == "Container") {
-                        Container.Render();
-                        Container.Input();
-                    } else if (selectedMenu == "Help") {
-                        Help.Render();
-                        Help.Input();
-                    } else if (selectedMenu == "MissionLog") {
-                        MissionLog.Render();
-                        MissionLog.Input();
-                    } else if (selectedMenu == "Photo") {
-                        Photo.Render();
-                        Photo.Input();
-                    } else if (selectedMenu == "Teleport") {
-                        Teleport.Render();
-                        Teleport.Input();
-                    } else if (selectedMenu == "Security") {
-                        Security.Render();
-                        Security.Input();
-                    } else if (selectedMenu == "ScriptMini") {
-                        ScriptMini.Render();
-                        ScriptMini.Input();
-                    } else if (selectedMenu == "Combat") {
-                        Combat.Render();
-                        Combat.Input();
-                    }
-                    else if (selectedMenu == "Feedback") {
-                        Feedback.Render();
-                        Feedback.Input();
-                    } 
-                    else if (selectedMenu == "Multiplayer") {
-                        Multiplayer.Render();
-                        Multiplayer.Input();
-                    }
-                    else if (selectedMenu == "Map Editor") {
-                        Sidebar.RenderSidebar();
-                        Sidebar.MapEditorInput();
-                    }
-                    else if (selectedMenu == "Nametag") {
-                        Nametag.Render();
-                        Nametag.Input();
-                    }
-                    else if (selectedMenu == "Options") {
-                        Options.Render();
-                        Options.Input();
-                    }
-                    else if (selectedMenu == "AdventurerBoard") {
-                        AdventurerBoard.Render();
-                        AdventurerBoard.Input();
-                    }
-                    else if (selectedMenu == "GamePocket") {
-                        GamePocket.Render();
-                        GamePocket.Input();
-                    }
-                    else {
-                        if (selectedMenu != "Dialogue") {
-                            if (selectedMenu == "Sign")
-                                RenderSign();
-                            CheckFall(); 
-                            CheckKeyboard();
-                            Sidebar.SidebarInput(); 
-                            Map.UpdateNPCs();
-
-                        } else {
-                            DialogueWindow.Render();
-                            DialogueWindow.Input();
-                        }
-                    }
-
-                    Map.RenderOverlays();
+            foreach (KeyValuePair<string, InstantUI> kv in Interfaces) {
+                if (kv.Value.Win.IsVisible) {
+                    kv.Value.Update();
+                    kv.Value.Input();
+                    kv.Value.Win.IsFocused = true;
                 }
-            } 
-            
+            }
+
+            CheckKeyboard();
+            Helper.ClearKeys();
             base.Update(timeElapsed);
-        } 
+        }
 
         public void Init() {
             SetupCustomColors();
+             
+            Sidebar = new UI_Sidebar(40, GameLoop.GameHeight); 
 
-            Map = new UI_Map(72, 42);
-            Sidebar = new UI_Sidebar(28, GameLoop.GameHeight, ""); 
-            Inventory = new UI_Inventory(GameLoop.GameWidth / 2, GameLoop.GameHeight / 2, "");
-            CreateSignWindow((GameLoop.MapWidth / 2) - 1, GameLoop.MapHeight / 2, "");
+            Inventory = new UI_Inventory(GameLoop.GameWidth / 2, GameLoop.GameHeight / 2, ""); 
+             
+            MenuBackdrop = new UI_MenuBackdrop();
+            MainMenu = new UI_MainMenu(20, 28);
+            CharGen = new UI_CharGen(102, 42);
+            LoadFile = new UI_LoadFile(20, 28);
+            FakeStart = new UI_FakeStart(50, 10);
 
-            DialogueWindow = new UI_DialogueWindow(72, 42, ""); 
-            MainMenu = new UI_MainMenu();
-            Skills = new UI_Skills(72, 42, "[SKILLS]");
-            Minigames = new UI_Minigame(72, 42, "");
-            Construction = new UI_Construction(72, 42, "");
-            Crafting = new UI_Crafting(72, 42, "");
-            Container = new UI_Container(75, 29, "");
-            Help = new UI_Help(72, 42, "");
-            MissionLog = new UI_MissionLog(72, 42, "");
-            Photo = new UI_Photo(31, 31, "");
-            Teleport = new UI_Teleport(72, 42, "Where to?");
-            Security = new UI_Security(72, 42, "Security Panel"); 
-            ScriptMini = new UI_ScriptMini(72, 42, "");
-            Combat = new UI_Combat(72, 52, "");
-            Feedback = new UI_Feedback(72, 42, "");
-            Multiplayer = new UI_Multiplayer(15, 7, "Lobby Code");
-            Nametag = new UI_Nametag(20, 5, "Name Tag");
+
+            Skills = new UI_Skills(72, 42, "Skills");
+            Minigames = new UI_Minigame(72, 42, "Minigames"); 
+            Help = new UI_Help(72, 42, "Help");  
+            ScriptMini = new UI_ScriptMini(72, 42, "ScriptMini");  
+            Nametag = new UI_Nametag(20, 5, "Nametag");
             Options = new UI_Options(72, 42, "Options");
             GamePocket = new GamePocket(34, 50, "GamePocket");
-            AdventurerBoard = new(51, 31, "Adventurer Tasks");
 
-            MessageConsole = new(72, 18);
-            Children.Add(MessageConsole);
-            MessageConsole.Position = new Point(0, 42);
+            Nav = new UI_Navigation(143, 40);
+            MsgLog = new UI_MessageLog(143, 20);
+            MapEditor = new UI_MapEditor(80, 20);
 
-            UseMouse = true;
-            selectedMenu = "MainMenu";
+            UseMouse = true; 
+
+            MainMenu.Win.Position += new Point(0, 4);
+            ToggleUI("MainMenu"); 
         } 
 
-        private void CheckKeyboard() {
-            if (selectedMenu != "Sign") {  
-                if (GameLoop.World.Player.TimeLastActed + (80) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W) && GameLoop.EitherShift() && GameLoop.World.Player.CurrentStamina > 1) { 
-                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1));
-                        RunTicks++;
 
-                        if (RunTicks > 5) {
-                            GameLoop.World.Player.ExpendStamina(1);
-                            GameLoop.World.Player.GrantExp("Agility", 10);
-                            RunTicks = 0;
-                        }
-
-                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                        Map.UpdateVision(); 
-                    }
-                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S) && GameLoop.EitherShift() && GameLoop.World.Player.CurrentStamina > 1) { 
-                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
-                        RunTicks++;
-
-                        if (RunTicks > 5) {
-                            GameLoop.World.Player.ExpendStamina(1);
-                            GameLoop.World.Player.GrantExp("Agility", 10);
-                            RunTicks = 0;
-                        }
-
-                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                        Map.UpdateVision(); 
-                    }
-                    
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A) && GameLoop.EitherShift() && GameLoop.World.Player.CurrentStamina > 1) { 
-                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
-                        RunTicks++;
-
-                        if (RunTicks > 5) {
-                            GameLoop.World.Player.ExpendStamina(1);
-                            GameLoop.World.Player.GrantExp("Agility", 10);
-                            RunTicks = 0;
-                        }
-
-                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                        Map.UpdateVision(); 
-                    }
-                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D) && GameLoop.EitherShift() && GameLoop.World.Player.CurrentStamina > 1) { 
-                        CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
-                        RunTicks++;
-
-                        if (RunTicks > 5) {
-                            GameLoop.World.Player.ExpendStamina(1);
-                            GameLoop.World.Player.GrantExp("Agility", 10);
-                            RunTicks = 0;
-                        }
-
-                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                        Map.UpdateVision(); 
-                    }
+        public void HandleMenuChange(bool toMainMenu) {
+            if (toMainMenu) {
+                foreach (var kv in Interfaces) {
+                    kv.Value.Win.IsVisible = false;
                 }
 
-                if (GameLoop.World.Player.TimeLastActed + (120) < SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds) {
-
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.W)) {
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1)); 
-                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                        Map.UpdateVision();
-                    }
-                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.S)) { 
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
-                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                        Map.UpdateVision();
-                    }
-                    
-                    if (GameHost.Instance.Keyboard.IsKeyDown(Key.A)) { 
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
-                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                        Map.UpdateVision();
-                    }
-                    else if (GameHost.Instance.Keyboard.IsKeyDown(Key.D)) { 
-                            CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
-                        GameLoop.World.Player.TimeLastActed = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds;
-                        Map.UpdateVision();
-                    }
+                
+                MenuBackdrop.MenuBackdrop.IsVisible = true;
+                MenuBackdrop.MenuBackdrop.IsFocused = true;
+                
+            } else {
+                foreach (var kv in Interfaces) {
+                    kv.Value.Win.IsVisible = false;
                 }
 
+                ToggleUI("Navigation");
+                ToggleUI("MessageLog");
+                ToggleUI("Sidebar");
+                MenuBackdrop.MenuBackdrop.IsVisible = false;
+            }
 
-                if (GameLoop.EitherShift() && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemPeriod)) {
-                    Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
+        }
 
-                    if (map != null) {
-                        if (map.GetTile(GameLoop.World.Player.Position).Name == "Down Stairs") {
-                            CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, -1));
-                            Map.UpdateVision();
-                        } else if (map.GetTile(GameLoop.World.Player.Position).Name == "Mine Entrance") {
-                            selectedMenu = "Minigame";
-                            GameLoop.World.Player.MineEnteredAt = GameLoop.World.Player.Position;
-                            Minigames.MineManager.MiningSetup(map.GetTile(GameLoop.World.Player.Position).MiscString);
-                            if (GameLoop.SingleOrHosting())
-                                Minigames.ToggleMinigame("Mining");
-                            else
-                                AddMsg("Receiving mine data from host, please wait.");
-                        } else if (map.GetTile(GameLoop.World.Player.Position).Name == "Bed") {
-                            if ((GameLoop.World.Player.MapPos == new Point3D("Overworld", -1, 0, 0) && GameLoop.CheckFlag("farm")) || BuildManager.CanBuildHere(map.MinimapTile.name, true)) {
-                                AddMsg(new ColoredString("You lie down to sleep...", Color.Green, Color.Black));
-                                GameLoop.World.Player.Sleeping = true;
 
-                                NetMsg sleep = new("sleep");
-                                sleep.Flag = true;
-                                GameLoop.SendMessageIfNeeded(sleep, false, true);
-                            }
-
-                            if (GameLoop.World.Player.MapPos == new Point3D("Overworld", 1, 1, 1)) {
-                                if (GameLoop.World.Player.InnDays > 0 || GameLoop.World.Player.CheckRel("Ash") >= 50) {
-                                    AddMsg(new ColoredString("You lie down to sleep...", Color.Green, Color.Black));
-                                    GameLoop.World.Player.Sleeping = true;
-
-                                    NetMsg sleep = new("sleep");
-                                    sleep.Flag = true;
-                                    GameLoop.SendMessageIfNeeded(sleep, false, true);
-                                } else {
-                                    AddMsg(new ColoredString("You should probably pay for the room first.", Color.Red, Color.Black));
-                                }
-                            }
-                        }
-                    }
+        private void CheckKeyboard() { 
+            if (GameLoop.DevMode) {
+                if (Helper.HotkeyDown(Key.F2)) {
+                    ToggleUI("MapEditor");
                 }
 
-                if (GameLoop.EitherShift() && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemComma)) {
-                    Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos); 
-                    if (map != null) {
-                        if (map.GetTile(GameLoop.World.Player.Position).Name == "Up Stairs") {
-                            CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, 1));
-                            Map.UpdateVision();
-                        }
-                    }
+                if (Helper.HotkeyDown(Key.F3)) {
+                    List<KeyValuePair<string, Location>> locs = GameLoop.World.atlas.ToList();
+                     
+                    Location randomLoc = locs[GameLoop.rand.Next(locs.Count - 1)].Value;
+
+                    while (!randomLoc.InDevLottery) {
+                        randomLoc = locs[GameLoop.rand.Next(locs.Count - 1)].Value;
+                    } 
+
+                    AddMsg(randomLoc.DisplayName);
+                    GameLoop.World.Player.NavLoc = randomLoc.ID;
                 }
 
-                if (GameLoop.EitherShift() && GameHost.Instance.Keyboard.IsKeyPressed(Key.OemQuestion)) {
+                if (Helper.HotkeyDown(Key.F8)) {
+                    GameLoop.World.Player.Zeri += 100;
+                }
+            }
+
+            if (!MapEditor.Win.IsVisible) {
+
+                if (Helper.EitherShift() && Helper.HotkeyDown(Key.OemQuestion)) {
                     Help.ToggleHelp("Hotkeys");
                     GameLoop.SoundManager.PlaySound("openGuide");
                 }
 
 
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.I)) {
-                    Inventory.Toggle();
+                if (Helper.HotkeyDown(Key.I)) {
+                    ToggleUI("Inventory");
                     GameLoop.SoundManager.PlaySound("openGuide");
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.K)) { 
+                if (Helper.HotkeyDown(Key.K)) {
                     GameLoop.SteamManager.PullSkillBoards();
-                    Skills.Toggle();
+                    ToggleUI("Skills");
                     GameLoop.SoundManager.PlaySound("openGuide");
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Q)) {
-                    MissionLog.Toggle();
+                if (Helper.HotkeyDown(Key.Q)) {
+                    ToggleUI("Missions");
                     GameLoop.SoundManager.PlaySound("openGuide");
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.G)) {
-                    CommandManager.PickupItem(GameLoop.World.Player);
-                }
-
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.C)) {
-                    Crafting.SetupCrafting("Crafting", "None", 1);
-                }  
-
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.F8)) {
-                    Feedback.Toggle();
-                }  
-
-
-                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F1)) {
+                if (Helper.HotkeyDown(Key.F1)) {
                     Help.ToggleHelp("Guide");
                     GameLoop.SoundManager.PlaySound("openGuide");
-                } 
-
-                if (GameHost.Instance.Keyboard.IsKeyReleased(Key.OemTilde)) {
-                    Multiplayer.Toggle();
                 }
 
-                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.Escape)) {
-                    Options.Toggle();
-                }
-
-
-
-                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.OemPlus)) {
-                    Map.ZoomIn();
-                }
-
-                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.OemMinus)) {
-                    Map.ZoomOut();
-                }
-
-
-                if (GameHost.Instance.Keyboard.IsKeyPressed(Key.F2)) {
-                    Combat.Toggle();
-                    Combat.StartCombat("Field", 1, 5); 
-                } 
-            } else if (selectedMenu == "Sign") {
-                if (GameHost.Instance.Keyboard.HasKeysPressed) {
-                    selectedMenu = "None";
-                    SignWindow.IsVisible = false;
-                    Map.MapConsole.IsFocused = true;
-                }
-            } 
-        }
-
-        public void LogClicks(string ID) {
-            if (ID == "top") {
-                MessageLogTop = MessageLog.Count - 1;
-            }
-
-            else if (ID == "bottom") {
-                MessageLogTop = Math.Max(MessageLog.Count - 16, 0);
-            }
-        }
-
-
-        public void RenderMessageLog() { 
-            Point mousePos = new MouseScreenObjectState(MessageConsole, GameHost.Instance.Mouse).CellPosition;
-
-            MessageConsole.Clear();
-            Helper.DrawBox(MessageConsole, 0, 0, 70, 16);
-            if (MessageLog.Count > 0) {
-                for (int i = MessageLogTop; i >= 0 && i >= MessageLogTop - 15; i--) {
-                    int line = MessageLogTop - i;
-
-                    MessageConsole.PrintDecorated(1, line + 1, MessageLog[i]);
-                }
-
-                if (MessageLogTop != MessageLog.Count - 1) {
-                    MessageConsole.PrintClickable(71, 1, 9.AsString(), LogClicks, "top");
-                }
-
-                if (MessageLogTop > 0 && MessageLogTop > MessageLog.Count - 16) {
-                    MessageConsole.PrintClickable(71, 17, 10.AsString(), LogClicks, "bottom");
-                }
-
-                if (mousePos != new Point(0, 0)) {
-                    if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0) {
-                        if (!GameLoop.EitherShift()) {
-                            if (MessageLogTop < MessageLog.Count - 1) {
-                                MessageLogTop++;
-                            }
-                        }
-                        else {
-                            if (MessageLogTop + 10 < MessageLog.Count - 1) {
-                                MessageLogTop += 10;
-                            }
-                            else {
-                                MessageLogTop = MessageLog.Count - 1;
-                            }
-                        }
-                    }
-                    else if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0) {
-                        if (!GameLoop.EitherShift()) {
-                            if (MessageLogTop > MessageLog.Count - 16 && MessageLogTop > 0)
-                                MessageLogTop--;
-                        }
-                        else {
-                            if (MessageLogTop - 10 > MessageLog.Count - 16 && MessageLogTop - 10 > 0)
-                                MessageLogTop -= 10;
-                            else
-                                MessageLogTop = Math.Max(MessageLog.Count - 16, 0);
-                        }
-                    }
+                if (Helper.HotkeyDown(Key.Escape)) {
+                    //ToggleUI("Options");
+                    AddMsg(GameHost.Instance.GameRunningTotalTime.TotalMilliseconds.ToString());
                 }
             }
-        }
-
-
-        private void RenderSign() {
-            SignConsole.Clear();
-
-            string[] signLines = signText.Split('|');
-
-            int mid = SignConsole.Height / 2;
-            int startY = mid - (signLines.Length / 2) - 1;
-
-            for (int i = 0; i < signLines.Length; i++) {
-                SignConsole.Print(0, startY + i, signLines[i].Align(HorizontalAlignment.Center, SignConsole.Width));
-            } 
-        }
-         
-        public void CreateSignWindow(int width, int height, string title) {
-            SignWindow = new(width, height);
-            SignWindow.CanDrag = false;
-            SignWindow.Position = new(19, 11);
-
-            int signConWidth = width - 2;
-            int signConHeight = height - 2;
-
-            SignConsole = new(signConWidth, signConHeight);
-            SignConsole.Position = new(1, 1);
-            SignWindow.Title = title.Align(HorizontalAlignment.Center, signConWidth, (char)196);
-
-
-            SignWindow.Children.Add(SignConsole);
-            Children.Add(SignWindow);
-
-            SignWindow.Show();
-            SignWindow.IsVisible = false;
         } 
-
+         
         private void SetupCustomColors() {
             CustomColors = SadConsole.UI.Colors.CreateAnsi(); 
             CustomColors.ControlHostBackground = new AdjustableColor(Color.Black, "Black");  
@@ -520,65 +210,6 @@ namespace LofiHollow.UI {
             CustomColors.RebuildAppearances(); 
             SadConsole.UI.Themes.Library.Default.Colors = CustomColors; 
         }
-
-        public void SignText(Point locInMap, Point3D MapLoc) {
-            selectedMenu = "Sign";
-            SignWindow.IsVisible = true;
-            SignWindow.IsFocused = true;
-
-            if (MapLoc == new Point3D(0, 1, 0)) { // Town Center
-                if (locInMap == new Point(31, 9)) { signText = "Tom's Bar"; }
-                else if (locInMap == new Point(21, 9)) { signText = "Blacksmith"; } 
-                else if (locInMap == new Point(12, 20)) { signText = "Jasper's General Goods"; } 
-                else if (locInMap == new Point(21, 30)) { signText = "Adventure Guild"; }
-                else if (locInMap == new Point(29, 30)) { signText = "Emerose's Apothecary"; } 
-                else if (locInMap == new Point(12, 24)) { signText = "Library"; }
-                else if (locInMap == new Point(6, 16)) { signText = "Zephyr's Textiles"; }
-                else if (locInMap == new Point(37, 7)) { signText = "Pet Shop"; }
-                else if (locInMap == new Point(49, 9)) { signText = "Phoebe - Residence"; }
-                else {
-                    AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + ") has no text.");
-                }
-            } 
-
-            else if (MapLoc == new Point3D(1, 1, 0)) {
-                if (locInMap == new Point(5, 24)) { signText = "Sapphire's Bakery"; } 
-                else if (locInMap == new Point(8, 20)) { signText = "Saffron's Farm Supply"; }
-                else if (locInMap == new Point(10, 28)) { signText = "Cobalt's House"; }
-                else if (locInMap == new Point(16, 28)) { signText = "Tak's House"; }
-                else if (locInMap == new Point(21, 24)) { signText = "Clinic"; }
-                else if (locInMap == new Point(28, 25)) { signText = "Courier's Guild"; }
-                else if (locInMap == new Point(59, 24)) { signText = "Merchant's Guild"; }
-                else if (locInMap == new Point(37, 5)) { signText = "Town Hall"; }
-                else if (locInMap == new Point(21, 20)) { signText = "Maple's Hardware"; }
-                else if (locInMap == new Point(43, 15)) { signText = "Meat Cute"; }
-                else if (locInMap == new Point(37, 15)) { signText = "The Inn"; }
-                else if (locInMap == new Point(59, 19)) { signText = "Noonbreeze Apartments"; }
-                else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + ") has no text."); }
-            }
-
-            else if (MapLoc == new Point3D("Overworld", 0, 0, 0)) {
-                if (locInMap == new Point(38,22)) { signText = "Noonbreeze Cemetary"; }
-                else if (locInMap == new Point(58, 9)) { signText = "Gravekeeper's House"; }
-            }
-            
-            else if (MapLoc == new Point3D(-3, 1, 0)) { signText = "North -- Lake|West -- Mountain Cave|East -- Noonbreeze"; }
-            else if (MapLoc == new Point3D(-3, -1, 0)) { signText = "Fisherman's Cabin"; } 
-            else if (MapLoc == new Point3D(-5, 1, 0)) { signText = "Mountain Tunnel||Under Construction"; }
-            else { AddMsg("Sign at (" + locInMap.X + "," + locInMap.Y + "), map (" + MapLoc.X + "," + MapLoc.Y + "," + MapLoc.Z + ")"); }
-        }
-
-        public void CheckFall() {
-            if (GameLoop.World.Player.Position.X < 0 || GameLoop.World.Player.Position.Y < 0 || GameLoop.World.Player.Position.X > GameLoop.MapWidth || GameLoop.World.Player.Position.Y > GameLoop.MapHeight)
-                return;
-            Map map = Helper.ResolveMap(GameLoop.World.Player.MapPos);
-
-            if (map != null) {
-                if (map.GetTile(GameLoop.World.Player.Position).Name == "Space" && !flying) {
-                    CommandManager.MoveActorTo(GameLoop.World.Player, GameLoop.World.Player.Position, GameLoop.World.Player.MapPos + new Point3D(0, 0, -1));
-                    AddMsg("You fell down!");
-                }
-            }
-        }
+         
     }
 }

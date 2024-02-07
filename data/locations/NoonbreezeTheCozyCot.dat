@@ -1,0 +1,97 @@
+{
+  "ID": "NoonbreezeTheCozyCot",
+  "DisplayName": "The Cozy Cot",
+  "Description": "    The inside of this building is cramped but cozy. Rugs cover most of the otherwise hard stone floor to give it a homey feel, while tapestries break up the monotony of the walls. Near the door is a small half-desk with a chair behind it where the receptionist sits to serve customers, and a few small tables are dotted around the room with chairs clustered under and around them. A half-wall separates the dining area from the small kitchen in back. The kitchen is somehow even more cramped than the seating area, almost every inch of wall space taken by shelves to hold dishes or hooks to hang utensils on. Mouth-watering smells drift over the counter to the rest of the room from dishes cooking and cooked. Crammed against one of the walls in the seating area is a dangerous looking narrow staircase leading up to the next floor.",
+  "DescriptionBlocks": [
+    {
+      "Description": "   Your room is just up the stairs, the first door on the left on the second floor landing.",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "cozyCotDays",
+          "Check": "has",
+          "CompareNum": 0,
+          "Secondary": 0
+        },
+        {
+          "Target": "cozyCotRoomOwned",
+          "Check": "has",
+          "CompareNum": 0,
+          "Secondary": 0
+        }
+      ],
+      "AllConditions": false
+    }
+  ],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeCommons",
+      "Direction": "Door",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "CozyCotRoom",
+      "Direction": "Stairs",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [
+        {
+          "Target": "cozyCotDays",
+          "Check": "above",
+          "CompareNum": 0,
+          "Secondary": 0
+        },
+        {
+          "Target": "cozyCotRoomOwned",
+          "Check": "has",
+          "CompareNum": 0,
+          "Secondary": 0
+        }
+      ],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [
+    "lh:CozyCotNight",
+    "lh:CozyCotRoom"
+  ],
+  "IsLit": true,
+  "InDevLottery": true
+}

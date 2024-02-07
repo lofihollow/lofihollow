@@ -1,0 +1,71 @@
+{
+  "ID": "RockyCliffside",
+  "DisplayName": "Rocky Cliffside",
+  "Description": "    The beach ends abruptly in a sheer cliff face towering up above the nearby town of Noonbreeze, the town wall ending in a smooth join against the stone. There is no direct path up the cliff, but a series of jagged rocks sticking out of the stone could make for a path up for the particularly dextrous. About halfway up the rocks - and only visible from a specific angle at the base - appears to be a break in the rocks leading into an unlit space. Birds occasionally flit in and out of crevice. At the foot of the cliff there are a few places that look reasonably accessible for digging up usable chunks of stone.",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeCoast",
+      "Direction": "East",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "CliffsideCaveEnt",
+      "Direction": "Crevice",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [
+        {
+          "Target": "GLOBAL_DEX",
+          "Check": "above",
+          "CompareNum": 13,
+          "Secondary": 0
+        }
+      ],
+      "AllConditions": true,
+      "VisibleWhileInactive": true,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [
+    "GenericStoneNode",
+    "GenericStoneNode",
+    "GenericStoneNode"
+  ],
+  "IsLit": true
+}

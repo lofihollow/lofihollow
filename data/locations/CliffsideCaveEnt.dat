@@ -1,0 +1,68 @@
+{
+  "ID": "CliffsideCaveEnt",
+  "DisplayName": "Cliffside Cave Entrance",
+  "Description": "    Halfway up the cliffside, through a difficult to spot crevice, is the entrance to a cave. The area surrounding the immediate entrance is a mess of white bird scat, feathers, and small nests of sticks. Seagulls guard eggs in a few of the nests, while some other nests have baby chicks inside chirping at the sudden non-avian intruder. The back of the cave seems to extend into a passageway, though it's too dark to see more than a few feet in without a light. The crevice leading outside feels a little more spacious from inside, offering a decent amount of natural light for the entrance.",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "RockyCliffside",
+      "Direction": "Crevice",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [
+        {
+          "Target": "GLOBAL_DEX",
+          "Check": "above",
+          "CompareNum": 13,
+          "Secondary": 0
+        }
+      ],
+      "AllConditions": true,
+      "VisibleWhileInactive": true,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "CliffsideCaveTunnel",
+      "Direction": "Tunnel",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true,
+  "InDevLottery": false
+}

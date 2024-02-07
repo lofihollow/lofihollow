@@ -12,12 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace LofiHollow.UI {
-    public class UI_Minigame : Lofi_UI { 
-        public string CurrentGame = "None";
-
-        public string PreviousMenuScreen = "";
-
-        public MineManager MineManager;
+    public class UI_Minigame : InstantUI { 
+        public string CurrentGame = "None"; 
+         
         public FishingManager FishingManager;
         public Bartending Bartending;
         public Blacksmithing Blacksmithing;
@@ -35,20 +32,14 @@ namespace LofiHollow.UI {
         public UI_Minigame(int width, int height, string title) : base(width, height, title, "Minigame") {  }
 
 
-        public override void Render() { 
+        public override void Update() { 
             Con.Clear();
 
             if (CurrentGame == "Fishing") {
                 if (FishingManager == null)
                     FishingManager = new();
                 FishingManager.Render(); 
-            }
-            else if (CurrentGame == "Mining") {
-                if (MineManager == null)
-                    MineManager = new();
-                MineManager.Render(); 
-            }
-
+            } 
             else if (CurrentGame == "Bartending") {
                 if (Bartending == null)
                     Bartending = new();
@@ -123,8 +114,7 @@ namespace LofiHollow.UI {
         }
 
         public override void Input() {
-            if (CurrentGame == "Fishing") { FishingManager.Input(); } 
-            else if (CurrentGame == "Mining") { MineManager.Input(); } 
+            if (CurrentGame == "Fishing") { FishingManager.Input(); }  
             else if (CurrentGame == "Bartending") { Bartending.Input(); } 
             else if (CurrentGame == "Blacksmithing") { Blacksmithing.Input(); } 
             else if (CurrentGame == "LightsOut") { LightsOut.Input(); } 
@@ -139,18 +129,14 @@ namespace LofiHollow.UI {
             else if (CurrentGame == "PatternTaps") { PatternTaps.Input(); }
         } 
         public void ToggleMinigame(string which) {
-            if (Win.IsVisible) {
-                GameLoop.UIManager.selectedMenu = PreviousMenuScreen;
+            if (Win.IsVisible) { 
                 CurrentGame = "None";
                 Win.IsVisible = false;
-                GameLoop.UIManager.Map.MapConsole.IsFocused = true;
+                // TODO: Focus the nav window
                 Con.Children.Clear();
                 Con.Clear();
                 Win.Title = "";
-                GameLoop.World.Player.MineLocation = "None";
-            } else {
-                PreviousMenuScreen = GameLoop.UIManager.selectedMenu;
-                GameLoop.UIManager.selectedMenu = "Minigame";
+            } else { 
                 Win.IsVisible = true;
                 Win.IsFocused = true;
                 CurrentGame = which;

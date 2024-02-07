@@ -1,0 +1,100 @@
+{
+  "ID": "NoonbreezeSouthGate",
+  "DisplayName": "Noonbreeze - South Gate",
+  "Description": "    The gate leading into Noonbreeze is a simple iron portcullis. Though designed to be closed in the face of a threat, the patina of rust covering the visible bars of the gate hints at the peaceful nature of the area surrounding town. The guards, when here at all, stand at ease unconcerned about intruders. The path from the beach abruptly becomes ordered cobblestone as it passes through the gate and into the town proper. In the distance to the north, the town plaza is visible. A door set into the wall just inside the gate leads to the administrative office for the town guard. There's also a narrow alley between the last shop and the town wall on one side.",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeCoast",
+      "Direction": "South",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    },
+    {
+      "LocationID": "NoonbreezeSouth",
+      "Direction": "North",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    },
+    {
+      "LocationID": "NoonbreezeGuardOffice",
+      "Direction": "Door",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    },
+    {
+      "LocationID": "NoonbreezeSlums",
+      "Direction": "Alley",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true
+}

@@ -299,7 +299,7 @@ namespace LofiHollow.Minigames.Jobs {
             }
             else {
                 if (GameHost.Instance.Keyboard.IsKeyPressed(Key.Space)) {
-                    GameLoop.World.Player.CopperCoins += GetReward();
+                    GameLoop.World.Player.Zeri += GetReward();
                     Reset();
                     Close();
                 }

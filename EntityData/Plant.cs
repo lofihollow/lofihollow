@@ -85,9 +85,9 @@ namespace LofiHollow.EntityData {
         public void Harvest(Player harvester) {
             if (CurrentStage != -1 && Stages[CurrentStage].HarvestItem != "") {
                 Item produce = Item.Copy(Stages[CurrentStage].HarvestItem);
-                produce.ItemQuantity = ProducePerHarvestMin;
+                produce.Quantity = ProducePerHarvestMin;
                 if (ProducePerHarvestMax > ProducePerHarvestMin)
-                    produce.ItemQuantity += GameLoop.rand.Next(ProducePerHarvestMax - ProducePerHarvestMin);
+                    produce.Quantity += GameLoop.rand.Next(ProducePerHarvestMax - ProducePerHarvestMin);
 
                 if (ProduceIsSeed) {
                     Plant plant = new(this);
@@ -97,7 +97,7 @@ namespace LofiHollow.EntityData {
                 }
 
 
-                CommandManager.AddItemToInv(harvester, produce);
+                harvester.AddItemToInventory(produce);
 
                 CurrentStage = HarvestRevert;
                 DayCounter = 0; 

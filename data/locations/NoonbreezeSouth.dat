@@ -1,0 +1,98 @@
+{
+  "ID": "NoonbreezeSouth",
+  "DisplayName": "Noonbreeze - South Street",
+  "Description": "    The road here is fairly spacious, at a little more than two wagon widths across. A handful of businesses border the street on either side, along with an ornate marble building with a sign proclaiming itself to be the Adventurers Guild. Streets so narrow they might be called alleys branch off to the commons in the east, and a bazaar in the west. A short ways north the town plaza is visible, the benches and fountain offering a nice place to relax on sunny days. A simple iron gate is the only visible break in the wall surrounding the town on the south side.",
+  "DescriptionBlocks": [
+    {
+      "Description": "    The boisterous sounds of the busy market district drift into the street from the alley, the daily crowd of people buying and selling anything and everything barely visible through the gaps in the buildings.",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "GLOBAL_TIME",
+          "Check": "above",
+          "CompareNum": 540,
+          "Secondary": 0
+        },
+        {
+          "Target": "GLOBAL_TIME",
+          "Check": "below",
+          "CompareNum": 1080,
+          "Secondary": 0
+        }
+      ],
+      "AllConditions": true
+    }
+  ],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeSouthGate",
+      "Direction": "South",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    },
+    {
+      "LocationID": "NoonbreezeCommons",
+      "Direction": "East",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    },
+    {
+      "LocationID": "NoonbreezeBazaar",
+      "Direction": "West",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true
+}

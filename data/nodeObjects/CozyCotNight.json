@@ -1,0 +1,53 @@
+{
+  "DisplayName": "One Night Stay",
+  "ID": "CozyCotNight",
+  "Package": "lh",
+  "InteractVerb": "Purchase", 
+  "AllActiveConditions": false,
+  "AllInactiveConditions": false,
+  "DataMods": [
+    {
+      "Target": "cozyCotDays",
+      "ModType": "mod",
+      "Amount": 1
+    }
+  ],
+  "NeedMods": [ ],
+  "ActiveConditions": [
+    {
+	  "Target": "cozyCotDays",
+	  "Check": "!has",
+	  "CompareNum": 0,
+	  "Secondary": 0
+	}
+  ],
+  "InactiveConditions": [
+    {
+	  "Target": "cozyCotDays",
+	  "Check": "has",
+	  "CompareNum": 0,
+	  "Secondary": 0
+	},
+	{
+	  "Target": "cozyCotRoomOwned",
+	  "Check": "has",
+	  "CompareNum": 0,
+	  "Secondary": 0
+	}
+  ],
+  "zeriCost": 10,
+  "timeCost": 0,
+  "TimerID": "",
+  "TimerHours": 1,
+  "ItemGiven": [ ],
+  "SkillReq": "",
+  "ExpGranted": [ ],
+  "CostSummary": "$10",
+  "ReqSummary": "",
+  "NeedSummary": "",
+  "MinigameSummary": "",
+  "UseMessage": "You pay $10, and can stay at the Cozy Cot for a night.",
+  "UseMR": 250,
+  "UseMG": 250,
+  "UseMB": 100
+}

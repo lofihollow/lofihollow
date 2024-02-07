@@ -13,12 +13,13 @@ using LofiHollow.DataTypes;
 using Steamworks;
 using SadConsole.Input;
 using Console = SadConsole.Console;
+using System.Linq;
 
 namespace LofiHollow {
     public static class Helper {
-        public static bool KeyPressed(Keys key) {
-            return GameHost.Instance.Keyboard.IsKeyPressed(key);
-        }
+        public static double CursorTicked = 0;
+        public static bool CursorVisible = true;
+          
         public static ColoredString HoverColoredString(string text, bool condition) {
             return new ColoredString(text, condition ? Color.Yellow : Color.White, Color.Black);
         }
@@ -38,6 +39,195 @@ namespace LofiHollow {
                 check = new ColoredString("x", Color.Red, Color.Black);
 
             return check;
+        }
+         
+        public static bool PlayerHasData(string query) {
+            return GameLoop.World.Player.MiscData.ContainsKey(query);
+        }
+
+        public static bool PlayerDataAbove(string query, int target) {
+            if (query == "GLOBAL_TIME") { return GameLoop.World.Player.Clock.GetCurrentTime() > target; } 
+            if (query == "GLOBAL_DAY") { return GameLoop.World.Player.Clock.Day > target; }
+            if (query == "GLOBAL_WEEKDAY") { return GameLoop.World.Player.Clock.Day % 7 > target; }
+            if (query == "GLOBAL_SEASON") { return GameLoop.World.Player.Clock.Month > target; } 
+            if (query == "GLOBAL_APTITUDE") { return GameLoop.World.Player.MagitechAptitude > target; } 
+            if (query == "GLOBAL_LAW") { return GameLoop.World.Player.AlignmentLaw > target; }
+            if (query == "GLOBAL_GOOD") { return GameLoop.World.Player.AlignmentGood > target; }
+            if (query == "GLOBAL_STR") { return GameLoop.World.Player.Strength > target; }
+            if (query == "GLOBAL_DEX") { return GameLoop.World.Player.Dexterity > target; }
+            if (query == "GLOBAL_CON") { return GameLoop.World.Player.Constitution > target; }
+            if (query == "GLOBAL_INT") { return GameLoop.World.Player.Intelligence > target; }
+            if (query == "GLOBAL_WIS") { return GameLoop.World.Player.Wisdom > target; }
+            if (query == "GLOBAL_CHA") { return GameLoop.World.Player.Charisma > target; }
+
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                return GameLoop.World.Player.MiscData[query] > target;
+            }
+            return false;
+        }
+
+        public static bool PlayerDataBelow(string query, int target) {
+            if (query == "GLOBAL_TIME") { return GameLoop.World.Player.Clock.GetCurrentTime() < target; }
+            if (query == "GLOBAL_DAY") { return GameLoop.World.Player.Clock.Day < target; }
+            if (query == "GLOBAL_WEEKDAY") { return GameLoop.World.Player.Clock.Day % 7 < target; }
+            if (query == "GLOBAL_SEASON") { return GameLoop.World.Player.Clock.Month < target; }
+            if (query == "GLOBAL_APTITUDE") { return GameLoop.World.Player.MagitechAptitude < target; }
+            if (query == "GLOBAL_LAW") { return GameLoop.World.Player.AlignmentLaw < target; }
+            if (query == "GLOBAL_GOOD") { return GameLoop.World.Player.AlignmentGood < target; }
+            if (query == "GLOBAL_STR") { return GameLoop.World.Player.Strength < target; }
+            if (query == "GLOBAL_DEX") { return GameLoop.World.Player.Dexterity < target; }
+            if (query == "GLOBAL_CON") { return GameLoop.World.Player.Constitution < target; }
+            if (query == "GLOBAL_INT") { return GameLoop.World.Player.Intelligence < target; }
+            if (query == "GLOBAL_WIS") { return GameLoop.World.Player.Wisdom < target; }
+            if (query == "GLOBAL_CHA") { return GameLoop.World.Player.Charisma < target; }
+
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                return GameLoop.World.Player.MiscData[query] < target;
+            }
+            return false;
+        }
+
+        public static bool PlayerDataEquals(string query, int target) {
+            if (query == "GLOBAL_TIME") { return GameLoop.World.Player.Clock.GetCurrentTime() == target; }
+            if (query == "GLOBAL_DAY") { return GameLoop.World.Player.Clock.Day == target; }
+            if (query == "GLOBAL_WEEKDAY") { return GameLoop.World.Player.Clock.Day % 7 == target; }
+            if (query == "GLOBAL_SEASON") { return GameLoop.World.Player.Clock.Month == target; }
+            if (query == "GLOBAL_APTITUDE") { return GameLoop.World.Player.MagitechAptitude == target; }
+            if (query == "GLOBAL_LAW") { return GameLoop.World.Player.AlignmentLaw == target; }
+            if (query == "GLOBAL_GOOD") { return GameLoop.World.Player.AlignmentGood == target; }
+            if (query == "GLOBAL_STR") { return GameLoop.World.Player.Strength == target; }
+            if (query == "GLOBAL_DEX") { return GameLoop.World.Player.Dexterity == target; }
+            if (query == "GLOBAL_CON") { return GameLoop.World.Player.Constitution == target; }
+            if (query == "GLOBAL_INT") { return GameLoop.World.Player.Intelligence == target; }
+            if (query == "GLOBAL_WIS") { return GameLoop.World.Player.Wisdom == target; }
+            if (query == "GLOBAL_CHA") { return GameLoop.World.Player.Charisma == target; }
+
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                return GameLoop.World.Player.MiscData[query] == target;
+            }
+            return false;
+        }
+
+        public static bool PlayerDataNot(string query, int target) {
+            if (query == "GLOBAL_TIME") { return GameLoop.World.Player.Clock.GetCurrentTime() != target; }
+            if (query == "GLOBAL_DAY") { return GameLoop.World.Player.Clock.Day != target; }
+            if (query == "GLOBAL_WEEKDAY") { return GameLoop.World.Player.Clock.Day % 7 != target; }
+            if (query == "GLOBAL_SEASON") { return GameLoop.World.Player.Clock.Month != target; }
+            if (query == "GLOBAL_APTITUDE") { return GameLoop.World.Player.MagitechAptitude != target; }
+            if (query == "GLOBAL_LAW") { return GameLoop.World.Player.AlignmentLaw != target; }
+            if (query == "GLOBAL_GOOD") { return GameLoop.World.Player.AlignmentGood != target; }
+            if (query == "GLOBAL_STR") { return GameLoop.World.Player.Strength != target; }
+            if (query == "GLOBAL_DEX") { return GameLoop.World.Player.Dexterity != target; }
+            if (query == "GLOBAL_CON") { return GameLoop.World.Player.Constitution != target; }
+            if (query == "GLOBAL_INT") { return GameLoop.World.Player.Intelligence != target; }
+            if (query == "GLOBAL_WIS") { return GameLoop.World.Player.Wisdom != target; }
+            if (query == "GLOBAL_CHA") { return GameLoop.World.Player.Charisma != target; }
+
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                return GameLoop.World.Player.MiscData[query] != target;
+            }
+            return false;
+        }
+
+        public static int GetPlayerData(string query) {
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                return GameLoop.World.Player.MiscData[query];
+            }
+            return int.MinValue;
+        }
+
+        public static void ErasePlayerData(string query) {
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                GameLoop.World.Player.MiscData.Remove(query);
+            }
+        }
+
+        public static void SetPlayerData(string query, int newData) {
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                GameLoop.World.Player.MiscData[query] = newData;
+            } else {
+                GameLoop.World.Player.MiscData.Add(query, newData);
+            }
+        }
+
+        public static void ModifyPlayerData(string query, int modBy) {
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                GameLoop.World.Player.MiscData[query] += modBy;
+            } else {
+                GameLoop.World.Player.MiscData.Add(query, modBy);
+            }
+        }
+
+        public static bool PlayerDataAsBool(string query) {
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                if (GameLoop.World.Player.MiscData[query] == 0)
+                    return false;
+                else
+                    return true;
+            } else {
+                return false;
+            }
+        }
+
+        public static void PlayerDataToggleBool(string query) {
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                if (GameLoop.World.Player.MiscData[query] == 0) {
+                    GameLoop.World.Player.MiscData[query] = 1;
+                } else {
+                    GameLoop.World.Player.MiscData[query] = 0;
+                }
+            } else {
+                GameLoop.World.Player.MiscData.Add(query, 1);
+            }
+        }
+
+        public static void PlayerDataFlipBit(string query, int position) {
+            if (GameLoop.World.Player.MiscData.ContainsKey(query)) {
+                GameLoop.World.Player.MiscData[query] ^= (1 << position);
+            } else {
+                GameLoop.World.Player.MiscData.Add(query, 0);
+                GameLoop.World.Player.MiscData[query] ^= (1 << position);
+            }
+        }
+
+        public static bool KeyPressed(Keys key) {
+            return GameHost.Instance.Keyboard.IsKeyPressed(key);
+        }
+
+        static HashSet<Keys> TriggeredHotkeys = new();
+        static HashSet<Keys> SecondaryList = new();
+        public static bool HotkeyDown(Keys key) {
+            if (!TriggeredHotkeys.Contains(key) && GameHost.Instance.Keyboard.IsKeyPressed(key)) {
+                TriggeredHotkeys.Add(key);
+                return true;
+            }
+
+            return false;
+        }
+
+        public static void ClearKeys() {
+            SecondaryList.Clear();
+            foreach (Keys key in TriggeredHotkeys) {
+                if (GameHost.Instance.Keyboard.IsKeyDown(key)) {
+                    SecondaryList.Add(key);
+                }
+            }
+            TriggeredHotkeys.Clear();
+
+            foreach (Keys key in SecondaryList) {
+                TriggeredHotkeys.Add(key);
+            }
+        }
+
+        public static bool EitherShift() {
+            if (GameHost.Instance.Keyboard.IsKeyDown(Keys.LeftShift) || GameHost.Instance.Keyboard.IsKeyDown(Keys.RightShift))
+                return true;
+            return false;
+        }
+        public static bool EitherControl() {
+            if (GameHost.Instance.Keyboard.IsKeyDown(Keys.LeftControl) || GameHost.Instance.Keyboard.IsKeyDown(Keys.RightControl))
+                return true;
+            return false;
         }
 
         public static T Clone<T>(this T source) { 
@@ -82,174 +272,31 @@ namespace LofiHollow {
             con.Print(RightX, TopY, 191.AsString(), fg);
         }
 
+          
 
-        public static ColoredString LetterGrade(int Q, int align = -1) {
-            string qual = "";
-            Color col = Color.Black;
-             
-            switch (Q) {
-                case 1:
-                    qual = "F";
-                    col = Color.Red;
-                    break;
-                case 2:
-                    qual = "E";
-                    col = Color.OrangeRed;
-                    break;
-                case 3:
-                    qual = "D";
-                    col = Color.Orange;
-                    break;
-                case 4:
-                    qual = "C";
-                    col = Color.Yellow;
-                    break;
-                case 5:
-                    qual = "B";
-                    col = Color.LimeGreen;
-                    break;
-                case 6:
-                    qual = "A";
-                    col = Color.DodgerBlue;
-                    break;
-                case 7:
-                    qual = "A+";
-                    col = Color.Cyan;
-                    break;
-                case 8:
-                    qual = "S";
-                    col = Color.HotPink;
-                    break;
-                case 9:
-                    qual = "S+";
-                    col = Color.MediumPurple;
-                    break;
-                case 10:
-                    qual = "S++";
-                    col = Color.BlueViolet;
-                    break;
-                case 11:
-                    qual = 172.AsString();
-                    col = Color.White;
-                    break;
-                case -1:
-                    qual = "???";
-                    col = Color.White;
-                    break;
-                default:
-                    return new ColoredString("");
-            }
+        public static Location? ResolveLoc(string nav) {
+            if (GameLoop.World.atlas.ContainsKey(nav))
+                return GameLoop.World.atlas[nav]; 
 
-            if (align != -1)
-                return new ColoredString(qual.Align(HorizontalAlignment.Center, align), col, Color.Black);
-            return new ColoredString(qual, col, Color.Black);
-        }
-
-        public static string TimeSinceDayStart() {
-            double timeToAchieve = SadConsole.GameHost.Instance.GameRunningTotalTime.TotalMilliseconds - GameLoop.World.Player.DayStart;
-            int minutes = (int)Math.Floor(timeToAchieve / 60000);
-            timeToAchieve -= minutes * 60000;
-            int seconds = (int)Math.Floor(timeToAchieve / 1000);
-            timeToAchieve -= seconds * 1000;
-
-            timeToAchieve = Math.Floor(timeToAchieve);
-
-            string time = minutes.ToString().Align(HorizontalAlignment.Right, 2, '0') + "m";
-            time += seconds.ToString().Align(HorizontalAlignment.Right, 2, '0') + "s";
-            time += "." + timeToAchieve;
-
-            return time;
-        }
-
-
-        public static double CropPrice(Plant plant, int quality) {
-            double baseValueCoppers = 10;
-
-            double daysToGrow = 0;
-            double recur = 0;
-
-            for (int i = 0; i < plant.Stages.Count - 1; i++) {
-                daysToGrow += plant.Stages[i].DaysToNext + 1;
-            }
-
-            if (plant.HarvestRevert != -1) {
-                for (int i = plant.HarvestRevert; i < plant.Stages.Count - 1; i++) {
-                    recur += plant.Stages[i].DaysToNext + 1;
-                }
-            }
-
-            double growthCycles;
-
-
-            if (recur != 0)
-                growthCycles = Math.Floor((28 - daysToGrow) / recur);
-            else
-                growthCycles = Math.Floor(28 / daysToGrow);
-
-            double modifiedPrice = (baseValueCoppers - growthCycles);
-
-
-            return Math.Round(modifiedPrice, 1);
-        }
-
-        public static Map ResolveMap(Point3D mapPos) {
-            if (GameLoop.World.maps.ContainsKey(mapPos))
-                return GameLoop.World.maps[mapPos];
-            else if (!GameLoop.World.maps.ContainsKey(mapPos) && GameLoop.World.LoadMapAt(mapPos))
-                return GameLoop.World.maps[mapPos];
-            else if (mapPos.WorldArea.Contains("Apartment")) {
-                string name = mapPos.WorldArea[0..^10];
-
-                if (name == GameLoop.World.Player.Name)
-                    return GameLoop.World.Player.NoonbreezeApt.map;
-
-                foreach (KeyValuePair<SteamId, Player> kv in GameLoop.World.otherPlayers) {
-                    if (name == kv.Value.Name)
-                        return kv.Value.NoonbreezeApt.map;
-                }
+            if (GameLoop.DevMode) {
+                GameLoop.World.atlas.Add(nav, new(nav, "", ""));
+                return GameLoop.World.atlas[nav];
             }
 
             return null;
-        }
-
-        public static string ResolveName(SteamId id) {
-            if (GameLoop.World.otherPlayers.ContainsKey(id))
-                return GameLoop.World.otherPlayers[id].Name;
-            return "[Not Connected: " + id + "]";
-        }
-
-        public static ColoredString ConvertCoppers(int copperValue) {
-            int coinsLeft = copperValue;
-
-            int jade = copperValue / 1000000; 
-            coinsLeft -= jade * 1000000;
-
-            int gold = coinsLeft / 10000;
-            coinsLeft -= gold * 10000;
-
-            int silver = coinsLeft / 100;
-            coinsLeft -= silver * 100;
-
-            int copper = coinsLeft;
-
-            ColoredString build = new("", Color.White, Color.Black);
-
-            ColoredString copperString = new(copper + "c", new Color(184, 115, 51), Color.Black);
-            ColoredString silverString = new(silver + "s ", Color.Silver, Color.Black);
-            ColoredString goldString = new(gold + "g ", Color.Yellow, Color.Black);
-            ColoredString JadeString = new(jade + "j ", new Color(0, 168, 107), Color.Black);
-
-            if (jade > 0)
-                build += JadeString;
-            if (gold > 0)
-                build += goldString;
-            if (silver > 0)
-                build += silverString;
-            if (copper > 0)
-                build += copperString;
-
-            return build;
         } 
+
+        public static NodeObject? ResolveObj(string obj) {
+            if (GameLoop.World.nodeObjectLibrary.ContainsKey(obj))
+                return Clone(GameLoop.World.nodeObjectLibrary[obj]);
+            return null;
+        }
+
+        public static Item? ResolveItem(string item) {
+            if (GameLoop.World.itemLibrary.ContainsKey(item))
+                return Clone(GameLoop.World.itemLibrary[item]);
+            return null;
+        }
 
         public static bool AnyEqual(string instance, params string[] checks) {
             for (int i = 0; i < checks.Length; i++) {
@@ -321,6 +368,173 @@ namespace LofiHollow {
                 return serializer.Deserialize<T>(jsonReader);
             }
         }
+
+        public static double Timer() {
+            return Math.Floor(GameHost.Instance.GameRunningTotalTime.TotalMilliseconds);
+        }
+
+        public static void Flip(this ref bool instance) {
+            instance = !instance;
+        }
+
+        public static ColoredString GetDarker(this ColoredString instance) {
+            for (int i = 0; i < instance.Length; i++) {
+                instance[i].Foreground = instance[i].Foreground.GetDarker();
+            }
+            return instance;
+        }
+
+        public static string TimeString(int numMinutes) {
+            int hours = numMinutes / 60;
+            int min = numMinutes % 60;
+
+            string ampm = "AM";
+
+            if (numMinutes >= 720) {
+                ampm = "PM"; 
+            }
+
+            if (numMinutes >= 1440) {
+                ampm = "AM";
+            }
+
+
+            if (hours > 12)
+                hours -= 12;
+
+
+            return hours.ToString().PadLeft(2, ' ') + ":" + (min.ToString().PadLeft(2, '0')) + " " + ampm;
+        }
+
+
+        public static void PrintClickableBool(this SadConsole.Console instance, int x, int y, string input, ref bool toggler) {
+            instance.PrintClickableBool(x, y, new ColoredString(input), ref toggler);
+        }
+        
+        public static void PrintClickableBool(this SadConsole.Console instance, int x, int y, ColoredString input, ref bool toggler) {
+            Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition;
+
+            ColoredString str = input + Helper.Checkmark(toggler);
+
+            if (mousePos.X >= x && mousePos.X < x + str.Length && mousePos.Y == y) {
+                instance.Print(x, y, str.GetDarker());
+            }
+            else {
+                instance.Print(x, y, str);
+            }
+
+            if (GameHost.Instance.Mouse.LeftClicked) {
+                if (mousePos.X >= x && mousePos.X < x + str.Length && mousePos.Y == y) {
+                    toggler.Flip();
+                }
+            }
+        }
+
+        public static void PrintScrollableInteger(this Console instance, int x, int y, string prefaceText, ref int number, bool asString = false, int min = int.MinValue, int max = int.MaxValue, int baseStep = 1, int shiftStep = 5, int controlStep = 10, bool onlyPreface = false) {
+            Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition;
+            string numString = number.ToString();
+
+            if (asString)
+                numString = number.AsString();
+
+
+            Rectangle clickableArea = new Rectangle(new Point(x, y), new Point(x + numString.Length + prefaceText.Length - 1, y));
+
+            if (onlyPreface)
+                clickableArea = new Rectangle(new Point(x, y), new Point(x + prefaceText.Length - 1, y));
+
+            int mod = baseStep;
+            if (Helper.EitherShift())
+                mod *= shiftStep;
+            if (Helper.EitherControl())
+                mod *= controlStep;
+
+
+            if (clickableArea.Contains(mousePos)) {
+                if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0 || GameHost.Instance.Mouse.RightClicked) {
+                    number = Math.Clamp(number - mod, min, max);
+                }
+                else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0 || GameHost.Instance.Mouse.LeftClicked) {
+                    number = Math.Clamp(number + mod, min, max);
+                }
+            }
+
+
+            instance.Print(x, y, prefaceText);
+
+            if (!onlyPreface)
+                instance.Print(x + prefaceText.Length, y, numString);
+        }
+
+        public static void PrintStringField(this Console instance, int x, int y, string prefaceText, ref string field, ref string selected, string plainName, bool onlyPreface = false) {
+            Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition;
+            if (field == null)
+                field = "";
+
+            if (field != null) {
+                Rectangle clickableArea = new Rectangle(new Point(x, y), new Point(x + field.Length + prefaceText.Length - 1, y));
+
+                if (onlyPreface)
+                    clickableArea = new Rectangle(new Point(x, y), new Point(x + prefaceText.Length - 1, y));
+
+                int end = x + field.Length;
+                if (field.Length == 0) {
+                    clickableArea = new Rectangle(new Point(x, y), new Point(x + prefaceText.Length + "(blank)".Length - 1, y));
+                    end = x + "(blank)".Length;
+                    instance.Print(x, y, prefaceText, selected == plainName ? Color.Green : clickableArea.Contains(mousePos) ? Color.Yellow : Color.White);
+
+                    if (!onlyPreface)
+                        instance.Print(x + prefaceText.Length, y, "(blank)", clickableArea.Contains(mousePos) ? Color.Yellow : Color.White);
+                }
+                else {
+                    instance.Print(x, y, prefaceText, selected == plainName ? Color.Green : clickableArea.Contains(mousePos) ? Color.Yellow : Color.White);
+
+                    if (!onlyPreface)
+                        instance.Print(x + prefaceText.Length, y, field, clickableArea.Contains(mousePos) ? Color.Yellow : Color.White);
+                }
+
+                if (GameHost.Instance.Mouse.LeftClicked) {
+                    if (clickableArea.Contains(mousePos))
+                        selected = plainName;
+                }
+
+                if (selected == plainName) {
+                    if (Helper.CursorTicked + 200 < Timer()) {
+                        Helper.CursorTicked = Timer();
+                        Helper.CursorVisible = !Helper.CursorVisible;
+                    }
+
+                    if (!onlyPreface)
+                        instance.Print(end + prefaceText.Length, y, Helper.CursorVisible ? "_" : " ");
+
+                    foreach (var key in GameHost.Instance.Keyboard.KeysPressed) {
+                        if ((key.Character >= 'A' && key.Character <= 'z') || (key.Character >= '0' && key.Character <= '9'
+                            || key.Character == ';' || key.Character == ':' || key.Character == '|' || key.Character == '-' || key.Character == '+'
+                            || key.Character == '.' || key.Character == ',' || key.Character == '(' || key.Character == ')' || key.Character == '\''
+                            || key.Character == '!' || key.Character == '?')) {
+                            field += key.Character;
+                        }
+
+                        if (key.Character == '$') {
+                            field += (char) 15;
+                        }
+                    }
+
+                    if (GameHost.Instance.Keyboard.IsKeyPressed(Keys.Space)) {
+                        field += " ";
+                    }
+
+                    if (GameHost.Instance.Keyboard.IsKeyPressed(Keys.Back)) {
+                        if (field.Length > 0)
+                            field = field[0..^1];
+                    }
+
+                    if (GameHost.Instance.Keyboard.IsKeyPressed(Keys.Enter)) {
+                        selected = "none";
+                    }
+                }
+            }
+        }
     }
 
 
@@ -355,7 +569,45 @@ namespace LofiHollow {
     public static class MiscExtensions {
         public static string AsString(this int instance) {
             return ((char)instance).ToString();
-        } 
+        }
+
+        public static void PrintAdjustableInt(this Console instance, int x, int y, int width, ref int target, int min, int max) {
+            Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition;
+            Point minusPos = new Point(x, y);
+            Point plusPos = new Point(x + 3 + width, y);
+            instance.Print(x, y, "-", mousePos == minusPos ? Color.Yellow : Color.White);
+            instance.Print(x + 2, y, target.ToString().PadLeft(width));
+            instance.Print(x + 3 + width, y, "+", mousePos == plusPos ? Color.Yellow : Color.White);
+
+            int mod = 1;
+
+            if (Helper.EitherShift())
+                mod *= 5;
+
+            if (Helper.EitherControl())
+                mod *= 10;
+
+            if (GameHost.Instance.Mouse.LeftClicked && mousePos == minusPos) {
+                target = Math.Clamp(target - mod, min, max);
+            }
+
+            if (GameHost.Instance.Mouse.LeftClicked && mousePos == plusPos) {
+                target = Math.Clamp(target + mod, min, max);
+            }
+        }
+
+        public static void PrintVertical(this Console instance, int x, int y, string str, bool down = true) {
+            instance.PrintVertical(x, y, new ColoredString(str), down);
+        }
+
+        public static void PrintVertical(this Console instance, int x, int y, ColoredString str, bool down = true) {
+            for (int i = 0; i < str.Length; i++) {
+                int printY = y + (down ? i : -i);
+                if (printY >= 0 && printY < instance.Height) {
+                    instance.Print(x, printY, str[i].Glyph.AsString(), str[i].Foreground, str[i].Background);
+                }
+            }
+        }
 
         public static void PrintDecorated(this SadConsole.Console instance, int x, int y, DecoratedString str) {
             instance.Print(x, y, str.Text);
@@ -367,30 +619,60 @@ namespace LofiHollow {
             }
         }
 
-        public static void PrintClickable(this SadConsole.Console instance, int x, int y, string str, Action<string> OnClick, string ID) {
-            Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition; 
-            int length = str.Length;
+        public static int PrintMultiLine(this Console instance, int x, int y, string str, int width, int colR = 255, int colG = 255, int colB = 255) {
+            List<string> words = str.Split(" ").ToList();
 
-            instance.Print(x, y, str, mousePos.X >= x && mousePos.X <= x + length && mousePos.Y == y ? Color.Yellow : Color.White);
+            int cX = x;
+            int cY = y;
+
+            foreach (string word in words) {
+                if (cX + word.Length + 1 < width) {
+                    instance.Print(cX, cY, word + " ");
+                    cX += word.Length + 1;
+                }
+                else {
+                    cX = x;
+                    cY++;
+                    instance.Print(cX, cY, word + " ");
+                    cX += word.Length + 1;
+                }
+            }
+
+            return cY;
+        }
+
+        public static void PrintClickable(this SadConsole.Console instance, int x, int y, string str, Action OnClick) { 
+            instance.PrintClickable(x, y, new ColoredString(str), OnClick);
+        }
+
+        public static void PrintClickable(this SadConsole.Console instance, int x, int y, ColoredString str, Action OnClick) {
+            Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition;
+            int length = str.Length - 1;
+
+            instance.Print(x, y, mousePos.X >= x && mousePos.X <= x + length && mousePos.Y == y ? str.GetDarker() : str);
 
             if (GameHost.Instance.Mouse.LeftClicked) {
                 if (mousePos.X >= x && mousePos.X <= x + length && mousePos.Y == y) {
-                    OnClick(ID);
+                    OnClick();
                 }
             }
+        }
+
+        public static void PrintClickable(this SadConsole.Console instance, int x, int y, string str, Action<string> OnClick, string ID) {
+            instance.PrintClickable(x, y, new ColoredString(str), OnClick, ID); 
         }
 
         public static void PrintClickable(this SadConsole.Console instance, int x, int y, ColoredString str, Action<string> OnClick, string ID) {
             Point mousePos = new MouseScreenObjectState(instance, GameHost.Instance.Mouse).CellPosition;
             int length = str.Length - 1;
 
-            instance.Print(x, y, str);
+            instance.Print(x, y, mousePos.X >= x && mousePos.X <= x + length && mousePos.Y == y ? str.GetDarker() : str);
 
             if (GameHost.Instance.Mouse.LeftClicked) {
                 if (mousePos.X >= x && mousePos.X <= x + length && mousePos.Y == y) {
                     OnClick(ID);
                 }
             }
-        }
+        } 
     }
 }

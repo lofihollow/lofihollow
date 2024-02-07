@@ -1,24 +1,4 @@
-﻿CURRENT CHANGE LOG
-x Added a map editor to the mod menu
-x Added zoom in (+) and zoom out (-) in-game
-x Changed the player sprite from @ to a minimalistic person. You'll be missed, @!
-x Added a new job - Mail Sorting, in the Courier's Guild!
-x Added a new job - Word Guess, in the Merchant's Guild!
-x Added a new job - Pattern Taps, in Zephyr's Textiles!
-x Added a new job - Number Combo
-x Revamped the message log to be a less buggy (hopefully) and more functional (probably)
-x Added the Agility skill. Gives extra stamina, train it by running.
-x Added monster documentation to the mod menu
-x Added a fancy new turn-based combat system!
-x All monsters and weapons have a type alignment. Use the right weapons to do more damage!
-x Weapon types: Wood (clubs), Fire (axes), Earth (shields), Metal (swords), Water (spears)
-x Emerald, at the Emerose Apothecary, sells a variety of items for use in battle.
-x Purchase photo slates from Jasper's General Goods to complete photography jobs!
-x Complete tasks from the Adventurer's Guild by killing monsters to earn money!
-x Fixed some issues that made woodcutting impossible to train, should be working now.
-x Also fixed some issues that made ores never spawn in the mine, working now.
-x Staircases in the mines. One up and one down spawn on every level, lower floors have better ores.
-
+﻿CURRENT CHANGE LOG 
 
 
 Current Playable Minigames: (14)
@@ -36,22 +16,206 @@ Current Playable Minigames: (14)
 - Mail Sorting
 - WordGuess
 - Pattern Taps
-
-Current Activities: (5)
-- Photography
-- Adventurer's Guild Kill Tasks
-- Woodcutting
-- Construction
-- Archaeology
+ 
 
 
-Change the mission system to be more like standalone individual quests
+ Easter Egg Tracker (for achievement)
+ - Try to finalize character creation with 18 in every attribute
+  
+Something to Prove Tracker (achievements for doing hard things)
+- True Sleeping Beauty: finish the story with the wake-up time set to 6am, and the blackout time set to 7am (with blackouts on)
+
+
+Future Achievement Ideas
+- Visit 5 locations you own in a single day
+- "Sleeping Beauty": finish the story with the blackout time set to 1 hour after waking up (with blackouts on) 
+- Visit at least half of all locations on a single character
+
+
+Things to note in instruction guide
+- In connection node names, [] indicates a requirement and () indicates a cost
+
+
+Combat Thoughts
+- Hit chance: 1d20 + BAB + attribMod + skillMod vs enemy AC
+- AC: 10 + dexMod + armorMod + skillMod
+- attribMod: strength for melee, dex for ranged, int for magic, charisma for music??
+- skillMod: Math.Floor(skillLevel / 5) (results in 0 - 20 buff) 
+
+NavWindow / Locations
+- List of connected nodes, showing time to traverse node (if in turn-based mode), whether you can encounter a monster traveling that way, and NPCs at the other location
+- List of all NPCs in your current location, click on them to open dialogue
 
 
 
-Add multiple start options?
-- Shipwrecked: The original, start with nothing, washed up on the beach
-- Farmer: Your deceased relative left you a farm! (Start with a farm permit)
+
+
+Character Creation
+- Pick a class and a race
+- - Pathfinder-style races (attribute arrays, darkvision, some other small perks)
+- - - Human: 50% increased experience for skills, and every skill is a class skill
+- - - Leporid: Your Taming skill counts as twice as high if taming an insect
+- - - Dwarf: Crafted items are 2 quality levels higher
+- - - Orc: If you are tech-aligned, double your tech aptitude
+- - - Elf: If you are magic-aligned, double your magic aptitude
+- - - Celestial: Always count as "good"
+- - - Infernal: Always count as "evil"
+- - - Goblin: Afflicted statuses are twice as effective 
+- - - Kobold: 
+- - Classes: groups of class skills, health growth, mana growth, stamina growth
+- Backgrounds (set starting location and equipment)
+- - Shipwrecked: The default, you wash up on the beach near a town with nothing but torn clothes
+- - Inherited Farm: Your character was left a small farm property just outside town by your deceased uncle. (Start with farm permit)
+- - 
+
+
+Difficulty Options
+x Fast Travel Allowed 
+x Toggle each individual need bar
+- Free deaths, drop item deaths, delete save on death
+- Free blackout, drop item blackouts, delete save on blackout
+- Real time clock vs "turn-based"
+- Customizable wake-up and blackout times
+x Weapon / Equipment restrictions
+- No damage/killing restriction?
+x Can't buy from shops
+ 
+
+Need Bars
+- Hunger (eat food)
+- Thirst (drink water)
+- Thermal (too long under relative temp 35 or above relative temp 90 and the bar drops, bar drains while in that zone and fills faster the closer you are to 65)
+- Bathroom (use bathroom)
+- Hygiene (clean self)
+- Entertainment (spend time interacting with "fun" objects)
+- Social (talk to people)
+- Stress? (bars below half-full cause stress to rise slowly)
+- Sanity (affected by eldritch monsters or seeing other horrific stuff, leave this for later)
+- Beauty / Environment (spend time in pretty places, drains slowly passively or fast in ugly/dirty places)
+- Sleep (Takes around 8 hours to fill completely, if 2am blackout is on then time will keep going until 6am minimum if you're asleep past 2am)
+
+
+Temperature shenanigans
+- Seasons have an associated temperature (Spring: 70, Summer: 100, Autumn: 60, Winter: 20)
+- Locations can have a temperature modifier, including further modifiers from placed furniture/items
+- Clothing worn can modify your final relative temperature
+- After all modifiers are applied and calculated, if your relative temperature is below 35 or above 90 then your "Thermal" need bar starts to drain
+
+
+NPC dialogue
+- Make it like morrowind (show dialogue window, highlight topic words and add them to the sidebar and give canned responses when you choose them)
+- Only show topics in the sidebar that the NPC actually has a response entry for
+- Let NPC-specific dialogue override generic topic responses when applicable
+- Allow NPCs to have dialogue tags that give them blanket access to responses for a variety of related topics
+- - Race: for things related to their race or history
+- - Town: for residents of said town, or people familiar with it
+- - Occupation: for topics requiring you speak to a specific kind of person (or someone familiar with said profession)
+- Action topics: Things to interact with an NPC (like opening their shop, give them gifts, bribe, have them follow you as a companion)
+- Allow topics to require having a quest active or a specific disposition level
+
+
+Media Thoughts
+- Books that display their text in pages, formatted using symbols in text.
+- - Allow books to have table of contents generated automatically, linking to pages with specially marked keywords in the raw text
+- Television programs
+- - Collection of broadcasts, which are a group of messages that display when watching TV
+= = = Each message of a broadcast can have a set of images that show when the message is the most recent. Allow a setting that determines if the image loops (if there are multiple), or plays once
+- - Amount of time progressed each message shown (so that time passes as you watch, but only when you move forward)
+- - Day(s) of the week the program is viewable, and time slot (morning, afternoon, evening)
+- - Start year (default 0 - game start, but allow for programs that begin broadcasting later in the game) and start season (default 0 - spring, but allow other seasons too for seasonal shows)
+- - Allow setting a default image shown for the show if there are no specific graphics for an individual broadcast
+
+
+
+MAGIC IDEA
++ Ten magic words you combine to form spells
++ + WAZ (wayz), QAK (chalk)
++ + XEN (shehn)
++ + QIR (chihr), CIV (tsive (like chive with a ts))
++ + YOX (yoh-sh), JOW (yow, like ouch)
++ + ZUR (zoor), BUP (buhp)
++ + GYL (hard-g geel) 
+- Spells are cast by stringing multiple of the above words together (unique per spell) in the correct order
+- - Unlock
+- - Create Fire / Water
+- - Magelight
+- - Slow
+- - Haste
+- - Heat
+- - Cool
+- - Receive Signal
+- - Iron Boots
+- - Levitate 
+- - Speak With Dead / Beasts / Plants
+- - Harm
+- - Disarm
+- - Teleport / Blink / Mark / Recall
+- - Sense Alignment / Contents / Hidden
+- - Charm
+- - Stun
+- - Fire / Lightning / Acid / Force bolt
+- - Heal Wound
+- - Resurrect / Reanimate / Animate
+- - Magic Map (show all connected locations Level/10 deep (min 1, max 9), allow teleporting to any listed location)
+- - Magic Shell (target gets a temporary AC boost)
+- - True Strike (target gets a temporary boost to-hit)
+- - Paper Armor (make target lose their armor bonus for AC)
+- - Sluggish Reflexes (make target lose their dex bonus for AC)
+- - Forget Training (make target lose their skill bonus for AC and the skill bonus for to-Hit)
+- - The Flesh Betrays (make target lost their attrib mod bonus for to-hit)
+
+Tech vs Magic split
+- Aptitude is determined by (magicSkill - techSkill), >0 means magically adept, <0 means tech adept
+- Locations and connection nodes that can filter by aptitude
+- Dialogue options change based on current aptitude
+- Tech items have a chance to fail equal to double magic aptitude, same for magic if high tech aptitude
+- Allow blocking levelling up in skills, to avoid accidentally ruining a build/challenge
+ 
+
+
+ SKILLS
+ - Woodcutting: chop trees to get logs
+ - Mining: mine resource nodes to get ore or stone
+ - Prayer: bury bones dropped by enemies
+
+
+
+ Random Idea Dump
+ - Maps marked as inside without lights (or a light source carried and activated) get a generic dark description
+ - - All connection nodes are hidden while dark, and additional dummy nodes are added (up to 10 connecting spots) that don't go anywhere
+ - - Maps with light will still be visible in the connection options even if you're in the dark
+ + Big bonuses for reaching 20 in a stat. Maybe make them perks you have to buy, so you can't start with them
+ + + Strength: double melee weapon damage
+ + + Dexterity: travel time reduction can reduce to 0. maybe something else in real-time?
+ + + Consitution: immunity to anything that would use a fort save
+ + + Intelligence: double spell damage
+ + + Wisdom: immunity to anything that would use a will save
+ + + Charisma: doubled starting disposition with NPCs, and doubled effects from disposition (sell price reduction, buy price increase, etc)
+ = Allow loot containers to be counted as "randomized" (with varying levels per standard randomizers)
+ = = During FreshStart() randomize all marked containers if the randomizer was picked
+ = = Also let monster spawns by randomized
+ = = Entry randomizer: Store every ConnectionNode, then redistribute the same amount of them back out into the world
+ = = Random potion formulas: every normal formula gets its output changed
+ = = Random word combos for spells: same spells, but they map to different effects
+ \ JOBS
+ \ \ Begin Job spots: NodeObject that begins the job minigame (or, optionally, accepts minimum pay and skips time forward)
+ \ \ Mine job: mine ores or stone, deposit in hopper
+ \ \ Cook job: take ingredients out of storage, craft requested meals, put meals onto serving area
+ \ \ Guard job: determine if citizens and merchants are allowed to enter the city
+ % Map with objects that move X and Y coords stored as player data, and the description changes based on said coordinates. Maybe a scrying pool type thing?
+
+
+
+
+ "Base Building"
+ - Homes with upgrade options
+ - Rooms that have spaces for Small, Medium, and Large installations
+ - - Small installs: sprinklers, planter pot, TV, radio, small storage, heater, cooler, anvil, small solar
+ - - Medium installs: bed, automation setup, medium storage, planter box, temp regulator, furnace, alchemy bench, medium storage, generator, medium solar, medium->small converter
+ - - Large installs: greenhouse, craft assembler, large->medium converter, large solar, industrial generator
+
+
+
 
 
 

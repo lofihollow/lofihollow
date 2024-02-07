@@ -1,0 +1,34 @@
+{
+  "ID": "NoonbreezeBazaar",
+  "DisplayName": "Noonbreeze - Bazaar",
+  "Description": "    The majority of this district is occupied by a plaza filled with stalls offering all kinds of wares to passerby. The buildings facing the plaza are mostly larger stores, the signs trying to draw attention away from the merchants hawking goods in the stalls. Some of the stalls even offer food and drinks to people who need a break from shopping. The smells of cooked meats, breads, and spices mingle with the constant din of people going about their day to create an almost overwhelming atmosphere of life.",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeSouth",
+      "Direction": "East",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true
+}

@@ -3,14 +3,11 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace LofiHollow.EntityData {
-    [JsonObject(MemberSerialization.OptIn)]
+    [JsonObject(MemberSerialization.OptOut)]
     public class Container {
-        [JsonProperty]
-        public int Capacity = 0;
-        [JsonProperty]
-        public List<Item> Items = new();
-        [JsonProperty]
         public string Name = "";
+        public int Capacity = 0; 
+        public List<Item> Items = new();
 
         [JsonConstructor]
         public Container() { }
@@ -23,10 +20,10 @@ namespace LofiHollow.EntityData {
         public bool Add(Item item, int quantity) {
             for (int i = 0; i < Items.Count; i++) {
                 if (Items[i].StacksWith(item)) {
-                    if (quantity <= item.ItemQuantity) {
-                        Items[i].ItemQuantity += quantity;
+                    if (quantity <= item.Quantity) {
+                        Items[i].Quantity += quantity;
                     } else {
-                        Items[i].ItemQuantity += item.ItemQuantity;
+                        Items[i].Quantity += item.Quantity;
                     }
                     return true;
                 }
@@ -34,7 +31,7 @@ namespace LofiHollow.EntityData {
 
             if (Items.Count < Capacity) {
                 Item newItem = Item.Copy(item);
-                newItem.ItemQuantity = quantity;
+                newItem.Quantity = quantity;
                 Items.Add(newItem);
                 return true;
             }
@@ -45,26 +42,26 @@ namespace LofiHollow.EntityData {
         public Item Remove(int slot, int quantity) {
             if (slot < Items.Count) {
                 if (Items[slot].IsStackable) {
-                    if (quantity < Items[slot].ItemQuantity) {
-                        Items[slot].ItemQuantity -= quantity;
+                    if (quantity < Items[slot].Quantity) {
+                        Items[slot].Quantity -= quantity;
                         Item pop = Item.Copy(Items[slot]);
-                        pop.ItemQuantity = quantity;
+                        pop.Quantity = quantity;
                         return pop;
                     } else {
                         Item pop = Item.Copy(Items[slot]);
-                        pop.ItemQuantity = quantity;
+                        pop.Quantity = quantity;
                         Items.RemoveAt(slot);
                         return pop;
                     }
                 } else {
-                    if (Items[slot].ItemQuantity > 1) {
-                        Items[slot].ItemQuantity--;
+                    if (Items[slot].Quantity > 1) {
+                        Items[slot].Quantity--;
                         Item pop = Item.Copy(Items[slot]);
-                        pop.ItemQuantity = 1;
+                        pop.Quantity = 1;
                         return pop;
                     } else {
                         Item pop = Item.Copy(Items[slot]);
-                        pop.ItemQuantity = quantity;
+                        pop.Quantity = quantity;
                         Items.RemoveAt(slot);
                         return pop;
                     }

@@ -1,0 +1,61 @@
+{
+  "ID": "EverblueForestPath",
+  "DisplayName": "Everblue Forest - Path",
+  "Description": "    The path here is mostly straight, bordered on either side by encroaching flora. A few trees and plants stick out from the mess of the treeline, easily harvestable without having to leave the path. You feel that there are many eyes watching you from the dark spots deeper in the thicket. The birds and insects chirp and click loudly here. The path stretches towards Noonbreeze in one direction, and towards a crossroads in the other.",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "EverblueForestOutskirts",
+      "Direction": "West",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "EverblueForestCrossroads",
+      "Direction": "East",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true,
+  "InDevLottery": true
+}

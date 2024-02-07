@@ -5,16 +5,17 @@ using System;
 using LofiHollow.DataTypes;
 
 namespace LofiHollow.DataTypes {
-    [JsonObject(MemberSerialization.OptIn)] 
-    public class Skill { 
-        [JsonProperty]
-        public string Name = "";
-        [JsonProperty]
-        public int Level = 1;
-        [JsonProperty]
-        public int Experience = 0;
-        [JsonProperty]
-        public int TotalExp = 0; 
+    [JsonObject(MemberSerialization.OptOut)] 
+    public class Skill {  
+        public string Name = ""; 
+        public int Level = 1; 
+        public int Experience = 0; 
+        public int TotalExp = 0;
+        public bool CanLevel = true;
+        public bool PermaOff = false;
+        public bool IsTech = false;
+        public bool IsMagic = false;
+        public string Attribute = "";
 
         public int ExpToLevel() {
             double exp = 0.25 * Math.Floor(Level - 1.0 + 300.0 * (Math.Pow(2.0, (Level - 1.0) / 7.0)));
@@ -33,22 +34,17 @@ namespace LofiHollow.DataTypes {
                     GameLoop.World.Player.MaxHP = Level;
                     GameLoop.World.Player.CurrentHP += 1;
                 }
-
-                NetMsg updateSkill = new("updateSkill");
-                updateSkill.MiscString1 = Name;
-                updateSkill.MiscInt = Level;
-
-                GameLoop.SendMessageIfNeeded(updateSkill, false, true);
+                 
 
                 if (Level == 92) {
-                    if (GameLoop.SteamManager.UnlockAchievement(Name.ToUpper().Replace(' ', '_') + "_92")) {
-                        GameLoop.UIManager.AddMsg("Achievement: Halfway to " + Name + " Mastery!");
+                    if (GameLoop.SteamManager.UnlockAchievement("SKILL_92")) {
+                        GameLoop.UIManager.AddMsg("Achievement: Halfway to Mastery!");
                     } 
                 }
 
                 if (Level == 99) {
-                    if (GameLoop.SteamManager.UnlockAchievement(Name.ToUpper().Replace(' ', '_') + "_99")) {
-                        GameLoop.UIManager.AddMsg("Achievement: " + Name + " Master!");
+                    if (GameLoop.SteamManager.UnlockAchievement("SKILL_99")) {
+                        GameLoop.UIManager.AddMsg("Achievement: Skill Master!");
                     }
                 }
             }

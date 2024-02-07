@@ -10,12 +10,12 @@ using Steamworks;
 using System;
 
 namespace LofiHollow.UI {
-    public class UI_Options : Lofi_UI {  
+    public class UI_Options : InstantUI {  
         public UI_Options(int width, int height, string title) : base(width, height, title, "Options") { 
         }
 
 
-        public override void Render() {
+        public override void Update() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
             Con.Clear();
@@ -41,7 +41,7 @@ namespace LofiHollow.UI {
         }
 
         public override void UI_Clicks(string ID) {
-            if (GameLoop.EitherShift()) {
+            if (Helper.EitherShift()) {
                 if (ID == "DecreaseGameVolume") {
                     GameLoop.SoundManager.engine.SoundVolume = Math.Clamp(GameLoop.SoundManager.engine.SoundVolume - 0.1f, 0.0f, 1.0f);
                 }
@@ -73,21 +73,14 @@ namespace LofiHollow.UI {
                 GameLoop.SoundManager.MusicEnabled = !GameLoop.SoundManager.MusicEnabled;
             }
             else if (ID == "ExitToMenu") {
-                GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = true;
-                GameLoop.UIManager.Map.MapWindow.IsVisible = false; 
-                GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = false;
-                GameLoop.UIManager.selectedMenu = "MainMenu";
-
-                if (GameLoop.NetworkManager != null) {
-                    GameLoop.NetworkManager.LeaveLobby();
-                }
+                GameLoop.UIManager.HandleMenuChange(true);
             }
         }
 
         public override void Input() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyPressed(Key.Escape)) {
-                Toggle();
+                GameLoop.UIManager.ToggleUI("Options");
             } 
         } 
     }

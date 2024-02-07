@@ -9,8 +9,7 @@ namespace LofiHollow {
          
         // public SteamId BattleHost;
         // public List<SteamId> OtherPlayers = new();
-
-        public List<CombatParticipant> AllParticipants = new();  
+         
         public List<Item> Drops = new();
 
         public Combat() {

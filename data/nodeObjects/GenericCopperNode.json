@@ -1,0 +1,32 @@
+{
+  "DisplayName": "Copper Node",
+  "ID": "GenericCopperNode",
+  "Package": "lh",
+  "InteractVerb": "Mine",
+  "DataMods": [
+    {
+      "Target": "",
+      "ModType": "",
+      "Amount": 0
+    }
+  ],
+  "NeedMods": [
+    ""
+  ],
+  "ActiveConditions": [ ],
+  "zeriCost": 0,
+  "timeCost": 5,
+  "TimerID": "copperNode",
+  "TimerHours": 1,
+  "ItemGiven": [
+    "lh:Copper Chunk"
+  ],
+  "SkillReq": "Mining;1",
+  "ExpGranted": [
+    "Mining;10"
+  ],
+  "CostSummary": "",
+  "ReqSummary": "",
+  "NeedSummary": "",
+  "MinigameSummary": ""
+}

@@ -10,8 +10,7 @@ using System.IO;
 using Key = SadConsole.Input.Keys;
 
 namespace LofiHollow.UI {
-    public class UI_Help : Lofi_UI{ 
-        public string PreviousMenu = "";
+    public class UI_Help : InstantUI{  
         public string HelpMode = "None";
         public string[] Guide;
         public int GuideTopIndex = 0;
@@ -41,7 +40,7 @@ namespace LofiHollow.UI {
         }
 
 
-        public override void Render() {
+        public override void Update() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
             Con.Clear(); 
@@ -90,12 +89,12 @@ namespace LofiHollow.UI {
 
         public override void Input() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
-            if (GameHost.Instance.Keyboard.HasKeysPressed && !GameLoop.EitherShift()) {
+            if (GameHost.Instance.Keyboard.HasKeysPressed && !Helper.EitherShift()) {
                 ToggleHelp("None");
             }
 
             if (Guide != null) {
-                if (GameLoop.EitherShift()) {
+                if (Helper.EitherShift()) {
                     if (GameHost.Instance.Mouse.ScrollWheelValueChange > 0)
                         GuideTopIndex = Math.Clamp(GuideTopIndex + 10, 0, Guide.Length);
                     else if (GameHost.Instance.Mouse.ScrollWheelValueChange < 0)
@@ -127,15 +126,11 @@ namespace LofiHollow.UI {
 
 
         public void ToggleHelp(string mode) {
-            if (Win.IsVisible) {
-                GameLoop.UIManager.selectedMenu = PreviousMenu;
-                Win.IsVisible = false;
-                GameLoop.UIManager.Map.MapConsole.IsFocused = true;
+            if (Win.IsVisible) { 
+                Win.IsVisible = false; 
 
             } else {
-                Con.Clear();
-                PreviousMenu = GameLoop.UIManager.selectedMenu;
-                GameLoop.UIManager.selectedMenu = "Help";
+                Con.Clear(); 
                 GuideTopIndex = 0;
                 Win.IsVisible = true;
                 Win.IsFocused = true;

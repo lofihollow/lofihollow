@@ -10,7 +10,7 @@ using System.IO;
 using NLua;
 
 namespace LofiHollow.UI {
-    public class UI_ScriptMini : Lofi_UI {
+    public class UI_ScriptMini : InstantUI {
         public string output = "";
         public Lua RunningScript;
         LuaFunction ScriptUpdate;
@@ -19,7 +19,7 @@ namespace LofiHollow.UI {
         public UI_ScriptMini(int width, int height, string title) : base(width, height, title, "ScriptMini") { }
 
 
-        public override void Render() {
+        public override void Update() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
             Con.Clear();
@@ -55,14 +55,11 @@ namespace LofiHollow.UI {
         } 
 
         public void Toggle(string scriptName) {
-            if (Win.IsVisible) {
-                GameLoop.UIManager.selectedMenu = "None";
-                Win.IsVisible = false;
-                GameLoop.UIManager.Map.MapConsole.IsFocused = true;
+            if (Win.IsVisible) { 
+                Win.IsVisible = false; 
                 RunningScript = null;
             } else {
-                if (GameLoop.World.scriptLibrary.ContainsKey(scriptName)) {
-                    GameLoop.UIManager.selectedMenu = "ScriptMini";
+                if (GameLoop.World.scriptLibrary.ContainsKey(scriptName)) { 
                     RunningScript = new Lua();
                     RunningScript["os"] = null;
                     RunningScript["lh"] = new ScriptInterface();

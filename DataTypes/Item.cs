@@ -5,101 +5,43 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using LofiHollow.EntityData;
 using System.Collections.Generic;
-using LofiHollow.Minigames;
-using LofiHollow.Minigames.Photo;
+using LofiHollow.Minigames; 
 using LofiHollow.Minigames.Archaeology;
 
 namespace LofiHollow.DataTypes {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class Item {
-        [JsonProperty]
-        public string Name = "";
-        [JsonProperty]
-        public string Package = "";
-        [JsonProperty]
-        public int SubID = 0;
-        [JsonProperty]
-        public int ItemQuantity = 0;
-        [JsonProperty]
-        public bool IsStackable = false;
-        [JsonProperty]
-        public string ShortDesc = "";
-        [JsonProperty]
-        public string Description = "";
-        [JsonProperty]
-        public int AverageValue = 0;
-        [JsonProperty]
-        public float Weight = 0.0f;
-        [JsonProperty]
-        public int Durability = -1;
-        [JsonProperty]
-        public int MaxDurability = -1;
-        [JsonProperty]
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Item { 
+        public string Name = ""; 
+        public string Package = "";  
+        public int Quantity = 0; 
+        public bool IsStackable = false;  
+        public string Description = ""; 
+        public int AverageValue = 0; 
+        public float Weight = 0.0f;  
         public int Quality = 1;
-        [JsonProperty]
-        public int ItemTier = -1;
-        [JsonProperty]
-        public string ItemCat = "";
-        [JsonProperty]
-        public string ItemSkill = "";
-
-        [JsonProperty]
-        public bool BattleUse = false;
+        public int Tier = 0; // Usually used for level required to equip
+        public string Category = ""; 
+        public string RelatedSkill = "";
+        public string MiscString = "";
+        public int MiscInt = 0;
          
-        [JsonProperty]
+        public bool Consumable = false;
+          
         public int EquipSlot = -1;
         // -1: Not equippable
-        // 0: Main hand
-        // 1: Off hand
-        // 2: Helmet
-        // 3: Torso
-        // 4: Legs
-        // 5: Hands
-        // 6: Feet
+        // 0: Wielded
+        // 1: Helmet
+        // 2: Torso
+        // 3: Legs
+        // 4: Hands
+        // 5: Feet
+        // 6: Ring
         // 7: Amulet
-        // 8: Ring
-        // 9: Cape 
-        // 10: Monster Soul
+        // 8: Back (backpack / cape)
 
-        [JsonProperty]
-        public Decorator Dec;
-
-        [JsonProperty]
-        public Plant Plant;
-        [JsonProperty]
-        public Photo Photo;
-        [JsonProperty]
-        public SoulPhoto SoulPhoto;
-        [JsonProperty]
-        public List<ToolData> Tool;
-        [JsonProperty]
-        public List<CraftComponent> Craft;
-        [JsonProperty]
-        public Heal Heal;
-        [JsonProperty]
-        public StatTonic Tonic;
-        [JsonProperty]
-        public Equipment Stats;
-        [JsonProperty]
+           
+        public Plant Plant;    
         public ArchArtifact Artifact;
-        [JsonProperty]
-        public SpawnAnimal SpawnAnimal;
-
-        [JsonProperty]
-        public int ForegroundR = 0;
-        [JsonProperty]
-        public int ForegroundG = 0;
-        [JsonProperty]
-        public int ForegroundB = 0;
-        [JsonProperty]
-        public int ItemGlyph = 0;
-
-        [JsonProperty]
-        public string LeftClickScript = "";
-        [JsonProperty]
-        public string RightClickScript = "";
-        [JsonProperty]
-        public string LeftReleaseScript = ""; 
 
         [JsonConstructor]
         public Item() { }
@@ -110,12 +52,12 @@ namespace LofiHollow.DataTypes {
                 Item temp = Helper.Clone(GameLoop.World.itemLibrary[name]); 
 
                 if (temp.Name == "(EMPTY)") {
-                    temp.ItemQuantity = 0;
+                    temp.Quantity = 0;
                     temp.Quality = 0;
                 } else {
                     if (temp.Quality == 0)
                         temp.Quality = 1;
-                    temp.ItemQuantity = quantity;
+                    temp.Quantity = quantity;
                 }
 
                 return temp;
@@ -127,33 +69,21 @@ namespace LofiHollow.DataTypes {
         public static Item Copy(Item other, int newQuantity = 1) {
             Item other2 = Helper.Clone(other);
             if (other2.Name == "lh:(EMPTY)") {
-                other2.ItemQuantity = 0;
+                other2.Quantity = 0;
                 other2.Quality = 0;
             }
             else {
                 if (other2.Quality == 0)
                     other2.Quality = 1;
-                other2.ItemQuantity = newQuantity;
+                other2.Quantity = newQuantity;
             }
 
             return other2;
-        } 
+        }  
 
-        public ColoredString AsColoredGlyph() {
-            ColoredString output = new(ItemGlyph.AsString(), new Color(ForegroundR, ForegroundG, ForegroundB), Color.Transparent);
-            return output;
-        }
-
-        public CellDecorator GetDecorator() {
-            CellDecorator dec = new(new Color(Dec.R, Dec.G, Dec.B, Dec.A), Dec.Glyph, Mirror.None);
-            return dec;
-        }
-
-        public bool StacksWith(Item other, bool JustIdentical = false) {
-            if (FullName() == other.FullName() && SubID == other.SubID && Quality == other.Quality && IsStackable)
-                return true;
-            if (Name == other.Name && Package == other.Package && SubID == other.SubID && Quality == other.Quality && JustIdentical)
-                return true;
+        public bool StacksWith(Item other) {
+            if (FullName() == other.FullName() && MiscString == other.MiscString && MiscInt == other.MiscInt && Quality == other.Quality && IsStackable)
+                return true; 
             return false;
         }
 

@@ -1,0 +1,83 @@
+{
+  "ID": "EverblueForestCrossroads",
+  "DisplayName": "Everblue Forest - Crossroads",
+  "Description": "    The path comes to a small clearing where the path splits into four directions. A sign just off to the side of the path has an arrow pointing each direction with a label. Pointing west is an arrow labelled 'Noonbreeze', and straight across the clearing an arrow proclaiming 'East - Ironclad Harbor'.",
+  "DescriptionBlocks": [
+    {
+      "Description": "    The other two signs seem slightly newer and read 'North - Old Quarry' and 'South - Lake Clarity'.",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "everblueCrossroadsSign",
+          "Check": "!has",
+          "CompareNum": 0,
+          "Secondary": 0
+        }
+      ],
+      "AllConditions": true
+    },
+    {
+      "Description": "    You notice that the signs for north and south seem to actually be pointing the wrong directions, like someone made new signs and flipped which leads where, though you aren't sure to what end.",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "everblueCrossroadsSign",
+          "Check": "!has",
+          "CompareNum": 0,
+          "Secondary": 0
+        },
+        {
+          "Target": "GLOBAL_INT",
+          "Check": "above",
+          "CompareNum": 14,
+          "Secondary": 14
+        }
+      ],
+      "AllConditions": true
+    },
+    {
+      "Description": "    The other two signs have been fixed from the bandits' trickery, now correctly proclaiming 'North - Lake Clarity' and 'South - Old Quarry'.",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "everblueCrossroadsSign",
+          "Check": "has",
+          "CompareNum": 0,
+          "Secondary": 0
+        }
+      ],
+      "AllConditions": false
+    }
+  ],
+  "ConnectedLocations": [
+    {
+      "LocationID": "EverblueForestPath",
+      "Direction": "West",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true,
+  "InDevLottery": true
+}

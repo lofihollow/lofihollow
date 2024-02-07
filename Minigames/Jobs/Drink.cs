@@ -1,4 +1,5 @@
 ﻿using LofiHollow.Entities;
+using SadConsole.Entities;
 using SadRogue.Primitives;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace LofiHollow.Minigames.Jobs {
         public int DrinkVelocity = 0;
         public string DrinkName = "";
 
-        public Drink() : base(Color.White, Color.Black, 340) {
+        public Drink() : base(Color.White, Color.Black, 340, 1) {
 
         }
     }

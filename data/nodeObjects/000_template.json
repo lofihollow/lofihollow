@@ -1,0 +1,34 @@
+{
+  "DisplayName": "",
+  "ID": "",
+  "Package": "",
+  "InteractVerb": "",
+  "DataMods": [
+    {
+      "Target": "",
+      "ModType": "",
+      "Amount": 0
+    }
+  ],
+  "NeedMods": [
+    ""
+  ],
+  "ActiveConditions": [
+    {
+      "Target": "",
+      "Check": "",
+      "CompareNum": 0
+    }
+  ],
+  "zeriCost": 0,
+  "timeCost": 0,
+  "TimerID": "",
+  "TimerHours": 1,
+  "ItemGiven": [ ],
+  "SkillReq": "",
+  "ExpGranted": [ ],
+  "CostSummary": "",
+  "ReqSummary": "",
+  "NeedSummary": "",
+  "MinigameSummary": ""
+}

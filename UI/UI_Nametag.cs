@@ -9,13 +9,13 @@ using LofiHollow.DataTypes;
 using Steamworks;
 
 namespace LofiHollow.UI {
-    public class UI_Nametag : Lofi_UI {
+    public class UI_Nametag : InstantUI {
         public Item current;
 
         public UI_Nametag(int width, int height, string title) : base(width, height, title, "Nametag") { }
 
 
-        public override void Render() {
+        public override void Update() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
 
             Con.Clear();
@@ -32,7 +32,7 @@ namespace LofiHollow.UI {
         public override void Input() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape)) {
-                Toggle();
+                GameLoop.UIManager.ToggleUI("Nametag");
                 current = null;
             }
 

@@ -1,0 +1,34 @@
+{
+  "ID": "NoonbreezeSlums",
+  "DisplayName": "Noonbreeze - Slums",
+  "Description": "    Connected to the normal streets by only a thin alley, which most people don't even notice, is a surprisingly large clear area jammed between the buildings. There is a thick layer of grime on everything here, and the smell is a cloying mix of old garbage and human waste. Sleeping spots are spread along the walls in places - at best just a nest of dirty blankets and much more commonly merely an empty spot where the trash was swept aside. The surrounding buildings jut out on the upper floors to block out any hope of fresh air or natural light. The space is only dimly lit by a handful of dirty and cracked glass domes stuck to the walls and ceiling. A few doors are set into walls haphazardly, and in one corner of the hidden courtyard is a narrow staircase leading down into the ground.",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeSouthGate",
+      "Direction": "Thin Alley",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true
+}

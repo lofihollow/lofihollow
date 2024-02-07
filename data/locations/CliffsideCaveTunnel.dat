@@ -1,0 +1,37 @@
+{
+  "ID": "CliffsideCaveTunnel",
+  "DisplayName": "Cliffside Cave - Tunnel",
+  "Description": "    The passage here is completely dark, though fortunately that's not a problem at the moment. It's hard to tell direction in here, but a faint light one way down the tunnel indicates the entrance to the cave. The other way down the tunnel is dark but you can just make out a fork in the path up ahead.",
+  "DescriptionBlocks": [],
+  "ConnectedLocations": [
+    {
+      "LocationID": "CliffsideCaveEnt",
+      "Direction": "Light",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": false,
+  "InDevLottery": true
+}

@@ -165,7 +165,7 @@ namespace LofiHollow.Minigames.Jobs {
             }
             else {
                 if (GameHost.Instance.Keyboard.IsKeyPressed(Key.Space)) {
-                    GameLoop.World.Player.CopperCoins += (Timer / 2);
+                    GameLoop.World.Player.Zeri += (Timer / 2);
                     Reset();
                     GameLoop.UIManager.Minigames.ToggleMinigame("None");
                 }

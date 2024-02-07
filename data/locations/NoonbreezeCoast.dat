@@ -1,0 +1,154 @@
+{
+  "ID": "NoonbreezeCoast",
+  "DisplayName": "The Beach Outside Noonbreeze",
+  "Description": "    The gentle slope of the sands slowly gives way to the lapping of foamy surf to the south, the ocean stretching far away to the horizon and beyond. The beach lazily curls away to the east and west, eventually ending in a forest of blue trees and a rocky cliffside. Just to the north of the sandy expanse is a stone wall worn by time and the elements, bordering the small town of Noonbreeze. The path leading from the beach winds off through a large iron gate, turning from packed sand to cobblestones as it straightens out into the main thoroughfare of the town.",
+  "DescriptionBlocks": [
+    {
+      "Description": "    Scraps of wood pepper the sand haphazardly, a remnant of the shipwreck that brought you to this land.",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "Start_Shipwrecked",
+          "Check": "has",
+          "CompareNum": 600,
+          "Secondary": 600
+        }
+      ],
+      "AllConditions": false
+    },
+    {
+      "Description": "    A dark wooden door stands in the sand a little ways up from the farthest reaches of the surf. There is no wall surrounding it that it's placed in, nor any visible room behind it to lead to, though it does rest in a doorframe. Despite only recently appearing the door is well worn - though not from the elements, but instead from frequent use. The no longer shiny brass doorknob is scuffed and worn from a thousand hands opening and closing it.",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "GLOBAL_WEEKDAY",
+          "Check": "equals",
+          "CompareNum": 2,
+          "Secondary": 2
+        },
+        {
+          "Target": "GLOBAL_TIME",
+          "Check": "i<>",
+          "CompareNum": 390,
+          "Secondary": 395
+        }
+      ],
+      "AllConditions": true
+    }
+  ],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeSouthGate",
+      "Direction": "North",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "EverblueForestOutskirts",
+      "Direction": "East",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "RockyCliffside",
+      "Direction": "West",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    },
+    {
+      "LocationID": "TheOtherNoonbreezeEntrance",
+      "Direction": "Strange Door",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [
+        {
+          "Target": "GLOBAL_WEEKDAY",
+          "Check": "equals",
+          "CompareNum": 2,
+          "Secondary": 0
+        },
+        {
+          "Target": "GLOBAL_TIME",
+          "Check": "i<>",
+          "CompareNum": 390,
+          "Secondary": 395
+        }
+      ],
+      "AllConditions": true,
+      "VisibleWhileInactive": false,
+      "ReqSummary": "",
+      "CostSummary": ""
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true
+}

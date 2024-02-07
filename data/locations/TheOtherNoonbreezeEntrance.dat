@@ -1,0 +1,53 @@
+{
+  "ID": "TheOtherNoonbreezeEntrance",
+  "DisplayName": "The Beach Outside Noonbreeze?",
+  "Description": "    The gentle slope of the sands slowly gives way to the lapping of foamy surf to the south, the ocean stretching far away to the horizon and beyond. The beach extends to the horizon to the east and west, gently rippling back and forth as it winds its way along the coast. A hundred feet or so from the surf, where the wall surrounding Noonbreeze should be, is instead a massive featureless wall extending to the sky. The wall is the pale blue of midday, despite the time, and appears to stretch as far as the coast does both to the east and west with no breaks. Distantly up the wall you can just make out blobs of white that must be painted-on clouds.",
+  "DescriptionBlocks": [
+	{
+      "Description": "    A dark wooden door stands in the sand a little ways up from the farthest reaches of the surf. There is no wall surrounding it that it's placed in, nor any visible room behind it to lead to, though it does rest in a doorframe. Despite only recently appearing the door is well worn - though not from the elements, but instead from frequent use. The no longer shiny brass doorknob is scuffed and worn from a thousand hands opening and closing it.",
+      "ReplacesMainBlock": false,
+      "ActiveConditions": [
+        {
+          "Target": "GLOBAL_WEEKDAY",
+          "Check": "equals",
+          "CompareNum": 2,
+          "Secondary": 2
+        },
+        {
+          "Target": "GLOBAL_TIME",
+          "Check": "i<>",
+          "CompareNum": 390,
+          "Secondary": 395
+        }
+      ],
+      "AllConditions": true
+    }],
+  "ConnectedLocations": [
+    {
+      "LocationID": "NoonbreezeCoast",
+      "Direction": "Strange Door",
+      "zeriCost": 0,
+      "timeCost": 0,
+      "SkillCondition": {
+        "SkillCheckID": "",
+        "Skill": "",
+        "TargetDC": 0,
+        "HoursToRetry": 0,
+        "FailMovesPlayer": false,
+        "FailMovesToID": ""
+      },
+      "ItemCondition": {
+        "ItemID": "",
+        "QuantityNeeded": 1,
+        "QualityNeeded": 0
+      },
+      "ActiveConditions": [],
+      "AllConditions": false,
+      "VisibleWhileInactive": false
+    }
+  ],
+  "ItemsAtNode": [],
+  "ItemsOnGround": [],
+  "ObjectsHere": [],
+  "IsLit": true
+}

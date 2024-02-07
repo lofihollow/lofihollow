@@ -1,0 +1,40 @@
+{
+  "DisplayName": "Buy a room (permanently)",
+  "ID": "CozyCotRoom",
+  "Package": "lh",
+  "InteractVerb": "Purchase", 
+  "AllActiveConditions": false,
+  "AllInactiveConditions": false,
+  "DataMods": [
+    {
+      "Target": "cozyCotRoomOwned",
+      "ModType": "mod",
+      "Amount": 1
+    }
+  ],
+  "NeedMods": [ ],
+  "ActiveConditions": [  ],
+  "InactiveConditions": [ 
+	{
+	  "Target": "cozyCotRoomOwned",
+	  "Check": "has",
+	  "CompareNum": 0,
+	  "Secondary": 0
+	}
+  ],
+  "zeriCost": 1200,
+  "timeCost": 0,
+  "TimerID": "",
+  "TimerHours": 1,
+  "ItemGiven": [ ],
+  "SkillReq": "",
+  "ExpGranted": [ ],
+  "CostSummary": "$1200",
+  "ReqSummary": "",
+  "NeedSummary": "",
+  "MinigameSummary": "",
+  "UseMessage": "You pay $1200 and now own a room in the Cozy Cot!",
+  "UseMR": 50,
+  "UseMG": 250,
+  "UseMB": 50
+}

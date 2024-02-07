@@ -3,139 +3,95 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using SadConsole;
 using SadRogue.Primitives;
-using LofiHollow.Managers;
-using LofiHollow.EntityData;
+using LofiHollow.Managers; 
 using LofiHollow.DataTypes;
 using System.Linq;
 using Steamworks;
 
 namespace LofiHollow.Entities {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class Player : Actor {
-        [JsonProperty]
-        public TimeManager Clock = new();
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Player : StatBall { 
+        public TimeManager Clock = new(); 
 
-        [JsonProperty]
-        public Dictionary<string, int> MetNPCs = new();
-
-        [JsonProperty]
-        public Dictionary<string, Missions.Mission> MissionLog = new();
-
-
-        [JsonProperty]
-        public Item[] Inventory;
-        [JsonProperty]
-        public Item[] Equipment;
-
-        [JsonProperty]
-        public bool OwnsFarm = false;
+        public List<Item> Inventory;
+        public int InventoryCapacity = 9;
          
-        public double TimeLastTicked = 0; 
-        public Stack<ColoredString> killList = new(52);
+        [JsonIgnore]
+        public double TimeLastTicked = 0;
 
-        public string MineLocation = "None";
-        public int MineDepth = 0;
-        public bool MineVisible = false;
-        public Point MineEnteredAt = new Point(0, 0);
+        public Dictionary<string, int> MiscData = new();
+        public Dictionary<string, uint> Timers = new();
+         
+         
+        public int Zeri = 0;
+        public int MagitechAptitude = 0;
+        public int AlignmentLaw = 0;
+        public int AlignmentGood = 0;
 
-        public string CurrentKillTask = "";
-        public int KillTaskProgress = 0;
-        public int KillTaskMonLevel = 0;
-        public int KillTaskGoal = 0;
-        public int KillTaskReward = 0;
+        public int Strength = 10;
+        public int Dexterity = 10;
+        public int Constitution = 10;
+        public int Intelligence = 10;
+        public int Wisdom = 10;
+        public int Charisma = 10;
 
-        public string CurrentDeliveryTask = "";
+        public string StartScenario = "Shipwrecked";
 
-        [JsonProperty]
-        public int CourierGuildRank = 1;
-        [JsonProperty]
-        public int AdventurerGuildRank = 1;
+        public string Race = "Human";
+        public string SecondaryRace = "";
 
-        public bool Sleeping = false;
+        public bool RealTime = true;
+        public bool CanFastTravel = true;
+        public bool CanUseShops = true;
+        public bool CanUseArmor = true;
+        public bool CanUseWeapons = true;
+        public bool CanUseMagic = true;
+        public bool BlackoutIsDeath = false;
 
-        [JsonProperty]
-        public int CopperCoins = 0;
-        [JsonProperty]
-        public int SilverCoins = 0;
-        [JsonProperty]
-        public int GoldCoins = 0;
-        [JsonProperty]
-        public int JadeCoins = 0;
+        public Dictionary<string, int> NeedBars = new();
+        public bool HungerEnabled = true;
+        public int HungerBar = 100;
+        public bool ThirstEnabled = false;
+        public int ThirstBar = 100;
+        public bool ThermalEnabled = false;
+        public int ThermalBar = 100;
+        public bool BathroomEnabled = true;
+        public int BathroomBar = 100;
+        public bool HygieneEnabled = true;
+        public int HygieneBar = 100;
+        public bool EntertainmentEnabled = false;
+        public int EntertainmentBar = 100;
+        public bool SocialEnabled = false;
+        public int SocialBar = 100;
+        public bool EnvironmentEnabled = false;
+        public int EnvironmentBar = 100;
+        public bool SleepEnabled = false;
+        public int SleepBar = 100;
 
-        [JsonProperty]
-        public int LivesRemaining = -1;
-        [JsonProperty]
-        public int DropsOnDeath = -1; // -1: Nothing, 0: Gold, 1: Items and Gold
+        public int WakeupHour = 6;
+        public int BlackoutHour = 24;
+        public bool BlackoutsOn = true;
 
-        [JsonProperty]
-        public Dictionary<string, OwnableLocation> OwnedLocations = new();
+        public int DropsOnDeath = -1;
+        public int DropsOnBlackout = -1;
+        public int LivesRemaining = -1; 
 
-        [JsonProperty]
-        public Apartment NoonbreezeApt;
+        [JsonIgnore]
+        public double DayStart = 0; 
 
-        [JsonProperty]
-        public string InApartment = "None";
+        public Player(Color foreground) : base(foreground) {
+            Inventory = new();
 
-        [JsonProperty]
-        public int InnDays = 0;
-
-
-        public bool feed_funny1 = false;
-        public bool feed_funny2 = false;
-        public bool feed_funny3 = false;
-        public bool feed_meticulous1 = false;
-        public bool feed_meticulous2 = false;
-        public bool feed_ocd = false;
-        public bool feed_maturity = false; 
-
-        public double DayStart = 0;
-
-        [JsonProperty]
-        public List<SteamId> PartyMembers = new();
-
-        public Player(Color foreground) : base(foreground, '@') {
-            ActorGlyph = '@';
-             
-            Equipment = new Item[11];
-            for (int i = 0; i < Equipment.Length; i++) {
-                Equipment[i] = Item.Copy("lh:(EMPTY)");
-            }
-
-            Inventory = new Item[9];
-
-            for (int i = 0; i < Inventory.Length; i++) {
-                Inventory[i] = Item.Copy("lh:(EMPTY)");
-            }
-        } 
-
-        public CombatParticipant GetCombatParticipant() {
-            CombatParticipant part = new();
-
-            CalculateCombatLevel();
-            part.Level = CombatLevel;
-            part.Attack = Monster.GetStat(Skills["Strength"].Level, AttackGrowth, AttackEXP, part.Level);
-            part.Defense = Monster.GetStat(Skills["Defense"].Level, DefenseGrowth, DefenseEXP, part.Level);
-            part.Health = Monster.GetStat(Skills["Constitution"].Level, HealthGrowth, HealthEXP, part.Level, true);
-            part.Speed = Monster.GetStat(Skills["Agility"].Level, SpeedGrowth, SpeedEXP, part.Level);
-            part.MAttack = Monster.GetStat(Skills["Magic"].Level, MAttackGrowth, MAttackEXP, part.Level);
-            part.MDefense = Monster.GetStat(Skills["Magic"].Level, MDefenseGrowth, MDefenseEXP, part.Level);
-
-            part.CurrentHP = CurrentHP;
-            part.MaxHP = MaxHP; 
-
-            part.Types.Add(ElementalAlignment);
-
-            part.Owner = SteamClient.SteamId;
-            part.Name = Name;
-            part.ID = "Player";
-            part.Species = "Player";
-            part.ForeR = ForegroundR;
-            part.ForeG = ForegroundG;
-            part.ForeB = ForegroundB;
-            part.Glyph = ActorGlyph;
-
-            return part;
-        }
+            NeedBars.Add("Hunger", 100);
+            NeedBars.Add("Thirst", 100);
+            NeedBars.Add("Thermal", 100);
+            NeedBars.Add("Bathroom", 100);
+            NeedBars.Add("Hygiene", 100);
+            NeedBars.Add("Entertainment", 100);
+            NeedBars.Add("Social", 100);
+            NeedBars.Add("Environment", 100);
+            NeedBars.Add("Sleep", 100);
+        }  
 
         public int GetSkillLevel(string which) {
             if (Skills.ContainsKey(which))
@@ -146,203 +102,73 @@ namespace LofiHollow.Entities {
         public void GrantExp(string which, int amount) {
             if (Skills.ContainsKey(which)) {
                 int currentLevel = Skills[which].Level;
-                Skills[which].GrantExp(amount);
-
-                if (currentLevel != Skills[which].Level && which == "Agility") {
-                    UpdateHP();
-                    CurrentStamina = Math.Clamp(CurrentStamina + 10, 10, MaxStamina);
-                }
-
-                if (currentLevel != Skills[which].Level && which == "Constitution") {
-                    UpdateHP();
-                    CurrentHP = Math.Clamp(CurrentHP + 1, 1, MaxHP);
-                }
+                Skills[which].GrantExp(amount); 
             }
         }
-
-        public void GainStatEXP(string which, int amount) {
-            int total = HealthEXP + SpeedEXP + AttackEXP + DefenseEXP + MAttackEXP + MDefenseEXP;
-
-
-            int applying = total + amount > 512 ? (total + amount) - 512 : amount;
-
-            switch (which) {
-                case "Health": HealthEXP += applying; break;
-                case "Speed": SpeedEXP += applying; break;
-                case "Attack": AttackEXP += applying; break;
-                case "Defense": DefenseEXP += applying; break;
-                case "Magic Attack": MAttackEXP += applying; break;
-                case "Magic Defense": MDefenseEXP += applying; break;
-            }
-        }
+         
 
         public int CheckRel(string NPC) {
-            if (MetNPCs.ContainsKey(NPC)) {
-                return MetNPCs[NPC];
-            } else {
-                return 0;
+            if (Helper.PlayerHasData("NPC_" + NPC)) {
+                return Helper.GetPlayerData("NPC_" + NPC);
             }
-        }
+            return 0; 
+        } 
 
-        public int CopperWealth() {
-            return CopperCoins + (SilverCoins * 100) + (GoldCoins * 10000) + (JadeCoins * 1000000);
+        public void ModRel(string NPC, int amount) {
+            Helper.ModifyPlayerData("NPC_" + NPC, amount);
         }
 
         public bool HasInventorySlotOpen(string stackID = "") {
-            for (int i = 0; i < Inventory.Length; i++) {
-                if (Inventory[i].Name == "(EMPTY)" || (Inventory[i].Name == stackID && stackID != "")) {
+            for (int i = 0; i < Inventory.Count; i++) {
+                if (Inventory[i].Name == stackID && stackID != "") {
                     return true;
                 }
             }
+
+            if (Inventory.Count < InventoryCapacity)
+                return true;
+
             return false;
         }
+         
 
-        public string KillFeed() {
-            string list = "";
-
-            List<ColoredString> kills = killList.ToList();
-
-            kills.Reverse();
-
-            for (int i = 0; i < kills.Count; i++) {
-                list += kills[i].String;
-            }
-
-            return list;
-        }
-
-        public void PlayerDied() {
-            if (MapPos == GameLoop.World.Player.MapPos && this != GameLoop.World.Player) {
-                GameLoop.UIManager.AddMsg(new ColoredString(Name + " died!", Color.Red, Color.Black));
-            }
+        public void PlayerDied() { 
+            GameLoop.UIManager.AddMsg(new ColoredString(Name + " died!", Color.Red, Color.Black)); 
 
             if (DropsOnDeath == 1) {
-                for (int i = 0; i < Inventory.Length; i++) {
+                for (int i = 0; i < Inventory.Count; i++) {
                     if (Inventory[i].Name != "(EMPTY)") {
-                        if (MineLocation == "None") {
-                            CommandManager.DropItem(this, i);
-                        } else {
-                            if (MineLocation == "Mountain") {
-                                GameLoop.UIManager.Minigames.MineManager.MountainMine.DropItem(this, i, MineDepth);
-                            } else if (MineLocation == "Lake") {
-                                GameLoop.UIManager.Minigames.MineManager.LakeMine.DropItem(this, i, MineDepth);
-                            }
-                        }
+                        // TODO: Rewrite item drop on death
                     }
-                }
-
-                for (int i = 0; i < Equipment.Length; i++) {
-                    if (Equipment[i].Name != "(EMPTY)") {
-                        CommandManager.UnequipItem(this, i);
-
-                        if (MineLocation == "None") {
-                            CommandManager.DropItem(this, 0);
-                        } else {
-                            if (MineLocation == "Mountain") {
-                                GameLoop.UIManager.Minigames.MineManager.MountainMine.DropItem(this, 0, MineDepth);
-                            } else if (MineLocation == "Lake") {
-                                GameLoop.UIManager.Minigames.MineManager.LakeMine.DropItem(this, 0, MineDepth);
-                            }
-                        }
-                    }
-                }
+                } 
             }
 
             if (DropsOnDeath >= 0) {
-                Item copper = Item.Copy("lh:Copper Coin");
-                copper.ItemQuantity = 0;
-                Item silver = Item.Copy("lh:Silver Coin");
-                silver.ItemQuantity = 0;
-                Item gold = Item.Copy("lh:Gold Coin");
-                gold.ItemQuantity = 0;
-                Item jade = Item.Copy("lh:Jade Coin");
-                jade.ItemQuantity = 0;
+                Item zeri = Item.Copy("lh:Zeri");
+                zeri.Quantity = 0;  
 
-                ItemWrapper copperWrap = new(copper);
-                ItemWrapper silverWrap = new(silver);
-                ItemWrapper goldWrap = new(gold);
-                ItemWrapper jadeWrap = new(jade);
-
-                if (CopperCoins > 0) {
-                    copperWrap.item.ItemQuantity = CopperCoins;
-                    copperWrap.Position = Position;
-                    copperWrap.MapPos = MapPos;
-                    CopperCoins = 0;
-                }
-
-                if (SilverCoins > 0) {
-                    silverWrap.item.ItemQuantity = SilverCoins;
-                    silverWrap.Position = Position;
-                    silverWrap.MapPos = MapPos;
-                    SilverCoins = 0;
-                }
-
-                if (GoldCoins > 0) {
-                    goldWrap.item.ItemQuantity = GoldCoins;
-                    goldWrap.Position = Position;
-                    goldWrap.MapPos = MapPos;
-                    GoldCoins = 0;
-                }
-
-                if (JadeCoins > 0) {
-                    jadeWrap.item.ItemQuantity = JadeCoins;
-                    jadeWrap.Position = Position;
-                    jadeWrap.MapPos = MapPos;
-                    JadeCoins = 0;
-                }
-
-                if (MineLocation == "None") {
-                    if (copper.ItemQuantity > 0)
-                        CommandManager.SpawnItem(copperWrap);
-                    if (silver.ItemQuantity > 0)
-                        CommandManager.SpawnItem(silverWrap);
-                    if (gold.ItemQuantity > 0)
-                        CommandManager.SpawnItem(goldWrap);
-                    if (jade.ItemQuantity > 0)
-                        CommandManager.SpawnItem(jadeWrap);
-                } else {
-                    copperWrap.Position = Position / 12;
-                    silverWrap.Position = Position / 12;
-                    goldWrap.Position = Position / 12;
-                    jadeWrap.Position = Position / 12;
-                    if (MineLocation == "Mountain") {
-                        if (copper.ItemQuantity > 0)
-                            GameLoop.UIManager.Minigames.MineManager.MountainMine.SpawnItem(copperWrap, MineDepth);
-                        if (silver.ItemQuantity > 0)
-                            GameLoop.UIManager.Minigames.MineManager.MountainMine.SpawnItem(silverWrap, MineDepth);
-                        if (gold.ItemQuantity > 0)
-                            GameLoop.UIManager.Minigames.MineManager.MountainMine.SpawnItem(goldWrap, MineDepth);
-                        if (jade.ItemQuantity > 0)
-                            GameLoop.UIManager.Minigames.MineManager.MountainMine.SpawnItem(jadeWrap, MineDepth);
-                    } else if (MineLocation == "Lake") {
-                        if (copper.ItemQuantity > 0)
-                            GameLoop.UIManager.Minigames.MineManager.LakeMine.SpawnItem(copperWrap, MineDepth);
-                        if (silver.ItemQuantity > 0)
-                            GameLoop.UIManager.Minigames.MineManager.LakeMine.SpawnItem(silverWrap, MineDepth);
-                        if (gold.ItemQuantity > 0)
-                            GameLoop.UIManager.Minigames.MineManager.LakeMine.SpawnItem(goldWrap, MineDepth);
-                        if (jade.ItemQuantity > 0)
-                            GameLoop.UIManager.Minigames.MineManager.LakeMine.SpawnItem(jadeWrap, MineDepth);
-                    }
+                if (Zeri > 0) {
+                    zeri.Quantity = Zeri;
+                    Zeri = 0;
+                    
+                } 
+                 
+                if (zeri.Quantity > 0) { 
+                    // TODO: Drop money on death
                 }
             } 
 
             LivesRemaining--;
 
             if (LivesRemaining != 0) {
-
-                MoveTo(new Point(35, 6), new Point3D(0, 0, 0));
+                NavLoc = RespawnLoc;
                 CurrentHP = MaxHP;
 
                 if (this == GameLoop.World.Player) {
                     GameLoop.UIManager.AddMsg(new ColoredString("Oh no, you died!", Color.Red, Color.Black));
                     GameLoop.UIManager.AddMsg(new ColoredString("A warm yellow light fills your vision.", Color.Yellow, Color.Black));
                     GameLoop.UIManager.AddMsg(new ColoredString("As it fades, you find yourself in the Cemetary.", Color.Yellow, Color.Black));
-
-                    if (GameLoop.UIManager.selectedMenu == "Minigame") {
-                        GameLoop.UIManager.Minigames.ToggleMinigame("None");
-                        GameLoop.UIManager.selectedMenu = "None"; 
-                    }
+ 
                 }
 
                 if (LivesRemaining > 1)
@@ -352,32 +178,15 @@ namespace LofiHollow.Entities {
 
 
 
-                if (MapPos == GameLoop.World.Player.MapPos && this != GameLoop.World.Player) {
+                if (NavLoc == GameLoop.World.Player.NavLoc && this != GameLoop.World.Player) {
                     GameLoop.UIManager.AddMsg(new ColoredString(Name + " appears in a flash of yellow light!", Color.Yellow, Color.Black));
                 }
             } else {
                 // Player had lives previously and now is out of lives
+                 
 
-                if (GameLoop.NetworkManager != null) {
-                    if (GameLoop.NetworkManager.isHost) {
-                        NetMsg hostDied = new("hostDead");
-                        GameLoop.SendMessageIfNeeded(hostDied, true, false); 
-                    } else {
-                        NetMsg outOfLives = new("outOfLives");
-                        GameLoop.SendMessageIfNeeded(outOfLives, false, true);
-                        
-                        GameLoop.NetworkManager.LeaveLobby();
-                    }
-                }
-
-
-                // Switch this to a death stats display instead of just dumping to the main menu
-                GameLoop.UIManager.MainMenu.RemakeMenu();
-                GameLoop.UIManager.selectedMenu = "MainMenu";
-                GameLoop.UIManager.MainMenu.MainMenuWindow.IsVisible = true;
-                GameLoop.UIManager.Map.MapWindow.IsVisible = false; 
-                GameLoop.UIManager.Sidebar.SidebarWindow.IsVisible = false;
-                GameLoop.UIManager.MainMenu.NameBox.Text = "";
+                // Switch this to a death stats display instead of just dumping to the main menu 
+                GameLoop.UIManager.HandleMenuChange(true); 
 
 
                 if (System.IO.Directory.Exists("./saves/" + Name + "/"))
@@ -387,62 +196,123 @@ namespace LofiHollow.Entities {
             }
         }
 
-        public int HighestToolTier(string Category) {
-            int highest = 0;
+        public void CalculateAptitude() {
+            int magicMax = 1;
+            int techMax = 1;
 
-            for (int i = 0; i < Inventory.Length; i++) {
-                if (Inventory[i].ItemCat == Category) {
-                    if (Inventory[i].ItemTier > highest) {
-                        if (Skills.ContainsKey(Inventory[i].ItemSkill) && Skills[Inventory[i].ItemSkill].Level >= Inventory[i].ItemTier) {
-                            highest = Inventory[i].ItemTier;
-                        }
+            foreach (var kv in Skills) {
+                if (kv.Value.IsMagic) {
+                    if (magicMax < kv.Value.Level) {
+                        magicMax = kv.Value.Level;
+                    }
+                }
+
+                if (kv.Value.IsTech) {
+                    if (techMax < kv.Value.Level) {
+                        techMax = kv.Value.Level;
                     }
                 }
             }
 
-            return highest;
-        }
-
-        public bool HasSoulPhoto() {
-            for (int i = 0; i < Inventory.Length; i++) {
-                if (Inventory[i].SoulPhoto != null)
-                    return true;
+            int tempApt = magicMax - techMax;
+            
+            if (tempApt != 0) {
+                if (tempApt < 0)
+                    tempApt -= 2;
+                else
+                    tempApt += 2;
             }
 
-            return false;
+            MagitechAptitude = tempApt; 
+        } 
+
+        public void TryMoveTo(ConnectionNode node) {
+            if (node.AllConditionsPassed() || GameLoop.DevMode) {
+                NavLoc = node.LocationID;
+                GameLoop.UIManager.Nav.MovedMaps();
+            }
         }
-        public int GetToolTier(string Category) {
-            if (Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemCat == Category) {
-                return Inventory[GameLoop.UIManager.Sidebar.hotbarSelect].ItemTier;
+
+        public void TryUseObject(NodeObject? obj, string locID) {
+            if (obj != null) { 
+                if (obj.zeriCost != 0)
+                    Zeri -= obj.zeriCost;
+
+                if (obj.timeCost > 0) {
+                    for (int i = 0; i < obj.timeCost; i++) {
+                        Clock.TickTime();
+                    }
+                }
+
+                if (obj.TimerID != null && obj.TimerID != "") {
+                    Timers.Add(locID + ";" + obj.TimerID, Math.Max(1, obj.TimerHours));
+                }
+
+                if (obj.DataMods.Count > 0) {
+                    for (int i = 0; i < obj.DataMods.Count; i++) {
+                        obj.DataMods[i].DoMod();
+                    }
+                } 
+
+                if (obj.ExpGranted.Count > 0) {
+                    for (int i = 0; i < obj.ExpGranted.Count; i++) {
+                        string[] split = obj.ExpGranted[i].Split(";");
+                        if (split.Length >= 2) {
+                            int exp = int.Parse(split[1]);
+
+                            TryAddExp(exp, split[0]);
+                        }
+                    }
+                }
+
+                if (obj.ActionString != null && obj.ActionString != "") {
+                    if (obj.ActionString == "fullSleep") {
+                        Clock.NextDay(false);
+                    }
+                }
+
+                if (obj.UseMessage != null && obj.UseMessage != "") {
+                    GameLoop.UIManager.AddMsg(new ColoredString(obj.UseMessage, new Color(obj.UseMR, obj.UseMG, obj.UseMB), Color.Black));
+                }
+            } 
+        }
+
+        public void TryPickupNodeItem(NodeItem item) {
+            if (item != null) { 
+                GameLoop.UIManager.AddMsg("dong " + item.itemID);
+            }
+        }
+
+        public void TrySpeakNPC(NPC.NPC target) {
+            GameLoop.UIManager.AddMsg("ping " + target.Name);
+        }
+
+        public void PickupItem(Location loc, int index) {
+            if (loc.ItemsOnGround.Count > index) {
+                Item toGrab = loc.ItemsOnGround[index];
+
+                loc.ItemsOnGround.RemoveAt(index);
+                AddItemToInventory(toGrab); 
+            }
+        }
+
+        public void AddItemToInventory(Item toGrab) {
+            if (HasInventorySlotOpen(toGrab.FullName())) {  
+                for (int i = 0; i < Inventory.Count; i++) {
+                    if (Inventory[i].StacksWith(toGrab)) {
+                        Inventory[i].Quantity += toGrab.Quantity;
+                        return;
+                    }
+                }
+
+                if (Inventory.Count < InventoryCapacity) {
+                    Inventory.Add(toGrab);
+                    return;
+                }
             }
 
-            return 0;
+            Location? loc = Helper.ResolveLoc(NavLoc);
+            loc.ItemsOnGround.Add(toGrab);
         }
-
-        public void CalculateCombatLevel() {
-            int Attack = Skills["Attack"].Level;
-            int Strength = Skills["Strength"].Level;
-            int Defense = Skills["Defense"].Level;
-            int Constitution = Skills["Constitution"].Level;
-
-            int CombatStat = Attack + Strength;
-
-            CombatLevel = (int)Math.Floor((double)(((13 / 10) * CombatStat) + Defense + Constitution) / 4);
-        }
-
-        public void UpdateHP() {
-            CalculateCombatLevel();
-            MaxHP = Monster.GetStat(Skills["Constitution"].Level, HealthGrowth, HealthEXP, CombatLevel, true);
-            MaxStamina = (Skills["Agility"].Level * 10) + 10;
-        }
-
-        public string GetDamageType() {
-            if (Equipment[0].Stats != null) {
-                return Equipment[0].Stats.DamageType;
-            }
-
-            return ElementalAlignment;
-        }
-
     }
 }

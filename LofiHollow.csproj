@@ -37,6 +37,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Update="data\forest.xp">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="data\island.xp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="data\items.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -47,9 +53,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\tiles.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="data\trees.xp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="discord_game_sdk.dll">
@@ -64,7 +67,19 @@
     <None Update="fonts\Cheepicus48.font">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="fonts\CheepicusExtended.font">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\CheepicusExtended.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="fonts\player.font">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\ThinExtended.font">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\ThinExtended.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ikpFlac.dll">
@@ -1134,20 +1149,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\Cheepicus_48x48.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="fonts\player.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="firebasekey.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FireSharp" Version="2.0.4" />
-    <PackageReference Include="FireSharp.Serialization.JsonNet" Version="1.1.0" />
     <PackageReference Include="GoRogue" Version="2.6.4" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />

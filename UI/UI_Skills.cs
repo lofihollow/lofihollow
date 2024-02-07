@@ -10,7 +10,7 @@ using Steamworks.Data;
 using Color = SadRogue.Primitives.Color;
 
 namespace LofiHollow.UI {
-    public class UI_Skills : Lofi_UI { 
+    public class UI_Skills : InstantUI { 
         public string SkillView = "Overview";
         public string LeaderType = "Global";
         public string LeaderSkill = "None";
@@ -25,7 +25,7 @@ namespace LofiHollow.UI {
         public UI_Skills(int width, int height, string title) : base(width, height, title, "Skills") { }
 
 
-        public override void Render() {
+        public override void Update() {
             Point mousePos = new MouseScreenObjectState(Con, GameHost.Instance.Mouse).CellPosition;
             Con.Clear();
 
@@ -160,7 +160,7 @@ namespace LofiHollow.UI {
             }
 
             if (GameHost.Instance.Keyboard.IsKeyReleased(Key.Escape) || GameHost.Instance.Keyboard.IsKeyReleased(Key.K)) {
-                Toggle();
+                GameLoop.UIManager.ToggleUI("Skills");
                 SkillView = "Overview";
                 LeaderTopIndex = 0;
                 NeedsToFetchScores = true;
